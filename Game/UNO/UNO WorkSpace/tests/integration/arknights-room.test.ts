@@ -6,6 +6,8 @@ import { io, type Socket } from "socket.io-client";
 import sharp from "sharp";
 import { createAppServer, type AppServer } from "../../server/app.ts";
 import type { ActionAck, ClientToServerEvents, ServerToClientEvents, UnionArenaRoomState } from "../../shared/protocol.ts";
+import type { UnionArenaRoomState as GameRoomState } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
+import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
 
 type UaSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 let server: AppServer;
@@ -198,5 +200,63 @@ describe("Arknights UNION ARENA integration", () => {
     const lobby = await aliceAlone;
     expect(lobby).toMatchObject({ phase: "lobby", game: null, hand: [], playerCount: 1, life: { you: [], opponent: [] } });
     expect(lobby.you.ready).toBe(false);
+  });
+  it("runs the turns through the rules engine: only the acting player may act, cards are paid for and the turn passes on", async () => {
+    const dana = server.auth.register("ArkDana", "Password123!");
+    const evan = server.auth.register("ArkEvan", "Password123!");
+    const danaSocket = await connect(dana.token);
+    const evanSocket = await connect(evan.token);
+    const created = await emitAck<{ roomCode: string }>(danaSocket, "ua:create_room", {});
+    const joined = waitForState(danaSocket, (state) => state.playerCount === 2);
+    expect((await emitAck(evanSocket, "ua:join_room", { roomCode: created.data!.roomCode })).ok).toBe(true);
+    await joined;
+    // A deck of 0-cost, 1-AP characters, so whatever is drawn can be played on the first turn.
+    const cards = UNION_ARENA_CATALOG;
+    const cheap = [...new Map(cards.filter((card) => card.imageAvailable && card.stats?.type === "character" && card.stats.energyCost === 0 && card.stats.apCost === 1 && !["特殊", "色彩", "最终"].includes(card.stats.trigger?.label ?? "")).map((card) => [card.number, card])).values()];
+    expect(cheap.length).toBeGreaterThanOrEqual(13);
+    const deck = cheap.slice(0, 13).flatMap((card) => Array(4).fill(card.id)).slice(0, 50);
+    for (const socket of [danaSocket, evanSocket]) {
+      expect((await emitAck<{ structuralOk: boolean }>(socket, "ua:submit_deck", { cardIds: deck, apCount: 3 })).data?.structuralOk).toBe(true);
+      expect((await emitAck(socket, "ua:ready", { ready: true })).ok).toBe(true);
+    }
+    const started = waitForState(danaSocket, (state) => state.phase === "playing");
+    expect((await emitAck(danaSocket, "ua:start_game", {})).ok).toBe(true);
+    const firstId = (await started).game!.firstPlayerId;
+    const first = firstId === dana.account.id ? danaSocket : evanSocket;
+    const second = first === danaSocket ? evanSocket : danaSocket;
+    expect((await emitAck(second, "ua:action", { type: "next_phase" })).code).toBe("NOT_YOUR_TURN");
+    expect((await emitAck(first, "ua:mulligan", { redraw: false })).ok).toBe(true);
+    const turnOne = waitForState(first, (state) => state.game?.step === "turn") as unknown as Promise<GameRoomState>;
+    expect((await emitAck(second, "ua:mulligan", { redraw: false })).ok).toBe(true);
+    const view = await turnOne;
+    expect(view.game).toMatchObject({ phase: "start", extraDrawUsed: false, pending: null });
+    expect(view.game!.board.you.ap).toEqual([{ id: expect.any(String), rested: false }]);
+    expect((await emitAck(second, "ua:action", { type: "next_phase" })).code).toBe("NOT_YOUR_TURN");
+    expect((await emitAck(first, "ua:action", { type: "play", handIndex: 0, line: "front" })).code).toBe("NOT_NOW");
+    expect((await emitAck(first, "ua:action", { type: "next_phase" })).ok).toBe(true);
+    expect((await emitAck(first, "ua:action", { type: "next_phase" })).ok).toBe(true);
+    const played = waitForState(second, (state) => (state as unknown as GameRoomState).game?.board.opponent.energy.length === 1) as unknown as Promise<GameRoomState>;
+    expect((await emitAck(first, "ua:action", { type: "play", handIndex: 0, line: "energy" })).ok).toBe(true);
+    const opponentView = await played;
+    expect(opponentView.game!.board.opponent.energy[0]).toMatchObject({ rested: true });
+    expect(opponentView.game!.board.opponent.ap).toEqual([{ id: expect.any(String), rested: true }]);
+    expect(opponentView.game!.handCount.opponent).toBe(6);
+    // The only AP card is resting now.
+    expect((await emitAck(first, "ua:action", { type: "play", handIndex: 0, line: "energy" })).code).toBe("NOT_ENOUGH_AP");
+    const handedOver = waitForState(second, (state) => state.game?.turnPlayerId !== firstId && state.game?.turn === 2) as unknown as Promise<GameRoomState>;
+    expect((await emitAck(first, "ua:action", { type: "end_turn" })).ok).toBe(true);
+    const secondTurn = await handedOver;
+    // Player Two: two AP cards on the first turn, and a draw.
+    expect(secondTurn.game!.board.you.ap).toHaveLength(2);
+    expect(secondTurn.hand).toHaveLength(8);
+    expect(secondTurn.game!.log.some((line) => line.includes("登场到能量线"))).toBe(true);
+    // Conceding ends the game; then both can go back to the room's lobby with their decks.
+    const over = waitForState(first, (state) => state.game?.step === "over") as unknown as Promise<GameRoomState>;
+    expect((await emitAck(second, "ua:action", { type: "concede" })).ok).toBe(true);
+    expect((await over).game!.winnerId).toBe(firstId);
+    expect((await emitAck(second, "ua:action", { type: "next_phase" })).code).toBe("GAME_OVER");
+    const lobby = waitForState(first, (state) => state.phase === "lobby");
+    expect((await emitAck(first, "ua:return_to_lobby", {})).ok).toBe(true);
+    expect((await lobby).game).toBeNull();
   });
 });

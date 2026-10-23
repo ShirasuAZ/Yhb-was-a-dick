@@ -178,8 +178,8 @@ export interface UnionArenaLifeState {
   you: UnionArenaLifeCard[];
   opponent: UnionArenaLifeCard[];
 }
-/** `mulligan`: each player in turn decides whether to redraw the starting hand. `turn`: the game proper (the first turn has begun). */
-export type UnionArenaGameStep = "mulligan" | "turn";
+/** `mulligan`: each player in turn decides whether to redraw the starting hand. `turn`: the game proper (the first turn has begun). `over`: someone has won. */
+export type UnionArenaGameStep = "mulligan" | "turn" | "over";
 /** Public facts about a running game. Hands and decks are shown as counts only. */
 export interface UnionArenaGameState {
   step: UnionArenaGameStep;
@@ -292,6 +292,9 @@ export interface ClientToServerEvents {
   "ua:start_game": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
   "ua:mulligan": (payload: { redraw: boolean }, ack: (result: MutationAck) => void) => void;
   "ua:leave_room": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
+  /** A move of the running game; the payload is checked by the Arknights rules engine (UnionArenaAction in the Arknights workspace). */
+  "ua:action": (payload: unknown, ack: (result: MutationAck) => void) => void;
+  "ua:return_to_lobby": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
   create_room: (
     payload: { name: string },
     ack: (result: ActionAck<CreateRoomResult>) => void

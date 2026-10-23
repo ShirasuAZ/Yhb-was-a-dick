@@ -5,13 +5,12 @@ import type {
   ClientToServerEvents,
   ServerToClientEvents,
   UnionArenaAccount,
+  UnionArenaAction,
   UnionArenaAuthProvider,
-  UnionArenaGameState,
-  UnionArenaGameStep,
-  UnionArenaLifeCard,
   UnionArenaPlayer,
   UnionArenaRoomState
 } from "../shared/protocol.ts";
+import { applyAction, beginFirstTurn, clearBoard, gameStateView, lifeView, newEngineGame, type EngineContext, type EngineGame, type EnginePlayer, type LifeSlot } from "../shared/engine.ts";
 import { checkUnionArenaDeck, type UnionArenaCardRecord } from "./types.ts";
 
 const ROOM_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -22,15 +21,8 @@ export const LIFE_COUNT = 7;
 export const HAND_COUNT = 7;
 type UaSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
 
-/** The server's own bookkeeping for a running game; the clients only get the public `UnionArenaGameState` derived from it. */
-interface GameData {
-  step: UnionArenaGameStep;
-  firstPlayerId: string;
-  turnPlayerId: string | null;
-  turn: number;
-  /** Accounts that still have to decide on the mulligan, in order (Player One first). */
-  mulliganQueue: string[];
-}
+/** The server's own bookkeeping for a running game (the rules engine's state); the clients only get the public `UnionArenaGameState` derived from it. */
+type GameData = EngineGame;
 
 function shuffled<T>(cards: readonly T[]): T[] {
   const result = [...cards];
@@ -41,10 +33,7 @@ function shuffled<T>(cards: readonly T[]): T[] {
   return result;
 }
 
-/** A life card as the server keeps it: the card identity is only sent to clients once it is face up. */
-interface LifeSlot { id: string; cardId: string; faceUp: boolean; }
-
-interface Seat extends UnionArenaPlayer {
+interface Seat extends UnionArenaPlayer, EnginePlayer {
   accountId: string;
   socketId: string | null;
   /** In life-area order; empty until the game starts. */
@@ -65,7 +54,13 @@ export class UnionArenaRoom {
   game: GameData | null = null;
   hostId = "";
 
-  constructor(readonly code: string, private readonly catalog: UnionArenaCardRecord[], private readonly availableIds: Set<string>, private readonly auth: UnionArenaAuthProvider) {}
+  /** Card data for the rules engine. */
+  private readonly ctx: EngineContext;
+
+  constructor(readonly code: string, private readonly catalog: UnionArenaCardRecord[], private readonly availableIds: Set<string>, private readonly auth: UnionArenaAuthProvider) {
+    const byId = new Map(catalog.map((card) => [card.id, card]));
+    this.ctx = { card: (cardId) => { const card = byId.get(cardId); return card?.stats ? { ...card.stats, name: card.name } : null; } };
+  }
 
   add(account: UnionArenaAccount, socket: UaSocket): Seat {
     const seat = this.players.length as 0 | 1;
@@ -84,6 +79,11 @@ export class UnionArenaRoom {
       library: [],
       hand: [],
       apCount: 0,
+      ap: [],
+      front: [],
+      energy: [],
+      sideline: [],
+      removal: [],
       deckCheck: checkUnionArenaDeck([], 0, this.catalog, this.availableIds),
       disconnectTimer: null
     };
@@ -154,12 +154,8 @@ export class UnionArenaRoom {
       seat.library = [];
       seat.hand = [];
       seat.ready = false;
+      clearBoard(seat);
     }
-  }
-
-  /** What a client may see of a life area: order and count always, the card identity only once it is face up. */
-  private lifeView(seat: Seat | undefined): UnionArenaLifeCard[] {
-    return (seat?.life ?? []).map((slot) => ({ id: slot.id, cardId: slot.faceUp ? slot.cardId : null }));
   }
 
   /**
@@ -185,9 +181,10 @@ export class UnionArenaRoom {
       seat.library = shuffled(seat.deck);
       seat.hand = seat.library.splice(0, HAND_COUNT);
       seat.life = [];
+      clearBoard(seat);
     }
     this.phase = "playing";
-    this.game = { step: "mulligan", firstPlayerId: first.accountId, turnPlayerId: null, turn: 0, mulliganQueue: [first.accountId, second.accountId] };
+    this.game = newEngineGame(first.accountId, [first.accountId, second.accountId]);
   }
 
   /**
@@ -206,36 +203,32 @@ export class UnionArenaRoom {
     game.mulliganQueue.shift();
     if (!game.mulliganQueue.length) {
       this.dealLife();
-      game.step = "turn";
-      game.turn = 1;
-      game.turnPlayerId = game.firstPlayerId;
+      beginFirstTurn(game, this.players);
     }
   }
 
-  private gameView(player: Seat, opponent: Seat | undefined): UnionArenaGameState | null {
-    const game = this.game;
-    if (!game) return null;
-    return {
-      step: game.step,
-      firstPlayerId: game.firstPlayerId,
-      turnPlayerId: game.turnPlayerId,
-      turn: game.turn,
-      mulliganPlayerId: game.mulliganQueue[0] ?? null,
-      handCount: { you: player.hand.length, opponent: opponent?.hand.length ?? 0 },
-      deckCount: { you: player.library.length, opponent: opponent?.library.length ?? 0 }
-    };
+  /** One move of the game proper, checked and carried out by the rules engine. */
+  act(player: Seat, action: UnionArenaAction): void {
+    if (this.phase !== "playing" || !this.game) throw new Error("NOT_PLAYING");
+    applyAction(this.game, this.players, this.ctx, player.accountId, action);
+  }
+
+  /** After a finished game, the room goes back to its lobby; decks stay, both players have to ready up again. */
+  returnToLobby(): void {
+    if (this.game?.step !== "over") throw new Error("GAME_NOT_OVER");
+    this.resetToLobby();
   }
 
   stateFor(player: Seat): UnionArenaRoomState {
-    const players: UnionArenaPlayer[] = this.players.map(({ accountId: _accountId, socketId: _socketId, life: _life, deck: _deck, library: _library, hand: _hand, apCount: _apCount, deckCheck: _deckCheck, disconnectTimer: _disconnectTimer, ...publicPlayer }) => publicPlayer);
+    const players: UnionArenaPlayer[] = this.players.map((seat) => ({ id: seat.id, username: seat.username, avatarUrl: seat.avatarUrl, seat: seat.seat, connected: seat.connected, isHost: seat.isHost, ready: seat.ready }));
     const opponent = this.players.find((candidate) => candidate !== player);
     return {
       roomCode: this.code,
       phase: this.phase,
       players,
       you: players.find((candidate) => candidate.id === player.id)!,
-      life: { you: this.lifeView(player), opponent: this.lifeView(opponent) },
-      game: this.gameView(player, opponent),
+      life: { you: lifeView(player), opponent: lifeView(opponent) },
+      game: this.game ? gameStateView(this.game, player, opponent) : null,
       hand: [...player.hand],
       playerCount: this.players.length,
       requiredPlayers: 2,
@@ -377,6 +370,18 @@ export class UnionArenaRoomManager {
       const { room, player } = this.current(socket);
       if (typeof payload?.redraw !== "boolean") throw new Error("INVALID_MULLIGAN");
       room.mulligan(player, payload.redraw);
+      room.broadcast();
+      return undefined;
+    }));
+    socket.on("ua:action", (payload, ack) => this.respond(ack, () => {
+      const { room, player } = this.current(socket);
+      room.act(player, payload);
+      room.broadcast();
+      return undefined;
+    }));
+    socket.on("ua:return_to_lobby", (_payload, ack) => this.respond(ack, () => {
+      const { room } = this.current(socket);
+      room.returnToLobby();
       room.broadcast();
       return undefined;
     }));

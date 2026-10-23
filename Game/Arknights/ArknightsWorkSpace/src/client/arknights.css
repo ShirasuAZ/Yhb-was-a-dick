@@ -38,7 +38,7 @@
 /* One player's half. Portrait: three card rows. The opponent's half is the same board turned 180 degrees. */
 .ua-half { position: relative; min-width: 0; min-height: 0; display: grid; gap: var(--ua-tg); grid-template-columns: minmax(0, 1.6fr) repeat(4, minmax(0, 1.5fr)) minmax(0, 1.25fr); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .9fr); grid-template-areas: "life front front front front deck" "life energy energy energy energy phase" "rem ap ap ap kw disc"; }
 .ua-half[data-side="opponent"] { transform: rotate(180deg); }
-.ua-half[data-side="opponent"] :is(.ua-zone-name, .ua-life-title, .ua-phase, .ua-slot-card, .ua-kw-open) { transform: rotate(180deg); }
+.ua-half[data-side="opponent"] :is(.ua-zone-name, .ua-life-title, .ua-phase, .ua-slot-card, .ua-kw-open, .ua-badges, .ua-ap-count) { transform: rotate(180deg); }
 /* Same convention as the other art: counter-rotate so the opponent's life art reads the same way up as yours (90deg + 180deg). */
 .ua-half[data-side="opponent"] .ua-life-art { transform: rotate(270deg); }
 /* Landscape windows: energy line and action points share one row, so the table needs only two card rows per player and the cards roughly double in size. */
@@ -46,8 +46,8 @@
   .ua-half { grid-template-columns: minmax(0, 1.8fr) repeat(7, minmax(0, 1.5fr)) repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); grid-template-areas: "life front front front front phase phase phase deck rem" "life energy energy energy energy ap ap ap disc kw"; }
 }
 
-/* Seat bars: the outer edge of each half, so a joining player appears above or below the board, never at its sides. */
-.ua-seatbar { display: flex; align-items: center; justify-content: center; min-width: 0; }
+/* Seat bars: the outer edge of each half, so a joining player appears above or below the board, never at its sides. During a game they also hold the hands. */
+.ua-seatbar { display: flex; align-items: center; justify-content: center; gap: .8em; min-width: 0; }
 .ua-seat { max-width: 100%; display: flex; align-items: center; gap: .6em; padding: .25em 1em .25em .3em; border: 1px solid rgba(65, 75, 80, .4); border-radius: 999px; background: rgba(255, 255, 255, .94); box-sizing: border-box; }
 .ua-seat-self { border-color: #26363d; box-shadow: 0 0 0 1px #26363d; }
 .ua-seat img, .ua-avatar-fallback, .ua-empty-avatar { flex: none; width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; }
@@ -230,9 +230,20 @@
  * The scrim and the card are siblings, so nothing dims or filters the card: only the scrim carries the dark colour.
  * The card is the largest 600:838 rectangle that fits inside the safe padding; cq units measure this container's content box.
  */
-.ua-lb { position: fixed; inset: 0; z-index: 50; box-sizing: border-box; container-type: size; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); overflow: hidden; }
+.ua-lb { position: fixed; inset: 0; z-index: 50; box-sizing: border-box; display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); overflow: hidden; }
 .ua-lb-scrim { position: absolute; inset: 0; background: rgba(10, 14, 16, .72); }
-.ua-lb-card { position: relative; display: block; width: min(100cqw, calc(100cqh * 600 / 838)); aspect-ratio: 600 / 838; height: auto; object-fit: fill; user-select: none; -webkit-user-drag: none; }
+/* The card's own box: what is left after the actions, minus room for the round browse buttons on both sides. */
+.ua-lb-stage { position: relative; flex: 1 1 0; min-height: 0; container-type: size; display: grid; place-items: center; pointer-events: none; }
+.ua-lb:has(.ua-lb-nav) .ua-lb-stage { margin: 0 52px; }
+.ua-lb-card { position: relative; display: block; width: min(100cqw, calc(100cqh * 600 / 838)); aspect-ratio: 600 / 838; height: auto; object-fit: fill; user-select: none; -webkit-user-drag: none; pointer-events: auto; }
+.ua-lb-nav { position: absolute; z-index: 1; top: 50%; width: 44px; height: 44px; margin-top: -22px; display: grid; place-items: center; padding: 0; border: 1px solid rgba(255, 255, 255, .7); border-radius: 50%; background: rgba(30, 37, 42, .92); color: #fff; font: 700 20px/1 system-ui, sans-serif; cursor: pointer; }
+.ua-lb[data-actions] .ua-lb-nav { top: 40%; }
+.ua-lb-prev { left: max(10px, env(safe-area-inset-left)); }
+.ua-lb-next { right: max(10px, env(safe-area-inset-right)); }
+.ua-lb-nav:hover { background: rgba(60, 70, 76, .96); }
+.ua-lb-nav:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.ua-lb-position { position: absolute; z-index: 1; top: max(22px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); padding: 2px 10px; border-radius: 999px; background: rgba(30, 37, 42, .85); color: #fff; font-size: 13px; }
+.ua-lb-actions { position: relative; z-index: 1; flex: none; max-height: 40%; overflow-y: auto; align-self: center; width: min(560px, 100%); box-sizing: border-box; display: grid; gap: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, .97); color: #1e252a; font-size: 13px; }
 .ua-lb-close { position: absolute; z-index: 1; top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 1px solid rgba(255, 255, 255, .7); border-radius: 50%; background: rgba(30, 37, 42, .92); color: #fff; cursor: pointer; }
 .ua-lb-close:hover { background: rgba(60, 70, 76, .96); }
 .ua-lb-close:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
@@ -241,3 +252,92 @@
   *, *::before, *::after { scroll-behavior: auto !important; }
   .ua-dock, .ua-panel, .ua-backdrop, .ua-slot, .ua-toggle { transition-duration: 0s !important; transition-delay: 0s !important; }
 }
+
+/* ---- The game proper ---- */
+.ua-app:has(> .ua-actionbar-row) { grid-template-rows: auto auto minmax(0, 1fr); }
+.ua-actionbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 10px; padding: 6px 10px; border: 1px solid #c3c8cb; border-radius: 6px; background: #fff; box-shadow: 0 1px 4px rgba(30, 37, 42, .08); font-size: 13px; }
+.ua-actionbar[data-mine] { border-color: #26363d; box-shadow: 0 0 0 1px #26363d; }
+.ua-actionbar-text { flex: 1 1 320px; min-width: 0; display: grid; gap: 2px; }
+.ua-actionbar-prompt { margin: 0; font-weight: 600; line-height: 1.45; }
+.ua-actionbar-log, .ua-actionbar-notice { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #697278; font-size: 12px; }
+.ua-actionbar-notice { color: #a3322d; white-space: normal; }
+.ua-actionbar-buttons { flex: 0 1 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.ua-actionbar-buttons > button { min-height: 32px; padding: 3px 12px; }
+.ua-effects { position: relative; }
+.ua-effects summary { min-height: 32px; display: grid; place-items: center; padding: 0 10px; border: 1px solid #adb5b8; border-radius: 5px; background: #f6f8f8; cursor: pointer; list-style: none; }
+.ua-effects summary::-webkit-details-marker { display: none; }
+.ua-effects-menu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 15; display: grid; gap: 4px; width: max-content; padding: 6px; border: 1px solid #c3c8cb; border-radius: 6px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
+.ua-effects-menu button { min-height: 32px; padding: 3px 10px; }
+
+/* Cards on the table are buttons: a click shows them large, or picks them when the table asks for a choice. */
+.ua-slot-button { padding: 0; font: inherit; color: inherit; cursor: pointer; }
+.ua-slot-button:focus-visible, .ua-life-pick:focus-visible, .ua-handstrip button:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+[data-candidate] { box-shadow: 0 0 0 3px #e3a008, 0 0 10px 2px rgba(227, 160, 8, .65) !important; }
+[data-selected] { box-shadow: 0 0 0 3px #0b57d0, 0 0 10px 2px rgba(11, 87, 208, .6) !important; }
+.ua-badges { position: absolute; left: 0; right: 0; bottom: 3%; z-index: 3; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; pointer-events: none; }
+.ua-badge { padding: 0 .35em; border-radius: 999px; background: rgba(30, 37, 42, .88); color: #fff; font-size: .72em; font-weight: 700; line-height: 1.45; white-space: nowrap; }
+.ua-badge-bp.is-up { background: #1f7a45; }
+.ua-badge-bp.is-down, .ua-badge.is-down { background: #a3322d; }
+.ua-badge-kw { background: #b7791f; }
+.ua-ap-card { display: grid; place-items: center; background: #1f262a; color: #f0f0f0; font-weight: 800; letter-spacing: .1em; box-shadow: inset 0 0 0 2px #888; }
+.ua-ap-count { position: absolute; right: .5em; top: .3em; z-index: 3; color: #fff; font-size: .85em; font-weight: 700; }
+.ua-life-card[data-candidate], .ua-life-card[data-selected] { overflow: visible; }
+.ua-life-pick { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; overflow: hidden; background: none; cursor: pointer; }
+
+/* Hands: yours as cards under your nameplate, the opponent's as a count of card backs. */
+.ua-handstrip { min-width: 0; flex: 0 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; list-style: none; }
+.ua-handstrip li { flex: none; }
+.ua-handstrip button { display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
+.ua-handstrip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ua-opp-hand { display: flex; align-items: center; gap: 2px; }
+.ua-opp-hand .ua-card-back { width: 1.2em; aspect-ratio: 5 / 7; border-radius: 2px; }
+.ua-opp-hand small { margin-left: .3em; color: #4d565b; font-weight: 700; }
+
+/* What the lightbox offers for the card it shows. */
+.ua-lb-info { margin: 0; line-height: 1.5; }
+.ua-lb-warn { margin: 0; color: #a3322d; }
+.ua-lb-buttons { display: flex; flex-wrap: wrap; gap: 6px; }
+.ua-lb-buttons button, .ua-lb-buttons select { min-height: 34px; padding: 3px 10px; font: inherit; }
+.ua-manual summary { cursor: pointer; color: #4d565b; }
+.ua-manual .ua-lb-buttons { margin-top: 6px; }
+
+/* Side panel: the hand opens the lightbox, the log lists recent events. */
+.ua-hand-zoom { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.ua-hand-zoom:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+.ua-log { margin: 0; padding: 6px 8px 6px 24px; max-height: 180px; overflow-y: auto; border-radius: 4px; background: #f6f8f8; color: #3f484d; font-size: 12px; line-height: 1.5; }
+.ua-app[data-compact="true"] .ua-actionbar { padding: 4px 6px; font-size: 12px; }
+.ua-app[data-compact="true"] .ua-actionbar-buttons > button, .ua-app[data-compact="true"] .ua-effects summary { min-height: 30px; padding: 2px 8px; }
+
+/* ---- Tutorial: the coach bar above the action bar, and an outline around what it talks about ---- */
+.ua-app:has(> .ua-coach) { grid-template-rows: auto auto minmax(0, 1fr); }
+.ua-app:has(> .ua-coach):has(> .ua-actionbar-row) { grid-template-rows: auto auto auto minmax(0, 1fr); }
+.ua-coach { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; padding: 7px 10px; border: 1px solid #b7791f; border-radius: 6px; background: #fff8e8; font-size: 14px; }
+.ua-coach-progress { padding: 2px 8px; border-radius: 999px; background: #b7791f; color: #fff; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.ua-coach-text { margin: 0; line-height: 1.55; }
+.ua-coach-notice { grid-column: 2; margin: 0; color: #a3322d; font-size: 12px; }
+.ua-coach-buttons { grid-column: 3; grid-row: 1; display: flex; gap: 6px; }
+.ua-coach-buttons:empty { display: none; }
+.ua-coach-buttons button { min-height: 32px; padding: 3px 14px; }
+.ua-coach-target { outline: 3px dashed #b7791f; outline-offset: 2px; }
+.ua-app[data-compact="true"] .ua-coach { grid-template-columns: auto minmax(0, 1fr); font-size: 12px; padding: 5px 6px; }
+.ua-app[data-compact="true"] .ua-coach-buttons { grid-column: 1 / -1; grid-row: auto; }
+
+/* ---- Game lobby: three ways in ---- */
+.ua-lobby { min-height: 100vh; min-height: 100dvh; box-sizing: border-box; display: grid; grid-template-rows: auto 1fr; gap: 16px; padding: 12px max(16px, env(safe-area-inset-right)) 24px max(16px, env(safe-area-inset-left)); background: #eef0f0; color: #1e252a; font-family: "Microsoft YaHei", system-ui, sans-serif; }
+.ua-lobby-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.ua-lobby-header h1 { flex: 1 1 auto; margin: 0; font-size: clamp(18px, 3vw, 26px); text-align: center; }
+.ua-lobby-modes { width: min(1080px, 100%); margin: 0 auto; align-self: start; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.ua-mode { display: grid; grid-template-rows: auto 1fr; overflow: hidden; border: 1px solid #c3c8cb; border-radius: 10px; background: #fff; box-shadow: 0 2px 10px rgba(30, 37, 42, .08); }
+.ua-mode-cover { height: 180px; display: grid; place-items: center; overflow: hidden; background: #26363d; }
+.ua-mode-cover img { height: 160px; aspect-ratio: 600 / 838; border-radius: 6px; box-shadow: 0 6px 18px rgba(0, 0, 0, .35); transform: rotate(-4deg); }
+.ua-mode[data-closed] .ua-mode-cover img { filter: grayscale(1); opacity: .55; }
+.ua-mode-body { display: grid; align-content: start; gap: 10px; padding: 14px 16px 16px; }
+.ua-mode-body h2 { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 19px; }
+.ua-mode-body p { margin: 0; color: #4d565b; font-size: 14px; line-height: 1.6; }
+.ua-mode-body button { justify-self: start; min-width: 120px; }
+.ua-mode-tag { padding: 1px 8px; border-radius: 999px; background: #d5dcde; color: #4d565b; font-size: 12px; font-weight: 600; }
+/* Phones: the coach and action bars stay short so the table keeps most of the screen; long text scrolls inside them. */
+.ua-app[data-compact="true"] .ua-coach-text { max-height: 4.6em; overflow-y: auto; line-height: 1.5; }
+.ua-app[data-compact="true"] .ua-actionbar-text { flex-basis: 100%; }
+.ua-app[data-compact="true"] .ua-actionbar-prompt { max-height: 3em; overflow-y: auto; font-weight: 600; line-height: 1.5; }
+.ua-app[data-compact="true"] .ua-actionbar-log { display: none; }

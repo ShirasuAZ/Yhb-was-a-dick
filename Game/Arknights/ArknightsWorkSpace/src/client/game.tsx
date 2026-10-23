@@ -1,0 +1,449 @@
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { UnionArenaAction, UnionArenaFieldCard, UnionArenaRoomState } from "../shared/protocol.ts";
+import { bpOf, damageOf, energyOf, GRANTABLE_KEYWORDS, hasKeyword, LINE_LIMIT, raidTargetMatches, triggerNeeds, type EngineContext } from "../shared/engine.ts";
+import { CardLightbox } from "./CardLightbox.tsx";
+import { cardKey, type BoardInteraction } from "./board.tsx";
+import { COLOR_NAME, TYPE_NAME, type CardRecord } from "./cards.ts";
+
+/** A group of cards the lightbox browses with its "<" and ">" buttons. */
+export type CardGroup =
+  | { kind: "hand" }
+  | { kind: "line"; owner: "you" | "opponent"; line: "front" | "energy" }
+  | { kind: "pile"; owner: "you" | "opponent"; pile: "sideline" | "removal" }
+  | { kind: "revealed" };
+
+interface Choice { label: string; run: () => void; }
+/** A question the table is asking right now: pick one of `keys` on the table, or press one of `options`. */
+interface Ask { prompt: string; keys: string[]; onPick?: (key: string) => void; options?: Choice[]; }
+
+export interface GameControllerProps {
+  state: UnionArenaRoomState | null;
+  meId: string;
+  cardsById: ReadonlyMap<string, CardRecord>;
+  ctx: EngineContext;
+  compact: boolean;
+  busy: boolean;
+  /** Sends one action; resolves to an error message, or null when it was accepted. */
+  send: (action: UnionArenaAction) => Promise<string | null>;
+  onMulligan?: (redraw: boolean) => void;
+  /** Shown once the game is over. */
+  overButton?: { label: string; run: () => void };
+}
+
+const LINE_NAME = { front: "前线", energy: "能量线" } as const;
+const PHASE_INDEX = { start: 0, movement: 1, main: 2, attack: 3, end: 4 } as const;
+const PHASE_NAME = { start: "起始阶段", movement: "移动阶段", main: "主要阶段", attack: "攻击阶段", end: "结束阶段" } as const;
+const uidOf = (key: string): string => key.slice(2);
+
+export function useGameController({ state, meId, cardsById, ctx, compact, busy, send, onMulligan, overButton }: GameControllerProps) {
+  const game = state?.game ?? null;
+  const board = game?.board;
+  const pending = game?.pending ?? null;
+  const myPending = pending && pending.playerId === meId ? pending : null;
+  const playing = game?.step === "turn";
+  const myTurn = playing && game?.turnPlayerId === meId;
+  const free = myTurn && !pending;
+  const hand = state?.hand ?? [];
+  const nameOf = (id: string | null | undefined): string => state?.players.find((player) => player.id === id)?.username ?? "";
+  const opponentName = state?.players.find((player) => player.id !== meId)?.username ?? "对手";
+
+  const [ask, setAsk] = useState<Ask | null>(null);
+  const [notice, setNotice] = useState("");
+  const [moveSel, setMoveSel] = useState<{ toFront: string[]; toEnergy: string[]; remove: string[] }>({ toFront: [], toEnergy: [], remove: [] });
+  const [lifePicked, setLifePicked] = useState<string[]>([]);
+  const [keepPicked, setKeepPicked] = useState<number[]>([]);
+  const [triggerFocus, setTriggerFocus] = useState<string | null>(null);
+  const [view, setView] = useState<{ group: CardGroup; index: number } | null>(null);
+  const originRef = useRef<HTMLElement | null>(null);
+
+  // Every new decision starts clean.
+  const pendingKey = `${game?.turn}:${game?.phase}:${pending?.kind}:${pending?.playerId}:${pending?.kind === "triggers" ? pending.revealed.length : ""}`;
+  useEffect(() => { setAsk(null); setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setLifePicked([]); setKeepPicked([]); setTriggerFocus(null); }, [pendingKey]);
+  useEffect(() => { if (notice) { const timer = window.setTimeout(() => setNotice(""), 4000); return () => window.clearTimeout(timer); } return undefined; }, [notice]);
+
+  const run = async (action: UnionArenaAction): Promise<boolean> => {
+    const error = await send(action);
+    if (error) { setNotice(error); return false; }
+    setAsk(null);
+    setNotice("");
+    return true;
+  };
+
+  const stats = (cardId: string) => ctx.card(cardId);
+  const mine = board?.you;
+  const theirs = board?.opponent;
+  const findField = (uid: string): { owner: "you" | "opponent"; line: "front" | "energy"; card: UnionArenaFieldCard } | null => {
+    for (const owner of ["you", "opponent"] as const) for (const line of ["front", "energy"] as const) {
+      const card = board?.[owner][line].find((entry) => entry.uid === uid);
+      if (card) return { owner, line, card };
+    }
+    return null;
+  };
+
+  /** Asks for a card of a full line to put into the removal area, then continues with it. */
+  const withRoom = (line: "front" | "energy", cards: readonly UnionArenaFieldCard[], then: (remove?: string) => void, exclude: string[] = []): void => {
+    const free = cards.filter((card) => !exclude.includes(card.uid));
+    if (cards.length - exclude.length < LINE_LIMIT) { then(); return; }
+    setAsk({ prompt: `${LINE_NAME[line]}已满：选择 1 张置于移除区`, keys: free.map((card) => cardKey.field(card.uid)), onPick: (key) => then(uidOf(key)), options: [{ label: "取消", run: () => setAsk(null) }] });
+  };
+
+  const closeView = (): void => setView(null);
+  const playTo = (handIndex: number, line: "front" | "energy"): void => {
+    closeView();
+    withRoom(line, mine?.[line] ?? [], (remove) => void run({ type: "play", handIndex, line, remove }));
+  };
+  const startRaid = (handIndex: number): void => {
+    const cardId = hand[handIndex]!;
+    const raider = stats(cardId);
+    if (!raider || !mine) return;
+    const targets = [...mine.front, ...mine.energy].filter((card) => raidTargetMatches(ctx, raider, card));
+    closeView();
+    setAsk({
+      prompt: `选择「${raider.name}」突进的目标（${raider.raid?.targets.join(" / ")}）`, keys: targets.map((card) => cardKey.field(card.uid)), options: [{ label: "取消", run: () => setAsk(null) }],
+      onPick: (key) => raidOnto(uidOf(key), (target) => run({ type: "raid", handIndex, ...target }))
+    });
+  };
+  /** After a Raid target is chosen: a character on the energy line may move to the front line. */
+  const raidOnto = (targetUid: string, finish: (target: { targetUid: string; toFront?: boolean; remove?: string }) => unknown): void => {
+    const onEnergy = mine?.energy.some((card) => card.uid === targetUid);
+    if (!onEnergy) { void finish({ targetUid }); return; }
+    setAsk({ prompt: "突进后，这张角色可以移动至前线", keys: [], options: [
+      { label: "移动至前线", run: () => withRoom("front", mine?.front ?? [], (remove) => void finish({ targetUid, toFront: true, remove })) },
+      { label: "留在能量线", run: () => void finish({ targetUid, toFront: false }) }
+    ] });
+  };
+  const startAttack = (uid: string, snipe: boolean): void => {
+    closeView();
+    if (!snipe) { void run({ type: "attack", attackerUid: uid }); return; }
+    setAsk({ prompt: "选择对手前线中要攻击的角色", keys: (theirs?.front ?? []).map((card) => cardKey.field(card.uid)), onPick: (key) => void run({ type: "attack", attackerUid: uid, targetUid: uidOf(key) }), options: [{ label: "取消", run: () => setAsk(null) }] });
+  };
+
+  // ---- Movement phase: pick characters to move, simultaneously. ----
+  const moving = free && game?.phase === "movement";
+  const frontAfter = (mine?.front.length ?? 0) - moveSel.toEnergy.length + moveSel.toFront.length - moveSel.remove.filter((uid) => mine?.front.some((card) => card.uid === uid)).length;
+  const energyAfter = (mine?.energy.length ?? 0) - moveSel.toFront.length + moveSel.toEnergy.length - moveSel.remove.filter((uid) => mine?.energy.some((card) => card.uid === uid)).length;
+  const frontOver = Math.max(0, frontAfter - LINE_LIMIT);
+  const energyOver = Math.max(0, energyAfter - LINE_LIMIT);
+  const moveCandidates = (): string[] => {
+    if (!mine) return [];
+    const keys = [
+      ...mine.energy.filter((card) => stats(card.cardId)?.type === "character" && !moveSel.remove.includes(card.uid)).map((card) => card.uid),
+      ...mine.front.filter((card) => hasKeyword(ctx, card, "撤步") && !moveSel.remove.includes(card.uid)).map((card) => card.uid)
+    ];
+    if (frontOver || moveSel.remove.some((uid) => mine.front.some((card) => card.uid === uid))) keys.push(...mine.front.filter((card) => !moveSel.toEnergy.includes(card.uid)).map((card) => card.uid));
+    if (energyOver || moveSel.remove.some((uid) => mine.energy.some((card) => card.uid === uid))) keys.push(...mine.energy.filter((card) => !moveSel.toFront.includes(card.uid)).map((card) => card.uid));
+    return [...new Set(keys)].map(cardKey.field);
+  };
+  const toggleMove = (uid: string): void => {
+    if (!mine) return;
+    const toggle = (list: string[]): string[] => list.includes(uid) ? list.filter((entry) => entry !== uid) : [...list, uid];
+    const onFront = mine.front.some((card) => card.uid === uid);
+    if (moveSel.remove.includes(uid)) { setMoveSel({ ...moveSel, remove: toggle(moveSel.remove) }); return; }
+    if (onFront) {
+      if (moveSel.toEnergy.includes(uid)) setMoveSel({ ...moveSel, toEnergy: toggle(moveSel.toEnergy) });
+      else if (frontOver) setMoveSel({ ...moveSel, remove: toggle(moveSel.remove) });
+      else if (hasKeyword(ctx, mine.front.find((card) => card.uid === uid)!, "撤步")) setMoveSel({ ...moveSel, toEnergy: toggle(moveSel.toEnergy) });
+    } else {
+      if (moveSel.toFront.includes(uid)) setMoveSel({ ...moveSel, toFront: toggle(moveSel.toFront) });
+      else if (energyOver) setMoveSel({ ...moveSel, remove: toggle(moveSel.remove) });
+      else setMoveSel({ ...moveSel, toFront: toggle(moveSel.toFront) });
+    }
+  };
+
+  // ---- Pending decisions. ----
+  const blockKeys = myPending?.kind === "block" ? (mine?.front ?? []).filter((card) => !card.rested && stats(card.cardId)?.type === "character").map((card) => cardKey.field(card.uid)) : [];
+  const damageKeys = myPending?.kind === "damage" ? (state?.life.opponent ?? []).map((slot) => cardKey.life(slot.id)) : [];
+  const keepKeys = myPending?.kind === "discard" ? hand.map((_, index) => cardKey.hand(index)) : [];
+  const revealed = pending?.kind === "triggers" ? pending.revealed : [];
+  const focusedLife = myPending?.kind === "triggers" ? (revealed.find((slot) => slot.id === triggerFocus) ?? revealed[0] ?? null) : null;
+
+  const resolveTrigger = (activate: boolean): void => {
+    if (!focusedLife || myPending?.kind !== "triggers" || !mine || !theirs) return;
+    const lifeId = focusedLife.id;
+    const cardId = focusedLife.cardId!;
+    const card = stats(cardId);
+    if (!activate || !card?.trigger) { void run({ type: "trigger", lifeId, activate: false }); return; }
+    const needs = triggerNeeds(ctx, mine, theirs, cardId);
+    const label = card.trigger.label;
+    if (label === "突进") {
+      setAsk({ prompt: "【突进】触发：把这张卡加入手牌，或在满足所需能量时进行突进（不支付 AP）", keys: [], options: [
+        { label: "加入手牌", run: () => void run({ type: "trigger", lifeId, activate: true }) },
+        ...(needs.raidTargets.length ? [{ label: "进行突进", run: () => setAsk({ prompt: "选择突进的目标", keys: needs.raidTargets.map(cardKey.field), onPick: (key: string) => raidOnto(uidOf(key), (raid) => run({ type: "trigger", lifeId, activate: true, raid })) }) }] : [])
+      ] });
+      return;
+    }
+    if (needs.sideline.length) {
+      setAsk({ prompt: "选择要从场外登场到前线的角色", keys: [], options: needs.sideline.map((index) => ({
+        label: cardsById.get(mine.sideline[index]!)?.name ?? "卡牌",
+        run: () => withRoom("front", mine.front, (remove) => void run({ type: "trigger", lifeId, activate: true, sidelineIndex: index, remove }))
+      })) });
+      return;
+    }
+    if (needs.targets.length) {
+      const whose = label === "激活" ? "我方场上" : "对手前线中";
+      setAsk({ prompt: `【${label}】选择${whose}的 1 张角色`, keys: needs.targets.map(cardKey.field), onPick: (key) => void run({ type: "trigger", lifeId, activate: true, targetUid: uidOf(key) }), options: [{ label: "取消", run: () => setAsk(null) }] });
+      return;
+    }
+    void run({ type: "trigger", lifeId, activate: true });
+  };
+
+  // ---- What the table highlights and what a click does. ----
+  const candidates: string[] = ask ? ask.keys
+    : moving ? moveCandidates()
+    : myPending?.kind === "block" ? blockKeys
+    : myPending?.kind === "damage" ? damageKeys
+    : myPending?.kind === "discard" ? keepKeys
+    : [];
+  const selected: string[] = moving ? [...moveSel.toFront, ...moveSel.toEnergy, ...moveSel.remove].map(cardKey.field)
+    : myPending?.kind === "damage" ? lifePicked.map(cardKey.life)
+    : myPending?.kind === "discard" ? keepPicked.map(cardKey.hand)
+    : [];
+
+  const groupFor = (key: string): { group: CardGroup; index: number } | null => {
+    if (key.startsWith("h:")) return { group: { kind: "hand" }, index: Number(key.slice(2)) };
+    if (key.startsWith("f:")) {
+      const found = findField(uidOf(key));
+      if (!found) return null;
+      return { group: { kind: "line", owner: found.owner, line: found.line }, index: board![found.owner][found.line].indexOf(found.card) };
+    }
+    if (key.startsWith("p:")) {
+      const [, owner, pile] = key.split(":") as [string, "you" | "opponent", "sideline" | "removal"];
+      const length = board?.[owner][pile].length ?? 0;
+      return length ? { group: { kind: "pile", owner, pile }, index: length - 1 } : null;
+    }
+    return null;
+  };
+
+  const openCard = (key: string, element: HTMLElement | null): void => {
+    const target = groupFor(key);
+    if (!target) return;
+    originRef.current = element;
+    setView(target);
+  };
+
+  const onCard = (key: string, element: HTMLElement): void => {
+    if (busy) return;
+    if (ask) {
+      if (ask.keys.includes(key) && ask.onPick) ask.onPick(key);
+      else openCard(key, element);
+      return;
+    }
+    if (moving && candidates.includes(key) && key.startsWith("f:")) { toggleMove(uidOf(key)); return; }
+    if (myPending?.kind === "block" && blockKeys.includes(key)) { void run({ type: "block", blockerUid: uidOf(key) }); return; }
+    if (myPending?.kind === "damage" && damageKeys.includes(key)) {
+      const id = key.slice(2);
+      setLifePicked(lifePicked.includes(id) ? lifePicked.filter((entry) => entry !== id) : lifePicked.length < myPending.amount ? [...lifePicked, id] : lifePicked);
+      return;
+    }
+    if (myPending?.kind === "discard" && keepKeys.includes(key)) {
+      const index = Number(key.slice(2));
+      setKeepPicked(keepPicked.includes(index) ? keepPicked.filter((entry) => entry !== index) : keepPicked.length < 8 ? [...keepPicked, index] : keepPicked);
+      return;
+    }
+    openCard(key, element);
+  };
+  const interaction: BoardInteraction = { candidates: new Set(candidates), selected: new Set(selected), onCard };
+
+  // ---- Cards in the lightbox. ----
+  const groupIds = (group: CardGroup): string[] => {
+    switch (group.kind) {
+      case "hand": return hand;
+      case "line": return (board?.[group.owner][group.line] ?? []).map((card) => card.cardId);
+      case "pile": return board?.[group.owner][group.pile] ?? [];
+      case "revealed": return revealed.map((slot) => slot.cardId ?? "");
+    }
+  };
+  const viewIds = view ? groupIds(view.group) : [];
+  const viewIndex = view ? Math.min(view.index, viewIds.length - 1) : -1;
+  const viewCard = viewIndex >= 0 ? cardsById.get(viewIds[viewIndex]!) : undefined;
+  useEffect(() => { if (view && viewIndex < 0) setView(null); }, [view, viewIndex]);
+  const viewKey = (): string | null => {
+    if (!view) return null;
+    if (view.group.kind === "hand") return cardKey.hand(viewIndex);
+    if (view.group.kind === "line") { const card = board?.[view.group.owner][view.group.line][viewIndex]; return card ? cardKey.field(card.uid) : null; }
+    if (view.group.kind === "pile") return cardKey.pile(view.group.owner, view.group.pile);
+    return null;
+  };
+  const browse = (step: number): void => {
+    if (!view || viewIds.length < 2) return;
+    const index = (viewIndex + step + viewIds.length) % viewIds.length;
+    setView({ ...view, index });
+    const key = view.group.kind === "hand" ? cardKey.hand(index) : view.group.kind === "line" ? cardKey.field(board![view.group.owner][view.group.line][index]!.uid) : null;
+    const element = key ? document.querySelector<HTMLElement>(`.ua-table [data-card-key="${key}"]`) : null;
+    if (element) originRef.current = element;
+  };
+
+  const cardActions = (): ReactNode => {
+    if (!view || !viewCard || !game || game.step !== "turn") return null;
+    const info = viewCard.stats;
+    const key = viewKey();
+    const field = key?.startsWith("f:") ? findField(uidOf(key)) : null;
+    const parts: ReactNode[] = [];
+    if (info) {
+      const bp = field && info.type === "character" ? bpOf(ctx, field.card) : info.bp;
+      parts.push(<p key="info" className="ua-lb-info"><strong>{viewCard.name}</strong> · {TYPE_NAME[info.type]} · 需要{COLOR_NAME[info.color] ?? info.color}能量 {info.energyCost} · AP {info.apCost}{bp !== null ? ` · BP ${bp}` : ""}{field ? ` · ${field.card.rested ? "休息" : "活跃"}` : ""}{info.trigger ? ` · 触发【${info.trigger.label}】` : ""}</p>);
+    }
+    const buttons: ReactNode[] = [];
+    if (view.group.kind === "hand" && free && info && !ask) {
+      const handIndex = viewIndex;
+      const energy = mine ? energyOf(ctx, mine, info.color) : 0;
+      const activeAp = mine?.ap.filter((card) => !card.rested).length ?? 0;
+      const short = energy < info.energyCost ? `能量不足（需要${COLOR_NAME[info.color] ?? info.color} ${info.energyCost}，当前 ${energy}）` : activeAp < info.apCost ? `AP 不足（需要 ${info.apCost}，活跃 ${activeAp}）` : "";
+      if (game.phase === "main") {
+        if (info.type === "character") {
+          buttons.push(<button key="front" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "front")}>登场到前线</button>);
+          buttons.push(<button key="energy" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "energy")}>登场到能量线</button>);
+          if (info.raid && mine && [...mine.front, ...mine.energy].some((card) => raidTargetMatches(ctx, info, card))) buttons.push(<button key="raid" type="button" className="ua-secondary" disabled={busy || !!short} onClick={() => startRaid(handIndex)}>突进…</button>);
+        } else if (info.type === "site") buttons.push(<button key="energy" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "energy")}>登场到能量线</button>);
+        else buttons.push(<button key="event" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => { closeView(); void run({ type: "event", handIndex }); }}>使用事件</button>);
+        if (short) parts.push(<p key="short" className="ua-lb-warn">{short}</p>);
+      } else parts.push(<p key="when" className="ua-hint">卡牌只能在主要阶段使用。</p>);
+    }
+    if (field && field.owner === "you" && free && game.phase === "attack" && field.line === "front" && !field.card.rested && info?.type === "character" && !ask) {
+      buttons.push(<button key="attack" type="button" className="ua-primary" disabled={busy} onClick={() => startAttack(field.card.uid, false)}>攻击 {opponentName}</button>);
+      if (hasKeyword(ctx, field.card, "瞄准攻击")) buttons.push(<button key="snipe" type="button" className="ua-secondary" disabled={busy} onClick={() => startAttack(field.card.uid, true)}>瞄准攻击角色…</button>);
+    }
+    if (buttons.length) parts.push(<div key="buttons" className="ua-lb-buttons">{buttons}</div>);
+    // Manual operations for printed abilities; the opponent sees each one in the log.
+    const manual: ReactNode[] = [];
+    const op = (label: string, action: UnionArenaAction, keepOpen = false): ReactNode => <button key={label} type="button" className="ua-secondary" disabled={busy} onClick={() => { if (!keepOpen) closeView(); void run(action); }}>{label}</button>;
+    if (field) {
+      const owner = field.owner;
+      const uid = field.card.uid;
+      manual.push(op(field.card.rested ? "转为活跃" : "转为休息", { type: "manual", manual: { op: "field", owner, uid, act: field.card.rested ? "activate" : "rest" } }, true));
+      if (info?.type === "character") manual.push(op("BP+1000", { type: "manual", manual: { op: "field", owner, uid, act: "bp+" } }, true), op("BP-1000", { type: "manual", manual: { op: "field", owner, uid, act: "bp-" } }, true));
+      if (owner === "you") manual.push(op("能量产出+1", { type: "manual", manual: { op: "field", owner, uid, act: "energy+" } }, true), op("能量产出-1", { type: "manual", manual: { op: "field", owner, uid, act: "energy-" } }, true));
+      manual.push(op("退场", { type: "manual", manual: { op: "field", owner, uid, act: "sideline" } }), op("放回手牌", { type: "manual", manual: { op: "field", owner, uid, act: "hand" } }), op("置于移除区", { type: "manual", manual: { op: "field", owner, uid, act: "removal" } }));
+      if (info?.type === "character") manual.push(<select key="grant" aria-label="本回合给予关键字" value="" disabled={busy} onChange={(event) => { if (event.target.value) void run({ type: "manual", manual: { op: "grant", owner, uid, keyword: event.target.value } }); }}>
+        <option value="">本回合给予关键字…</option>
+        {GRANTABLE_KEYWORDS.map((keyword) => <option key={keyword} value={keyword}>{keyword}</option>)}
+      </select>);
+    } else if (view.group.kind === "hand") {
+      manual.push(op("置于场外", { type: "manual", manual: { op: "hand", handIndex: viewIndex, act: "sideline" } }), op("置于移除区", { type: "manual", manual: { op: "hand", handIndex: viewIndex, act: "removal" } }));
+    } else if (view.group.kind === "pile" && view.group.owner === "you" && view.group.pile === "sideline") {
+      manual.push(op("加入手牌", { type: "manual", manual: { op: "sideline_to_hand", index: viewIndex } }));
+    }
+    if (manual.length) parts.push(<details key="manual" className="ua-manual"><summary>卡牌效果（按卡面文字手动结算，操作会记入日志）</summary><div className="ua-lb-buttons">{manual}</div></details>);
+    return parts.length ? <>{parts}</> : null;
+  };
+
+  const viewLabel = (): string => {
+    if (!view) return "";
+    if (view.group.kind === "hand") return "手牌";
+    if (view.group.kind === "line") return `${view.group.owner === "you" ? "我方" : "对方"}${LINE_NAME[view.group.line]}`;
+    if (view.group.kind === "pile") return `${view.group.owner === "you" ? "我方" : "对方"}${view.group.pile === "sideline" ? "场外" : "移除区"}`;
+    return "翻开的生命卡";
+  };
+  const lightbox = view && viewCard?.imageUrl ? <CardLightbox key="game-lightbox" src={viewCard.imageUrl} label={viewCard.name} alt={`${viewCard.name} ${viewCard.number}`} compact={compact}
+    getOrigin={() => originRef.current?.isConnected ? originRef.current.getBoundingClientRect() : null} getReturnFocus={() => originRef.current?.isConnected ? originRef.current : null}
+    onClose={closeView} onPrev={viewIds.length > 1 ? () => browse(-1) : undefined} onNext={viewIds.length > 1 ? () => browse(1) : undefined}
+    position={`${viewLabel()} ${viewIndex + 1} / ${viewIds.length}`}>{cardActions()}</CardLightbox> : null;
+
+  // ---- The action bar: what is happening and what you can do. ----
+  const activeAp = mine?.ap.filter((card) => !card.rested).length ?? 0;
+  const bar = (): { text: string; buttons: ReactNode[] } => {
+    const button = (label: string, onClick: () => void, primary = false, disabled = false): ReactNode => <button key={label} type="button" className={primary ? "ua-primary" : "ua-secondary"} disabled={busy || disabled} onClick={onClick}>{label}</button>;
+    if (!game) return { text: "", buttons: [] };
+    if (game.step === "mulligan") {
+      const mineToDecide = game.mulliganPlayerId === meId;
+      return { text: mineToDecide ? "换牌：起手 7 张可以重抽一次（放到牌库底，抽 7 张新牌，再洗牌）" : `换牌阶段：等待 ${nameOf(game.mulliganPlayerId)}`, buttons: mineToDecide && onMulligan ? [button("保留起手牌", () => onMulligan(false), true), button("重抽 7 张", () => onMulligan(true))] : [] };
+    }
+    if (game.step === "over") return { text: `对局结束：${game.winnerId === meId ? "你获胜了！" : `${nameOf(game.winnerId)} 获胜`}${game.endReason ? `（${game.endReason}）` : ""}`, buttons: overButton ? [button(overButton.label, overButton.run, true)] : [] };
+    if (ask) return { text: ask.prompt, buttons: (ask.options ?? []).map((option, index) => button(option.label, option.run, index === 0 && option.label !== "取消")) };
+    if (pending && !myPending) {
+      const waiting = { block: "选择是否阻挡", damage: "选择你的生命卡", triggers: "确认触发", discard: "选择保留的手牌" }[pending.kind];
+      return { text: `等待 ${nameOf(pending.playerId)} ${waiting}…`, buttons: [] };
+    }
+    if (myPending?.kind === "block") {
+      const attacker = findField(myPending.attackerUid)?.card;
+      const attackerName = attacker ? cardsById.get(attacker.cardId)?.name ?? "角色" : "角色";
+      return { text: `${opponentName} 的「${attackerName}」（BP ${attacker ? bpOf(ctx, attacker) : "?"}）正在攻击你${attacker ? `，未被阻挡将受到 ${damageOf(ctx, attacker)} 点伤害` : ""}。点击你前线中高亮的活跃角色阻挡，或选择不阻挡。`, buttons: [button("不阻挡", () => void run({ type: "block", blockerUid: null }))] };
+    }
+    if (myPending?.kind === "damage") {
+      const life = state?.life.opponent ?? [];
+      const pickRandom = (): void => {
+        const ids = [...life].sort(() => Math.random() - .5).slice(0, myPending.amount).map((slot) => slot.id);
+        void run({ type: "damage", lifeIds: ids });
+      };
+      return { text: `造成 ${myPending.amount} 点伤害：点击对手生命区，选择 ${myPending.amount} 张生命卡（已选 ${lifePicked.length}）`, buttons: [button("确认", () => void run({ type: "damage", lifeIds: lifePicked }), true, lifePicked.length !== myPending.amount), button("随机选择", pickRandom)] };
+    }
+    if (myPending?.kind === "triggers" && focusedLife) {
+      const card = focusedLife.cardId ? stats(focusedLife.cardId) : null;
+      const chooser = revealed.length > 1 ? revealed.map((slot) => button(`${slot.id === focusedLife.id ? "▶ " : ""}${cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}`, () => setTriggerFocus(slot.id))) : [];
+      if (!card?.trigger) return { text: `翻开的生命卡「${card?.name ?? "卡牌"}」没有触发，将置于场外。`, buttons: [...chooser, button("确认", () => resolveTrigger(false), true)] };
+      return { text: `翻开的生命卡「${card.name}」有触发【${card.trigger.label}】：${card.trigger.text} 是否发动？`, buttons: [...chooser, button("发动", () => resolveTrigger(true), true), button("不发动", () => resolveTrigger(false))] };
+    }
+    if (myPending?.kind === "discard") return { text: `手牌超过 8 张：点击手牌，选择要保留的 8 张（已选 ${keepPicked.length}），其余置于移除区`, buttons: [button("确认保留", () => void run({ type: "discard", keep: keepPicked }), true, keepPicked.length !== 8)] };
+    if (!myTurn) return { text: `${nameOf(game.turnPlayerId)} 的回合 · ${game.phase ? PHASE_NAME[game.phase] : ""}`, buttons: [] };
+    switch (game.phase) {
+      case "start":
+        return { text: `起始阶段：AP 卡与场上卡牌已转为活跃${game.turn === 1 ? "（先手第 1 回合不抽卡）" : "，并已抽 1 张卡"}。可以支付 1 AP 额外抽 1 张（每回合 1 次）。`, buttons: [button("额外抽卡（1 AP）", () => void run({ type: "extra_draw" }), false, game.extraDrawUsed || activeAp < 1 || !game.deckCount.you), button("进入移动阶段", () => void run({ type: "next_phase" }), true)] };
+      case "movement": {
+        const count = moveSel.toFront.length + moveSel.toEnergy.length;
+        const over = frontOver ? `前线将超过 4 张，再点击 ${frontOver} 张前线的卡置于移除区。` : energyOver ? `能量线将超过 4 张，再点击 ${energyOver} 张能量线的卡置于移除区。` : "";
+        return { text: over || "移动阶段：点击能量线的角色把它移到前线；有《撤步》的前线角色可移回能量线（场地不能移动）。所有移动同时进行。", buttons: [button(`确认移动（${count}）`, () => void run({ type: "move", ...moveSel }), true, count === 0 || frontOver > 0 || energyOver > 0), button("不移动，进入主要阶段", () => void run({ type: "next_phase" }))] };
+      }
+      case "main":
+        return { text: `主要阶段：点击手牌查看并使用卡牌（活跃 AP ${activeAp}）。场上卡牌的能力可用放大图里的「卡牌效果」手动结算。`, buttons: [button("进入攻击阶段", () => void run({ type: "next_phase" }), true), button("结束回合", () => void run({ type: "end_turn" }))] };
+      case "attack":
+        return { text: "攻击阶段：点击前线中活跃的角色，选择攻击。攻击不消耗 AP。", buttons: [button("结束回合", () => void run({ type: "end_turn" }), true)] };
+      default:
+        return { text: "结束阶段", buttons: [] };
+    }
+  };
+  const barState = bar();
+  const lastLog = game?.log.length ? game.log[game.log.length - 1] : "";
+  const effectMenu = playing ? <details className="ua-effects">
+    <summary>效果</summary>
+    <div className="ua-effects-menu">
+      <button type="button" className="ua-secondary" disabled={busy || !game?.deckCount.you} onClick={() => void run({ type: "manual", manual: { op: "draw" } })}>抽 1 张卡</button>
+      <button type="button" className="ua-secondary" disabled={busy || !mine?.ap.some((card) => card.rested)} onClick={() => { const card = mine?.ap.find((entry) => entry.rested); if (card) void run({ type: "manual", manual: { op: "ap", apId: card.id, act: "activate" } }); }}>1 张 AP 转为活跃</button>
+      <button type="button" className="ua-secondary" disabled={busy || !mine?.ap.some((card) => !card.rested)} onClick={() => { const card = mine?.ap.find((entry) => !entry.rested); if (card) void run({ type: "manual", manual: { op: "ap", apId: card.id, act: "rest" } }); }}>1 张 AP 转为休息</button>
+      <button type="button" className="ua-secondary" disabled={busy} onClick={() => { if (window.confirm("确定认输吗？")) void run({ type: "concede" }); }}>认输</button>
+    </div>
+  </details> : null;
+  const actionBar = game ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
+    <div className="ua-actionbar-text">
+      <p className="ua-actionbar-prompt" aria-live="polite">{barState.text}</p>
+      {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : lastLog ? <p className="ua-actionbar-log" title={lastLog}>{lastLog}</p> : null}
+    </div>
+    <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}</div>
+  </div> : null;
+
+  // ---- Hands. ----
+  const handStrip = game && game.step !== "over" ? <ol className="ua-handstrip" aria-label={`你的手牌，${hand.length} 张`}>
+    {hand.map((cardId, index) => {
+      const card = cardsById.get(cardId);
+      const key = cardKey.hand(index);
+      return <li key={`${cardId}-${index}`}>
+        <button type="button" data-card-key={key} data-candidate={interaction.candidates.has(key) || undefined} data-selected={interaction.selected.has(key) || undefined}
+          aria-label={`手牌 ${index + 1}：${card?.name ?? "卡牌"}`} onClick={(event) => onCard(key, event.currentTarget)}>
+          {card?.imageUrl ? <img src={card.imageUrl} alt="" draggable={false} /> : <span className="ua-card-missing">?</span>}
+        </button>
+      </li>;
+    })}
+  </ol> : null;
+  const opponentHand = game && game.step !== "over" ? <div className="ua-opp-hand" aria-label={`对手手牌 ${game.handCount.opponent} 张`}>
+    {Array.from({ length: Math.min(game.handCount.opponent, 10) }, (_, index) => <span key={index} className="ua-card-back" aria-hidden="true" />)}
+    <small>{game.handCount.opponent}</small>
+  </div> : null;
+
+  const activePhase = (side: "self" | "opponent"): number | undefined => {
+    if (!game || game.step !== "turn" || !game.phase) return undefined;
+    const turnIsMine = game.turnPlayerId === meId;
+    return (side === "self") === turnIsMine ? PHASE_INDEX[game.phase] : 5;
+  };
+
+  return {
+    interaction: game ? interaction : undefined,
+    actionBar,
+    handStrip,
+    opponentHand,
+    lightbox,
+    lightboxOpen: lightbox !== null,
+    activePhase,
+    /** Opens a hand card in the lightbox from somewhere else on the page (the side panel's hand list). */
+    openHandCard: (index: number, element: HTMLElement) => { originRef.current = element; setView({ group: { kind: "hand" }, index }); }
+  };
+}
+
