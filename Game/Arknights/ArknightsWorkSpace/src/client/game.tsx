@@ -279,6 +279,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     const key = viewKey();
     const field = key?.startsWith("f:") ? findField(uidOf(key)) : null;
     const parts: ReactNode[] = [];
+    if (!info) parts.push(<p key="missing" className="ua-lb-warn">缺少这张卡的卡面数据，无法使用。服务器需要带上 Cards/cards.json（重新构建并部署服务端）。</p>);
     if (info) {
       const bp = field && info.type === "character" ? bpOf(ctx, field.card) : info.bp;
       parts.push(<p key="info" className="ua-lb-info"><strong>{viewCard.name}</strong> · {TYPE_NAME[info.type]} · 需要{COLOR_NAME[info.color] ?? info.color}能量 {info.energyCost} · AP {info.apCost}{bp !== null ? ` · BP ${bp}` : ""}{field ? ` · ${field.card.rested ? "休息" : "活跃"}` : ""}{info.trigger ? ` · 触发【${info.trigger.label}】` : ""}</p>);

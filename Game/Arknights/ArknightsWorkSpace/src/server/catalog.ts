@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { UnionArenaCardStats } from "../shared/protocol.ts";
 import { buildUnionArenaCatalog, type UnionArenaCardRecord } from "./types.ts";
+import bundledCardData from "../../Cards/cards.json";
 
 const currentDirectory = path.resolve(process.cwd());
 const neighboringWorkspace = path.resolve(currentDirectory, "../../Arknights/ArknightsWorkSpace");
@@ -38,11 +39,14 @@ function csvRows(): Array<Omit<UnionArenaCardRecord, "parallelIds" | "sourceMate
     .filter((row): row is NonNullable<typeof row> => row !== null);
 }
 
-/** Printed card data (cost, BP, energy, trigger, ability text), transcribed from the card images, keyed by card number. */
+/**
+ * Printed card data (cost, BP, energy, trigger, ability text), transcribed from the card images, keyed by card number. It is imported, so
+ * the server build carries it: a deployment that only replaces `dist/` still has it, whatever version of the workspace directory sits next
+ * to it. UNION_ARENA_CARD_DATA can point at another file instead.
+ */
 function cardStats(): Map<string, UnionArenaCardStats> {
-  const file = path.resolve(process.env.UNION_ARENA_CARD_DATA ?? path.join(workspaceRoot, "Cards", "cards.json"));
-  if (!fs.existsSync(file)) return new Map();
-  const entries = JSON.parse(fs.readFileSync(file, "utf8")) as Array<UnionArenaCardStats & { number: string; name: string }>;
+  const override = process.env.UNION_ARENA_CARD_DATA;
+  const entries = (override ? JSON.parse(fs.readFileSync(path.resolve(override), "utf8")) : bundledCardData) as Array<UnionArenaCardStats & { number: string; name: string }>;
   return new Map(entries.map(({ number, name: _name, ...stats }) => [number, stats]));
 }
 
