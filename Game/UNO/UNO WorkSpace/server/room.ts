@@ -1105,13 +1105,16 @@ export class RoomManager {
         return { duplicate };
       });
     });
-    socket.on("host_get_lan_status", (_payload, ack) => {
+    socket.on("host_get_lan_status", (_payload, rawAck) => {
+      // Clients may emit without a callback; never call an undefined ack.
+      const ack = typeof rawAck === "function" ? rawAck : (): void => undefined;
       if (!this.requireLocalHostControl(socket, ack)) {
         return;
       }
       ack({ ok: true, data: this.lanAccess.status() });
     });
-    socket.on("host_set_lan_access", (payload, ack) => {
+    socket.on("host_set_lan_access", (payload, rawAck) => {
+      const ack = typeof rawAck === "function" ? rawAck : (): void => undefined;
       if (!this.requireLocalHostControl(socket, ack)) {
         return;
       }
@@ -1229,7 +1232,10 @@ export class RoomManager {
     });
   }
 
-  private respond<T>(ack: (result: ActionAck<T>) => void, action: () => T): void {
+  // `ack` comes straight from the client; a socket.io emit without a callback leaves it undefined.
+  // Calling it unguarded throws inside the event handler and takes the whole process down.
+  private respond<T>(rawAck: ((result: ActionAck<T>) => void) | undefined, action: () => T): void {
+    const ack = typeof rawAck === "function" ? rawAck : (): void => undefined;
     try {
       const data = action();
       const duplicate =
@@ -1261,7 +1267,8 @@ export class RoomManager {
     }
   }
 
-  private respondAsync<T>(ack: (result: ActionAck<T>) => void, action: () => Promise<T>): void {
+  private respondAsync<T>(rawAck: ((result: ActionAck<T>) => void) | undefined, action: () => Promise<T>): void {
+    const ack = typeof rawAck === "function" ? rawAck : (): void => undefined;
     void action().then((data) => ack({ ok: true, data })).catch((error: unknown) => {
       const code = error instanceof Error && "code" in error && typeof error.code === "string"
         ? error.code
