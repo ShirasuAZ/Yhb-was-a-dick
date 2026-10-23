@@ -28,8 +28,73 @@ export interface UnionArenaLifeState {
   opponent: UnionArenaLifeCard[];
 }
 
-/** `mulligan`: each player in turn decides whether to redraw the starting hand. `turn`: the game proper (the first turn has begun). */
-export type UnionArenaGameStep = "mulligan" | "turn";
+/** `mulligan`: each player in turn decides whether to redraw the starting hand. `turn`: the game proper (the first turn has begun). `over`: someone has won. */
+export type UnionArenaGameStep = "mulligan" | "turn" | "over";
+
+/** The five phases of a turn, in order (rule manual, "Game Flow"). */
+export type UnionArenaTurnPhase = "start" | "movement" | "main" | "attack" | "end";
+
+/** Printed card data, transcribed from the card images (Cards/cards.json). Absent for a card whose data is unknown. */
+export interface UnionArenaCardStats {
+  type: "character" | "site" | "event";
+  /** The required energy's colour, which is the card's colour. */
+  color: string;
+  energyCost: number;
+  apCost: number;
+  /** Characters only. */
+  bp: number | null;
+  /** Energy generation icons, counted only while the card is on the energy line. */
+  energyGen: number;
+  energyGenColor: string | null;
+  energyGenPlus: boolean;
+  affinities: string[];
+  /** Raid targets: card names, or an affinity written as "[affinity]". */
+  raid: { targets: string[]; text: string } | null;
+  /** Keyword abilities the card always has (printed at the start of an ability line, as 《冲击无效》). Conditional ones are only in `abilityText`. */
+  keywords: string[];
+  abilityText: string;
+  trigger: { label: string; text: string } | null;
+}
+
+/** One AP card in the AP area. */
+export interface UnionArenaApCard {
+  id: string;
+  rested: boolean;
+}
+
+/** A character or site on the front line or energy line. `under` lists the cards beneath it after Raid, bottom first. */
+export interface UnionArenaFieldCard {
+  uid: string;
+  cardId: string;
+  under: string[];
+  rested: boolean;
+  /** BP change from abilities until the end of the turn. */
+  bpMod: number;
+  /** Energy generation change from abilities while it stays on the field. */
+  energyMod: number;
+  /** Keyword abilities given until the end of the turn. */
+  grants: string[];
+  attacks: number;
+  blocks: number;
+  /** "The next time it would switch to active, it does not." */
+  skipNextActivate: boolean;
+}
+
+/** One player's visible board. Sideline and removal area are face up, so their cards are public. */
+export interface UnionArenaBoard {
+  ap: UnionArenaApCard[];
+  front: UnionArenaFieldCard[];
+  energy: UnionArenaFieldCard[];
+  sideline: string[];
+  removal: string[];
+}
+
+/** A decision the game is waiting for, and who has to make it. */
+export type UnionArenaPending =
+  | { kind: "block"; playerId: string; attackerUid: string }
+  | { kind: "damage"; playerId: string; defenderId: string; amount: number }
+  | { kind: "triggers"; playerId: string; attackerId: string; revealed: UnionArenaLifeCard[] }
+  | { kind: "discard"; playerId: string };
 
 /** Public facts about a running game. Hands and decks are shown as counts only. */
 export interface UnionArenaGameState {
@@ -43,7 +108,43 @@ export interface UnionArenaGameState {
   mulliganPlayerId: string | null;
   handCount: { you: number; opponent: number };
   deckCount: { you: number; opponent: number };
+  /** The turn player's current phase; null during the mulligan. */
+  phase: UnionArenaTurnPhase | null;
+  /** Whether the turn player has already taken this turn's extra draw. */
+  extraDrawUsed: boolean;
+  board: { you: UnionArenaBoard; opponent: UnionArenaBoard };
+  pending: UnionArenaPending | null;
+  winnerId: string | null;
+  endReason: string | null;
+  /** Recent public events, oldest first. */
+  log: string[];
 }
+
+/** Effects the players resolve by hand, following a card's printed text: the engine runs the rule manual, the card abilities are applied with these. */
+export type UnionArenaManualOp =
+  | { op: "draw" }
+  | { op: "field"; owner: "you" | "opponent"; uid: string; act: "rest" | "activate" | "bp+" | "bp-" | "energy+" | "energy-" | "sideline" | "hand" | "removal" }
+  | { op: "grant"; owner: "you" | "opponent"; uid: string; keyword: string }
+  | { op: "hand"; handIndex: number; act: "sideline" | "removal" }
+  | { op: "ap"; apId: string; act: "rest" | "activate" }
+  | { op: "sideline_to_hand"; index: number };
+
+/** Every move a player can make once the turns have begun. */
+export type UnionArenaAction =
+  | { type: "next_phase" }
+  | { type: "extra_draw" }
+  | { type: "move"; toFront: string[]; toEnergy: string[]; remove: string[] }
+  | { type: "play"; handIndex: number; line: "front" | "energy"; remove?: string }
+  | { type: "raid"; handIndex: number; targetUid: string; toFront?: boolean; remove?: string }
+  | { type: "event"; handIndex: number }
+  | { type: "attack"; attackerUid: string; targetUid?: string }
+  | { type: "block"; blockerUid: string | null }
+  | { type: "damage"; lifeIds: string[] }
+  | { type: "trigger"; lifeId: string; activate: boolean; targetUid?: string; sidelineIndex?: number; raid?: { targetUid: string; toFront?: boolean; remove?: string }; remove?: string }
+  | { type: "end_turn" }
+  | { type: "discard"; keep: number[] }
+  | { type: "manual"; manual: UnionArenaManualOp }
+  | { type: "concede" };
 
 export interface UnionArenaRoomState {
   roomCode: string;
@@ -99,6 +200,15 @@ export interface ClientToServerEvents {
     ack: (result: ActionAck) => void
   ) => void;
   "ua:leave_room": (
+    payload: Record<string, never>,
+    ack: (result: ActionAck) => void
+  ) => void;
+  "ua:action": (
+    payload: UnionArenaAction,
+    ack: (result: ActionAck) => void
+  ) => void;
+  /** After a finished game: back to the room's lobby, decks kept. */
+  "ua:return_to_lobby": (
     payload: Record<string, never>,
     ack: (result: ActionAck) => void
   ) => void;

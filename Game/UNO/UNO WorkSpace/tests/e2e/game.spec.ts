@@ -188,6 +188,14 @@ test("Arknights uses the dedicated battle map, shared account and authoritative 
   await page.getByRole("button", { name: "注册并登录", exact: true }).click();
   await page.waitForURL("/");
   await page.goto("/arknights-union-arena/");
+  // The game lobby comes first: player vs. player and the tutorial are open, vs. computer is listed but closed.
+  const modes = page.getByRole("main", { name: "选择游戏模式" });
+  await expect(modes.getByRole("heading", { name: "玩家对战" })).toBeVisible();
+  await expect(modes.getByRole("heading", { name: /人机对战/ })).toBeVisible();
+  await expect(modes.locator("[data-mode='ai'] button")).toBeDisabled();
+  await expect(modes.getByRole("button", { name: "开始教程" })).toBeEnabled();
+  await modes.locator("[data-mode='pvp'] button").click();
+  await page.waitForURL("**/arknights-union-arena/pvp");
   await expect(page.getByRole("button", { name: "返回大厅" })).toBeVisible();
   await expect(page.locator(".ua-account")).toContainText(username);
   await expect(page.locator(".ua-catalog-heading")).toContainText("254 / 254");
@@ -258,6 +266,48 @@ test("Arknights uses the dedicated battle map, shared account and authoritative 
     await expect(page.locator(".ua-panel")).toBeHidden();
     expect((await page.locator(".ua-table").boundingBox())!).toEqual(table);
   }
+});
+
+test("Arknights tutorial: fixed cards, step-by-step guidance, and a card lightbox that browses the hand", async ({ page }) => {
+  const suffix = `${Date.now().toString(36).slice(-5)}${Math.random().toString(36).slice(2, 4)}`;
+  const username = `tut_${suffix}`;
+  await page.goto("/uno");
+  await page.getByRole("button", { name: "注册", exact: true }).click();
+  await page.locator("#auth-username").fill(username);
+  await page.locator("#auth-email").fill(`${username}@example.test`);
+  await page.locator("#auth-password").fill("TestPass123!");
+  await page.locator("#auth-confirm-password").fill("TestPass123!");
+  await page.getByRole("button", { name: "注册并登录", exact: true }).click();
+  await page.waitForURL("/");
+  await page.goto("/arknights-union-arena/");
+  await page.getByRole("button", { name: "开始教程" }).click();
+  await page.waitForURL("**/arknights-union-arena/tutorial");
+  await expect(page.locator(".ua-seatbar[data-side='opponent']")).toContainText("test");
+  // The introduction, then the mulligan: only "keep" moves on.
+  for (let step = 0; step < 7; step += 1) await page.getByRole("button", { name: "下一步" }).click();
+  await page.getByRole("button", { name: "保留起手牌" }).click();
+  await expect(page.locator(".ua-half[data-side='self'] .ua-life-card")).toHaveCount(7);
+  // The tutorial always deals the same hand.
+  await expect(page.locator(".ua-handstrip button").first()).toHaveAttribute("aria-label", "手牌 1：陈");
+  await page.getByRole("button", { name: "进入移动阶段" }).click();
+  await page.getByRole("button", { name: "不移动，进入主要阶段" }).click();
+  // Lightbox: "<" and ">" browse the hand in order, wrapping around.
+  await page.locator(".ua-handstrip button").first().click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 1 / 7");
+  await dialog.getByRole("button", { name: "下一张" }).click();
+  await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 2 / 7");
+  await dialog.getByRole("button", { name: "上一张" }).click();
+  await dialog.getByRole("button", { name: "上一张" }).click();
+  await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 7 / 7");
+  await dialog.getByRole("button", { name: "下一张" }).click();
+  // A move the step does not ask for is refused with a hint; the asked one plays the card.
+  await dialog.getByRole("button", { name: "登场到前线" }).click();
+  await expect(page.locator(".ua-actionbar-notice")).toContainText("教程中请按照上方提示操作");
+  await page.locator(".ua-handstrip button").first().click();
+  await page.getByRole("dialog").getByRole("button", { name: "登场到能量线" }).click();
+  await expect(page.locator(".ua-half[data-side='self'] .ua-z-energy .ua-slot-button")).toHaveCount(1);
+  await expect(page.locator(".ua-coach-text")).toContainText("AP 用完了");
 });
 
 test("two verified accounts see opposite piece directions and synchronize an online move", async ({ browser }) => {

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef, type ReactNode } from "react";
 
 const DURATION_MS = 280;
 const EASING = "cubic-bezier(0.22, 0.8, 0.24, 1)";
@@ -18,6 +18,13 @@ export interface CardLightboxProps {
   getReturnFocus?: () => HTMLElement | null;
   /** Called after the close animation has finished; the owner unmounts the lightbox here. */
   onClose: () => void;
+  /** Browsing a group of cards: round "<" and ">" buttons beside the card (and the arrow keys) show the previous / next card. */
+  onPrev?: () => void;
+  onNext?: () => void;
+  /** Where the card is in its group, e.g. "3 / 7". */
+  position?: string;
+  /** What the player can do with this card, shown under it. */
+  children?: ReactNode;
 }
 
 function prefersReducedMotion(): boolean {
@@ -34,7 +41,8 @@ function isOnScreen(rect: DOMRect): boolean {
  * picture and the middle of the screen). Esc, the close button and a click on the backdrop all close it; focus returns to whatever had it before.
  * Render it at the root of the page, never inside a transformed ancestor, or `position: fixed` stops covering the screen.
  */
-export function CardLightbox({ src, label, alt, getOrigin, compact, getReturnFocus, onClose }: CardLightboxProps) {
+export function CardLightbox({ src, label, alt, getOrigin, compact, getReturnFocus, onClose, onPrev, onNext, position, children }: CardLightboxProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLImageElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -96,16 +104,29 @@ export function CardLightbox({ src, label, alt, getOrigin, compact, getReturnFoc
     animation.addEventListener("cancel", done, { once: true });
   };
 
-  // Esc closes only the lightbox (capture phase, so the tools panel's own Esc handler never sees it). Tab has nowhere else to go: the page behind is inert.
+  const navRef = useRef({ onPrev, onNext });
+  navRef.current = { onPrev, onNext };
+
+  // Esc closes only the lightbox (capture phase, so the tools panel's own Esc handler never sees it). The arrow keys browse the group.
+  // Tab cycles through the lightbox's own buttons: the page behind is inert.
   useEffect(() => {
     const onKey = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
         requestClose();
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        const go = event.key === "ArrowLeft" ? navRef.current.onPrev : navRef.current.onNext;
+        if (!go || (event.target instanceof HTMLElement && event.target.matches("input, select, textarea"))) return;
+        event.preventDefault();
+        go();
       } else if (event.key === "Tab") {
         event.preventDefault();
-        closeRef.current?.focus({ preventScroll: true });
+        const focusable = [...(rootRef.current?.querySelectorAll<HTMLElement>("button:not(:disabled), select:not(:disabled)") ?? [])];
+        if (!focusable.length) return;
+        const index = focusable.indexOf(document.activeElement as HTMLElement);
+        const next = index < 0 ? 0 : (index + (event.shiftKey ? -1 : 1) + focusable.length) % focusable.length;
+        focusable[next]!.focus({ preventScroll: true });
       }
     };
     window.addEventListener("keydown", onKey, true);
@@ -113,9 +134,15 @@ export function CardLightbox({ src, label, alt, getOrigin, compact, getReturnFoc
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return <div className="ua-lb" role="dialog" aria-modal="true" aria-label={label}>
+  return <div ref={rootRef} className="ua-lb" role="dialog" aria-modal="true" aria-label={label} data-actions={children ? "true" : undefined}>
     <div ref={scrimRef} className="ua-lb-scrim" onClick={requestClose} />
-    <img ref={cardRef} className="ua-lb-card" src={src} alt={alt} draggable={false} />
+    <div className="ua-lb-stage">
+      <img ref={cardRef} className="ua-lb-card" src={src} alt={alt} draggable={false} />
+    </div>
+    {onPrev ? <button type="button" className="ua-lb-nav ua-lb-prev" aria-label="上一张" onClick={onPrev}>&lt;</button> : null}
+    {onNext ? <button type="button" className="ua-lb-nav ua-lb-next" aria-label="下一张" onClick={onNext}>&gt;</button> : null}
+    {position ? <span className="ua-lb-position" aria-live="polite">{position}</span> : null}
+    {children ? <div className="ua-lb-actions">{children}</div> : null}
     <button ref={closeRef} type="button" className="ua-lb-close" aria-label="关闭放大查看" onClick={requestClose}>
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" /></svg>
     </button>

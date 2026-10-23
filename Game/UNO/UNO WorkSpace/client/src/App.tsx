@@ -6,7 +6,7 @@ import { Lobby } from "./components/Lobby.tsx";
 import { WaitingRoom } from "./components/WaitingRoom.tsx";
 import { ShogiApp } from "./components/ShogiApp.tsx";
 import { AccountDeletionPage } from "./components/AccountDeletionPage.tsx";
-import { ArknightsApp } from "@arknights/ArknightsApp.tsx";
+import { ArknightsRoot } from "@arknights/ArknightsRoot.tsx";
 import { LobbyProfile } from "./components/LobbyProfile.tsx";
 import { ThemeControl } from "./components/ThemeControl.tsx";
 import { VersionBadge } from "./components/VersionBadge.tsx";
@@ -58,7 +58,7 @@ function ArknightsEntry() {
     return <AuthScreen connection={session.connection} busy={session.busy} error={session.error} inviteCode={null}
       onLogin={session.login} onRegister={session.register} onResetPassword={session.resetPassword} clearError={() => session.setError("")} />;
   }
-  return <ArknightsApp account={session.account} token={session.accountToken} />;
+  return <ArknightsRoot account={session.account} token={session.accountToken} />;
 }
 
 function UnoApp() {
