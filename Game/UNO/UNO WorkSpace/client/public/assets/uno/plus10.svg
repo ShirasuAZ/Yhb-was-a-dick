@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="360" viewBox="0 0 240 360">
+  <rect x="2" y="2" width="236" height="356" rx="36" ry="36" fill="#ffffff" stroke="#111111" stroke-width="2"/>
+  <rect x="22" y="22" width="196" height="316" rx="18" ry="18" fill="#17181b"/>
+  <ellipse cx="120" cy="180" rx="86" ry="68" transform="rotate(-19 120 180)" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="3"/>
+  <text x="120" y="174" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="800">+10</text>
+  <text x="120" y="211" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="5">WILD</text>
+  <g transform="translate(76 246)">
+    <rect width="22" height="8" rx="3" fill="#d6383e"/>
+    <rect x="22" width="22" height="8" rx="3" fill="#e4b92e"/>
+    <rect x="44" width="22" height="8" rx="3" fill="#2d8a4f"/>
+    <rect x="66" width="22" height="8" rx="3" fill="#2f65b4"/>
+  </g>
+  <text x="38" y="52" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">+10</text>
+</svg>

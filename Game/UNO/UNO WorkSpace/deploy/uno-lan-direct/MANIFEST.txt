@@ -1,0 +1,12 @@
+UNO LAN Direct Update package contents
+
+dist/client/               Built web application (HTML, JavaScript, CSS, static assets)
+dist/server/index.js       Built Express and Socket.IO server
+DEPLOY.md                  Backup, deploy, restart, and network configuration steps
+ROLLBACK.md                Restore the previous dist directory
+TEST_REPORT.md             Automated checks and unverified real-network cases
+MANIFEST.txt               This file
+
+The archive excludes node_modules, environment files, credentials, account data,
+logs, and source/build caches. Runtime dependencies and server configuration are
+expected to remain in the existing application directory.

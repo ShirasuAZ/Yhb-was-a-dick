@@ -1,0 +1,17 @@
+services:
+  uno:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      UNO_LAN_OPEN: "1"
+      UNO_HOST_CONTROL: "0"
+      UNO_DATA_DIR: "/app/data"
+    volumes:
+      - uno-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  uno-data:

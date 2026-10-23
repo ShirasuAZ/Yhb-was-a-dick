@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: uno-online
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: UNO_LAN_OPEN
+        value: "1"
+      - key: UNO_HOST_CONTROL
+        value: "0"

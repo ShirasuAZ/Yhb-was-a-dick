@@ -1,0 +1,109 @@
+{
+  "name": "uno-online",
+  "version": "2.3.0",
+  "private": true,
+  "type": "module",
+  "main": "dist-electron/main.cjs",
+  "description": "UNO LAN desktop game with an embedded server",
+  "author": "Local UNO Project",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "tsx watch server/index.ts",
+    "dev:client": "vite --host 0.0.0.0",
+    "build": "vite build && node scripts/check-title.mjs && esbuild server/index.ts --bundle --platform=node --format=esm --packages=external --external:socket.io --outfile=dist/server/index.js && esbuild server/shogi-index.ts --bundle --platform=node --format=esm --packages=external --external:socket.io --outfile=dist/server/shogi-index.js && node scripts/check-title.mjs",
+    "start": "node dist/server/index.js",
+    "start:shogi": "node dist/server/shogi-index.js",
+    "check:title": "node scripts/check-title.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts",
+    "test:unit": "vitest run --config vitest.config.ts tests/unit",
+    "test:integration": "vitest run --config vitest.config.ts tests/integration",
+    "test:shogi:dist": "node scripts/test-shogi-dist.mjs",
+    "test:e2e": "npm run desktop:build:main && playwright test",
+    "test:all": "npm run typecheck && npm test && npm run test:e2e",
+    "desktop:build:main": "esbuild electron/main.ts --bundle --platform=node --format=cjs --external:electron --packages=external --outfile=dist-electron/main.cjs",
+    "desktop:start": "npm run build && npm run desktop:build:main && electron dist-electron/main.cjs",
+    "desktop:dir": "npm run build && npm run desktop:build:main && electron-builder --win dir --x64",
+    "desktop:pack": "npm run build && npm run desktop:build:main && electron-builder --win portable --x64",
+    "desktop:setup": "npm run build && npm run desktop:build:main && electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemailer": "^10.2.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sharp": "^0.35.5",
+    "socket.io": "^4.8.4",
+    "socket.io-client": "^4.8.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.6",
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
+  },
+  "build": {
+    "appId": "com.local.uno.lan",
+    "productName": "UNO LAN",
+    "asar": true,
+    "compression": "normal",
+    "npmRebuild": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-electron/main.cjs",
+      "dist/client/**/*",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "dist/client/**/*"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "signExecutable": false,
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "UNO-LAN-${version}-portable.${ext}"
+    },
+    "portable": {
+      "artifactName": "UNO-LAN-${version}-portable.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "UNO LAN",
+      "uninstallDisplayName": "UNO LAN",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true,
+      "displayLanguageSelector": false,
+      "installerLanguages": [
+        "zh_CN"
+      ],
+      "artifactName": "UNO-LAN-${version}-setup.${ext}"
+    }
+  }
+}

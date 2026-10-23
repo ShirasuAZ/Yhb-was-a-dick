@@ -1,0 +1,174 @@
+# UNO / LayUDown 开发日志（1.0.0 → 1.2.6）
+
+> 本文依据当前工作区内的**实际文件与产物**（源码修改时间、`release/` 安装包、`deploy/` 部署文档、`AUDIT_REPORT.md` 审计报告、`README.md` 与测试报告）重建，覆盖 2026-10-18 19:37 到 2026-10-20 18:59 的全部开发轨迹。
+> 时间均为文件系统修改时间（本地时区），版本号来自 `package.json`、`android-client/app/build.gradle` 与安装包文件名；没有 Git 仓库，因此无法提供 commit 记录。
+
+---
+
+## 一、总览
+
+| # | 版本 | 主要里程碑 | 关键产物 |
+| - | ---- | ---------- | -------- |
+| 0 | 1.0.0 基线 | 服务器权威 UNO 引擎 + Socket.IO 联机 + 极简前端 | 源码骨架（`server/` `client/` `shared/` `tests/`） |
+| 1 | 1.1.1 | 账号系统、局域网面板、Electron 桌面壳、自动更新 | `UNO-LAN-1.1.1-portable.exe`、`-setup.exe` |
+| 2 | 1.1.2–1.1.4 | WebSocket 优先连接、操作幂等、座位布局、开场特殊牌 | 三个 `setup.exe` |
+| 3 | 1.1.5 | 109 张牌库（+20 → **+10**）、+2/+4 叠加与质疑、手牌自适应、局域网专项审计与 14 项缺陷修复 | `UNO-LAN-1.1.5-setup.exe`、`AUDIT_REPORT.md` |
+| 4 | 1.1.6–1.1.8 | 深/浅色主题、音效、Android 客户端、Docker 部署、首个 Linux 上线包 | APK ×3、`setup.exe` ×2、`deploy.tar.gz` |
+| 5 | 1.1.9 | 表情弹幕、一键部署脚本、Android 端口自动探测 | `UNO-LAN-1.1.9-setup.exe`、APK、`uno-deploy-1.1.9.tar.gz` |
+| 6 | 1.2.0 | 表情气泡定位重做 | `uno-emoji-position-1.2.0.tar.gz` |
+| 7 | 1.2.1 | 首页 / 游戏入口拆分、关于我 + 收款码、Nginx 反代接入 80 端口 | `UNO-LAN-1.2.1-setup.exe`、`uno-web-1.2.1.tar.gz` |
+| 8 | 1.2.2 | 品牌改名 **LayUDown** | `layudown-web-1.2.2.tar.gz` |
+| 9 | 1.2.3 | “关于我”独立成 `/about`，收款码纵向展示 | `layudown-web-1.2.3.tar.gz` |
+| 10 | 1.2.4 | 登录页 LayUDown / 登录后 UNO 的双品牌收口 | `layudown-web-1.2.4.tar.gz` |
+| 11 | 1.2.4+ 直连包 | IP 直连重写：端口探测、`/join` 自动跳转、多房间选择、错误分类 | `uno-lan-direct-update.tar.gz`（v2 包） |
+| 12 | 1.2.5 | 手机横屏牌桌适配、清晰显示顺序和当前玩家 | `layudown-web-1.2.5.tar.gz` |
+| 13 | 1.2.6 | 恢复大厅主标题与浏览器标签名为 LayUDown | `layudown-web-1.2.6.tar.gz` |
+
+---
+
+## 二、按时间线详述
+
+### 2026-10-18 19:37 – 20:40｜1.0.0：从零到可玩
+
+- `server/game/deck.ts`、`server/game/game.ts`、`server/room.ts`、`shared/protocol.ts` 建立：**服务器是唯一游戏状态来源**，客户端只发操作意图。
+- `vitest.config.ts`、`tests/{unit,integration,e2e}` 一次性搭好三层测试，`playwright.config.ts` 于 20:25 补齐。
+- 20:13 `server/auth.ts`（scrypt 加盐 + HMAC 令牌）、`tests/unit/auth.test.ts`；20:30 生成首个 `data/accounts.json`，说明账号注册已在本地跑通。
+- 20:34 引入本地牌面素材 `uno-cards-deck.svg`（Wikimedia CC0）与 `card-back.svg`，确立“本地资源、不热链”的原则。
+- 20:36 `LanAccessPanel.tsx` 落地：枚举 WLAN / Radmin / UU / 小蓝盾 / TAP / Tailscale 等全部 IPv4 网卡地址。
+
+### 2026-10-18 21:13 – 21:50｜桌面化与版本体系
+
+- `server/index.ts`、`vite.config.ts`、`tsconfig.json` 定型；`electron/main.ts` 让 EXE 内置 Express/Socket.IO 服务器。
+- 新增 `shared/version.ts`（语义化版本比较）、`VersionBadge.tsx`、`tests/unit/version.test.ts`，为“启动即检查更新”打底。
+
+### 2026-10-18 22:05 – 23:17｜1.1.1 → 1.1.2
+
+- 22:05 / 22:06 首次产出 Windows 便携版与安装版：`UNO-LAN-1.1.1-portable.exe`、`UNO-LAN-1.1.1-setup.exe`（未签名，SmartScreen 会提示未知发布者）。
+- 22:53 `client/src/socket.ts` 改为 **WebSocket 优先、Polling 兜底**。
+- 23:09 `electron/main.ts` 加入更新清单查找（环境变量 → `%APPDATA%\uno-online\update.json` → EXE 同目录），支持“下载 → 退出 → 辅助进程静默覆盖 → 重启”。
+- 23:17 `UNO-LAN-1.1.2-setup.exe`。
+
+### 2026-10-18 23:36 – 2026-10-19 00:43｜1.1.3 → 1.1.5：规则与稳定性大改
+
+- 23:36–23:38 连续两轮 bugfix 数据目录（`bugfix-data`、`bugfix-data2`），随后 23:40 出 `1.1.3-setup.exe`。
+- 23:51 `client/src/components/seatLayout.ts` + 单元测试：座位按**相对自己的顺序**分配，且**只对 active 玩家**分配（修复退出者仍占座）。
+- 23:54 `actionId.ts` 与 `tests/unit/action-id.test.ts`：操作幂等编号，为局域网 HTTP（非安全上下文）下的 `crypto.randomUUID` 缺失做准备。
+- 00:01–00:34 一次性重写规则内核：
+  - `server/game/deck.ts`：4×19 数字牌共 76 + 24 张功能牌 + 4 万能 + 4 张 +4 + **1 张唯一的 +10 牌** = **109 张**，每张牌唯一 `cardId`。
+  - `server/game/game.ts`（28KB）：开场特殊牌处理、回合结算、UNO 宣告窗口、+2/+4 叠加与 +4 质疑、+10 罚摸 10 张、`deck_shortage` 确定性兜底。
+  - 00:05 出 `1.1.4-setup.exe`；00:29 `plus10.svg` 替换旧 `plus20.svg`；00:43 出 `1.1.5-setup.exe`。
+- 00:45 `AUDIT_REPORT.md`（430 行）完成局域网专项审计：记录 1.1.5 追加的“手牌过多自适应”“+10 替换 +20”“+2/+4 叠加”“109 张牌库”四项改动，以及 14 项缺陷（P0-01 局域网下所有按钮静默失效、P1-02 退出房间被延迟状态拉回、P1-03 幽灵座位、P1-04 准备状态矛盾、P2-05 同账号接管卡死、P2-09 只输 IP 硬编码 3000 端口等）与对应修复文件清单。
+- 审计同时留下了诚实的边界：**真实第二台物理设备未验证**，WLAN 路径是“同机双浏览器上下文 + 实际网卡地址”。
+
+### 2026-10-19 09:16 – 11:15｜1.1.6 → 1.1.8：Android、主题、音效、容器化
+
+- 09:16 首个安卓包 `UNO-LAN-1.0.0-android-debug.apk`（安卓侧独立版本号）。
+- 09:28 `theme.ts` + `ThemeControl.tsx`：跟随系统 / 浅色 / 深色，手选结果存本机。
+- 09:47–09:57 出 `1.1.6` APK、setup、portable 三件套。
+- 09:48 新增 `Dockerfile`、`docker-compose.yml`（`uno-data` 命名卷持久化账号），铺开公网部署路径。
+- 10:03–10:04 `1.1.7` APK + setup + portable。
+- 11:15 `UNO-LAN-1.1.8-android-debug.apk`。
+
+### 2026-10-19 12:00 – 15:20｜首次上 Linux 服务器
+
+- 12:07 `deploy.tar.gz`、12:45 `deploy-latest.tar.gz`：`dist/client` + `dist/server/index.js` + 1.1.8 APK，供服务器更新。
+- 13:54 音效落地：`UNO kap/音效库/出牌.mp3` → `client/public/sounds/card-play.mp3`，前端用“静音预解锁”绕开浏览器自动播放限制。
+- 14:32 出 `1.1.8-setup.exe`（同时保留 `win-unpacked-backup-1.1.8`）。
+- 15:20 `deploy-title-layudown.tar.gz` 只有 `dist/client/index.html` 一个文件 —— 第一次出现 **LayUDown** 品牌痕迹，说明当时只改了网页标题就单独发包。
+
+### 2026-10-19 19:44 – 20:00｜部署传输兜底
+
+- 根目录出现 `uno-deploy-20261019.tar.gz`、`uno-client-only.tar.gz` 及其 `.b64` 版本（19:44–20:00）。这是把 tar.gz 再做 base64 编码以便粘贴上传的兜底手段，对应“服务器只提供网页终端”的受限场景。
+
+### 2026-10-19 21:57 – 22:34｜1.1.9：表情 + 一键部署
+
+- 21:57 `shared/protocol.ts` 增加 `send_emote` / `EmoteMessage`；21:58 `TableSeat.tsx`、22:02 `HandDock.tsx` 配合牌桌重构。
+- 22:00 `android-client/.../MainActivity.java` 扩到 17KB：输入主机 IP 后自动探测 80、3000–3011 端口。
+- 22:19 `1.1.9` APK；22:32 `1.1.9-setup.exe`。
+- 22:32 `scripts/deploy-1.1.9.sh`：root 执行，备份 `dist` → 解包 → 重启 `uno-game.service` → 健康检查 `/api/health` → 校验音效 200 → 打印新前端哈希；22:34 打包 `uno-deploy-1.1.9.tar.gz`。
+- 22:05 的 `debug.log` 记录了 Electron 音频管道告警（`sync_reader.cc` / `ASR: No room in socket buffer`），属于当时排查音效问题的现场残留。
+
+### 2026-10-20 09:33 – 10:49｜1.2.0：表情气泡与“关于我”素材
+
+- 09:33 `GameScreen.tsx` 增至 23KB：快发表情、气泡按 `data-seat-slot` 逐个座位定位、2.6 秒淡出、去重（`seenEmoteIdsRef`）+ 定时器复用。
+- 09:36 打出 `uno-emoji-position-1.2.0.tar.gz`（带音效目录）。
+- 09:51 / 09:55 / 10:35 依次放入 `support/wechat.jpg`、`support/alipay.jpg`、`profile/avatar.jpg`；10:46 `profileConfig.ts` 收口个人资料与收款码路径。
+
+### 2026-10-20 11:19 – 11:38｜1.2.1：网站门面与 Nginx
+
+- 11:19 `server/requestAddress.ts` + `tests/unit/requestAddress.test.ts`：从转发头还原真实客户端地址，防止远程伪造“仅主机可用”的局域网开关。
+- 11:19 `server/room.ts` 定型（37KB），`server/app.ts` 增加 `/join`、`/api/join-info`、`/downloads`。
+- 11:23 `deploy/nginx-uno-lobby.locations.conf`：80 端口反代到 3000，保留 WebSocket 升级头。
+- 11:34 `UNO-LAN-1.2.1-setup.exe`；11:38 `uno-web-1.2.1.tar.gz` + `README-1.2.1.md`（备份 / 部署 / 回滚 / 验收脚本）。更新说明记录：typecheck 通过、Vitest 13 文件 90 测试、E2E 8 测试全绿；未在本工作区执行远程部署。
+
+### 2026-10-20 13:09 – 13:20｜1.2.2：改名 LayUDown
+
+- 登录页、大厅主标题、游戏入口、浏览器标签统一为 LayUDown，版本角标 v1.2.2；UNO 玩法、房间、账号存储一律不动。
+- 13:20 `layudown-web-1.2.2.tar.gz`；`README-1.2.2.md` 给出带 `set -euo pipefail` 的整段粘贴脚本（预检文件 → 备份 `dist` → 解包 → 重启 → 健康检查 → 打印备份目录）和回滚脚本。
+
+### 2026-10-20 15:17 – 15:43｜1.2.3：/about 独立页
+
+- 15:17 `AuthScreen.tsx`、15:19 `AboutPage.tsx`：移除“在线联机卡牌游戏”副标题；“关于我”变成 `/about` 独立页面，微信与支付宝收款码在“向我投喂”下纵向排列，取消支付方式切换按钮与悬浮窗。
+- 15:43 `layudown-web-1.2.3.tar.gz`。
+
+### 2026-10-20 16:07 – 16:23｜1.2.4：双品牌收口
+
+- 16:07 `LobbyProfile.tsx` + `client/index.html`：**登录页显示 LayUDown，登录后大厅 / 游戏入口 / 浏览器标签恢复 UNO**，个人资料名仍为 LayUDown。
+- 16:16 `package.json` 升到 **1.2.4**，`tests/e2e/desktop.spec.ts` 同步版本断言。
+- 16:23 `layudown-web-1.2.4.tar.gz`，配套 `README-1.2.4.md`、`UPDATE-1.2.4.md`。
+
+### 2026-10-20 18:36 – 18:59｜1.2.4+：IP 直连重写（最新一轮）
+
+- 18:36 `styles.css`（43KB）、`ConnectHostPanel.tsx`、`Lobby.tsx`、`server/app.ts` 同时更新。
+- 18:38–18:39 新增 `tests/unit/connect-target.test.ts` 与 `client/src/connectTarget.ts`（8.5KB）：任意合法 IPv4 都接受，**不再按私有网段或 VPN 品牌推断可达性**；只给 IP 时并行探测 80、3000–3011，优先 WebSocket 成功者。
+- 18:40 `tests/integration/online.test.ts`（38KB）；18:53 `session.ts`、18:56 `tests/e2e/game.spec.ts`（31KB）。
+- 行为定稿：目标主机只有一个可加入房间时 `/join` 直接跳转；多个房间返回可选列表；无房间 / 已满 / 已开局 / 局域网关闭 / 网络不通都给出明确错误而不是白屏；HTTPS 页面允许直接跳转到私有 HTTP 主机（浏览器会拦截主动混合内容探测）。
+- 18:43–18:59 产出 `release/uno-lan-direct-package` 与 `-v2`（后者修正），最终 `uno-lan-direct-update.tar.gz`（406KB），并附 `MANIFEST.txt`、`DEPLOY.md`、`ROLLBACK.md`、`TEST_REPORT.md`。
+- `TEST_REPORT.md` 记录：typecheck 通过；单元 68、集成 25、E2E 8 全通过；`npm test` 合并运行时偶发在随机 `stacks two +2 cards` 场景超时，单独重跑 `test:integration` 25/25 通过（如实保留，未隐藏）。
+
+---
+
+## 三、贯穿始终的技术决策
+
+1. **服务器权威**：牌库、随机颜色、手牌归属、胜负全部在服务端判定；客户端只收“自己的手牌 + 公开数量”。
+2. **幂等与防重放**：每个操作带 `turnNumber` + `actionId`，过期请求被拒、重复请求返回同一结果。
+3. **安全上下文兜底**：局域网 HTTP 页面没有 `crypto.randomUUID` 与 `navigator.clipboard`，于是自建 `createActionId()` 与 `textarea + execCommand` 回退 —— 这是 P0-01 与 P2-08 的直接产物。
+4. **本地素材零热链**：牌面、牌背、+10、音效、头像、收款码全部本地静态资源。
+5. **诚实的交付边界**：README 与审计报告明确写“当前没有公网地址”“未完成真实双设备验收”“单实例内存房间，不支持水平扩容”。
+6. **部署即文档**：每个发版都配 `UPDATE-x.y.z.md` + `README-x.y.z.md` + 回滚脚本，回滚只动 `dist`，账号目录永不覆盖。
+
+---
+
+## 四、产物索引
+
+```text
+release/
+  UNO-LAN-1.1.1-portable.exe / -setup.exe      首个 Windows 双形态
+  UNO-LAN-1.1.2 ~ 1.1.9-setup.exe              逐版安装包（1.1.6/1.1.7/1.1.8/1.1.9 另有 portable）
+  UNO-LAN-1.0.0 / 1.1.6 ~ 1.1.9-android-debug.apk   Android 调试签名包（minSdk 24）
+  uno-emoji-position-1.2.0.tar.gz              1.2.0 网页包
+  UNO-LAN-1.2.1-setup.exe, uno-web-1.2.1.tar.gz
+  layudown-web-1.2.2 / 1.2.3 / 1.2.4.tar.gz    品牌迭代网页包
+  uno-lan-direct-package(-v2)/, uno-lan-direct-update.tar.gz   最新 IP 直连包
+  win-unpacked, win-unpacked-backup-1.1.8      解包验证目录
+deploy/
+  nginx-uno-lobby.locations.conf   UPDATE-1.2.x.md   README-1.2.x.md   uno-lan-direct/
+scripts/deploy-1.1.9.sh            服务器一键更新脚本
+AUDIT_REPORT.md                    1.1.5 局域网专项审计（430 行）
+README.md                          面向使用者的完整说明书（v1.2.4 状态）
+test-results/                      历次验收截图、`ui/` 前端快照、各轮 accounts 探针数据
+UNO kap/音效库/出牌.mp3             音效源文件暂存
+```
+
+---
+
+## 五、已知遗留（来自审计与测试报告，未经修饰）
+
+1. 真实第二台物理设备 / 真实手机触控验收始终未完成，局域网结论基于“同机双浏览器上下文 + 实际网卡地址”。
+2. Windows 防火墙不会自动放行 TCP 3000–3011，需用户手动处理。
+3. 服务器重启不保留房间与牌局（账号保留），房间状态只在内存中；不支持多实例扩容。
+4. 同一账号在两个设备上是“接管座位”而非第二个玩家，同时游玩必须两个账号。
+5. 局域网 HTTP 下密码明文传输，公网必须 HTTPS/WSS 反向代理。
+6. 面板只枚举 IPv4；反向代理场景下仍会生成 HTTP 地址。
+7. 合并运行 `npm test` 时随机 `+2` 叠加场景偶发超时（单测/集成单跑均通过）。
+8. 所有 EXE 无代码签名，SmartScreen 会提示“未知发布者”。

@@ -1,0 +1,48 @@
+# Dependencies / build output
+node_modules/
+dist/
+dist-electron/
+release/
+build/
+.gradle/
+.gradle-home/
+test-results/
+playwright-report/
+
+# Packaged / binary artifacts (large)
+*.exe
+*.dll
+*.apk
+*.aab
+*.asar
+*.pak
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.node
+*.dat
+
+# Large media
+*.mp3
+*.pdf
+
+# Logs, env, secrets, runtime data
+*.log
+.env
+.env.*
+!.env.example
+data/
+local.properties
+*.jks
+*.keystore
+
+# Editor / OS / tool state
+.claude/
+.DS_Store
+Thumbs.db
+
+# Packaged Electron test build
+Game/UNO/UNOGame/

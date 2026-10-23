@@ -1,0 +1,17 @@
+{
+  "name": "layudown-shogi",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Server-authoritative Japanese shogi engine and UI module for LayUDown",
+  "scripts": {
+    "test": "vitest run src/engine.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --outDir dist --declaration --target ES2022 --module ESNext --moduleResolution Bundler --strict --skipLibCheck src/engine.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}

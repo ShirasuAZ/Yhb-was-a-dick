@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@arknights/*": ["../../Arknights/ArknightsWorkSpace/src/client/*"],
+      "react": ["node_modules/@types/react"],
+      "react/*": ["node_modules/@types/react/*"],
+      "socket.io-client": ["node_modules/socket.io-client"],
+      "socket.io": ["node_modules/socket.io"],
+      "@shogi/engine": ["../../Hon shugi/Hon shugi WorkSpace/src/engine.ts"]
+    },
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": ["client/src", "server", "shared", "tests", "electron", "../../Arknights/ArknightsWorkSpace/src/client", "../../Arknights/ArknightsWorkSpace/src/server", "../../Arknights/ArknightsWorkSpace/src/shared", "../../Hon shugi/Hon shugi WorkSpace/src/engine.ts", "vite.config.ts", "vitest.config.ts", "playwright.config.ts"]
+}

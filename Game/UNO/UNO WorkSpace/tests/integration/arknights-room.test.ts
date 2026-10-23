@@ -1,0 +1,202 @@
+import { mkdtempSync, rmSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { io, type Socket } from "socket.io-client";
+import sharp from "sharp";
+import { createAppServer, type AppServer } from "../../server/app.ts";
+import type { ActionAck, ClientToServerEvents, ServerToClientEvents, UnionArenaRoomState } from "../../shared/protocol.ts";
+
+type UaSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
+let server: AppServer;
+let url: string;
+let dataDir: string;
+const clients: UaSocket[] = [];
+
+function connect(token: string): Promise<UaSocket> {
+  const socket = io(`${url}/arknights`, { auth: { token }, transports: ["websocket"], forceNew: true, reconnection: false });
+  clients.push(socket);
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error("Arknights socket timed out")), 5000);
+    socket.once("connect", () => { clearTimeout(timer); resolve(socket); });
+    socket.once("connect_error", (error) => { clearTimeout(timer); reject(error); });
+  });
+}
+
+function emitAck<T>(socket: UaSocket, event: keyof ClientToServerEvents, payload: unknown): Promise<ActionAck<T>> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error(`Ack timed out for ${String(event)}`)), 5000);
+    (socket as unknown as { emit: (name: string, body: unknown, ack: (result: ActionAck<T>) => void) => void })
+      .emit(event, payload, (result) => { clearTimeout(timer); resolve(result); });
+  });
+}
+
+function waitForState(socket: UaSocket, predicate: (state: UnionArenaRoomState) => boolean): Promise<UnionArenaRoomState> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => { socket.off("ua:state", onState); reject(new Error("Room state timed out")); }, 5000);
+    const onState = (state: UnionArenaRoomState): void => {
+      if (!predicate(state)) return;
+      clearTimeout(timer);
+      socket.off("ua:state", onState);
+      resolve(state);
+    };
+    socket.on("ua:state", onState);
+  });
+}
+
+beforeAll(async () => {
+  dataDir = mkdtempSync(path.join(os.tmpdir(), "layudown-arknights-"));
+  server = createAppServer({ dataDir });
+  url = `http://127.0.0.1:${await server.listen(0, "127.0.0.1")}`;
+});
+
+afterAll(async () => {
+  for (const client of clients) client.disconnect();
+  await server.close();
+  rmSync(dataDir, { recursive: true, force: true });
+});
+
+describe("Arknights UNION ARENA integration", () => {
+  it("serves the existing catalog and the battle map only", async () => {
+    const catalog = await fetch(`${url}/api/arknights/catalog`);
+    expect(catalog.status).toBe(200);
+    expect((await catalog.json()).cards).toHaveLength(254);
+    expect((await fetch(`${url}/assets/arknights/battle-map.png`)).status).toBe(200);
+    expect((await fetch(`${url}/assets/arknights/cards/UC01BT-ARK-1-001_%E7%B1%B3%E8%8E%8E_7011.png`)).status).toBe(200);
+    expect((await fetch(`${url}/assets/arknights/Map.png`)).status).toBe(404);
+  });
+
+  it("protects avatar uploads and stores validated, re-encoded images per account", async () => {
+    const account = server.auth.register(`Avatar_${Date.now().toString(36)}`, "Password123!", "avatar@example.test");
+    const bytes = await sharp({ create: { width: 2, height: 2, channels: 3, background: "#28735f" } }).png().toBuffer();
+    const unauthorized = await fetch(`${url}/api/profile/avatar`, { method: "PUT", headers: { "Content-Type": "application/octet-stream", "X-Image-Type": "image/png" }, body: bytes });
+    expect(unauthorized.status).toBe(401);
+
+    const rejected = await fetch(`${url}/api/profile/avatar`, { method: "PUT", headers: { Authorization: `Bearer ${account.token}`, "Content-Type": "application/octet-stream", "X-Image-Type": "image/png" }, body: Buffer.from("not an image") });
+    expect(rejected.status).toBe(400);
+    expect(server.auth.findAccount(account.account.id)?.avatarUrl).toBeNull();
+
+    const upload = (image: Buffer): Promise<Response> => fetch(`${url}/api/profile/avatar`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${account.token}`, "Content-Type": "application/octet-stream", "X-Image-Type": "image/png" },
+      body: new Uint8Array(image)
+    });
+    const firstResponse = await upload(bytes);
+    expect(firstResponse.status).toBe(200);
+    const first = await firstResponse.json() as { account: { avatarUrl: string } };
+    expect(first.account.avatarUrl).toContain(account.account.id);
+    const firstKey = server.auth.getAvatarKey(account.account.id)!;
+    const served = await fetch(`${url}${first.account.avatarUrl}`);
+    expect(served.status).toBe(200);
+    expect(served.headers.get("content-type")).toContain("image/webp");
+
+    const secondResponse = await upload(bytes);
+    expect(secondResponse.status).toBe(200);
+    expect(server.auth.getAvatarKey(account.account.id)).not.toBe(firstKey);
+    expect(await import("node:fs").then(({ existsSync }) => existsSync(path.join(dataDir, "avatars", firstKey)))).toBe(false);
+  });
+
+  it("lets the host start once both players have a legal deck and are ready, and keeps hidden cards hidden", async () => {
+    const alice = server.auth.register("ArkAlice", "Password123!");
+    const bob = server.auth.register("ArkBob", "Password123!");
+    const aliceSocket = await connect(alice.token);
+    const aliceNext = waitForState(aliceSocket, (state) => state.playerCount === 1);
+    const created = await emitAck<{ roomCode: string }>(aliceSocket, "ua:create_room", {});
+    expect(created.ok).toBe(true);
+    const firstState = await aliceNext;
+    expect(firstState.you.id).toBe(alice.account.id);
+    expect(firstState.life).toEqual({ you: [], opponent: [] });
+
+    const bobSocket = await connect(bob.token);
+    const aliceJoined = waitForState(aliceSocket, (state) => state.playerCount === 2);
+    const bobJoined = waitForState(bobSocket, (state) => state.playerCount === 2);
+    const joined = await emitAck<{ roomCode: string }>(bobSocket, "ua:join_room", { roomCode: created.data!.roomCode });
+    expect(joined.ok).toBe(true);
+    expect((await aliceJoined).players.map((player) => player.id)).toEqual([alice.account.id, bob.account.id]);
+    expect((await bobJoined).players.map((player) => player.seat)).toEqual([0, 1]);
+
+    const cards = (await (await fetch(`${url}/api/arknights/catalog`)).json()).cards as Array<{ id: string; number: string; imageAvailable: boolean }>;
+    const uniqueNumbers = [...new Map(cards.filter((card) => card.imageAvailable && card.number.startsWith("UC01BT/ARK-1-")).map((card) => [card.number, card])).values()].slice(0, 13);
+    const deck = uniqueNumbers.flatMap((card) => Array(4).fill(card.id)).slice(0, 50);
+    const ap = { cardIds: deck, apCount: 3 };
+
+    // An illegal deck (49 cards) is reported and cannot be readied.
+    const short = await emitAck<{ structuralOk: boolean; issues: string[] }>(bobSocket, "ua:submit_deck", { cardIds: deck.slice(0, 49), apCount: 3 });
+    expect(short.data?.structuralOk).toBe(false);
+    expect(short.data?.issues.some((issue) => issue.includes("49/50"))).toBe(true);
+    expect((await emitAck(bobSocket, "ua:ready", { ready: true })).code).toBe("DECK_INCOMPLETE");
+
+    // Nobody can start before both decks are in and both players are ready.
+    expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("DECKS_NOT_READY");
+    expect((await emitAck<{ structuralOk: boolean }>(aliceSocket, "ua:submit_deck", ap)).data?.structuralOk).toBe(true);
+    expect((await emitAck(aliceSocket, "ua:ready", { ready: true })).ok).toBe(true);
+    expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("DECKS_NOT_READY");
+
+    // Bob's legal deck and readiness: now only the host may start.
+    expect((await emitAck<{ structuralOk: boolean }>(bobSocket, "ua:submit_deck", ap)).data?.structuralOk).toBe(true);
+    expect((await emitAck(bobSocket, "ua:ready", { ready: true })).ok).toBe(true);
+    const bobStart = await emitAck(bobSocket, "ua:start_game", {});
+    expect(bobStart.ok).toBe(false);
+    expect(bobStart.code).toBe("HOST_ONLY");
+
+    const aliceStarted = waitForState(aliceSocket, (state) => state.phase === "playing");
+    const bobStarted = waitForState(bobSocket, (state) => state.phase === "playing");
+    expect((await emitAck(aliceSocket, "ua:start_game", {})).ok).toBe(true);
+    const aliceView = await aliceStarted;
+    const bobView = await bobStarted;
+    expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("GAME_ALREADY_STARTED");
+
+    // Opening: seven-card hands (only the owner sees them), a first player, and the mulligan decided in order, Player One first.
+    for (const [view, other] of [[aliceView, bobView], [bobView, aliceView]] as const) {
+      expect(view.hand).toHaveLength(7);
+      expect(view.game).toMatchObject({ step: "mulligan", handCount: { you: 7, opponent: 7 }, deckCount: { you: 43, opponent: 43 } });
+      expect(view.game?.firstPlayerId).toBe(other.game?.firstPlayerId);
+      expect(view.game?.mulliganPlayerId).toBe(view.game?.firstPlayerId);
+      expect(view.life).toEqual({ you: [], opponent: [] });
+    }
+    const bySeat = new Map([[alice.account.id, aliceSocket], [bob.account.id, bobSocket]]);
+    const firstId = aliceView.game!.firstPlayerId;
+    const secondId = firstId === alice.account.id ? bob.account.id : alice.account.id;
+    expect((await emitAck(bySeat.get(secondId)!, "ua:mulligan", { redraw: false })).code).toBe("NOT_YOUR_MULLIGAN");
+    expect((await emitAck(bySeat.get(firstId)!, "ua:mulligan", { redraw: true })).ok).toBe(true);
+    expect((await emitAck(bySeat.get(firstId)!, "ua:mulligan", { redraw: false })).code).toBe("NOT_YOUR_MULLIGAN");
+    const aliceReady = waitForState(aliceSocket, (state) => state.game?.step === "turn");
+    const bobReady = waitForState(bobSocket, (state) => state.game?.step === "turn");
+    expect((await emitAck(bySeat.get(secondId)!, "ua:mulligan", { redraw: false })).ok).toBe(true);
+    const aliceTurn = await aliceReady;
+    const bobTurn = await bobReady;
+
+    // Seven face-down life cards each, whose identity no client is ever sent, and Player One's first turn.
+    for (const [view, other] of [[aliceTurn, bobTurn], [bobTurn, aliceTurn]] as const) {
+      expect(view.life.you).toHaveLength(7);
+      expect(view.life.opponent).toHaveLength(7);
+      expect([...view.life.you, ...view.life.opponent].every((card) => card.cardId === null)).toBe(true);
+      expect(view.life.opponent.map((card) => card.id)).toEqual(other.life.you.map((card) => card.id));
+      expect(view.hand).toHaveLength(7);
+      expect(view.game).toMatchObject({ step: "turn", turn: 1, turnPlayerId: firstId, mulliganPlayerId: null, handCount: { you: 7, opponent: 7 }, deckCount: { you: 36, opponent: 36 } });
+    }
+
+    // A dropped connection resumes into exactly the same game state.
+    bobSocket.disconnect();
+    // The server resumes the seat while the connection is still being set up, so listen before connecting.
+    const bobBack: UaSocket = io(`${url}/arknights`, { auth: { token: bob.token }, transports: ["websocket"], forceNew: true, reconnection: false });
+    clients.push(bobBack);
+    const resumedState = waitForState(bobBack, (state) => state.phase === "playing" && state.players.every((player) => player.connected));
+    const resumed = await resumedState;
+    expect(resumed.hand).toEqual(bobTurn.hand);
+    expect(resumed.life).toEqual(bobTurn.life);
+    expect(resumed.game).toEqual(bobTurn.game);
+
+    // A third account cannot join a running game.
+    const carol = server.auth.register("ArkCarol", "Password123!");
+    const carolSocket = await connect(carol.token);
+    expect((await emitAck(carolSocket, "ua:join_room", { roomCode: created.data!.roomCode })).code).toBe("GAME_IN_PROGRESS");
+
+    // If a player leaves a running game, the other goes back to the lobby with the deck kept and readiness cleared.
+    const aliceAlone = waitForState(aliceSocket, (state) => state.phase === "lobby");
+    expect((await emitAck(bobBack, "ua:leave_room", {})).ok).toBe(true);
+    const lobby = await aliceAlone;
+    expect(lobby).toMatchObject({ phase: "lobby", game: null, hand: [], playerCount: 1, life: { you: [], opponent: [] } });
+    expect(lobby.you.ready).toBe(false);
+  });
+});
