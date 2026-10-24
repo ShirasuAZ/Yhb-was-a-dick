@@ -188,11 +188,11 @@ test("Arknights uses the dedicated battle map, shared account and authoritative 
   await page.getByRole("button", { name: "注册并登录", exact: true }).click();
   await page.waitForURL("/");
   await page.goto("/arknights-union-arena/");
-  // The game lobby comes first: player vs. player and the tutorial are open, vs. computer is listed but closed.
+  // The game lobby comes first: player vs. player, vs. computer and the tutorial.
   const modes = page.getByRole("main", { name: "选择游戏模式" });
   await expect(modes.getByRole("heading", { name: "玩家对战" })).toBeVisible();
-  await expect(modes.getByRole("heading", { name: /人机对战/ })).toBeVisible();
-  await expect(modes.locator("[data-mode='ai'] button")).toBeDisabled();
+  await expect(modes.getByRole("heading", { name: "人机对战" })).toBeVisible();
+  await expect(modes.locator("[data-mode='ai'] button")).toBeEnabled();
   await expect(modes.getByRole("button", { name: "开始教程" })).toBeEnabled();
   await modes.locator("[data-mode='pvp'] button").click();
   await page.waitForURL("**/arknights-union-arena/pvp");

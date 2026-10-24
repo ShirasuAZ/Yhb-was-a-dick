@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ActionAck, UnionArenaCardStats } from "../shared/protocol.ts";
 import type { EngineContext } from "../shared/engine.ts";
+import { cardContext } from "../shared/abilities/registry.ts";
 
 export interface Account { id: string; username: string; avatarUrl: string | null; }
 export interface CardRecord { id: string; number: string; name: string; rarity: string; file: string; sourceMaterialCode: string; parallelIds: string[]; imageAvailable: boolean; imageUrl: string | null; stats: UnionArenaCardStats | null; }
@@ -17,7 +18,7 @@ export function useCatalog(onError: (message: string) => void): { cards: CardRec
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const cardsById = useMemo(() => new Map(cards.map((card) => [card.id, card])), [cards]);
-  const ctx = useMemo<EngineContext>(() => ({ card: (cardId) => { const card = cardsById.get(cardId); return card?.stats ? { ...card.stats, name: card.name } : null; } }), [cardsById]);
+  const ctx = useMemo<EngineContext>(() => cardContext((cardId) => cardsById.get(cardId)), [cardsById]);
   return { cards, cardsById, ctx };
 }
 
@@ -53,6 +54,9 @@ export const ERROR_TEXT: Readonly<Record<string, string>> = {
   LINE_FULL: "这条线已有 4 张卡，请先选择 1 张置于移除区。",
   INVALID_LINE: "请选择前线或能量线。",
   SITE_ENERGY_LINE_ONLY: "场地卡只能放到能量线。",
+  ENERGY_LINE_ONLY: "这张卡无法在前线登场，只能放到能量线。",
+  MUST_ATTACK: "还有必须尽可能进行攻击的角色，现在不能结束攻击。",
+  EVENT_CONDITION: "现在不满足这张事件卡的使用条件。",
   USE_EVENT_INSTEAD: "事件卡请直接使用。",
   NOT_AN_EVENT: "这不是事件卡。",
   NO_RAID: "这张卡没有突进。",

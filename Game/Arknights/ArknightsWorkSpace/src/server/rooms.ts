@@ -11,10 +11,14 @@ import type {
   UnionArenaRoomState
 } from "../shared/protocol.ts";
 import { applyAction, beginFirstTurn, clearBoard, gameStateView, lifeView, newEngineGame, type EngineContext, type EngineGame, type EnginePlayer, type LifeSlot } from "../shared/engine.ts";
+import { estimateWinRate, loadWinRate, type WinRateWeightsJson } from "../shared/ai/winrate.ts";
+import winRateWeights from "../shared/ai/winrate-weights.json";
 import { checkUnionArenaDeck, type UnionArenaCardRecord } from "./types.ts";
+import { cardContext } from "../shared/abilities/registry.ts";
 
 const ROOM_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const RECONNECT_GRACE_MS = 30_000;
+const WIN_RATE = loadWinRate(winRateWeights as unknown as WinRateWeightsJson);
 /** Life cards per player, from the official playmat (seven numbered slots). */
 export const LIFE_COUNT = 7;
 /** Starting hand size (rule manual, "Preparing to Play" step 3). */
@@ -59,7 +63,7 @@ export class UnionArenaRoom {
 
   constructor(readonly code: string, private readonly catalog: UnionArenaCardRecord[], private readonly availableIds: Set<string>, private readonly auth: UnionArenaAuthProvider) {
     const byId = new Map(catalog.map((card) => [card.id, card]));
-    this.ctx = { card: (cardId) => { const card = byId.get(cardId); return card?.stats ? { ...card.stats, name: card.name } : null; } };
+    this.ctx = cardContext((cardId) => byId.get(cardId));
   }
 
   add(account: UnionArenaAccount, socket: UaSocket): Seat {
@@ -228,12 +232,18 @@ export class UnionArenaRoom {
       players,
       you: players.find((candidate) => candidate.id === player.id)!,
       life: { you: lifeView(player), opponent: lifeView(opponent) },
-      game: this.game ? gameStateView(this.game, player, opponent) : null,
+      game: this.game ? { ...gameStateView(this.game, player, opponent, this.ctx), winRate: this.winRateFor(player) } : null,
       hand: [...player.hand],
       playerCount: this.players.length,
       requiredPlayers: 2,
       startAllowed: this.readyForStart
     };
+  }
+
+  /** The player's own win chance, from what that player can see (never the opponent's hidden cards). */
+  private winRateFor(player: Seat): number | null {
+    if (!this.game) return null;
+    try { return estimateWinRate(WIN_RATE, this.game, this.players, this.ctx, player.accountId); } catch { return null; }
   }
 
   broadcast(): void {

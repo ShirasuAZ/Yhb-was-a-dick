@@ -1,0 +1,198 @@
+/**
+ * Training environment for rl/train.py, one Node process per worker. It runs a batch of games with the real rules engine and talks JSON
+ * lines over stdin/stdout. The learner ("L") plays one seat; the other seat ("O") is a computer player (heuristic easy/normal, or a frozen
+ * policy snapshot). Decisions with only one legal action, and all opponent moves, are played inside the worker, so Python only sees the
+ * learner's real choices.
+ *
+ * Commands (one JSON object per line):
+ *   {"cmd":"init","envs":8,"seed":1,"mix":{"easy":0.5,"normal":0.5,"policy":0}}  -> {"ok":true,"obs":...}
+ *   {"cmd":"step","actions":[i, ...]}                                              -> batch (see `batch`)
+ *   {"cmd":"mix","mix":{...}}  {"cmd":"policy","path":"weights.json"}              -> {"ok":true}
+ *   {"cmd":"eval","games":200,"path":"weights.json","opponent":"normal","seed":7}   -> {"ok":true,"winRate":0.61,...}
+ * Arrays go back as base64 Float32: observations (envs x OBSERVATION_SIZE), and the legal actions' features of every env one after another
+ * (sum(counts) x ACTION_FEATURES).
+ * Run it with the site's tsx from the UNO workspace (the card catalog is found from there).
+ */
+import { readFileSync } from "node:fs";
+import { createInterface } from "node:readline";
+import type { UnionArenaAction } from "../src/shared/protocol.ts";
+import { actingPlayerId, applyAction, type EngineContext } from "../src/shared/engine.ts";
+import { legalActions } from "../src/shared/ai/legal.ts";
+import { chooseHeuristic } from "../src/shared/ai/heuristic.ts";
+import { createMatch, makeRng, nextRandom, randomInt, wantsMulligan, type Match, type Rng } from "../src/shared/ai/match.ts";
+import { deckCards, PRESET_DECKS } from "../src/shared/ai/decks.ts";
+import { actionFeatures, ACTION_FEATURES, observe, OBSERVATION_SIZE } from "../src/shared/ai/features.ts";
+import { chooseByPolicy, loadPolicy, type Policy, type PolicyWeightsJson } from "../src/shared/ai/policy.ts";
+import { chooseBySearch } from "../src/shared/ai/search.ts";
+import { UNION_ARENA_CATALOG } from "../src/server/catalog.ts";
+import { cardContext } from "../src/shared/abilities/registry.ts";
+
+const MAX_ACTIONS = 96;
+const ACTION_LIMIT = 3000;
+const SHAPING = 0.05;
+const LEARNER = "L";
+const OPPONENT = "O";
+
+const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
+const ctx: EngineContext = cardContext((id) => byId.get(id));
+
+type OpponentKind = "easy" | "normal" | "policy" | "hard";
+interface Env { match: Match; opponent: OpponentKind; actions: UnionArenaAction[]; steps: number; lifeMine: number; lifeTheirs: number; }
+
+let rng: Rng = makeRng(1);
+let envs: Env[] = [];
+let mix: Record<OpponentKind, number> = { easy: 0.5, normal: 0.5, policy: 0, hard: 0 };
+let opponentPolicy: Policy | null = null;
+const results = { wins: 0, losses: 0, draws: 0, truncated: 0 };
+
+function pickOpponent(): OpponentKind {
+  const entries = (Object.entries(mix) as Array<[OpponentKind, number]>).filter(([kind, weight]) => weight > 0 && (kind !== "policy" || opponentPolicy));
+  const total = entries.reduce((sum, [, weight]) => sum + weight, 0);
+  let roll = nextRandom(rng) * total;
+  for (const [kind, weight] of entries) { roll -= weight; if (roll <= 0) return kind; }
+  return entries[0]?.[0] ?? "normal";
+}
+
+function newMatch(seed: number): Match {
+  const decks = [PRESET_DECKS[randomInt(rng, PRESET_DECKS.length)]!, PRESET_DECKS[randomInt(rng, PRESET_DECKS.length)]!];
+  return createMatch([{ id: LEARNER, name: "learner", deck: deckCards(decks[0]!) }, { id: OPPONENT, name: "opponent", deck: deckCards(decks[1]!) }], seed, { mulligan: (player) => wantsMulligan(ctx, player.hand) });
+}
+
+function opponentMove(env: Env): UnionArenaAction {
+  const { match } = env;
+  if (env.opponent === "policy" && opponentPolicy) return chooseByPolicy(opponentPolicy, match.game, match.players, ctx, OPPONENT)!;
+  if (env.opponent === "hard") return chooseBySearch(match, ctx, OPPONENT, { budgetMs: 50, maxRollouts: 8, maxActions: 6 }, randomInt(rng, 2 ** 31))!;
+  return chooseHeuristic(match, ctx, OPPONENT, env.opponent === "easy" ? "easy" : "normal", rng)!;
+}
+
+const lifeOf = (match: Match, id: string): number => match.players.find((player) => player.accountId === id)!.life.length;
+
+/** Plays forced moves and the opponent's moves until the learner has a real choice or the game ends. */
+function advance(env: Env): void {
+  const { match } = env;
+  while (match.game.step === "turn" && env.steps < ACTION_LIMIT) {
+    const actor = actingPlayerId(match.game)!;
+    if (actor === OPPONENT) { applyAction(match.game, match.players, ctx, actor, opponentMove(env)); env.steps += 1; continue; }
+    const actions = legalActions(match.game, match.players, ctx, actor);
+    if (actions.length === 1) { applyAction(match.game, match.players, ctx, actor, actions[0]!); env.steps += 1; continue; }
+    env.actions = actions.slice(0, MAX_ACTIONS);
+    if (actions.length > MAX_ACTIONS) results.truncated += 1;
+    return;
+  }
+  env.actions = [];
+}
+
+function startEnv(): Env {
+  const env: Env = { match: newMatch(randomInt(rng, 2 ** 31)), opponent: pickOpponent(), actions: [], steps: 0, lifeMine: 7, lifeTheirs: 7 };
+  advance(env);
+  if (env.match.game.step !== "turn") return startEnv();
+  return env;
+}
+
+function encode(values: Float32Array): string { return Buffer.from(values.buffer, values.byteOffset, values.byteLength).toString("base64"); }
+
+function batch(rewards: number[], dones: number[], outcomes: number[]): string {
+  const observations = new Float32Array(envs.length * OBSERVATION_SIZE);
+  const counts = envs.map((env) => env.actions.length);
+  // Only the real actions are sent, env after env: Python splits them with `counts`.
+  const features = new Float32Array(counts.reduce((sum, count) => sum + count, 0) * ACTION_FEATURES);
+  let row = 0;
+  envs.forEach((env, index) => {
+    const { game, players } = env.match;
+    observations.set(observe(game, players, ctx, LEARNER), index * OBSERVATION_SIZE);
+    for (const action of env.actions) { features.set(actionFeatures(game, players, ctx, LEARNER, action), row * ACTION_FEATURES); row += 1; }
+  });
+  return JSON.stringify({ ok: true, obs: encode(observations), feats: encode(features), counts, rewards, dones, outcomes, opponents: envs.map((env) => env.opponent) });
+}
+
+function step(choices: number[]): string {
+  const rewards: number[] = [];
+  const dones: number[] = [];
+  const outcomes: number[] = [];
+  envs = envs.map((env, index) => {
+    const action = env.actions[Math.min(Math.max(choices[index] ?? 0, 0), env.actions.length - 1)]!;
+    applyAction(env.match.game, env.match.players, ctx, LEARNER, action);
+    env.steps += 1;
+    advance(env);
+    const mine = lifeOf(env.match, LEARNER);
+    const theirs = lifeOf(env.match, OPPONENT);
+    let reward = SHAPING * ((env.lifeTheirs - theirs) - (env.lifeMine - mine));
+    env.lifeMine = mine;
+    env.lifeTheirs = theirs;
+    if (env.match.game.step === "turn" && env.steps < ACTION_LIMIT) { rewards.push(reward); dones.push(0); outcomes.push(0); return env; }
+    const winner = env.match.game.winnerId;
+    const outcome = winner === LEARNER ? 1 : winner === OPPONENT ? -1 : 0;
+    reward += outcome;
+    if (outcome > 0) results.wins += 1; else if (outcome < 0) results.losses += 1; else results.draws += 1;
+    rewards.push(reward); dones.push(1); outcomes.push(outcome);
+    return startEnv();
+  });
+  return batch(rewards, dones, outcomes);
+}
+
+/** Greedy policy against a computer player, alternating decks and seats. */
+function evaluate(games: number, path: string, opponent: OpponentKind, seed: number): string {
+  const policy = loadPolicy(JSON.parse(readFileSync(path, "utf8")) as PolicyWeightsJson);
+  const evalRng = makeRng(seed);
+  let wins = 0;
+  let firstWins = 0;
+  let firstGames = 0;
+  for (let game = 0; game < games; game += 1) {
+    const decks = [PRESET_DECKS[game % PRESET_DECKS.length]!, PRESET_DECKS[Math.floor(game / 2) % PRESET_DECKS.length]!];
+    const match = createMatch([{ id: LEARNER, name: "learner", deck: deckCards(decks[0]!) }, { id: OPPONENT, name: "opponent", deck: deckCards(decks[1]!) }], seed * 7919 + game, { first: (game % 2) as 0 | 1, mulligan: (player) => wantsMulligan(ctx, player.hand) });
+    let steps = 0;
+    while (match.game.step === "turn" && steps < ACTION_LIMIT) {
+      const actor = actingPlayerId(match.game)!;
+      const action = actor === LEARNER ? chooseByPolicy(policy, match.game, match.players, ctx, actor)!
+        : opponent === "hard" ? chooseBySearch(match, ctx, actor, { budgetMs: 1e9, maxRollouts: 24, maxActions: 8 }, randomInt(evalRng, 2 ** 31))!
+        : chooseHeuristic(match, ctx, actor, opponent === "easy" ? "easy" : "normal", evalRng)!;
+      applyAction(match.game, match.players, ctx, actor, action);
+      steps += 1;
+    }
+    if (match.game.winnerId === LEARNER) { wins += 1; if (match.game.firstPlayerId === LEARNER) firstWins += 1; }
+    if (match.game.firstPlayerId === LEARNER) firstGames += 1;
+  }
+  return JSON.stringify({ ok: true, winRate: wins / games, wins, games, firstWinRate: firstWins / Math.max(1, firstGames) });
+}
+
+const lines = createInterface({ input: process.stdin });
+lines.on("line", (line) => {
+  let reply: string;
+  try {
+    const message = JSON.parse(line) as { cmd: string; envs?: number; seed?: number; mix?: Record<OpponentKind, number>; actions?: number[]; path?: string; games?: number; opponent?: OpponentKind };
+    switch (message.cmd) {
+      case "init":
+        rng = makeRng(message.seed ?? 1);
+        if (message.mix) mix = { ...mix, ...message.mix };
+        envs = Array.from({ length: message.envs ?? 8 }, () => startEnv());
+        reply = batch(envs.map(() => 0), envs.map(() => 0), envs.map(() => 0));
+        break;
+      case "step":
+        reply = step(message.actions ?? []);
+        break;
+      case "mix":
+        mix = { ...mix, ...message.mix };
+        reply = JSON.stringify({ ok: true });
+        break;
+      case "policy":
+        opponentPolicy = loadPolicy(JSON.parse(readFileSync(message.path!, "utf8")) as PolicyWeightsJson);
+        reply = JSON.stringify({ ok: true });
+        break;
+      case "stats":
+        reply = JSON.stringify({ ok: true, ...results });
+        results.wins = 0; results.losses = 0; results.draws = 0; results.truncated = 0;
+        break;
+      case "eval":
+        reply = evaluate(message.games ?? 200, message.path!, message.opponent ?? "normal", message.seed ?? 7);
+        break;
+      case "sizes":
+        reply = JSON.stringify({ ok: true, observation: OBSERVATION_SIZE, action: ACTION_FEATURES, maxActions: MAX_ACTIONS });
+        break;
+      default:
+        reply = JSON.stringify({ ok: false, error: `unknown command ${message.cmd}` });
+    }
+  } catch (error) {
+    reply = JSON.stringify({ ok: false, error: error instanceof Error ? `${error.message}\n${error.stack}` : String(error) });
+  }
+  process.stdout.write(`${reply}\n`);
+});

@@ -154,12 +154,13 @@ const field = (s: TutorialSetup, cardId: string) => [...s.me.front, ...s.me.ener
 const myTurnStart = (turn: number) => (s: TutorialSetup): boolean => s.game.turn === turn && s.game.turnPlayerId === s.me.accountId && s.game.phase === "start";
 const myPending = (kind: string) => (s: TutorialSetup): boolean => s.game.pending?.kind === kind && s.game.pending.playerId === s.me.accountId;
 const settled = (s: TutorialSetup): boolean => s.game.pending === null;
-/** Attacks with any of your active front characters, and the damage picks after them. */
+/** Attacks with any of your active front characters, the damage picks after them, and answers to card abilities on the way. */
 const isAttackOrDamage = (action: UnionArenaAction, s: TutorialSetup): boolean =>
-  (action.type === "attack" && !action.targetUid && s.me.front.some((card) => card.uid === action.attackerUid)) || action.type === "damage";
+  (action.type === "attack" && !action.targetUid && s.me.front.some((card) => card.uid === action.attackerUid)) || action.type === "damage" || action.type === "choose";
 const nextAttackOrDamage = (s: TutorialSetup): UnionArenaAction => {
   const pending = s.game.pending;
   if (pending?.kind === "damage") return { type: "damage", lifeIds: s.test.life.slice(0, pending.amount).map((slot) => slot.id) };
+  if (pending?.kind === "choose") return { type: "choose", picks: pending.purpose === "confirm" ? ["no"] : pending.options.slice(0, pending.min) };
   const attacker = s.me.front.find((card) => !card.rested)!;
   return { type: "attack", attackerUid: attacker.uid };
 };
@@ -227,16 +228,16 @@ export const TUTORIAL_STEPS: readonly TutorialStep[] = [
     text: "把带《伤害2》的『陈』登场到前线：需要 4 点红色能量、2 AP。《伤害2》的角色攻击未被阻挡时造成 2 点伤害。新登场的卡是休息状态，下回合才能攻击。" },
   { expect: isNext, demo: next, text: "点击『进入攻击阶段』。" },
   { expect: isAttackOrDamage, demo: nextAttackOrDamage, until: (s) => s.test.life.length === 4 && settled(s), highlight: `${SELF} .ua-z-front`,
-    text: "用前线的『陈』和『能天使』各攻击一次。test 选择不阻挡，每次攻击后点击 test 的 1 张生命卡并确认。" },
+    text: "用前线的『陈』和『能天使』各攻击一次。test 选择不阻挡，每次攻击后点击 test 的 1 张生命卡并确认。『能天使』攻击结束时，它的卡面能力会问你是否发动（可以让它再次转为活跃），这里选『否』即可。" },
   { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), text: "test 还剩 4 张生命。点击『结束回合』。" },
   { until: myTurnStart(9), text: "test 的回合……" },
   { expect: (action) => action.type === "extra_draw", demo: () => ({ type: "extra_draw" }), text: "第 9 回合。试试额外抽卡：点击『额外抽卡（1 AP）』。每回合只能用 1 次。" },
   { expect: isNext, demo: next, until: (s) => s.game.phase === "main", text: "点击『进入移动阶段』，再点『不移动，进入主要阶段』。" },
-  { expect: (action, s) => action.type === "event" && s.me.hand[action.handIndex] === C.barrage, demo: (s) => ({ type: "event", handIndex: handIndex(s, C.barrage) }), highlight: ".ua-handstrip",
-    text: "使用事件『弹幕！』：点击手牌中的它，选择『使用事件』（所需能量 3，1 AP）。事件用完后进入场外。" },
-  { expect: (action, s) => action.type === "manual" && action.manual.op === "field" && action.manual.owner === "opponent" && action.manual.act === "sideline" && s.test.front.some((card) => card.uid === (action.manual as { uid: string }).uid && card.cardId === C.kingslayer),
-    demo: (s) => ({ type: "manual", manual: { op: "field", owner: "opponent", uid: s.test.front.find((card) => card.cardId === C.kingslayer)!.uid, act: "sideline" } }), highlight: `${OPP} .ua-z-front`,
-    text: "事件的效果印在卡面上：『选择对方前线中 1 张 BP 不高于 2000 的角色退场』。卡面能力用放大图里的『卡牌效果』手动结算：点击 test 前线的『弑君者』，展开『卡牌效果』，点击『退场』。" },
+  { expect: (action, s) => action.type === "event" && s.me.hand[action.handIndex] === C.barrage, demo: (s) => ({ type: "event", handIndex: handIndex(s, C.barrage) }), until: myPending("choose"), highlight: ".ua-handstrip",
+    text: "使用事件『弹幕！』：点击手牌中的它，选择『使用事件』（所需能量 3，1 AP）。事件结算后进入场外。" },
+  { expect: (action, s) => action.type === "choose" && action.picks.length === 1 && s.test.front.some((card) => card.uid === action.picks[0] && card.cardId === C.kingslayer),
+    demo: (s) => ({ type: "choose", picks: [s.test.front.find((card) => card.cardId === C.kingslayer)!.uid] }), highlight: `${OPP} .ua-z-front`,
+    text: "卡面效果由游戏自动结算：『选择对方前线中 1 张 BP 不高于 2000 的角色退场；我方每有 1 张原本 BP 为 2500 的角色，范围 +1000』。点击 test 前线高亮的『弑君者』。（还没有自动化的卡，可以在放大图的「卡牌效果」里手动结算。）" },
   { expect: isPlay(C.hoshiguma, "front"), demo: play(C.hoshiguma, "front"), highlight: ".ua-handstrip", text: "把『星熊』登场到前线。它有《2次阻挡》：每回合第一次阻挡后会转回活跃，可以再挡一次。" },
   { expect: isNext, demo: next, text: "点击『进入攻击阶段』。" },
   { expect: isAttackOrDamage, demo: nextAttackOrDamage, until: (s) => s.game.step === "over", highlight: `${OPP} .ua-z-life`,
