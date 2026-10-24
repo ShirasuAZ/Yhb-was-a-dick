@@ -52,13 +52,14 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const [moveSel, setMoveSel] = useState<{ toFront: string[]; toEnergy: string[]; remove: string[] }>({ toFront: [], toEnergy: [], remove: [] });
   const [lifePicked, setLifePicked] = useState<string[]>([]);
   const [keepPicked, setKeepPicked] = useState<number[]>([]);
+  const [choicePicked, setChoicePicked] = useState<string[]>([]);
   const [triggerFocus, setTriggerFocus] = useState<string | null>(null);
   const [view, setView] = useState<{ group: CardGroup; index: number } | null>(null);
   const originRef = useRef<HTMLElement | null>(null);
 
   // Every new decision starts clean.
-  const pendingKey = `${game?.turn}:${game?.phase}:${pending?.kind}:${pending?.playerId}:${pending?.kind === "triggers" ? pending.revealed.length : ""}`;
-  useEffect(() => { setAsk(null); setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setLifePicked([]); setKeepPicked([]); setTriggerFocus(null); }, [pendingKey]);
+  const pendingKey = `${game?.turn}:${game?.phase}:${pending?.kind}:${pending?.playerId}:${pending?.kind === "triggers" ? pending.revealed.length : ""}:${pending?.kind === "choose" ? `${pending.prompt}|${pending.options.join(",")}` : ""}`;
+  useEffect(() => { setAsk(null); setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setLifePicked([]); setKeepPicked([]); setChoicePicked([]); setTriggerFocus(null); }, [pendingKey]);
   useEffect(() => { if (notice) { const timer = window.setTimeout(() => setNotice(""), 4000); return () => window.clearTimeout(timer); } return undefined; }, [notice]);
 
   const run = async (action: UnionArenaAction): Promise<boolean> => {
@@ -187,14 +188,28 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     void run({ type: "trigger", lifeId, activate: true });
   };
 
+  // ---- A card ability's choice: field cards and hand cards are picked on the table, other options with buttons. ----
+  const myChoice = myPending?.kind === "choose" ? myPending : null;
+  // Hand cards ("h:<index>") and field cards (their uid) are on the table; looked-at cards, sideline cards, AP cards, modes and lines are buttons.
+  const onBoard = (option: string): boolean => option.startsWith("h:") || findField(option) !== null;
+  const optionKey = (option: string): string => (option.startsWith("h:") ? option : cardKey.field(option));
+  const choiceKeys = myChoice ? myChoice.options.filter(onBoard).map(optionKey) : [];
+  const pickOption = (option: string): void => {
+    if (!myChoice) return;
+    if (myChoice.max === 1 && myChoice.min === 1) { void run({ type: "choose", picks: [option] }); return; }
+    setChoicePicked(choicePicked.includes(option) ? choicePicked.filter((entry) => entry !== option) : choicePicked.length < myChoice.max ? [...choicePicked, option] : choicePicked);
+  };
+
   // ---- What the table highlights and what a click does. ----
   const candidates: string[] = ask ? ask.keys
+    : myChoice ? choiceKeys
     : moving ? moveCandidates()
     : myPending?.kind === "block" ? blockKeys
     : myPending?.kind === "damage" ? damageKeys
     : myPending?.kind === "discard" ? keepKeys
     : [];
-  const selected: string[] = moving ? [...moveSel.toFront, ...moveSel.toEnergy, ...moveSel.remove].map(cardKey.field)
+  const selected: string[] = myChoice ? choicePicked.filter(onBoard).map(optionKey)
+    : moving ? [...moveSel.toFront, ...moveSel.toEnergy, ...moveSel.remove].map(cardKey.field)
     : myPending?.kind === "damage" ? lifePicked.map(cardKey.life)
     : myPending?.kind === "discard" ? keepPicked.map(cardKey.hand)
     : [];
@@ -228,6 +243,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       else openCard(key, element);
       return;
     }
+    if (myChoice && choiceKeys.includes(key)) { pickOption(key.startsWith("f:") ? uidOf(key) : key); return; }
     if (moving && candidates.includes(key) && key.startsWith("f:")) { toggleMove(uidOf(key)); return; }
     if (myPending?.kind === "block" && blockKeys.includes(key)) { void run({ type: "block", blockerUid: uidOf(key) }); return; }
     if (myPending?.kind === "damage" && damageKeys.includes(key)) {
@@ -279,8 +295,12 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     const key = viewKey();
     const field = key?.startsWith("f:") ? findField(uidOf(key)) : null;
     const parts: ReactNode[] = [];
+    if (!info) parts.push(<p key="missing" className="ua-lb-warn">缺少这张卡的卡面数据，无法使用。服务器需要带上 Cards/cards.json（重新构建并部署服务端）。</p>);
     if (info) {
       const bp = field && info.type === "character" ? bpOf(ctx, field.card) : info.bp;
+      const textLines = info.abilityText.split("\n").map((line) => line.trim()).filter(Boolean);
+      const hasOwnText = textLines.some((line) => !/^《[^》]+》（[^）]*）$/.test(line));
+      if (hasOwnText) parts.push(<p key="auto" className={ctx.card(viewCard.id)?.abilities ? "ua-lb-auto" : "ua-lb-manual"}>{ctx.card(viewCard.id)?.abilities ? "卡面能力由引擎自动结算。" : "卡面能力需要用下方「卡牌效果」手动结算。"}</p>);
       parts.push(<p key="info" className="ua-lb-info"><strong>{viewCard.name}</strong> · {TYPE_NAME[info.type]} · 需要{COLOR_NAME[info.color] ?? info.color}能量 {info.energyCost} · AP {info.apCost}{bp !== null ? ` · BP ${bp}` : ""}{field ? ` · ${field.card.rested ? "休息" : "活跃"}` : ""}{info.trigger ? ` · 触发【${info.trigger.label}】` : ""}</p>);
     }
     const buttons: ReactNode[] = [];
@@ -288,7 +308,8 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       const handIndex = viewIndex;
       const energy = mine ? energyOf(ctx, mine, info.color) : 0;
       const activeAp = mine?.ap.filter((card) => !card.rested).length ?? 0;
-      const short = energy < info.energyCost ? `能量不足（需要${COLOR_NAME[info.color] ?? info.color} ${info.energyCost}，当前 ${energy}）` : activeAp < info.apCost ? `AP 不足（需要 ${info.apCost}，活跃 ${activeAp}）` : "";
+      const cost = game.handCosts?.[handIndex] ?? { energy: info.energyCost, ap: info.apCost };
+      const short = energy < cost.energy ? `能量不足（需要${COLOR_NAME[info.color] ?? info.color} ${cost.energy}，当前 ${energy}）` : activeAp < cost.ap ? `AP 不足（需要 ${cost.ap}，活跃 ${activeAp}）` : "";
       if (game.phase === "main") {
         if (info.type === "character") {
           buttons.push(<button key="front" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "front")}>登场到前线</button>);
@@ -302,6 +323,10 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     if (field && field.owner === "you" && free && game.phase === "attack" && field.line === "front" && !field.card.rested && info?.type === "character" && !ask) {
       buttons.push(<button key="attack" type="button" className="ua-primary" disabled={busy} onClick={() => startAttack(field.card.uid, false)}>攻击 {opponentName}</button>);
       if (hasKeyword(ctx, field.card, "瞄准攻击")) buttons.push(<button key="snipe" type="button" className="ua-secondary" disabled={busy} onClick={() => startAttack(field.card.uid, true)}>瞄准攻击角色…</button>);
+    }
+    if (field && field.owner === "you" && free && game.phase === "main" && !ask) {
+      const activated = (ctx.card(field.card.cardId)?.abilities ?? []).map((ability, index) => ({ ability, index })).filter((entry) => entry.ability.kind === "activated");
+      for (const { index } of activated) buttons.push(<button key={`activate-${index}`} type="button" className="ua-primary" disabled={busy} onClick={() => { closeView(); void run({ type: "activate", uid: field.card.uid, ability: index }); }}>发动【启动主要】{activated.length > 1 ? ` ${activated.findIndex((entry) => entry.index === index) + 1}` : ""}</button>);
     }
     if (buttons.length) parts.push(<div key="buttons" className="ua-lb-buttons">{buttons}</div>);
     // Manual operations for printed abilities; the opponent sees each one in the log.
@@ -351,7 +376,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     if (game.step === "over") return { text: `对局结束：${game.winnerId === meId ? "你获胜了！" : `${nameOf(game.winnerId)} 获胜`}${game.endReason ? `（${game.endReason}）` : ""}`, buttons: overButton ? [button(overButton.label, overButton.run, true)] : [] };
     if (ask) return { text: ask.prompt, buttons: (ask.options ?? []).map((option, index) => button(option.label, option.run, index === 0 && option.label !== "取消")) };
     if (pending && !myPending) {
-      const waiting = { block: "选择是否阻挡", damage: "选择你的生命卡", triggers: "确认触发", discard: "选择保留的手牌" }[pending.kind];
+      const waiting = { block: "选择是否阻挡", damage: "选择你的生命卡", triggers: "确认触发", discard: "选择保留的手牌", choose: "结算卡牌能力" }[pending.kind];
       return { text: `等待 ${nameOf(pending.playerId)} ${waiting}…`, buttons: [] };
     }
     if (myPending?.kind === "block") {
@@ -372,6 +397,25 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       const chooser = revealed.length > 1 ? revealed.map((slot) => button(`${slot.id === focusedLife.id ? "▶ " : ""}${cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}`, () => setTriggerFocus(slot.id))) : [];
       if (!card?.trigger) return { text: `翻开的生命卡「${card?.name ?? "卡牌"}」没有触发，将置于场外。`, buttons: [...chooser, button("确认", () => resolveTrigger(false), true)] };
       return { text: `翻开的生命卡「${card.name}」有触发【${card.trigger.label}】：${card.trigger.text} 是否发动？`, buttons: [...chooser, button("发动", () => resolveTrigger(true), true), button("不发动", () => resolveTrigger(false))] };
+    }
+    if (myChoice) {
+      const nameAt = (index: number): string => (myChoice.cards[index] ? cardsById.get(myChoice.cards[index]!)?.name ?? "卡牌" : "卡牌");
+      if (myChoice.purpose === "confirm") return { text: myChoice.prompt, buttons: [button("是", () => void run({ type: "choose", picks: ["yes"] }), true), button("否", () => void run({ type: "choose", picks: ["no"] }))] };
+      if (myChoice.purpose === "order") return { text: myChoice.prompt, buttons: myChoice.options.map((option, index) => button(`先结算「${nameAt(index)}」`, () => void run({ type: "choose", picks: [option] }), index === 0)) };
+      const offBoard = myChoice.options.map((option, index) => ({ option, index })).filter((entry) => !onBoard(entry.option));
+      const range = myChoice.min === myChoice.max ? `选 ${myChoice.min} 张` : `可选 ${myChoice.min}–${myChoice.max} 张`;
+      return {
+        text: `${myChoice.prompt}（${choiceKeys.length ? "点击高亮的卡牌，" : ""}${range}，已选 ${choicePicked.length}）`,
+        buttons: [
+          ...offBoard.map(({ option, index }) => {
+            const picked = choicePicked.indexOf(option);
+            const mark = picked < 0 ? "" : myChoice.ordered ? `${picked + 1}. ` : "✓ ";
+            return <button key={`option-${option}`} type="button" className="ua-secondary" aria-pressed={picked >= 0} disabled={busy} onClick={() => pickOption(option)}>{mark}{myChoice.labels?.[index] || nameAt(index)}</button>;
+          }),
+          button("确定", () => void run({ type: "choose", picks: choicePicked }), true, choicePicked.length < myChoice.min || choicePicked.length > myChoice.max),
+          ...(myChoice.min === 0 ? [button("不选择", () => void run({ type: "choose", picks: [] }))] : [])
+        ]
+      };
     }
     if (myPending?.kind === "discard") return { text: `手牌超过 8 张：点击手牌，选择要保留的 8 张（已选 ${keepPicked.length}），其余置于移除区`, buttons: [button("确认保留", () => void run({ type: "discard", keep: keepPicked }), true, keepPicked.length !== 8)] };
     if (!myTurn) return { text: `${nameOf(game.turnPlayerId)} 的回合 · ${game.phase ? PHASE_NAME[game.phase] : ""}`, buttons: [] };
@@ -402,12 +446,19 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       <button type="button" className="ua-secondary" disabled={busy} onClick={() => { if (window.confirm("确定认输吗？")) void run({ type: "concede" }); }}>认输</button>
     </div>
   </details> : null;
+  // The player's own win chance (estimated by a network from what this player can see): a small unlabelled ring, filled clockwise from the top.
+  const winRate = playing && typeof game?.winRate === "number" ? game.winRate : null;
+  const RING = 2 * Math.PI * 7;
+  const winRateRing = winRate === null ? null : <svg className="ua-winring" viewBox="0 0 20 20" aria-hidden="true">
+    <circle cx="10" cy="10" r="7" />
+    <circle cx="10" cy="10" r="7" strokeDasharray={`${winRate * RING} ${RING}`} />
+  </svg>;
   const actionBar = game ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
     <div className="ua-actionbar-text">
       <p className="ua-actionbar-prompt" aria-live="polite">{barState.text}</p>
       {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : lastLog ? <p className="ua-actionbar-log" title={lastLog}>{lastLog}</p> : null}
     </div>
-    <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}</div>
+    <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}{winRateRing}</div>
   </div> : null;
 
   // ---- Hands. ----
