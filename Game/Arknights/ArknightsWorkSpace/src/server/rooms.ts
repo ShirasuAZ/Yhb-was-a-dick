@@ -308,9 +308,13 @@ export class UnionArenaRoomManager {
     return account;
   }
 
-  private respond<T>(ack: (result: ActionAck<T>) => void, action: () => T): void {
-    try { ack({ ok: true, data: action() }); }
-    catch (error) { ack({ ok: false, code: error instanceof Error ? error.message : "UNKNOWN_ERROR", message: error instanceof Error ? error.message : "操作失败" }); }
+  // `ack` comes straight from the client; a socket.io emit without a callback leaves it undefined.
+  // Calling it unguarded throws inside the event handler and takes the whole process down.
+  private respond<T>(ack: ((result: ActionAck<T>) => void) | undefined, action: () => T): void {
+    let result: ActionAck<T>;
+    try { result = { ok: true, data: action() }; }
+    catch (error) { result = { ok: false, code: error instanceof Error ? error.message : "UNKNOWN_ERROR", message: error instanceof Error ? error.message : "操作失败" }; }
+    if (typeof ack === "function") ack(result);
   }
 
   private handleConnection(socket: UaSocket): void {

@@ -291,9 +291,14 @@ test("Arknights tutorial: fixed cards, step-by-step guidance, and a card lightbo
   await expect(page.locator(".ua-handstrip button").first()).toHaveAttribute("aria-label", "手牌 1：陈");
   await page.getByRole("button", { name: "进入移动阶段" }).click();
   await page.getByRole("button", { name: "不移动，进入主要阶段" }).click();
-  // Lightbox: "<" and ">" browse the hand in order, wrapping around.
-  await page.locator(".ua-handstrip button").first().click();
+  // A long press opens the lightbox (a right click does too): "<" and ">" browse the hand in order, wrapping around.
+  const firstCard = page.locator(".ua-handstrip button").first();
+  const box = (await firstCard.boundingBox())!;
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
   const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await page.mouse.up();
   await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 1 / 7");
   await dialog.getByRole("button", { name: "下一张" }).click();
   await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 2 / 7");
@@ -301,11 +306,22 @@ test("Arknights tutorial: fixed cards, step-by-step guidance, and a card lightbo
   await dialog.getByRole("button", { name: "上一张" }).click();
   await expect(dialog.locator(".ua-lb-position")).toHaveText("手牌 7 / 7");
   await dialog.getByRole("button", { name: "下一张" }).click();
-  // A move the step does not ask for is refused with a hint; the asked one plays the card.
-  await dialog.getByRole("button", { name: "登场到前线" }).click();
+  await dialog.getByRole("button", { name: "关闭放大查看" }).click();
+  await expect(dialog).toHaveCount(0);
+  // Cards are played by dragging them onto a zone. A move the step does not ask for is refused with a hint; the asked one plays the card.
+  const dragTo = async (zone: string): Promise<void> => {
+    const from = (await page.locator(".ua-handstrip button").first().boundingBox())!;
+    const to = (await page.locator(`.ua-half[data-side='self'] ${zone}`).boundingBox())!;
+    await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(from.x + from.width / 2 + 20, from.y + from.height / 2 - 20, { steps: 4 });
+    await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 8 });
+    await expect(page.locator(".ua-drag-ghost")).toHaveCount(1);
+    await page.mouse.up();
+  };
+  await dragTo(".ua-z-front");
   await expect(page.locator(".ua-actionbar-notice")).toContainText("教程中请按照上方提示操作");
-  await page.locator(".ua-handstrip button").first().click();
-  await page.getByRole("dialog").getByRole("button", { name: "登场到能量线" }).click();
+  await dragTo(".ua-z-energy");
   await expect(page.locator(".ua-half[data-side='self'] .ua-z-energy .ua-slot-button")).toHaveCount(1);
   await expect(page.locator(".ua-coach-text")).toContainText("AP 用完了");
 });

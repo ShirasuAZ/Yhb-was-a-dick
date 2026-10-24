@@ -259,4 +259,21 @@ describe("Arknights UNION ARENA integration", () => {
     expect((await emitAck(first, "ua:return_to_lobby", {})).ok).toBe(true);
     expect((await lobby).game).toBeNull();
   });
+
+  it("survives ua:* and UNO events emitted without an ack callback", async () => {
+    const mallory = server.auth.register("ArkMallory", "Password123!");
+    const socket = await connect(mallory.token);
+    const raw = socket as unknown as { emit: (name: string, body?: unknown) => void };
+    const events = ["ua:create_room", "ua:join_room", "ua:resume_room", "ua:submit_deck", "ua:ready", "ua:start_game", "ua:mulligan", "ua:action", "ua:return_to_lobby", "ua:leave_room"];
+    for (const event of events) raw.emit(event, {});
+    raw.emit("ua:join_room");
+    raw.emit("ua:action", null);
+    raw.emit("host_get_lan_status");
+    raw.emit("host_set_lan_access", {});
+
+    // If the process had thrown, the server would be gone and this ack (and the HTTP check) would fail.
+    const left = await emitAck(socket, "ua:leave_room", {});
+    expect(left.ok === true || typeof left.code === "string").toBe(true);
+    expect((await fetch(`${url}/api/arknights/catalog`)).status).toBe(200);
+  });
 });

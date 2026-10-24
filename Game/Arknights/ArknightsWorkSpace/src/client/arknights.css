@@ -274,8 +274,32 @@
 .ua-effects-menu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 15; display: grid; gap: 4px; width: max-content; padding: 6px; border: 1px solid #c3c8cb; border-radius: 6px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
 .ua-effects-menu button { min-height: 32px; padding: 3px 10px; }
 
-/* Cards on the table are buttons: a click shows them large, or picks them when the table asks for a choice. */
-.ua-slot-button { padding: 0; font: inherit; color: inherit; cursor: pointer; }
+/* Cards on the table are buttons: long press shows them large, a drag moves them, a click picks them up or answers the table's question. */
+.ua-handstrip button { touch-action: pan-x; }
+.ua-slot-button, .ua-life-pick { touch-action: none; }
+.ua-slot-button, .ua-handstrip button, .ua-life-pick { -webkit-touch-callout: none; user-select: none; -webkit-user-select: none; }
+.ua-slot-button { padding: 0; font: inherit; color: inherit; cursor: grab; }
+[data-dragging] { opacity: .35; }
+[data-armed] { box-shadow: 0 0 0 3px #0b57d0, 0 0 12px 3px rgba(11, 87, 208, .7) !important; transform: translateY(-4px); }
+.ua-slot[data-armed][data-rested] { transform: rotate(90deg) translateY(-4px); }
+[data-drop-ok="yes"]:not([data-card-key]) { outline: 3px dashed #1f7a45; outline-offset: -3px; background-color: rgba(31, 122, 69, .14); }
+[data-drop-ok="blocked"]:not([data-card-key]) { outline: 3px dashed #a3322d; outline-offset: -3px; opacity: .7; }
+[data-card-key][data-drop-ok="yes"] { box-shadow: 0 0 0 3px #1f7a45, 0 0 10px 2px rgba(31, 122, 69, .6) !important; }
+[data-card-key][data-drop-ok="blocked"] { box-shadow: 0 0 0 3px #a3322d !important; }
+[data-drop-hover]:not([data-card-key]) { background-color: rgba(31, 122, 69, .35); }
+[data-drop-hover][data-card-key] { transform: scale(1.06); }
+/* Where a moving card will stand once the move is confirmed: a see-through copy. */
+.ua-slot-ghost { border-style: dashed; border-color: #0b57d0; background: rgba(11, 87, 208, .08); box-shadow: none; }
+.ua-ghost-card { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; background: none; opacity: .5; cursor: pointer; }
+.ua-ghost-card:hover { opacity: .75; }
+.ua-ghost-card:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+.ua-move-bubble { position: fixed; z-index: 60; transform: translate(-50%, -100%); display: flex; gap: 6px; padding: 6px; border: 1px solid #adb5b8; border-radius: 8px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .28); white-space: nowrap; }
+.ua-move-bubble[data-below] { transform: translate(-50%, 0); }
+.ua-move-bubble::after { content: ""; position: absolute; left: 50%; top: 100%; width: 10px; height: 10px; background: #fff; border: solid #adb5b8; border-width: 0 1px 1px 0; transform: translate(-50%, -5px) rotate(45deg); }
+.ua-move-bubble[data-below]::after { top: 0; border-width: 1px 0 0 1px; transform: translate(-50%, -5px) rotate(45deg); }
+.ua-move-bubble button { min-height: 32px; padding: 3px 10px; font: inherit; }
+.ua-drag-ghost { position: fixed; left: 0; top: 0; z-index: 1000; width: clamp(54px, 7vw, 96px); aspect-ratio: 5 / 7; pointer-events: none; border-radius: .4em; overflow: hidden; background: #fff; box-shadow: 0 8px 22px rgba(0, 0, 0, .4); opacity: .92; }
+.ua-drag-ghost img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ua-slot-button:focus-visible, .ua-life-pick:focus-visible, .ua-handstrip button:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
 [data-candidate] { box-shadow: 0 0 0 3px #e3a008, 0 0 10px 2px rgba(227, 160, 8, .65) !important; }
 [data-selected] { box-shadow: 0 0 0 3px #0b57d0, 0 0 10px 2px rgba(11, 87, 208, .6) !important; }
@@ -292,7 +316,7 @@
 /* Hands: yours as cards under your nameplate, the opponent's as a count of card backs. */
 .ua-handstrip { min-width: 0; flex: 0 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; list-style: none; }
 .ua-handstrip li { flex: none; }
-.ua-handstrip button { display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
+.ua-handstrip button { cursor: grab; display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
 .ua-handstrip img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ua-opp-hand { display: flex; align-items: center; gap: 2px; }
 .ua-opp-hand .ua-card-back { width: 1.2em; aspect-ratio: 5 / 7; border-radius: 2px; }
