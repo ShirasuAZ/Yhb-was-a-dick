@@ -36,6 +36,15 @@ export const LINE_LIMIT = 4;
 /** Hand size kept at the end of the turn. */
 export const HAND_LIMIT = 8;
 const LOG_LIMIT = 40;
+/** How many structured events are kept for the floating on-card notifications. */
+const EVENT_LIMIT = 24;
+
+/**
+ * One public event, kept alongside its text so the client can float it over the card it happened to.
+ * `uid` is a field card uid when the event belongs to a card on the board; events without one (draws,
+ * phase changes, battle results) are only shown in the log list.
+ */
+export interface EngineEvent { seq: number; text: string; uid?: string; kind: string; }
 /** Keyword abilities that can be given to a character with the manual "grant" operation, as printed on the cards. */
 export const GRANTABLE_KEYWORDS = ["冲击1", "冲击+1", "伤害2", "伤害+1", "瞄准攻击", "2次攻击", "2次阻挡", "冲击无效", "撤步"] as const;
 
@@ -111,6 +120,10 @@ export interface EngineGame {
   winnerId: string | null;
   endReason: string | null;
   log: string[];
+  /** The same events as `log`, with the card each one belongs to (newest last). */
+  events: EngineEvent[];
+  /** Counter for event sequence numbers (kept apart from `seq`, which numbers field cards). */
+  eventSeq: number;
   /** Counter for field card ids and queued abilities. */
   seq: number;
   /** Card abilities waiting to resolve, in the order they activated. */
@@ -165,7 +178,7 @@ export interface EngineContext {
 }
 
 export function newEngineGame(firstPlayerId: string, mulliganQueue: string[]): EngineGame {
-  return { step: "mulligan", firstPlayerId, turnPlayerId: null, turn: 0, mulliganQueue, phase: "start", turnsTaken: {}, extraDrawUsed: false, pending: null, winnerId: null, endReason: null, log: [], seq: 0, queue: [], resolving: null, after: [], looking: null, damageCap: null };
+  return { step: "mulligan", firstPlayerId, turnPlayerId: null, turn: 0, mulliganQueue, phase: "start", turnsTaken: {}, extraDrawUsed: false, pending: null, winnerId: null, endReason: null, log: [], events: [], eventSeq: 0, seq: 0, queue: [], resolving: null, after: [], looking: null, damageCap: null };
 }
 
 /** Empties every zone the game proper uses (not hand, library, life). */
@@ -183,8 +196,18 @@ const PHASE_NAME: Readonly<Record<UnionArenaTurnPhase, string>> = { start: "起�
 function fail(code: string): never { throw new Error(code); }
 
 function log(game: EngineGame, text: string): void {
+  logEvent(game, text, undefined, "text");
+}
+
+/**
+ * Records an event and, when it belongs to a board card, remembers which one so the client can float
+ * the text over that card. `kind` is a short machine label the client uses to keep messages short.
+ */
+function logEvent(game: EngineGame, text: string, uid: string | undefined, kind: string): void {
   game.log.push(text);
   if (game.log.length > LOG_LIMIT) game.log.splice(0, game.log.length - LOG_LIMIT);
+  game.events.push({ seq: game.eventSeq++, text, uid, kind });
+  if (game.events.length > EVENT_LIMIT) game.events.splice(0, game.events.length - EVENT_LIMIT);
 }
 
 function find(players: readonly EnginePlayer[], id: string): EnginePlayer {
@@ -407,7 +430,7 @@ function offerReplacement(game: EngineGame, players: readonly EnginePlayer[], ct
   if (!offer) {
     game.replacing!.shift();
     completeSideline(game, ctx, owner, item.uid, item.cause);
-    log(game, `「${nameOf(ctx, target.cardId)}」退场`);
+    logEvent(game, `「${nameOf(ctx, target.cardId)}」退场`, item.uid, "leave");
     return;
   }
   const source = locate(owner, offer.split("#")[0]!)!.card;
@@ -787,14 +810,14 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         for (const { card } of targetsOf(env, step.target)) {
           if (amount < 0 && flagsOf(card).includes("noBpDown")) { log(game, `${source}：「${nameOf(ctx, card.cardId)}」不受 BP 降低效果的影响`); continue; }
           applyDuration(card, { bp: amount }, step.until, entry.ownerId);
-          log(game, `${source}：「${nameOf(ctx, card.cardId)}」${step.until === "turn" ? "本回合" : "直到下一个回合开始"} BP${amount >= 0 ? "+" : ""}${amount}`);
+          logEvent(game, `${source}：「${nameOf(ctx, card.cardId)}」${step.until === "turn" ? "本回合" : "直到下一个回合开始"} BP${amount >= 0 ? "+" : ""}${amount}`, card.uid, "bp");
         }
         break;
       }
       case "keyword":
         for (const { card } of targetsOf(env, step.target)) {
           applyDuration(card, { keyword: step.keyword }, step.until, entry.ownerId);
-          log(game, `${source}：「${nameOf(ctx, card.cardId)}」获得《${step.keyword}》`);
+          logEvent(game, `${source}：「${nameOf(ctx, card.cardId)}」获得《${step.keyword}》`, card.uid, "keyword");
         }
         break;
       case "rest":
@@ -804,7 +827,7 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
           if (step.do === "rest" && owner === env.owner && flagsOf(card).includes("noSelfRest")) continue;
           if (step.do === "rest" && shieldedFrom(ctx, card, env.selfCardId)) continue;
           if (step.do === "rest") card.rested = true; else makeActive(card);
-          log(game, `${source}：「${nameOf(ctx, card.cardId)}」转为${step.do === "rest" ? "休息" : "活跃"}状态`);
+          logEvent(game, `${source}：「${nameOf(ctx, card.cardId)}」转为${step.do === "rest" ? "休息" : "活跃"}状态`, card.uid, "state");
         }
         break;
       case "sideline":
@@ -824,7 +847,7 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         break;
       case "draw": {
         const drawn = draw(env.owner, step.count);
-        log(game, `${source}：${env.owner.username} 抽 ${drawn} 张卡`);
+        logEvent(game, `${source}：${env.owner.username} 抽 ${drawn} 张卡`, undefined, "draw");
         break;
       }
       case "moveChosen": {
@@ -859,7 +882,7 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         placeOnLine(game, ctx, env.owner, line, card, resolving.vars[step.room]?.[0]);
         // Later steps can refer to the card that came onto the field as chosen("placed:<name>") (该角色).
         resolving.vars[`placed:${step.chosen}`] = [card.uid];
-        log(game, `${source}：「${nameOf(ctx, cardId)}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[line]}`);
+        logEvent(game, `${source}：「${nameOf(ctx, cardId)}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[line]}`, card.uid, "play");
         // Its 【登场时】 abilities can tell it came onto the field by this ability (通过我方的效果登场).
         queueAbilities(game, ctx, "onPlay", env.owner, card, card.cardId, { kind: "effect", byPlayerId: entry.ownerId, sourceCardId: entry.abilityCardId ?? entry.cardId });
         break;
@@ -1191,11 +1214,11 @@ function runContinuation(game: EngineGame, players: readonly EnginePlayer[], ctx
       const defendBp = bpOf(ctx, defender);
       if (attackBp >= defendBp) {
         const impact = hasKeyword(ctx, defender, "冲击无效") ? 0 : impactOf(ctx, attacker);
-        log(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 胜过「${nameOf(ctx, defender.cardId)}」(${defendBp})，后者退场`);
+        logEvent(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 胜过「${nameOf(ctx, defender.cardId)}」(${defendBp})，后者退场`, attacker.uid, "battle-win");
         game.after.push({ kind: "afterBattle", attackerOwnerId: next.attackerOwnerId, attackerUid: next.attackerUid, defenderOwnerId: next.defenderOwnerId, won: true, impact });
         sidelineCard(game, ctx, defenderOwner, defender.uid, { kind: "battle", byPlayerId: next.attackerOwnerId });
       } else {
-        log(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 不敌「${nameOf(ctx, defender.cardId)}」(${defendBp})，攻击角色不退场`);
+        logEvent(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 不敌「${nameOf(ctx, defender.cardId)}」(${defendBp})，攻击角色不退场`, attacker.uid, "battle-lose");
         if (next.blocked) emitSelf(game, ctx, "onWinBlock", defenderOwner, defender);
       }
       return;
@@ -1624,7 +1647,7 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       if (lowBp) lowBp.spent = true;
       const card = newFieldCard(game, actor, cardId, !nextPlay?.active);
       placeOnLine(game, ctx, actor, action.line, card, action.remove);
-      log(game, `${actor.username} 支付 ${ap} AP，将「${stats.name}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[action.line]}`);
+      logEvent(game, `${actor.username} 支付 ${ap} AP，将「${stats.name}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[action.line]}`, card.uid, "play");
       emitSelf(game, ctx, "onPlay", actor, card);
       return;
     }
@@ -1799,6 +1822,7 @@ export function gameStateView(game: EngineGame, player: EnginePlayer, opponent: 
     winnerId: game.winnerId,
     endReason: game.endReason,
     log: [...game.log],
+    events: [...game.events],
     handCosts: player.hand.map((cardId) => {
       const stats = ctx?.card(cardId);
       if (!ctx || !stats || !opponent || game.step === "mulligan") return { energy: stats?.energyCost ?? 0, ap: stats?.apCost ?? 0 };

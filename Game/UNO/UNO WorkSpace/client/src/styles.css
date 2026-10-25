@@ -620,7 +620,8 @@ h2 {
 .arknights-cover-card[data-slot="2"] { transform: translateX(78px) rotate(12deg); }
 
 .update-log {
-  min-height: 150px;
+  /* A fixed height keeps the card (and the pager under it) from resizing as entries change. */
+  height: 260px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -630,9 +631,24 @@ h2 {
 .update-log h2 { margin: 2px 0 0; font-size: 20px; }
 .update-log p { margin: 0; line-height: 1.65; }
 /* Heading, body and pager stack top to bottom; the pager sits under the text, not beside it. */
-.update-log-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
-.update-log-body { flex: 1; }
-.update-log-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
+.update-log-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; flex: none; }
+/* Long entries scroll inside this box instead of growing the card. */
+.update-log-viewport { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; }
+.update-log-body { min-height: 100%; }
+.update-log-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; flex: none; padding-top: 8px; border-top: 1px solid var(--border); }
+.update-arrows { display: inline-flex; align-items: center; gap: 6px; }
+.update-arrow { width: 24px; height: 24px; min-width: 24px; min-height: 24px; display: grid; place-items: center; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); color: var(--text); font-size: 14px; line-height: 1; }
+.update-arrow:hover:not(:disabled) { border-color: var(--text); }
+.update-arrow:disabled { opacity: .35; cursor: not-allowed; }
+
+/* Entries slide in from the side the reader moved toward; the direction comes from the control used. */
+@keyframes update-slide-next { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes update-slide-prev { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: translateX(0); } }
+.update-log-body[data-dir="next"] { animation: update-slide-next .32s ease-out both; }
+.update-log-body[data-dir="prev"] { animation: update-slide-prev .32s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .update-log-body[data-dir] { animation: none; }
+}
 .update-controls { display: inline-flex; align-items: center; gap: 6px; }
 .update-controls button { width: 28px; height: 28px; display: grid; place-items: center; padding: 0; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); font-size: 18px; line-height: 1; }
 .update-controls button:disabled { opacity: .4; cursor: not-allowed; }
@@ -3209,3 +3225,10 @@ button.playing-card {
 @media (prefers-reduced-motion: reduce) {
   .lobby-waterfall > .panel { animation: none; }
 }
+
+/* Friend rows: each person's avatar, name and account id. */
+.friend-avatar { width: 34px; height: 34px; min-width: 34px; flex: none; border-radius: 50%; object-fit: cover; background: #dfe6ea; }
+.friend-avatar-fallback { display: grid; place-items: center; color: #425057; font-size: 14px; font-weight: 700; }
+.simple-list li { gap: 10px; }
+.friend-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.friend-actions { display: inline-flex; gap: 6px; }

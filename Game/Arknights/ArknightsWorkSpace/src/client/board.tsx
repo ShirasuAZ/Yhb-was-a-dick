@@ -2,6 +2,7 @@ import { useState, type CSSProperties, type PointerEvent as ReactPointerEvent, t
 import type { UnionArenaApCard, UnionArenaBoard, UnionArenaFieldCard, UnionArenaPlayer } from "../shared/protocol.ts";
 import { bpOf, type EngineContext } from "../shared/engine.ts";
 import type { CardRecord } from "./cards.ts";
+import { CardNotices, type FloatNotice } from "./floatNotices.tsx";
 
 /** Maximum cards per zone, from the official playmat. */
 export const ZONE_LIMITS = { front: 4, energy: 4, actionPoints: 3 } as const;
@@ -115,7 +116,7 @@ export function SlotZone({ className, name, count, large = false }: { className:
 }
 
 /** A front line or energy line: its cards in order, then empty slots up to four. */
-function LineZone({ className, name, cards, cardsById, ctx, interaction, drop, ghosts = [] }: { className: string; name: string; cards: readonly UnionArenaFieldCard[]; cardsById: ReadonlyMap<string, CardRecord>; ctx: EngineContext; interaction?: BoardInteraction; drop: string; ghosts?: readonly UnionArenaFieldCard[] }) {
+function LineZone({ className, name, cards, cardsById, ctx, interaction, drop, ghosts = [], noticesFor }: { className: string; name: string; cards: readonly UnionArenaFieldCard[]; cardsById: ReadonlyMap<string, CardRecord>; ctx: EngineContext; interaction?: BoardInteraction; drop: string; ghosts?: readonly UnionArenaFieldCard[]; noticesFor?: (uid: string) => FloatNotice[] }) {
   return <ZoneFrame className={className} name={name} count={ZONE_LIMITS.front} drop={drop} onZone={interaction?.onZone}>
     {Array.from({ length: ZONE_LIMITS.front }, (_, index) => {
       const field = cards[index];
@@ -140,7 +141,9 @@ function LineZone({ className, name, cards, cardsById, ctx, interaction, drop, g
           {field.under.length ? <span className="ua-badge">叠{field.under.length}</span> : null}
           {field.grants.length ? <span className="ua-badge ua-badge-kw">{field.grants.join(" ")}</span> : null}
           {field.skipNextActivate ? <span className="ua-badge is-down">锁</span> : null}
-        </>} />;
+        </>}>
+        {noticesFor ? <CardNotices notices={noticesFor(field.uid)} /> : null}
+      </CardSlot>;
     })}
   </ZoneFrame>;
 }
@@ -237,19 +240,21 @@ export interface HalfBoardProps {
   cardsById?: ReadonlyMap<string, CardRecord>;
   ctx?: EngineContext;
   interaction?: BoardInteraction;
+  /** Floating notices per board card uid (cosmetic only). */
+  noticesFor?: (uid: string) => FloatNotice[];
 }
 
 /** One player's half of the mat. The opponent's half is the same board rotated 180 degrees. */
-export function HalfBoard({ side, activePhase, life = NO_LIFE, board, deckCount = 0, cardsById, ctx, interaction }: HalfBoardProps) {
+export function HalfBoard({ side, activePhase, life = NO_LIFE, board, deckCount = 0, cardsById, ctx, interaction, noticesFor }: HalfBoardProps) {
   const self = side === "self";
   const owner = self ? "you" : "opponent";
   /** Prefix of this half's drop targets (`you:front`, `opp:sideline`, ...). */
   const drop = self ? "you" : "opp";
   const inGame = board && cardsById && ctx;
   return <div className="ua-half" data-side={side}>
-    {inGame ? <LineZone className="ua-z-front" name="前线" cards={board.front} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:front`}
+    {inGame ? <LineZone className="ua-z-front" name="前线" cards={board.front} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:front`} noticesFor={noticesFor}
       ghosts={self && interaction?.ghosts ? board.energy.filter((card) => interaction.ghosts!.front.includes(card.uid)) : undefined} /> : <SlotZone className="ua-z-front" name="前线" count={ZONE_LIMITS.front} />}
-    {inGame ? <LineZone className="ua-z-energy" name="能量线" cards={board.energy} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:energy`}
+    {inGame ? <LineZone className="ua-z-energy" name="能量线" cards={board.energy} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:energy`} noticesFor={noticesFor}
       ghosts={self && interaction?.ghosts ? board.front.filter((card) => interaction.ghosts!.energy.includes(card.uid)) : undefined} /> : <SlotZone className="ua-z-energy" name="能量线" count={ZONE_LIMITS.energy} />}
     {inGame ? <ApZone cards={board.ap} /> : <SlotZone className="ua-z-ap" name="行动点区" count={ZONE_LIMITS.actionPoints} />}
     <LifeZone cards={life} interaction={interaction} />

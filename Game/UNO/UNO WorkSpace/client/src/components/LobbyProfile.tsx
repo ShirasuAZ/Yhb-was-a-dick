@@ -19,17 +19,24 @@ const UPDATE_HISTORY = [{
 }].slice(0, 3);
 
 /** How long each update stays on screen before the log advances on its own. */
-const AUTO_ADVANCE_MS = 4000;
+const AUTO_ADVANCE_MS = 5000;
 
 export function LobbyProfile({ onEnterGame }: { onEnterGame: () => void }) {
   const updateHistory = UPDATE_HISTORY;
   const [updateIndex, setUpdateIndex] = useState(0);
+  /** Which way the last change went, so the slide animation matches the arrow that caused it. */
+  const [direction, setDirection] = useState<"next" | "prev">("next");
   const update = updateHistory[updateIndex]!;
+
+  const step = (delta: number): void => {
+    setDirection(delta >= 0 ? "next" : "prev");
+    setUpdateIndex((index) => (index + delta + updateHistory.length) % updateHistory.length);
+  };
 
   // Advance on its own, and restart the countdown whenever the reader picks an entry by hand.
   useEffect(() => {
     if (updateHistory.length < 2) return undefined;
-    const timer = window.setTimeout(() => setUpdateIndex((index) => (index + 1) % updateHistory.length), AUTO_ADVANCE_MS);
+    const timer = window.setTimeout(() => { setDirection("next"); setUpdateIndex((index) => (index + 1) % updateHistory.length); }, AUTO_ADVANCE_MS);
     return () => window.clearTimeout(timer);
   }, [updateIndex, updateHistory.length]);
 
@@ -91,17 +98,22 @@ export function LobbyProfile({ onEnterGame }: { onEnterGame: () => void }) {
           <p className="eyebrow">更新记录</p>
           <h2 id="update-log-heading">v{update.version}</h2>
         </div>
-        <p className="update-log-body">{update.content}</p>
+        <div className="update-log-viewport">
+          <p className="update-log-body" key={update.version} data-dir={direction}>{update.content}</p>
+        </div>
         <div className="update-log-footer">
           <div className="update-dots" role="tablist" aria-label="更新记录分页">
             {updateHistory.map((entry, index) => (
               <button key={entry.version} type="button" role="tab" aria-selected={index === updateIndex}
                 aria-label={`第 ${index + 1} 条更新：v${entry.version}`} title={`v${entry.version}`}
                 className={`update-dot ${index === updateIndex ? "is-active" : ""}`}
-                onClick={() => setUpdateIndex(index)} />
+                onClick={() => { setDirection(index >= updateIndex ? "next" : "prev"); setUpdateIndex(index); }} />
             ))}
           </div>
-          <span className="muted">仅显示最近 {updateHistory.length} 次更新。</span>
+          <div className="update-arrows">
+            <button type="button" className="update-arrow" aria-label="上一条更新" title="上一条更新" disabled={updateHistory.length < 2} onClick={() => step(-1)}>‹</button>
+            <button type="button" className="update-arrow" aria-label="下一条更新" title="下一条更新" disabled={updateHistory.length < 2} onClick={() => step(1)}>›</button>
+          </div>
         </div>
       </section>
 

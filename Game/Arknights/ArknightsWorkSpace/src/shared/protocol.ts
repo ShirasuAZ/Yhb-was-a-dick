@@ -164,6 +164,11 @@ export interface UnionArenaGameState {
   endReason: string | null;
   /** Recent public events, oldest first. */
   log: string[];
+  /**
+   * The same events with the board card each belongs to, so the client can float a short notice over
+   * that card. Events without `uid` only appear in `log`.
+   */
+  events?: Array<{ seq: number; text: string; uid?: string; kind: string }>;
   /** What each card in your hand costs right now (abilities can change it), in hand order. */
   handCosts: Array<{ energy: number; ap: number }>;
   /** Your chance to win (0 to 1), estimated from what you can see; null or absent when there is no estimate. */
@@ -213,7 +218,7 @@ export interface UnionArenaRoomState {
   playerCount: number;
   requiredPlayers: 2;
   startAllowed: boolean;
-  spectators: Array<{ id: string; username: string; connected: boolean }>;
+  spectators: Array<{ id: string; username: string; connected: boolean; avatarUrl: string | null }>;
   youAreSpectator: boolean;
 }
 

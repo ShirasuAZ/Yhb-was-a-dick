@@ -586,7 +586,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     }
   };
   const barState = bar();
-  const lastLog = game?.log.length ? game.log[game.log.length - 1] : "";
+  // Events now float over the card they happened to (see floatNotices.tsx), so the bar keeps only its prompt.
   const effectMenu = playing ? <details className="ua-effects">
     <summary>效果</summary>
     <div className="ua-effects-menu">
@@ -606,7 +606,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const actionBar = game ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
     <div className="ua-actionbar-text">
       <p className="ua-actionbar-prompt" aria-live="polite">{barState.text}</p>
-      {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : lastLog ? <p className="ua-actionbar-log" title={lastLog}>{lastLog}</p> : null}
+      {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : null}
     </div>
     <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}{winRateRing}</div>
   </div> : null;

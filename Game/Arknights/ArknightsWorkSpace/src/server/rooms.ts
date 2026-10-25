@@ -54,7 +54,7 @@ interface Seat extends UnionArenaPlayer, EnginePlayer {
 
 export class UnionArenaRoom {
   readonly players: Seat[] = [];
-  readonly spectators = new Map<string, { id: string; username: string; socketId: string; connected: boolean }>();
+  readonly spectators = new Map<string, { id: string; username: string; socketId: string; connected: boolean; avatarUrl: string | null }>();
   phase: "lobby" | "playing" = "lobby";
   game: GameData | null = null;
   hostId = "";
@@ -238,7 +238,7 @@ export class UnionArenaRoom {
       playerCount: this.players.length,
       requiredPlayers: 2,
       startAllowed: this.readyForStart,
-      spectators: [...this.spectators.values()].map(({ id, username, connected }) => ({ id, username, connected })),
+      spectators: [...this.spectators.values()].map(({ id, username, connected, avatarUrl }) => ({ id, username, connected, avatarUrl })),
       youAreSpectator: false
     };
   }
@@ -366,7 +366,7 @@ export class UnionArenaRoomManager {
       const code = typeof payload?.roomCode === "string" ? payload.roomCode.trim() : "";
       const room = this.rooms.get(code);
       if (!room || !/^\d{4}$/.test(code)) throw new Error("ROOM_NOT_FOUND");
-      room.spectators.set(account.id, { id: account.id, username: account.username, socketId: socket.id, connected: true });
+      room.spectators.set(account.id, { id: account.id, username: account.username, socketId: socket.id, connected: true, avatarUrl: account.avatarUrl });
       socket.data.uaSpectatingRoom = code; socket.join(code); room.broadcast();
       return { roomCode: code };
     }));
