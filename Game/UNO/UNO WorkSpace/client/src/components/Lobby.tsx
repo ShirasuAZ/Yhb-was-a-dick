@@ -6,6 +6,7 @@ import { VersionBadge } from "./VersionBadge.tsx";
 import { ThemeControl } from "./ThemeControl.tsx";
 import { LobbyProfile } from "./LobbyProfile.tsx";
 import { AboutPage } from "./AboutPage.tsx";
+import { FriendsPage } from "./FriendsPage.tsx";
 import type { ConnectionStatus } from "../types.ts";
 
 interface LobbyProps {
@@ -42,6 +43,7 @@ export function Lobby({
   onBack
 }: LobbyProps) {
   const [roomCode, setRoomCode] = useState(inviteCode ?? "");
+  const [myMenuOpen, setMyMenuOpen] = useState(false);
 
   const connected = connection === "connected";
   const disabled = busy || !connected;
@@ -68,10 +70,11 @@ export function Lobby({
     <div className="app-shell lobby-shell">
       <header className="lobby-header">
         <div>
-          <a className="my-link" href="/about">
+          <button className="my-link" onClick={() => setMyMenuOpen((open) => !open)} aria-expanded={myMenuOpen}>
             {account.avatarUrl ? <img className="my-avatar-placeholder" src={account.avatarUrl} alt="" /> : <span className="my-avatar-placeholder" aria-hidden="true">{account.username.slice(0, 1)}</span>}
             <strong>我的</strong>
-          </a>
+          </button>
+          {myMenuOpen ? <div className="my-menu"><a href="/">主页</a><a href="/friends">我的好友</a><a href="/about">账号设置</a></div> : null}
           {/* Keep LayUDown on the homepage and label the UNO route as UNO. */}
           <h1>{gameMode ? "UNO" : "LayUDown"}</h1>
         </div>
@@ -86,7 +89,7 @@ export function Lobby({
       </header>
 
       <main className="lobby-main">
-        {aboutMode ? (
+        {window.location.pathname === "/friends" ? <FriendsPage onBack={() => window.location.assign("/")} /> : aboutMode ? (
           <AboutPage onBack={() => window.location.assign("/")} account={account} onLogout={onLogout} onDeleteAccount={onDeleteAccount} onChangePassword={onChangePassword} onSaveAvatar={onSaveAvatar} error={error} busy={busy} />
         ) : gameMode ? (
           <div className="game-lobby-nav">

@@ -81,7 +81,7 @@ export function ArknightsTutorial({ account }: { account: Account }) {
     roomCode: "教程", phase: "playing", players: [me, test], you: me,
     life: { you: lifeView(s.me), opponent: lifeView(s.test) },
     game: gameStateView(s.game, s.me, s.test),
-    hand: [...s.me.hand], playerCount: 2, requiredPlayers: 2, startAllowed: false
+    hand: [...s.me.hand], playerCount: 2, requiredPlayers: 2, startAllowed: false, spectators: [], youAreSpectator: false
   };
   void version;
   const controller = useGameController({ state, meId: account.id, cardsById, ctx, compact, busy: false, send, onMulligan: step.mulligan ? onMulligan : undefined, overButton: { label: "返回大厅", run: () => window.location.assign(ARKNIGHTS_HOME) } });

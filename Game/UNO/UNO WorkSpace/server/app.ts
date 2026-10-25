@@ -13,6 +13,7 @@ import { RoomManager } from "./room.ts";
 import { LanAccessController } from "./lan.ts";
 import { AuthService } from "./auth.ts";
 import { clientAddress } from "./requestAddress.ts";
+import { installSocialApi } from "./social.ts";
 import {
   UNION_ARENA_ASSET_ROOT,
   UNION_ARENA_BATTLE_MAP,
@@ -170,6 +171,16 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
       return;
     }
     response.status(403).type("html").send(LAN_CLOSED_HTML);
+  });
+
+  installSocialApi(app, auth, async (accountId, game, code, token) => {
+    if (game === "uno") return rooms.rooms.get(code)?.players.some((p) => p.accountId === accountId && p.active) ?? false;
+    if (game === "arknights") return !!unionArenaRooms.rooms.get(code)?.getAccount(accountId);
+    try {
+      const result = await fetch(`http://127.0.0.1:${Number(process.env.SHOGI_PORT ?? 3001)}/api/shogi/membership?room=${encodeURIComponent(code)}`, { headers: { Authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(3000) });
+      const body = await result.json() as { member?: boolean };
+      return result.ok && body.member === true;
+    } catch { return false; }
   });
 
   app.get("/api/health", (_request, response) => {

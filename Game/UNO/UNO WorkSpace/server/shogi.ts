@@ -51,6 +51,8 @@ interface ShogiRoomState {
   connected: Partial<Record<Side, boolean>>;
   yourSide: Side;
   hostSide: Side;
+  spectator?: boolean;
+  spectators?: Array<{ id: string; name: string; connected: boolean }>;
 }
 
 interface IdentityState {
@@ -61,11 +63,11 @@ interface IdentityState {
 
 type Ack = (result: { ok: boolean; message?: string; data?: unknown }) => void;
 
-const ROOM_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const ROOM_ALPHABET = "0123456789";
 const RECONNECT_GRACE_MS = 30 * 60 * 1000;
 
 function createCode(): string {
-  return Array.from({ length: 5 }, () => ROOM_ALPHABET[randomInt(ROOM_ALPHABET.length)]).join("");
+  return Array.from({ length: 4 }, () => ROOM_ALPHABET[randomInt(ROOM_ALPHABET.length)]).join("");
 }
 
 function validSquare(value: unknown): value is { row: number; col: number } {
@@ -91,6 +93,7 @@ class ShogiRoom {
   readonly code: string;
   readonly game = new ShogiGame();
   readonly players = new Map<Side, ShogiPlayer>();
+  readonly spectators = new Map<string, { id: string; name: string; socketId: string; connected: boolean }>();
   readonly ready = new Set<Side>();
   hostAccountId: string | null = null;
   started = false;
@@ -101,7 +104,7 @@ class ShogiRoom {
   dissolved = false;
   dissolveTimer: NodeJS.Timeout | null = null;
   readonly graceTimers = new Set<NodeJS.Timeout>();
-  private readonly sockets = new Set<Socket>();
+  readonly sockets = new Set<Socket>();
 
   constructor(code: string, readonly timing: ShogiTimingOptions) {
     this.code = code;
@@ -230,14 +233,22 @@ class ShogiRoom {
       players: Object.fromEntries([...this.players.values()].map((entry) => [entry.side, entry.name])) as Partial<Record<Side, string>>,
       connected: Object.fromEntries([...this.players.values()].map((entry) => [entry.side, entry.connected])) as Partial<Record<Side, boolean>>,
       yourSide: player.side,
-      hostSide: host?.side ?? player.side
+      hostSide: host?.side ?? player.side,
+      spectators: [...this.spectators.values()]
     };
+  }
+
+  stateForSpectator(id: string): ShogiRoomState {
+    const player = this.players.values().next().value as ShogiPlayer | undefined;
+    if (!player) throw new Error("ROOM_NOT_FOUND");
+    return { ...this.stateFor(player), spectator: true, yourSide: "sente", hostSide: [...this.players.values()].find((entry) => entry.accountId === this.hostAccountId)?.side ?? "sente", spectators: [...this.spectators.values()] };
   }
 
   broadcast(): void {
     for (const socket of this.sockets) {
       const player = [...this.players.values()].find((entry) => entry.socketId === socket.id);
       if (player) socket.emit("shogi:state", this.stateFor(player));
+      else for (const spectator of this.spectators.values()) if (spectator.socketId === socket.id) socket.emit("shogi:state", this.stateForSpectator(spectator.id));
     }
   }
 
@@ -329,6 +340,11 @@ export function createShogiServer(options: {
 
   app.get("/health", (_request, response) => response.json({ ok: true, service: "shogi", rooms: rooms.size }));
   app.get("/api/shogi/health", (_request, response) => response.json({ ok: true, service: "shogi", rooms: rooms.size }));
+  app.get("/api/shogi/membership", (request, response) => {
+    const account = auth.verifyToken(request.headers.authorization?.replace(/^Bearer /, ""));
+    const room = findRoom(request.query.room);
+    response.json({ member: !!account && !!room && [...room.players.values()].some((player) => player.accountId === account.id) });
+  });
   const clientDist = options.clientDist ?? path.resolve(process.cwd(), "dist/client");
   app.use(express.static(clientDist, { index: false, maxAge: "1h" }));
   app.get(/^\/shogi(?:\/.*)?$/, (_request, response) => response.sendFile(path.join(clientDist, "index.html")));
@@ -393,6 +409,18 @@ export function createShogiServer(options: {
       ack?.({ ok: true, data: { roomCode: room.code } });
       socket.emit("shogi:identity", { username: account.username, roomCode: room.code, side: player.side } satisfies IdentityState);
       room.broadcast();
+    });
+
+    socket.on("shogi:spectate", (payload: { roomCode?: unknown }, ack?: Ack) => {
+      if (room || findAccountSeat(account.id)) { ack?.({ ok: false, message: "当前账号已经在房间中" }); return; }
+      const target = findRoom(payload?.roomCode);
+      if (!target) { ack?.({ ok: false, message: "房间不存在或已关闭" }); return; }
+      const spectator = { id: account.id, name: account.username, socketId: socket.id, connected: true };
+      target.spectators.set(account.id, spectator); target.sockets.add(socket); socket.join(target.code);
+      room = target; player = null;
+      ack?.({ ok: true, data: { roomCode: target.code } });
+      socket.emit("shogi:identity", { username: account.username, roomCode: target.code, side: null } satisfies IdentityState);
+      target.broadcast();
     });
 
     socket.on("shogi:move", (payload: { roomCode?: unknown; expectedPly?: unknown; move?: unknown }, ack?: Ack) => {
@@ -488,6 +516,7 @@ export function createShogiServer(options: {
     });
 
     socket.on("shogi:leave", (_payload: unknown, ack?: Ack) => {
+      if (room && !player && room.spectators.delete(account.id)) { socket.leave(room.code); room.sockets.delete(socket); room = null; ack?.({ ok: true }); return; }
       if (!currentSeat() || !room || !player) { ack?.({ ok: false, message: "当前账号不在房间中" }); return; }
       const leavingRoom = room;
       const leavingPlayer = player;
@@ -508,6 +537,7 @@ export function createShogiServer(options: {
       clearTimeout(expiryTimer);
       if (!room) return;
       const disconnectedRoom = room;
+      if (!player) { disconnectedRoom.spectators.delete(account.id); disconnectedRoom.sockets.delete(socket); room = null; disconnectedRoom.broadcast(); return; }
       const disconnectedPlayer = disconnectedRoom.detach(socket);
       if (!disconnectedPlayer) return;
       disconnectedRoom.broadcast();

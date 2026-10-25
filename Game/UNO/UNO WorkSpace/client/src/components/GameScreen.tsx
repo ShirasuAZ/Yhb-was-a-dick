@@ -80,6 +80,8 @@ export function GameScreen({
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [emojiOpen, setEmojiOpen] = useState(false);
+  const [inviteTargets, setInviteTargets] = useState<Array<{ id: string; username: string }>>([]);
+  const [inviteResult, setInviteResult] = useState("");
   const [visibleEmotes, setVisibleEmotes] = useState<
     Record<string, EmoteMessage>
   >({});
@@ -90,7 +92,18 @@ export function GameScreen({
   const lastGameEventSeqRef = useRef(game.lastEvent?.seq ?? 0);
   const playSoundRef = useRef<HTMLAudioElement | null>(null);
   const connected = connection === "connected";
-  const disabled = busy || !connected || game.status === "finished";
+  const spectator = room.youAreSpectator;
+  const disabled = spectator || busy || !connected || game.status === "finished";
+  useEffect(() => {
+    void fetch("/api/social", { headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}` } })
+      .then((response) => response.json() as Promise<{ data?: { friends?: Array<{ id: string; username: string }> } }>)
+      .then((result) => setInviteTargets(result.data?.friends ?? []))
+      .catch(() => setInviteTargets([]));
+  }, []);
+  const inviteFriend = async (targetId: string, role: "player" | "spectator"): Promise<void> => {
+    const response = await fetch("/api/social/invitations", { method: "POST", headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}`, "Content-Type": "application/json" }, body: JSON.stringify({ targetId, game: "uno", roomCode: room.roomCode, role }) });
+    setInviteResult(response.ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态");
+  };
   const myTurn = game.currentPlayerId === room.you.id;
   const currentPlayer = room.players.find(
     (player) => player.id === game.currentPlayerId
@@ -644,6 +657,12 @@ export function GameScreen({
           ))}
         </div>
       </section>
+      <section className="room-friend-invites" aria-label="房间好友邀请">
+        <strong>邀请好友</strong>
+        {!inviteTargets.length ? <small>暂无可邀请好友</small> : inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" disabled={spectator} onClick={() => void inviteFriend(friend.id, "player")}>参战</button><button className="text-button" disabled={spectator} onClick={() => void inviteFriend(friend.id, "spectator")}>观战</button></span>)}
+        {inviteResult ? <small>{inviteResult}</small> : null}
+      </section>
+      <section className="spectator-list" aria-label="观战席"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</section>
 
       <main className="table-stage">
         <div className="table-surface">

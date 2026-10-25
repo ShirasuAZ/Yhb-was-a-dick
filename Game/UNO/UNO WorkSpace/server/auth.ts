@@ -9,6 +9,7 @@ import {
 import fs from "node:fs";
 import path from "node:path";
 import nodemailer from "nodemailer";
+import type { FriendProfile, FriendState, GameKind, InvitationView, RoomInvitation, RoomRole } from "../shared/social.ts";
 
 export interface PublicAccount {
   id: string;
@@ -36,6 +37,9 @@ interface AuthStore {
   version: 1;
   secret: string;
   accounts: StoredAccount[];
+  friendships?: Record<string, string[]>;
+  friendRequests?: Record<string, string[]>;
+  roomInvitations?: RoomInvitation[];
 }
 
 interface AttemptBucket {
@@ -130,6 +134,89 @@ export class AuthService {
     this.dataFile = path.join(this.dataDir, "accounts.json");
     this.store = this.load();
     this.lastStoreSignature = this.storeSignature();
+  }
+
+  private ensureSocialStore(): { friendships: Record<string, string[]>; friendRequests: Record<string, string[]> } {
+    this.reloadStoreIfChanged();
+    this.store.friendships ??= {};
+    this.store.friendRequests ??= {};
+    return { friendships: this.store.friendships, friendRequests: this.store.friendRequests };
+  }
+
+  searchAccounts(query: unknown, excludeId?: string): PublicAccount[] {
+    const text = typeof query === "string" ? query.trim().toLocaleLowerCase("en-US") : "";
+    if (text.length < 1) return [];
+    return this.store.accounts.filter((account) => account.id !== excludeId &&
+      (account.id.toLocaleLowerCase("en-US") === text || account.username.toLocaleLowerCase("en-US").includes(text))).slice(0, 20).map(publicAccount);
+  }
+
+  socialState(accountId: string): FriendState {
+    const { friendships, friendRequests } = this.ensureSocialStore();
+    const ids = (friendships[accountId] ?? []).map((id) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
+    const incoming = Object.entries(friendRequests).filter(([, list]) => list.includes(accountId)).map(([id]) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
+    const outgoing = (friendRequests[accountId] ?? []).map((id) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
+    const safe = (account: PublicAccount): FriendProfile => ({ id: account.id, username: account.username, avatarUrl: account.avatarUrl });
+    return { friends: ids.map(safe), incoming: incoming.map(safe), outgoing: outgoing.map(safe) };
+  }
+
+  sendFriendRequest(fromId: string, target: unknown): void {
+    const { friendships, friendRequests } = this.ensureSocialStore();
+    const raw = typeof target === "string" ? target.trim() : "";
+    const account = this.store.accounts.find((candidate) => candidate.id === raw || candidate.username.toLocaleLowerCase("en-US") === raw.toLocaleLowerCase("en-US"));
+    if (!account) throw new AuthError("ACCOUNT_NOT_FOUND", "用户不存在");
+    if (account.id === fromId) throw new AuthError("INVALID_TARGET", "不能添加自己");
+    if ((friendships[fromId] ?? []).includes(account.id)) throw new AuthError("ALREADY_FRIEND", "你们已经是好友");
+    const list = friendRequests[fromId] ?? (friendRequests[fromId] = []);
+    if (list.includes(account.id)) throw new AuthError("REQUEST_EXISTS", "好友申请已发送");
+    const reverse = friendRequests[account.id] ?? [];
+    if (reverse.includes(fromId)) { this.acceptFriendRequest(fromId, account.id); return; }
+    list.push(account.id); this.persist();
+  }
+
+  acceptFriendRequest(accountId: string, requesterId: unknown): void {
+    const { friendships, friendRequests } = this.ensureSocialStore();
+    const other = typeof requesterId === "string" ? requesterId : "";
+    if (!this.store.accounts.some((a) => a.id === other)) throw new AuthError("ACCOUNT_NOT_FOUND", "用户不存在");
+    const pending = friendRequests[other] ?? [];
+    if (!pending.includes(accountId)) throw new AuthError("REQUEST_NOT_FOUND", "好友申请不存在");
+    friendRequests[other] = pending.filter((id) => id !== accountId);
+    friendships[accountId] = Array.from(new Set([...(friendships[accountId] ?? []), other]));
+    friendships[other] = Array.from(new Set([...(friendships[other] ?? []), accountId]));
+    this.persist();
+  }
+
+  rejectFriendRequest(accountId: string, requesterId: unknown): void {
+    const { friendRequests } = this.ensureSocialStore();
+    const other = typeof requesterId === "string" ? requesterId : "";
+    friendRequests[other] = (friendRequests[other] ?? []).filter((id) => id !== accountId);
+    this.persist();
+  }
+
+  areFriends(left: string, right: string): boolean {
+    const { friendships } = this.ensureSocialStore();
+    return (friendships[left] ?? []).includes(right);
+  }
+
+  inviteFriend(fromId: string, toId: string, game: GameKind, roomCode: string, role: RoomRole): void {
+    if (!this.areFriends(fromId, toId)) throw new AuthError("NOT_FRIENDS", "只能邀请已添加的好友");
+    if (!this.findAccount(toId)) throw new AuthError("ACCOUNT_NOT_FOUND", "好友账号已不存在");
+    const now = Date.now();
+    const invitations = (this.store.roomInvitations ?? []).filter((invite) => invite.expiresAt > now);
+    if (invitations.some((invite) => invite.fromId === fromId && invite.toId === toId && now - invite.createdAt < 10000)) throw new AuthError("INVITE_TOO_FREQUENT", "刚刚已发送邀请，请稍后再试");
+    this.store.roomInvitations = invitations.filter((invite) => !(invite.fromId === fromId && invite.toId === toId && invite.game === game && invite.roomCode === roomCode));
+    this.store.roomInvitations.push({ id: randomUUID(), fromId, toId, game, roomCode, role, createdAt: now, expiresAt: now + 15 * 60 * 1000 });
+    this.persist();
+  }
+
+  invitationsFor(accountId: string): InvitationView[] {
+    this.reloadStoreIfChanged();
+    return (this.store.roomInvitations ?? []).filter((invite) => invite.toId === accountId && invite.expiresAt > Date.now()).slice(-30).map((invite) => ({ ...invite, inviter: this.findAccount(invite.fromId)?.username ?? "好友" }));
+  }
+
+  dismissInvitation(accountId: string, invitationId: string): void {
+    this.reloadStoreIfChanged();
+    this.store.roomInvitations = (this.store.roomInvitations ?? []).filter((invite) => !(invite.toId === accountId && invite.id === invitationId));
+    this.persist();
   }
 
   register(
@@ -493,6 +580,9 @@ export class AuthService {
     }
     this.store.secret = parsed.secret;
     this.store.accounts = parsed.accounts;
+    this.store.friendships = parsed.friendships;
+    this.store.friendRequests = parsed.friendRequests;
+    this.store.roomInvitations = parsed.roomInvitations;
     this.lastStoreSignature = signature;
   }
 

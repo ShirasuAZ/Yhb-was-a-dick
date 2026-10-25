@@ -159,6 +159,8 @@ export interface UnionArenaRoomState {
   playerCount: number;
   requiredPlayers: 2;
   startAllowed: boolean;
+  spectators: Array<{ id: string; username: string; connected: boolean }>;
+  youAreSpectator: boolean;
 }
 
 export interface UnionArenaRoomResult {
@@ -179,6 +181,8 @@ export interface ClientToServerEvents {
     payload: { roomCode: string },
     ack: (result: ActionAck<UnionArenaRoomResult>) => void
   ) => void;
+  "ua:spectate_room": (payload: { roomCode: string }, ack: (result: ActionAck<UnionArenaRoomResult>) => void) => void;
+  "ua:leave_spectating": (payload: Record<string, never>, ack: (result: ActionAck) => void) => void;
   "ua:resume_room": (
     payload: Record<string, never>,
     ack: (result: ActionAck<UnionArenaRoomResult>) => void

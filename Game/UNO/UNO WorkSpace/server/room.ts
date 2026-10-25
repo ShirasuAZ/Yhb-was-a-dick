@@ -47,6 +47,7 @@ export interface RoomPlayer {
   ready: boolean;
   active: boolean;
 }
+export interface RoomSpectator { id: string; accountId: string; name: string; socketId: string; connected: boolean; }
 
 const ROOM_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 export const RECONNECT_GRACE_SECONDS = 10 * 60;
@@ -83,6 +84,7 @@ export class Room {
   hostId: string;
   phase: "lobby" | "playing" | "finished" = "lobby";
   players: RoomPlayer[] = [];
+  spectators: RoomSpectator[] = [];
   game: UnoGame | null = null;
   lastActivity = Date.now();
 
@@ -127,9 +129,8 @@ export class Room {
 
   publicStateFor(playerId: string): RoomState {
     const viewer = this.findPlayer(playerId);
-    if (!viewer) {
-      throw new RoomError("PLAYER_NOT_FOUND", "玩家不在房间中");
-    }
+    const spectator = this.spectators.find((entry) => entry.id === playerId);
+    if (!viewer && !spectator) throw new RoomError("PLAYER_NOT_FOUND", "用户不在房间中");
     const gamePlayers = new Map(
       this.game?.players.map((player) => [player.id, player]) ?? []
     );
@@ -149,16 +150,16 @@ export class Room {
     });
     const viewerGamePlayer = gamePlayers.get(playerId);
     const you: OwnPlayer = {
-      id: viewer.id,
-      name: viewer.name,
-      seat: viewer.seat,
-      connected: viewer.connected,
-      ready: viewer.ready,
-      isHost: viewer.id === this.hostId,
-      active: viewer.active,
+      id: viewer?.id ?? spectator!.id,
+      name: viewer?.name ?? spectator!.name,
+      seat: viewer?.seat ?? -1,
+      connected: viewer?.connected ?? true,
+      ready: viewer?.ready ?? false,
+      isHost: viewer?.id === this.hostId,
+      active: viewer?.active ?? true,
       handCount: viewerGamePlayer?.hand.length ?? 0,
       unoDeclared: viewerGamePlayer?.unoDeclared ?? false,
-      hand: [...(viewerGamePlayer?.hand ?? [])]
+      hand: viewer ? [...(viewerGamePlayer?.hand ?? [])] : []
     };
 
     return {
@@ -166,8 +167,10 @@ export class Room {
       phase: this.phase,
       hostId: this.hostId,
       players,
+      spectators: this.spectators.map((entry) => ({ id: entry.id, name: entry.name, connected: entry.connected })),
+      youAreSpectator: !viewer,
       you,
-      game: this.game?.publicView(playerId) ?? null,
+      game: this.game?.publicView(viewer ? playerId : "") ?? null,
       reconnectionGraceSeconds:
         this.phase === "lobby"
           ? LOBBY_RECONNECT_GRACE_SECONDS
@@ -183,6 +186,9 @@ export class Room {
       this.manager.io
         .to(player.socketId)
         .emit("room_state", this.publicStateFor(player.id));
+    }
+    for (const spectator of this.spectators) {
+      if (spectator.connected) this.manager.io.to(spectator.socketId).emit("room_state", this.publicStateFor(spectator.id));
     }
   }
 
@@ -864,6 +870,7 @@ export class RoomManager {
   }
 
   private requireDetached(socket: AppSocket): void {
+    if (socket.data.spectatingRoom) throw new RoomError("ALREADY_IN_ROOM", "请先退出观战席");
     if (socket.data.roomCode) {
       const existing = this.rooms.get(socket.data.roomCode);
       const player = existing?.getPlayerBySocket(socket.id);
@@ -880,6 +887,33 @@ export class RoomManager {
     socket.data.playerId = player.id;
     socket.join(room.code);
     this.clearIdleRoom(room);
+  }
+
+  spectateRoom(socket: AppSocket, rawCode: unknown): void {
+    this.requireDetached(socket);
+    const code = normalizeRoomCode(rawCode);
+    const room = this.rooms.get(code);
+    const account = this.requireAccount(socket);
+    if (!room) throw new RoomError("ROOM_NOT_FOUND", "房间不存在或已关闭");
+    if (room.players.some((entry) => entry.accountId === account.id)) throw new RoomError("ALREADY_IN_ROOM", "你已经在该房间中");
+    const spectator = { id: randomUUID(), accountId: account.id, name: account.username, socketId: socket.id, connected: true };
+    room.spectators.push(spectator);
+    socket.data.spectatingRoom = room.code;
+    socket.data.spectatorId = spectator.id;
+    socket.join(room.code);
+    room.emitStates();
+  }
+
+  leaveSpectating(socket: AppSocket): void {
+    const code = socket.data.spectatingRoom;
+    const room = code ? this.rooms.get(code) : undefined;
+    if (room) {
+      room.spectators = room.spectators.filter((entry) => entry.id !== socket.data.spectatorId);
+      room.emitStates();
+    }
+    socket.data.spectatingRoom = undefined;
+    socket.data.spectatorId = undefined;
+    if (code) socket.leave(code);
   }
 
   detachSocket(player: RoomPlayer, roomCode: string): void {
@@ -926,6 +960,19 @@ export class RoomManager {
         return { account };
       });
     });
+    socket.on("social_get", (_payload, ack) => this.respond(ack, () => this.auth.socialState(this.requireAccount(socket).id)));
+    socket.on("social_search", (payload, ack) => this.respond(ack, () => ({ accounts: this.auth.searchAccounts(payload?.query, this.requireAccount(socket).id) })));
+    socket.on("social_request", (payload, ack) => this.respond(ack, () => { const account = this.requireAccount(socket); this.auth.sendFriendRequest(account.id, payload?.target); const target = this.auth.searchAccounts(String(payload?.target), account.id)[0]; if (target) this.notifyAccount(target.id); return { duplicate: false }; }));
+    socket.on("social_accept", (payload, ack) => this.respond(ack, () => { const account = this.requireAccount(socket); this.auth.acceptFriendRequest(account.id, payload?.requesterId); this.notifyAccount(account.id); this.notifyAccount(String(payload?.requesterId)); return { duplicate: false }; }));
+    socket.on("social_reject", (payload, ack) => this.respond(ack, () => { const account = this.requireAccount(socket); this.auth.rejectFriendRequest(account.id, payload?.requesterId); this.notifyAccount(String(payload?.requesterId)); return { duplicate: false }; }));
+    socket.on("social_invite", (payload, ack) => this.respond(ack, () => {
+      const account = this.requireAccount(socket);
+      if (!this.auth.areFriends(account.id, payload?.targetId)) throw new RoomError("NOT_FRIENDS", "只能邀请好友");
+      this.auth.inviteFriend(account.id, String(payload?.targetId), payload?.game, String(payload?.roomCode), payload?.role);
+      const target = this.io.sockets.sockets;
+      for (const candidate of target.values()) if (candidate.data.accountId === payload?.targetId) candidate.emit("friend_room_invite", { game: payload.game, roomCode: payload.roomCode, inviter: account.username, role: payload.role });
+      return { duplicate: false };
+    }));
     socket.on("auth_logout", (_payload, ack) => {
       this.respond(ack, () => {
         this.requireNoRoomForAuth(socket);
@@ -975,6 +1022,8 @@ export class RoomManager {
         this.joinRoom(socket, payload?.roomCode, payload?.name)
       );
     });
+    socket.on("spectate_room", (payload, ack) => this.respond(ack, () => { this.spectateRoom(socket, payload?.roomCode); return undefined; }));
+    socket.on("leave_spectating", (_payload, ack) => this.respond(ack, () => { this.leaveSpectating(socket); return { duplicate: false }; }));
     socket.on("resume_session", (payload, ack) => {
       this.respond(ack, () =>
         this.resumeSession(socket, payload?.roomCode, payload?.token)
@@ -1133,6 +1182,7 @@ export class RoomManager {
       ack({ ok: true, data: status });
     });
     socket.on("disconnect", () => {
+      if (socket.data.spectatingRoom) this.leaveSpectating(socket);
       const code = socket.data.roomCode;
       if (!code) {
         return;
@@ -1150,8 +1200,12 @@ export class RoomManager {
     return account;
   }
 
+  private notifyAccount(accountId: string): void {
+    for (const candidate of this.io.sockets.sockets.values()) if (candidate.data.accountId === accountId) candidate.emit("social_updated");
+  }
+
   private requireNoRoomForAuth(socket: AppSocket): void {
-    if (socket.data.roomCode) {
+    if (socket.data.roomCode || socket.data.spectatingRoom) {
       throw new RoomError(
         "AUTH_IN_ROOM",
         "请先离开当前房间再切换账号"
@@ -1283,6 +1337,7 @@ export class RoomManager {
       return;
     }
     room.clearTimers();
+    for (const viewer of room.spectators) { const viewerSocket = this.io.sockets.sockets.get(viewer.socketId); if (viewerSocket) { viewerSocket.data.spectatingRoom = undefined; viewerSocket.data.spectatorId = undefined; } }
     this.rooms.delete(code);
     this.io.to(code).emit("room_closed", { message: "房间已关闭" });
     this.io.socketsLeave(code);

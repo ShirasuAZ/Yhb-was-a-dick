@@ -320,12 +320,18 @@ export function useUnoSession() {
     if (!roomCode || sessionRef.current || !currentAccount || !socket.connected) {
       return;
     }
-    const result = await emitAck<JoinRoomResult>("join_room", {
+    const watching = new URLSearchParams(window.location.search).get("watch") === "1";
+    const result = await emitAck<JoinRoomResult>(watching ? "spectate_room" : "join_room", watching ? { roomCode } : {
       roomCode,
       name: currentAccount.username
     });
     if (!result.ok || !result.data) {
       showError(result.message ?? "加入房间失败");
+      return;
+    }
+    if (watching) {
+      setInviteCode(roomCode);
+      window.history.replaceState({}, "", `/room/${roomCode}?watch=1`);
       return;
     }
     enterRoom({
@@ -646,6 +652,7 @@ export function useUnoSession() {
     }
     if (
       currentRoom.phase === "playing" &&
+      !currentRoom.youAreSpectator &&
       !window.confirm("对局中退出将视为弃权，确定退出吗？")
     ) {
       return;
@@ -658,9 +665,7 @@ export function useUnoSession() {
     setRoom(null);
     setInviteCode(null);
     window.history.pushState({}, "", "/");
-    const result = await perform("leave_room", {
-      actionId: createActionId()
-    });
+    const result = await perform(currentRoom.youAreSpectator ? "leave_spectating" : "leave_room", currentRoom.youAreSpectator ? {} : { actionId: createActionId() });
     if (!result) {
       showError(
         "已退出本地房间，但服务器未确认离开。若房间中仍显示你在座，请重新进入房间后再退出。"

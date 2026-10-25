@@ -1,3 +1,4 @@
+import type { FriendState, FriendProfile } from "./social.ts";
 export type CardColor = "red" | "yellow" | "green" | "blue";
 
 export type CardKind =
@@ -128,6 +129,8 @@ export interface RoomState {
   phase: RoomPhase;
   hostId: string;
   players: PublicPlayer[];
+  spectators: Array<{ id: string; name: string; connected: boolean }>;
+  youAreSpectator: boolean;
   you: OwnPlayer;
   game: PublicGameView | null;
   reconnectionGraceSeconds: number;
@@ -245,6 +248,8 @@ export interface ServerToClientEvents {
   emote: (message: EmoteMessage) => void;
   "ua:state": (state: UnionArenaRoomState) => void;
   "ua:room_closed": (payload: { message: string }) => void;
+  social_updated: () => void;
+  friend_room_invite: (payload: { game: "uno" | "shogi" | "arknights"; roomCode: string; inviter: string; role: "player" | "spectator" }) => void;
 }
 
 export interface ClientToServerEvents {
@@ -260,6 +265,12 @@ export interface ClientToServerEvents {
     payload: Record<string, never>,
     ack: (result: ActionAck<{ account: AuthAccount }>) => void
   ) => void;
+  social_get: (payload: Record<string, never>, ack: (result: ActionAck<FriendState>) => void) => void;
+  social_search: (payload: { query: string }, ack: (result: ActionAck<{ accounts: FriendProfile[] }>) => void) => void;
+  social_request: (payload: { target: string }, ack: (result: MutationAck) => void) => void;
+  social_accept: (payload: { requesterId: string }, ack: (result: MutationAck) => void) => void;
+  social_reject: (payload: { requesterId: string }, ack: (result: MutationAck) => void) => void;
+  social_invite: (payload: { targetId: string; game: "uno" | "shogi" | "arknights"; roomCode: string; role: "player" | "spectator" }, ack: (result: MutationAck) => void) => void;
   auth_logout: (
     payload: { actionId: string },
     ack: (result: MutationAck) => void
@@ -303,6 +314,8 @@ export interface ClientToServerEvents {
     payload: { roomCode: string; name: string },
     ack: (result: ActionAck<JoinRoomResult>) => void
   ) => void;
+  spectate_room: (payload: { roomCode: string }, ack: (result: ActionAck) => void) => void;
+  leave_spectating: (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
   resume_session: (
     payload: { roomCode: string; token: string },
     ack: (result: ActionAck<JoinRoomResult>) => void

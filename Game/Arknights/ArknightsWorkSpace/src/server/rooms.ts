@@ -50,6 +50,7 @@ interface Seat extends UnionArenaPlayer, EnginePlayer {
 
 export class UnionArenaRoom {
   readonly players: Seat[] = [];
+  readonly spectators = new Map<string, { id: string; username: string; socketId: string; connected: boolean }>();
   phase: "lobby" | "playing" = "lobby";
   game: GameData | null = null;
   hostId = "";
@@ -232,7 +233,9 @@ export class UnionArenaRoom {
       hand: [...player.hand],
       playerCount: this.players.length,
       requiredPlayers: 2,
-      startAllowed: this.readyForStart
+      startAllowed: this.readyForStart,
+      spectators: [...this.spectators.values()].map(({ id, username, connected }) => ({ id, username, connected })),
+      youAreSpectator: false
     };
   }
 
@@ -241,6 +244,20 @@ export class UnionArenaRoom {
       const socket = player.socketId ? this.namespaceSocket(player.socketId) : undefined;
       if (socket) socket.emit("ua:state", this.stateFor(player));
     }
+    for (const spectator of this.spectators.values()) {
+      const socket = this.namespaceSocket(spectator.socketId);
+      if (socket) socket.emit("ua:state", this.spectatorState(spectator.id));
+    }
+  }
+
+  spectatorState(id: string): UnionArenaRoomState {
+    const player = this.players[0];
+    if (!player) throw new Error("ROOM_NOT_FOUND");
+    const state = this.stateFor(player);
+    state.youAreSpectator = true;
+    state.you = { id, username: this.spectators.get(id)?.username ?? "观战者", avatarUrl: null, seat: 0, connected: true, isHost: false, ready: false };
+    state.hand = [];
+    return state;
   }
 
   updateDeck(player: Seat, cardIds: string[], apCount: number): void {
@@ -286,7 +303,7 @@ export class UnionArenaRoomManager {
 
   private generateCode(): string {
     for (let attempt = 0; attempt < 50; attempt += 1) {
-      const code = Array.from({ length: 6 }, () => ROOM_ALPHABET[randomInt(ROOM_ALPHABET.length)]).join("");
+      const code = String(randomInt(1000, 10000));
       if (!this.rooms.has(code)) return code;
     }
     throw new Error("ROOM_CODE_EXHAUSTED");
@@ -330,6 +347,16 @@ export class UnionArenaRoomManager {
       room.broadcast();
       return { roomCode: code, you: room.stateFor(player).you };
     }));
+    socket.on("ua:spectate_room", (payload, ack) => this.respond(ack, () => {
+      if (this.activeByAccount.has(account.id) || socket.data.uaSpectatingRoom) throw new Error("ALREADY_IN_ROOM");
+      const code = typeof payload?.roomCode === "string" ? payload.roomCode.trim() : "";
+      const room = this.rooms.get(code);
+      if (!room || !/^\d{4}$/.test(code)) throw new Error("ROOM_NOT_FOUND");
+      room.spectators.set(account.id, { id: account.id, username: account.username, socketId: socket.id, connected: true });
+      socket.data.uaSpectatingRoom = code; socket.join(code); room.broadcast();
+      return { roomCode: code };
+    }));
+    socket.on("ua:leave_spectating", (_payload, ack) => this.respond(ack, () => { this.leaveSpectating(socket, account.id); return undefined; }));
     socket.on("ua:resume_room", (_payload, ack) => this.respond(ack, () => {
       const code = this.activeByAccount.get(account.id);
       const room = code ? this.rooms.get(code) : undefined;
@@ -394,6 +421,7 @@ export class UnionArenaRoomManager {
       return undefined;
     }));
     socket.on("disconnect", () => {
+      if (socket.data.uaSpectatingRoom) this.leaveSpectating(socket, account.id);
       const room = [...this.rooms.values()].find((entry) => entry.getSocket(socket.id));
       const player = room?.detach(socket);
       if (!room || !player) return;
@@ -409,11 +437,18 @@ export class UnionArenaRoomManager {
   }
 
   private current(socket: UaSocket): { room: UnionArenaRoom; player: Seat } {
+    if (socket.data.uaSpectatingRoom) throw new Error("SPECTATOR_READ_ONLY");
     const code = this.activeByAccount.get(String(socket.data.accountId ?? ""));
     const room = code ? this.rooms.get(code) : undefined;
     const player = room?.getSocket(socket.id);
     if (!room || !player) throw new Error("NOT_IN_ROOM");
     return { room, player };
+  }
+
+  private leaveSpectating(socket: UaSocket, accountId: string): void {
+    const code = socket.data.uaSpectatingRoom as string | undefined; const room = code ? this.rooms.get(code) : undefined;
+    if (room) { room.spectators.delete(accountId); room.broadcast(); }
+    if (code) socket.leave(code); socket.data.uaSpectatingRoom = undefined;
   }
 
   private resumeAccount(accountId: string, socket: UaSocket): void {

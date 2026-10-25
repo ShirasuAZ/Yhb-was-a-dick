@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type {
   ClientToServerEvents,
   LanStatusView,
@@ -11,6 +11,11 @@ import { ThemeControl } from "./ThemeControl.tsx";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
 import type { ConnectionStatus } from "../types.ts";
+
+async function emitInvite(targetId: string, role: "player" | "spectator"): Promise<boolean> {
+  const response = await fetch("/api/social/invitations", { method: "POST", headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}`, "Content-Type": "application/json" }, body: JSON.stringify({ targetId, game: "uno", roomCode: location.pathname.match(/([A-Z2-9]{6})$/)?.[1] ?? "", role }) });
+  return response.ok;
+}
 
 interface WaitingRoomProps {
   room: RoomState;
@@ -40,6 +45,10 @@ export function WaitingRoom({
   onRefreshLan,
   setError
 }: WaitingRoomProps) {
+  const [inviteTargets, setInviteTargets] = useState<Array<{id:string;username:string}>>([]);
+  const [inviteResult, setInviteResult] = useState("");
+  useEffect(() => { fetch("/api/social", { headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}` } }).then((r) => r.json()).then((v: { data?: { friends?: Array<{id:string;username:string}> } }) => setInviteTargets(v.data?.friends ?? [])).catch(() => undefined); }, []);
+  const invite = async (id: string, role: "player" | "spectator"): Promise<void> => { const ok = await emitInvite(id, role); setInviteResult(ok ? "已发送" : "邀请失败，请确认好友关系和房间状态"); };
   const [copied, setCopied] = useState<"code" | "link" | null>(null);
   const [readyAction, setReadyAction] = useState<
     "ready" | "unready" | null
@@ -252,6 +261,8 @@ export function WaitingRoom({
                     : ""}
             </p>
           ) : null}
+          {inviteTargets.length ? <div className="room-friend-invites"><strong>邀请好友</strong>{inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" onClick={() => void invite(friend.id, "player")}>参战</button><button className="text-button" onClick={() => void invite(friend.id, "spectator")}>观战</button></span>)}{inviteResult ? <small>{inviteResult}</small> : null}</div> : null}
+          <div className="spectator-list"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div>
           {error ? (
             <p className="error-text" role="alert">
               {error}

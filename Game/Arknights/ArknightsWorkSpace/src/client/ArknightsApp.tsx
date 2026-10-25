@@ -86,6 +86,10 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const [roomCode, setRoomCode] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [roomWindowOpen, setRoomWindowOpen] = useState(true);
+  const [inviteTargets, setInviteTargets] = useState<Array<{ id: string; username: string }>>([]);
+  const [inviteResult, setInviteResult] = useState("");
+  const [incomingInvite, setIncomingInvite] = useState<{ id: string; roomCode: string; role: string; inviter: string } | null>(null);
   const { cards, cardsById, ctx } = useCatalog(setError);
   const [selectedCard, setSelectedCard] = useState<CardRecord | null>(null);
   const [cardSearch, setCardSearch] = useState("");
@@ -128,10 +132,37 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const socket = useMemo(() => io("/arknights", { autoConnect: false, auth: { token }, transports: ["websocket", "polling"] }) as UnionSocket, [token]);
 
   useEffect(() => {
-    socket.on("ua:state", setState);
+    if (!token) return;
+    void fetch("/api/social", { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => response.json() as Promise<{ data?: { friends?: Array<{ id: string; username: string }> } }>)
+      .then((result) => setInviteTargets(result.data?.friends ?? []))
+      .catch(() => setInviteTargets([]));
+  }, [token]);
+
+  useEffect(() => {
+    if (!token) return undefined;
+    const poll = async (): Promise<void> => {
+      try {
+        const response = await fetch("/api/social/invitations", { headers: { Authorization: `Bearer ${token}` } });
+        const result = await response.json() as { data?: Array<{ id: string; game: string; roomCode: string; role: string; inviter: string }> };
+        setIncomingInvite(result.data?.find((entry) => entry.game === "arknights") ?? null);
+      } catch { /* retain the last visible invitation */ }
+    };
+    void poll();
+    const timer = window.setInterval(() => void poll(), 5000);
+    return () => window.clearInterval(timer);
+  }, [token]);
+
+  useEffect(() => {
+    socket.on("ua:state", (nextState) => { setState(nextState); setRoomWindowOpen(false); });
     socket.on("connect_error", (reason) => setError(reason.message === "AUTH_REQUIRED" ? "登录状态已失效，请返回重新登录。" : "无法连接明日方舟对战服务。"));
+    const invite = new URLSearchParams(window.location.search).get("room");
+    const watch = new URLSearchParams(window.location.search).get("watch") === "1";
+    if (invite) setRoomCode(invite);
     socket.connect();
-    return () => { socket.disconnect(); socket.removeAllListeners(); };
+    const onConnect = (): void => { if (invite) void emitAck(socket, watch ? "ua:spectate_room" : "ua:join_room", { roomCode: invite }); };
+    socket.on("connect", onConnect);
+    return () => { socket.off("connect", onConnect); socket.disconnect(); socket.removeAllListeners(); };
   }, [socket]);
 
   const action = async <T,>(event: keyof ClientToServerEvents, payload: unknown): Promise<ActionAck<T> | null> => {
@@ -143,12 +174,16 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const createRoom = async (): Promise<void> => {
     const result = await action<{ roomCode: string }>("ua:create_room", {});
     if (!result?.ok) setError(errorText(result, "创建房间失败"));
-    else setPanelOpen(false);
+    else { setPanelOpen(false); setRoomWindowOpen(false); }
   };
   const joinRoom = async (): Promise<void> => {
     const result = await action<{ roomCode: string }>("ua:join_room", { roomCode: roomCode.trim().toUpperCase() });
     if (!result?.ok) setError(errorText(result, "加入房间失败"));
-    else setPanelOpen(false);
+    else { setPanelOpen(false); setRoomWindowOpen(false); }
+  };
+  const spectateRoom = async (): Promise<void> => {
+    const result = await action<{ roomCode: string }>("ua:spectate_room", { roomCode: roomCode.trim() });
+    if (!result?.ok) setError(errorText(result, "进入观战席失败")); else { setPanelOpen(false); setRoomWindowOpen(false); }
   };
   const toggleReady = async (): Promise<void> => {
     const result = await action("ua:ready", { ready: !state?.you.ready });
@@ -163,11 +198,12 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
     if (!result?.ok) setError(errorText(result, "换牌操作失败"));
   };
   const leaveRoom = async (): Promise<void> => {
-    const result = await action("ua:leave_room", {});
+    const result = await action(state?.youAreSpectator ? "ua:leave_spectating" : "ua:leave_room", {});
     if (!result?.ok) setError(errorText(result, "离开房间失败"));
-    else setState(null);
+    else { setState(null); setRoomWindowOpen(true); }
   };
   const sendGameAction = async (gameAction: UnionArenaAction): Promise<string | null> => {
+    if (state?.youAreSpectator) return "观战席只能查看对局";
     setBusy(true);
     try {
       const result = await emitAck(socket, "ua:action", gameAction);
@@ -242,6 +278,23 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   };
   const deckSubmitted = submittedKey !== null && submittedKey === deckKey && deckTotal === DECK_SIZE;
   const deckEditable = state?.phase === "lobby";
+  const readOnly = state?.youAreSpectator ?? false;
+  const invite = async (targetId: string, role: "player" | "spectator"): Promise<void> => {
+    if (!state || readOnly || !token) return;
+    const response = await fetch("/api/social/invitations", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ targetId, game: "arknights", roomCode: state.roomCode, role })
+    });
+    setInviteResult(response.ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态");
+  };
+  const answerIncomingInvite = async (accept: boolean): Promise<void> => {
+    if (!incomingInvite || !token) return;
+    await fetch(`/api/social/invitations/${encodeURIComponent(incomingInvite.id)}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+    const inviteToJoin = incomingInvite;
+    setIncomingInvite(null);
+    if (accept) window.location.assign(`${ARKNIGHTS_HOME}pvp?room=${inviteToJoin.roomCode}${inviteToJoin.role === "spectator" ? "&watch=1" : ""}`);
+  };
 
   const game = state?.game ?? null;
   const nameOf = (playerId: string | null | undefined): string => state?.players.find((player) => player.id === playerId)?.username ?? "";
@@ -259,24 +312,26 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
     : `第 ${game.turn} 回合 · ${game.turnPlayerId === account.id ? "你的回合" : `${nameOf(game.turnPlayerId)} 的回合`}`;
   const anyLightbox = zoomCard !== null || controller.lightboxOpen;
   return <div className="ua-app" data-compact={compact} data-in-game={game ? "true" : undefined}>
+    {incomingInvite ? <aside className="invite-toast"><strong>{incomingInvite.inviter} 邀请你{incomingInvite.role === "spectator" ? "观战" : "加入房间"}</strong><span>明日方舟 · {incomingInvite.roomCode}</span><button className="ua-primary" onClick={() => void answerIncomingInvite(true)}>{incomingInvite.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="ua-secondary" onClick={() => void answerIncomingInvite(false)}>忽略</button></aside> : null}
     <header className="ua-header" inert={anyLightbox}>
       <button className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
       <div className="ua-roominfo">{state ? <span className="ua-roominfo-main">房间 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{gameStatus ? ` · ${gameStatus}` : ""}</span> : <span>未加入房间</span>}{error ? <span className="ua-roominfo-error" role="alert">{error}</span> : null}</div>
       <div className="ua-header-end">
+        <button type="button" className="ua-toggle" onClick={() => setRoomWindowOpen(true)}>房间</button>
         <button ref={toggleRef} type="button" className="ua-toggle" aria-expanded={panelVisible} aria-controls="ua-panel" aria-label={compact ? "打开工具面板" : panelVisible ? "收起侧栏" : "展开侧栏"} onClick={togglePanel}>{compact ? "工具" : panelVisible ? "侧栏 ›" : "‹ 侧栏"}</button>
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </div>
     </header>
-    {controller.actionBar ? <div className="ua-actionbar-row" inert={anyLightbox}>{controller.actionBar}</div> : null}
+    {controller.actionBar && !readOnly ? <div className="ua-actionbar-row" inert={anyLightbox}>{controller.actionBar}</div> : null}
     <main className="ua-main" data-panel-open={panelVisible} inert={anyLightbox}>
       <div className="ua-stage">
         <div className="ua-table-wrapper">
           <section className="ua-table" aria-label="明日方舟 UNION ARENA 对战桌面">
             <span className="ua-centerline" aria-hidden="true" />
             <div className="ua-seatbar" data-side="opponent"><Seat player={opponent} self={false} />{controller.opponentHand}</div>
-            <HalfBoard side="opponent" life={opponentLife} board={game?.board.opponent} deckCount={game?.deckCount.opponent} cardsById={cardsById} ctx={ctx} interaction={controller.interaction} activePhase={controller.activePhase("opponent")} />
-            <HalfBoard side="self" life={selfLife} board={game?.board.you} deckCount={game?.deckCount.you} cardsById={cardsById} ctx={ctx} interaction={controller.interaction} activePhase={controller.activePhase("self")} />
-            <div className="ua-seatbar" data-side="self"><Seat player={me} self />{controller.handStrip}</div>
+            <HalfBoard side="opponent" life={opponentLife} board={game?.board.opponent} deckCount={game?.deckCount.opponent} cardsById={cardsById} ctx={ctx} interaction={readOnly ? undefined : controller.interaction} activePhase={controller.activePhase("opponent")} />
+            <HalfBoard side="self" life={selfLife} board={game?.board.you} deckCount={game?.deckCount.you} cardsById={cardsById} ctx={ctx} interaction={readOnly ? undefined : controller.interaction} activePhase={controller.activePhase("self")} />
+            <div className="ua-seatbar" data-side="self"><Seat player={me} self />{readOnly ? null : controller.handStrip}</div>
           </section>
         </div>
       </div>
@@ -285,10 +340,12 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
       <aside ref={panelRef} id="ua-panel" className="ua-panel" data-open={panelVisible} inert={!panelVisible} aria-hidden={!panelVisible} aria-label="房间与卡牌目录">
         <div className="ua-panel-head"><strong>房间 · 卡牌目录</strong><button ref={closeRef} type="button" className="ua-secondary ua-panel-close" aria-label="关闭工具面板" onClick={() => setPanelOpen(false)}>关闭</button></div>
         <div className="ua-status"><span>玩家人数</span><strong>{state?.playerCount ?? 0}/{state?.requiredPlayers ?? 2}</strong></div>
-        {!state ? <div className="ua-room-actions"><button className="ua-primary" disabled={busy} onClick={() => void createRoom()}>创建对战房间</button><label htmlFor="ua-room-code">房间号</label><input id="ua-room-code" value={roomCode} maxLength={6} onChange={(event) => setRoomCode(event.target.value.toUpperCase().replace(/[^A-Z2-9]/g, ""))} placeholder="输入 6 位房间号" /><button className="ua-secondary" disabled={busy || roomCode.length !== 6} onClick={() => void joinRoom()}>加入房间</button></div> : <div className="ua-room-actions"><p>房间号 <strong>{state.roomCode}</strong></p>{deckEditable ? <button className="ua-secondary" disabled={busy || (!state.you.ready && !deckSubmitted)} onClick={() => void toggleReady()}>{state.you.ready ? "取消准备" : "准备"}</button> : null}{state.you.isHost && deckEditable ? <button className="ua-primary" disabled={busy || !state.startAllowed} onClick={() => void startGame()}>开始游戏</button> : null}<button className="ua-secondary" disabled={busy} onClick={() => void leaveRoom()}>离开房间</button></div>}
+        {state && !readOnly && deckEditable && !state.you.isHost ? <div className="ua-room-actions"><button className="ua-secondary" disabled={busy || (!state.you.ready && !deckSubmitted)} onClick={() => void toggleReady()}>{state.you.ready ? "取消准备" : "准备"}</button></div> : null}
+        {state && !readOnly && deckEditable && state.you.isHost ? <div className="ua-room-actions"><button className="ua-primary" disabled={busy || !state.startAllowed} onClick={() => void startGame()}>开始游戏</button></div> : null}
+        {!state ? <div className="ua-room-actions"><p>建房、加入和观战入口位于顶部“房间”窗口。</p></div> : null}
         {state && deckEditable && !state.startAllowed ? <p className="ua-hint">需要两名在线玩家各自提交合法牌组并准备，房主才能开始。</p> : null}
         {error ? <p className="ua-error" role="alert">{error}</p> : null}
-        {state && deckEditable ? <section className="ua-deck" aria-labelledby="ua-deck-heading">
+        {state && !state.youAreSpectator && deckEditable ? <section className="ua-deck" aria-labelledby="ua-deck-heading">
           <div className="ua-deck-head"><h2 id="ua-deck-heading">我的牌组</h2><span>{deckTotal}/{DECK_SIZE} 张 · AP {AP_COUNT}/{AP_COUNT}</span></div>
           <p className="ua-hint">在下方卡牌目录用 ＋ 选卡：主牌组 {DECK_SIZE} 张，同卡号最多 {MAX_COPIES} 张，只能用同一作品代码（当前：{deckSource ?? "未定"}），【特殊】【色彩】【最终】触发的卡每种最多 {MAX_COPIES} 张。AP 卡固定 {AP_COUNT} 张，无需选择。</p>
           <div className="ua-deck-actions">
@@ -336,7 +393,7 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
                   {card.imageUrl ? <img src={card.imageUrl} alt="" loading="lazy" /> : <span className="ua-card-missing">?</span>}
                   <span><strong>{card.name}</strong><small>{card.number} · {card.rarity}</small></span>
                 </button>
-                {deckEditable ? <span className="ua-stepper">
+                {deckEditable && !readOnly ? <span className="ua-stepper">
                   <button type="button" aria-label={`从牌组移出 ${card.name} ${card.number}`} disabled={copies === 0} onClick={() => setCopies(card, copies - 1)}>－</button>
                   <output aria-label={`${card.name} 已选 ${copies} 张`}>{copies}</output>
                   <button type="button" aria-label={`加入牌组 ${card.name} ${card.number}`} disabled={!canAdd(card)} onClick={() => setCopies(card, copies + 1)}>＋</button>
@@ -348,6 +405,19 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
       </aside>
       </div>
     </main>
+    {roomWindowOpen ? <div className="ua-room-window-backdrop" role="presentation" onClick={() => { if (state) setRoomWindowOpen(false); }}>
+      <section className="ua-room-window" role="dialog" aria-modal="true" aria-labelledby="ua-room-window-title" onClick={(event) => event.stopPropagation()}>
+        <div className="ua-panel-head"><strong id="ua-room-window-title">房间</strong>{state ? <button type="button" className="ua-secondary" onClick={() => setRoomWindowOpen(false)}>关闭</button> : null}</div>
+        {!state ? <div className="ua-room-actions"><button className="ua-primary" disabled={busy} onClick={() => void createRoom()}>创建对战房间</button><label htmlFor="ua-room-code">房间号</label><input id="ua-room-code" value={roomCode} maxLength={4} onChange={(event) => setRoomCode(event.target.value.replace(/\D/g, "").slice(0, 4))} placeholder="输入 4 位房间号" /><button className="ua-secondary" disabled={busy || roomCode.length !== 4} onClick={() => void joinRoom()}>加入房间</button><button className="ua-secondary" disabled={busy || roomCode.length !== 4} onClick={() => void spectateRoom()}>进入观战席</button></div> : <>
+          <p className="ua-room-window-code">房间号 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{readOnly ? " · 观战中" : ""}</p>
+          <div className="ua-room-window-players"><strong>玩家</strong>{state.players.map((player) => <span key={player.id}>{player.username}{player.isHost ? " · 房主" : ""}{player.connected ? "" : " · 离线"}</span>)}</div>
+          <div className="spectator-list"><strong>观战席（{state.spectators.length}）</strong>{state.spectators.length ? state.spectators.map((person) => <span key={person.id}>{person.username}</span>) : <small>暂无观战者</small>}</div>
+          {!readOnly && inviteTargets.length ? <div className="room-friend-invites"><strong>邀请好友</strong>{inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" onClick={() => void invite(friend.id, "player")}>参战</button><button className="text-button" onClick={() => void invite(friend.id, "spectator")}>观战</button></span>)}{inviteResult ? <small>{inviteResult}</small> : null}</div> : null}
+          <button className="ua-secondary" disabled={busy} onClick={() => void leaveRoom()}>离开房间</button>
+        </>}
+        {error ? <p className="ua-error" role="alert">{error}</p> : null}
+      </section>
+    </div> : null}
     {zoomCard?.imageUrl ? <CardLightbox src={zoomCard.imageUrl} label={zoomCard.name} alt={`${zoomCard.name} ${zoomCard.number}`} compact={compact} getOrigin={() => previewRef.current?.getBoundingClientRect() ?? null} getReturnFocus={() => previewRef.current} onClose={() => setZoomCard(null)} /> : null}
     {controller.lightbox}
   </div>;

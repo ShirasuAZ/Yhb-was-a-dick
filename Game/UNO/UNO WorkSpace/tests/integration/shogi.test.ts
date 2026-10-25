@@ -51,11 +51,11 @@ describe("Shogi online service", () => {
     rmSync(dataDir, { recursive: true, force: true });
   });
 
-  it("uses verified account names, creates five-character rooms, validates turns and isolates rooms", async () => {
+  it("uses verified account names, creates four-digit rooms, validates turns and isolates rooms", async () => {
     const alice = await connect(aliceToken);
     const created = await emit<{ roomCode: string }>(alice, "shogi:create", { name: "forged-name" });
     expect(created.ok).toBe(true);
-    expect(created.data?.roomCode).toMatch(/^[A-Z0-9]{5}$/);
+    expect(created.data?.roomCode).toMatch(/^\d{4}$/);
     const code = created.data!.roomCode;
     const aliceStates = listenState(alice);
     await receiveState(aliceStates);

@@ -99,12 +99,15 @@ function UnoApp() {
     );
   }
 
+  const incomingInvite = <InviteWatcher />;
+
   if (window.location.pathname === "/delete-account") {
     return <AccountDeletionPage username={session.account.username} error={session.error} busy={session.busy} onDelete={session.deleteAccount} />;
   }
 
   if (!session.room) {
     return (
+      <>{incomingInvite}
       <Lobby
         account={session.account}
         connection={session.connection}
@@ -120,12 +123,13 @@ function UnoApp() {
         clearError={() => session.setError("")}
         gameMode={window.location.pathname === "/uno" || window.location.pathname.startsWith("/room/")}
         onBack={() => window.location.assign("/")}
-      />
+      /></>
     );
   }
 
   if (session.room.phase === "lobby") {
     return (
+      <>{incomingInvite}
       <WaitingRoom
         room={session.room}
         connection={session.connection}
@@ -137,11 +141,12 @@ function UnoApp() {
         onToggleLan={session.setLanAccess}
         onRefreshLan={session.refreshLanStatus}
         setError={session.setError}
-      />
+      /></>
     );
   }
 
   return (
+    <>{incomingInvite}
     <GameScreen
       room={session.room}
       connection={session.connection}
@@ -151,6 +156,24 @@ function UnoApp() {
       perform={session.perform}
       sendEmote={session.sendEmote}
       leaveRoom={session.leaveRoom}
-    />
+    /></>
   );
+}
+
+function InviteWatcher() {
+  const [invitation, setInvitation] = useState<{ id:string; game:string; roomCode:string; role:string; inviter:string } | null>(null);
+  useEffect(() => {
+    const poll = async (): Promise<void> => {
+      const token = localStorage.getItem("uno.accountToken"); if (!token) return;
+      try { const response = await fetch("/api/social/invitations", { headers: { Authorization: `Bearer ${token}` } }); const result = await response.json() as { data?: Array<{id:string;game:string;roomCode:string;role:string;inviter:string}> }; setInvitation(result.data?.[0] ?? null); } catch { /* keep the last invitation visible */ }
+    };
+    void poll(); const timer = window.setInterval(() => void poll(), 5000); return () => window.clearInterval(timer);
+  }, []);
+  if (!invitation) return null;
+  const enter = async (watch: boolean): Promise<void> => {
+    await fetch(`/api/social/invitations/${encodeURIComponent(invitation.id)}`, { method: "DELETE", headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}` } });
+    const url = invitation.game === "arknights" ? `/arknights-union-arena/pvp?room=${invitation.roomCode}${watch ? "&watch=1" : ""}` : invitation.game === "shogi" ? `/shogi?room=${invitation.roomCode}${watch ? "&watch=1" : ""}` : `/room/${invitation.roomCode}${watch ? "?watch=1" : ""}`;
+    window.location.assign(url);
+  };
+  return <aside className="invite-toast"><strong>{invitation.inviter} 邀请你{invitation.role === "spectator" ? "观战" : "加入房间"}</strong><span>{invitation.game.toUpperCase()} · {invitation.roomCode}</span><button className="primary" onClick={() => void enter(invitation.role === "spectator")}>{invitation.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="text-button" onClick={() => setInvitation(null)}>稍后</button></aside>;
 }

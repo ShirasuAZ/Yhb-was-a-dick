@@ -29,6 +29,8 @@ type OnlineState = {
   connected: Partial<Record<Side, boolean>>;
   yourSide: Side;
   hostSide: Side;
+  spectator?: boolean;
+  spectators?: Array<{ id: string; name: string; connected: boolean }>;
 };
 type AckResult<T = unknown> = { ok: boolean; message?: string; data?: T };
 
@@ -60,9 +62,18 @@ function emitAck<T>(socket: Socket, event: string, payload: unknown): Promise<Ac
   });
 }
 
+async function sendFriendInvite(targetId: string, roomCode: string, role: "player" | "spectator"): Promise<boolean> {
+  const response = await fetch("/api/social/invitations", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${localStorage.getItem(ACCOUNT_TOKEN_KEY) ?? ""}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ targetId, game: "shogi", roomCode, role })
+  });
+  return response.ok;
+}
+
 function inviteCode(): string {
   const queryCode = new URLSearchParams(location.search).get("room") ?? "";
-  const pathCode = location.pathname.match(/^\/shogi\/([A-Za-z0-9]{5})\/?$/)?.[1] ?? "";
+  const pathCode = location.pathname.match(/^\/shogi\/([A-Za-z0-9]{4})\/?$/)?.[1] ?? "";
   return (queryCode || pathCode).toUpperCase();
 }
 
@@ -104,10 +115,37 @@ export function ShogiApp() {
   const clockOffset = useRef(0);
   const [tick, setTick] = useState(0);
   const [confirmingResign, setConfirmingResign] = useState(false);
+  const [inviteTargets, setInviteTargets] = useState<Array<{ id: string; username: string }>>([]);
+  const [inviteResult, setInviteResult] = useState("");
+  const [incomingInvite, setIncomingInvite] = useState<{ id: string; game: string; roomCode: string; role: string; inviter: string } | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => setTick((value) => value + 1), 250);
     return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const poll = async (): Promise<void> => {
+      const token = localStorage.getItem(ACCOUNT_TOKEN_KEY);
+      if (!token) return;
+      try {
+        const response = await fetch("/api/social/invitations", { headers: { Authorization: `Bearer ${token}` } });
+        const result = await response.json() as { data?: Array<{ id: string; game: string; roomCode: string; role: string; inviter: string }> };
+        setIncomingInvite(result.data?.find((entry) => entry.game === "shogi") ?? null);
+      } catch { /* keep the current notification visible */ }
+    };
+    void poll();
+    const timer = window.setInterval(() => void poll(), 5000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem(ACCOUNT_TOKEN_KEY);
+    if (!token) return;
+    void fetch("/api/social", { headers: { Authorization: `Bearer ${token}` } })
+      .then((response) => response.json() as Promise<{ data?: { friends?: Array<{ id: string; username: string }> } }>)
+      .then((result) => setInviteTargets(result.data?.friends ?? []))
+      .catch(() => setInviteTargets([]));
   }, []);
 
   useEffect(() => {
@@ -151,7 +189,8 @@ export function ShogiApp() {
       if (!nextIdentity.roomCode && invite && !invitationAttempted.current) {
         invitationAttempted.current = true;
         setBusy(true);
-        void emitAck(socket, "shogi:join", { roomCode: invite }).then((result) => {
+        const watch = new URLSearchParams(location.search).get("watch") === "1";
+        void emitAck(socket, watch ? "shogi:spectate" : "shogi:join", { roomCode: invite }).then((result) => {
           setBusy(false);
           if (!result.ok) setOnlineError(result.message ?? "无法加入邀请房间");
         });
@@ -229,7 +268,7 @@ export function ShogiApp() {
           : `${sideLabel[game.winner ?? "sente"]} · 将死`;
 
   const sendMove = async (move: Move): Promise<void> => {
-    if (!online || !game || !connection || busy) return;
+    if (!online || online.spectator || !game || !connection || busy) return;
     setBusy(true);
     const result = await emitAck(socket, "shogi:move", {
       roomCode: online.roomCode,
@@ -243,7 +282,7 @@ export function ShogiApp() {
   };
 
   const squareClick = (row: number, col: number): void => {
-    if (!online || !game || !currentSide || game.status !== "playing" || !connection || busy || online.yourSide !== currentSide) return;
+    if (!online || online.spectator || !game || !currentSide || game.status !== "playing" || !connection || busy || online.yourSide !== currentSide) return;
     if (dropType) {
       void sendMove({ kind: "drop", piece: dropType, to: { row, col } });
       return;
@@ -280,13 +319,31 @@ export function ShogiApp() {
 
   const joinRoom = async (): Promise<void> => {
     const code = roomCode.trim().toUpperCase();
-    if (!connection || busy || !/^[A-Z0-9]{5}$/.test(code)) return;
+    if (!connection || busy || !/^\d{4}$/.test(code)) return;
     setBusy(true);
     setOnlineError("");
     const result = await emitAck<{ roomCode: string }>(socket, "shogi:join", { roomCode: code });
     setBusy(false);
     if (!result.ok) setOnlineError(result.message ?? "加入房间失败");
     else setRoomCode(result.data?.roomCode ?? code);
+  };
+
+  const spectateRoom = async (): Promise<void> => {
+    const code = roomCode.trim().toUpperCase();
+    if (!connection || busy || !/^\d{4}$/.test(code)) return;
+    setBusy(true);
+    setOnlineError("");
+    const result = await emitAck<{ roomCode: string }>(socket, "shogi:spectate", { roomCode: code });
+    setBusy(false);
+    if (!result.ok) setOnlineError(result.message ?? "进入观战席失败");
+  };
+  const answerIncomingInvite = async (accept: boolean): Promise<void> => {
+    if (!incomingInvite) return;
+    const token = localStorage.getItem(ACCOUNT_TOKEN_KEY) ?? "";
+    await fetch(`/api/social/invitations/${encodeURIComponent(incomingInvite.id)}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+    const invite = incomingInvite;
+    setIncomingInvite(null);
+    if (accept) location.assign(`/shogi?room=${invite.roomCode}${invite.role === "spectator" ? "&watch=1" : ""}`);
   };
 
   const resign = async (): Promise<void> => {
@@ -301,7 +358,7 @@ export function ShogiApp() {
 
   const leaveRoom = async (): Promise<void> => {
     if (!online || busy) return;
-    if (online.started && game?.status === "playing" && !window.confirm("退出后将判定对手获胜，并释放你的座位。确定退出房间吗？")) return;
+    if (!online.spectator && online.started && game?.status === "playing" && !window.confirm("退出后将判定对手获胜，并释放你的座位。确定退出房间吗？")) return;
     setBusy(true);
     const result = await emitAck(socket, "shogi:leave", {});
     setBusy(false);
@@ -309,7 +366,7 @@ export function ShogiApp() {
   };
 
   const markReady = async (): Promise<void> => {
-    if (!online || busy || online.started || !connection) return;
+    if (!online || online.spectator || busy || online.started || !connection) return;
     setBusy(true);
     const ready = !online.ready.includes(online.yourSide);
     const result = await emitAck(socket, "shogi:ready", { ready });
@@ -319,7 +376,7 @@ export function ShogiApp() {
   };
 
   const startGame = async (): Promise<void> => {
-    if (!online || busy || online.started || !connection || online.hostSide !== online.yourSide) return;
+    if (!online || online.spectator || busy || online.started || !connection || online.hostSide !== online.yourSide) return;
     setBusy(true);
     const result = await emitAck(socket, "shogi:start", {});
     setBusy(false);
@@ -339,7 +396,7 @@ export function ShogiApp() {
             const amount = hand[type];
             return <button key={type}
               className={`shogi-hand-piece ${dropType === type && online?.yourSide === side ? "is-selected" : ""}`}
-              disabled={!connection || busy || game!.status !== "playing" || online?.yourSide !== currentSide || online?.yourSide !== side || amount === 0}
+              disabled={!connection || busy || online?.spectator === true || game!.status !== "playing" || online?.yourSide !== currentSide || online?.yourSide !== side || amount === 0}
               onClick={() => { setDropType(dropType === type ? null : type); setSelected(null); }}
               aria-label={`${pieceLabel(type)} ${amount}枚打入`} title={`${pieceLabel(type)} ${amount}枚`}>
               <PieceImage piece={{ type, side, promoted: false }} yourSide={online!.yourSide} size="hand" />
@@ -359,8 +416,11 @@ export function ShogiApp() {
       ? `轮到你行棋 · ${identity?.username ?? online?.players[game.turn] ?? sideLabel[game.turn]}`
       : `轮到对手行棋 · ${online?.players[game.turn] ?? sideLabel[game.turn]}`
     : statusText;
+  const invitePanel = online && !online.spectator && inviteTargets.length ? <div className="shogi-friend-invites"><strong>邀请好友</strong>{inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" onClick={() => void sendFriendInvite(friend.id, online.roomCode, "player").then((ok) => setInviteResult(ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态"))}>参战</button><button className="text-button" onClick={() => void sendFriendInvite(friend.id, online.roomCode, "spectator").then((ok) => setInviteResult(ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态"))}>观战</button></span>)}{inviteResult ? <small>{inviteResult}</small> : null}</div> : null;
+  const spectatorsPanel = online ? <div className="spectator-list"><strong>观战席（{online.spectators?.length ?? 0}）</strong>{online.spectators?.length ? online.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div> : null;
 
   return <main className={`shogi-app ${online?.started ? "shogi-playing" : ""}`}>
+    {incomingInvite ? <aside className="invite-toast"><strong>{incomingInvite.inviter} 邀请你{incomingInvite.role === "spectator" ? "观战" : "加入房间"}</strong><span>日本将棋 · {incomingInvite.roomCode}</span><button className="primary" onClick={() => void answerIncomingInvite(true)}>{incomingInvite.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="text-button" onClick={() => void answerIncomingInvite(false)}>忽略</button></aside> : null}
     <header className="shogi-topbar">
       <button className="secondary shogi-back" onClick={() => location.assign("/")}>返回大厅</button>
       <div className="shogi-brand"><p className="eyebrow">LayUDown · 在线对局</p><h1>日本将棋</h1></div>
@@ -380,16 +440,17 @@ export function ShogiApp() {
         <div className="shogi-room-actions">
           <button className="primary" disabled={!connection || busy} onClick={() => void createRoom()}>创建房间</button>
           <label htmlFor="shogi-room-code">加入房间</label>
-          <input id="shogi-room-code" value={roomCode} maxLength={5} placeholder="5 位房间号" autoComplete="off"
-            onChange={(event) => setRoomCode(event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+          <input id="shogi-room-code" value={roomCode} maxLength={4} placeholder="4 位房间号" autoComplete="off"
+            onChange={(event) => setRoomCode(event.target.value.replace(/\D/g, "").slice(0, 4))}
             onKeyDown={(event) => { if (event.key === "Enter") void joinRoom(); }} />
-          <button className="secondary" disabled={!connection || busy || !/^[A-Z0-9]{5}$/.test(roomCode)} onClick={() => void joinRoom()}>加入房间</button>
+          <button className="secondary" disabled={!connection || busy || !/^\d{4}$/.test(roomCode)} onClick={() => void joinRoom()}>加入房间</button>
+          <button className="secondary" disabled={!connection || busy || !/^\d{4}$/.test(roomCode)} onClick={() => void spectateRoom()}>进入观战席</button>
         </div>
         <p className="shogi-hint">将房间号分享给对手加入；每个账号只能在同一房间占用一个座位。</p>
       </section>
     </> : <>
       {!online.started ? <section className="shogi-room-bar" aria-label="房间信息">
-        <div className="shogi-room-identity"><span className="muted">房间号</span><strong>{online.roomCode}</strong><span className="shogi-seat-tag">{sideLabel[online.yourSide]} · {identity?.username}</span></div>
+        <div className="shogi-room-identity"><span className="muted">房间号</span><strong>{online.roomCode}</strong><span className="shogi-seat-tag">{online.spectator ? "观战席" : `${sideLabel[online.yourSide]} · ${identity?.username}`}</span></div>
         <div className="shogi-player-line">
           <span className={`${online.yourSide === "sente" ? "is-self " : ""}${online.started && game?.turn === "sente" ? "is-current" : ""}`}>{online.players.sente ?? "等待先手玩家"}</span>
           <b>对局</b>
@@ -399,23 +460,24 @@ export function ShogiApp() {
           <button className="secondary" disabled={busy} onClick={() => void leaveRoom()}>退出房间</button>
         </div>
       </section> : null}
+      {online && !online.started ? <>{invitePanel}{spectatorsPanel}</> : null}
 
       {!online.started ? <section className="panel shogi-waiting-panel" aria-live="polite">
         <strong>{online.players[opponentSide] ? `${online.players[opponentSide]} · ${opponentReady ? "已准备" : "已加入房间"}` : "等待玩家加入房间"}</strong>
-        {online.hostSide === online.yourSide ? <>
+        {!online.spectator && online.hostSide === online.yourSide ? <>
           <button className="primary" disabled={busy || !connection || !playersConnected || !opponentReady} onClick={() => void startGame()}>开始游戏</button>
           {!opponentReady ? <span className="muted">对手准备后即可开始</span> : null}
-        </> : <button className={online.ready.includes(online.yourSide) ? "secondary" : "primary"}
+        </> : !online.spectator ? <button className={online.ready.includes(online.yourSide) ? "secondary" : "primary"}
           disabled={busy || !connection || !online.players[opponentSide]}
           onClick={() => void markReady()}>
           {online.ready.includes(online.yourSide) ? "取消准备" : "准备"}
-        </button>}
+        </button> : <span className="muted">你正在观战，只能查看棋局。</span>}
         {onlineError ? <p className="shogi-message" role="status">{onlineError}</p> : null}
       </section> : game ? <>
         <section className={`shogi-active-bar ${game.status === "playing" && game.turn === online.yourSide ? "is-your-turn" : ""}`} aria-live="polite">
           <strong>{playingLabel}</strong>
           <span className="shogi-active-actions">
-            <button className="secondary shogi-resign" disabled={busy || !connection || !canResign}
+            <button className="secondary shogi-resign" disabled={online.spectator || busy || !connection || !canResign}
               title={canResign ? "投降" : gameOver ? "对局已结束" : "开局满 3 分钟后才能投降"}
               onClick={() => setConfirmingResign(true)}>
               {gameOver || canResign ? "投降" : `投降（${formatClock(surrenderWaitMs)}）`}
@@ -423,6 +485,7 @@ export function ShogiApp() {
             <button className="secondary" disabled={busy} onClick={() => void leaveRoom()}>退出房间</button>
           </span>
         </section>
+        {invitePanel}{spectatorsPanel}
         {gameOver && dissolveRemainingSeconds !== null ? <p className="shogi-message shogi-dissolve-notice" role="status" aria-live="polite">房间将在 {dissolveRemainingSeconds} 秒后自动解散</p> : null}
         {onlineError ? <p className="shogi-message" role="status">{onlineError}</p> : null}
         {notice ? <p className="shogi-message" role="status">{notice}</p> : null}
@@ -446,7 +509,7 @@ export function ShogiApp() {
                   data-board-col={colIndex}
                   className={`shogi-square ${(rowIndex + colIndex) % 2 ? "shade" : ""} ${canLand ? "legal-target" : ""} ${selectedHere ? "is-selected" : ""} ${game.lastMove?.to.row === rowIndex && game.lastMove.to.col === colIndex ? "last-move" : ""}`}
                   onClick={() => squareClick(rowIndex, colIndex)}
-                  disabled={!connection || busy || gameOver || game.status !== "playing" || online.yourSide !== game.turn}>
+                  disabled={!connection || busy || online.spectator === true || gameOver || game.status !== "playing" || online.yourSide !== game.turn}>
                   {piece ? <PieceImage piece={piece} yourSide={online.yourSide} /> : null}
                 </button>;
                 });
