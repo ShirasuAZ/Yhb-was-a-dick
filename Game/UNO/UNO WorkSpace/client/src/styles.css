@@ -3260,3 +3260,13 @@ button.playing-card {
 .spectator-peek img, .spectator-peek .spectator-initial { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #dfe8eb; }
 .spectator-peek strong { font-size: 13px; }
 .spectator-peek small { color: #697278; font-size: 11px; }
+
+/* Avatar editor: comfortable touch targets, and buttons that wrap one per row on a phone. */
+.avatar-select { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 6px; background: transparent; color: var(--text); }
+.avatar-select:hover { border-color: var(--text); }
+@media (max-width: 430px) {
+  .avatar-editor { display: grid; grid-template-columns: 1fr; gap: 8px; }
+  .avatar-editor button { width: 100%; min-height: 44px; }
+  .profile-setting h3 { font-size: 15px; }
+  .about-identity { gap: 12px; }
+}

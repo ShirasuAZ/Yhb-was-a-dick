@@ -47,8 +47,11 @@
 }
 
 /* Seat bars: the outer edge of each half, so a joining player appears above or below the board, never at its sides. During a game they also hold the hands. */
-.ua-seatbar { display: flex; align-items: center; justify-content: center; gap: .8em; min-width: 0; }
-.ua-seat { max-width: 100%; display: flex; align-items: center; gap: .6em; padding: .25em 1em .25em .3em; border: 1px solid rgba(65, 75, 80, .4); border-radius: 999px; background: rgba(255, 255, 255, .94); box-sizing: border-box; }
+.ua-seatbar { display: flex; align-items: center; justify-content: center; gap: .8em; min-width: 0; min-height: 2.9em; }
+
+/* The nameplate keeps its size; the hand takes the rest of the row and scrolls sideways. Without
+   flex:none on the seat, a long status line could squeeze the hand down to a single visible card. */
+.ua-seat { flex: none; max-width: 100%; display: flex; align-items: center; gap: .6em; padding: .25em 1em .25em .3em; border: 1px solid rgba(65, 75, 80, .4); border-radius: 999px; background: rgba(255, 255, 255, .94); box-sizing: border-box; }
 .ua-seat-self { border-color: #26363d; box-shadow: 0 0 0 1px #26363d; }
 .ua-seat img, .ua-avatar-fallback, .ua-empty-avatar { flex: none; width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; }
 .ua-avatar-fallback, .ua-empty-avatar { display: grid; place-items: center; background: #d5dcde; color: #425057; font-size: 1.1em; }
@@ -329,7 +332,7 @@
 .ua-life-pick { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; overflow: hidden; background: none; cursor: pointer; }
 
 /* Hands: yours as cards under your nameplate, the opponent's as a count of card backs. */
-.ua-handstrip { min-width: 0; flex: 0 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; list-style: none; }
+.ua-handstrip { min-width: 0; flex: 1 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; overflow-y: hidden; list-style: none; scrollbar-width: thin; }
 .ua-handstrip li { flex: none; }
 .ua-handstrip button { cursor: grab; display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
 .ua-handstrip img { width: 100%; height: 100%; object-fit: cover; display: block; }

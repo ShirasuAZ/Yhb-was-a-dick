@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { AuthAccount } from "@shared/protocol.ts";
 import { profileConfig } from "../profileConfig.ts";
 
@@ -31,6 +31,7 @@ export function AboutPage({
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [notice, setNotice] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!avatarFile) {
@@ -45,8 +46,16 @@ export function AboutPage({
   const selectAvatar = (file?: File): void => {
     setNotice("");
     if (!file) return;
-    if (!["image/png", "image/jpeg", "image/webp"].includes(file.type) || file.size > 3 * 1024 * 1024) {
-      setNotice("请选择 3 MB 以内的 PNG、JPEG 或 WebP 图片。");
+    // Phones often hand over an empty MIME type (or HEIC from the camera roll), so judge by extension too.
+    const name = file.name.toLowerCase();
+    const byExtension = /\.(png|jpe?g|webp)$/.test(name);
+    const byType = ["image/png", "image/jpeg", "image/webp"].includes(file.type);
+    if (!byType && !(file.type === "" && byExtension)) {
+      setNotice("请选择 PNG、JPEG 或 WebP 图片（iPhone 请先在相册里导出为 JPEG）。");
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      setNotice(`图片为 ${(file.size / 1024 / 1024).toFixed(1)} MB，超过 3 MB 上限，请先压缩或裁剪。`);
       return;
     }
     setAvatarFile(file);
@@ -85,7 +94,7 @@ export function AboutPage({
           {avatarUrl ? <img className="profile-avatar" src={avatarUrl} alt={`${displayName}的头像`} /> : <span className="profile-avatar profile-avatar-empty" aria-hidden="true">{displayName.slice(0, 1)}</span>}
           <div>
             <h3>{displayName}</h3>
-            {account ? <p className="muted">账号 ID：{account.id}</p> : <p className="muted">登录后可管理头像和密码。</p>}
+            {account ? <p className="muted">账号 ID：{account.id}</p> : <p className="muted">还没有登录。登录后即可设置头像、修改密码。</p>}
             {account?.email ? <p className="muted">{account.email}</p> : null}
           </div>
         </div>
@@ -94,16 +103,21 @@ export function AboutPage({
           <section className="profile-setting" aria-labelledby="avatar-heading">
             <h3 id="avatar-heading">头像</h3>
             <div className="avatar-editor">
-              <label className="secondary avatar-select" htmlFor="avatar-file">选择图片</label>
-              <input id="avatar-file" type="file" accept="image/png,image/jpeg,image/webp" onChange={(event) => selectAvatar(event.target.files?.[0])} />
+              {/* A real button that opens the picker directly: on some mobile browsers a label pointing
+                  at a display-hidden input does not open the photo library. */}
+              <button type="button" className="secondary avatar-select" onClick={() => fileInputRef.current?.click()}>选择图片</button>
+              <input ref={fileInputRef} id="avatar-file" type="file" accept="image/png,image/jpeg,image/webp,.png,.jpg,.jpeg,.webp" onChange={(event) => selectAvatar(event.target.files?.[0])} />
               {avatarFile ? <span className="muted">{avatarFile.name}</span> : null}
               <button className="primary" disabled={!avatarFile || busy} onClick={async () => {
                 if (avatarFile && await onSaveAvatar?.(avatarFile)) {
                   setAvatarFile(null);
                   setNotice("头像已保存。");
                 }
-              }}>保存头像</button>
+              }}>{busy ? "保存中…" : "保存头像"}</button>
             </div>
+            <p className="muted">支持 PNG、JPEG、WebP，3 MB 以内；手机上会打开相册或拍照。</p>
+            {notice ? <p className="hint" role="status">{notice}</p> : null}
+            {error ? <p className="error-text" role="alert">{error}</p> : null}
           </section>
 
           <section className="profile-setting" aria-labelledby="password-heading">
@@ -122,7 +136,6 @@ export function AboutPage({
 
         {notice ? <p className="hint" role="status">{notice}</p> : null}
         {error ? <p className="error-text" role="alert">{error}</p> : null}
-
         {account && onLogout && onDeleteAccount ? <section className="about-account-actions" aria-label="账号操作">
           <button className="secondary" disabled={busy} onClick={async () => {
             if (window.confirm("确定退出登录吗？")) {
