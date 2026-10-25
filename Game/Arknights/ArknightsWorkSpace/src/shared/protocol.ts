@@ -78,6 +78,27 @@ export interface UnionArenaFieldCard {
   blocks: number;
   /** "The next time it would switch to active, it does not." */
   skipNextActivate: boolean;
+  /** Changes from continuous abilities, recomputed by the engine after every change. */
+  staticBp?: number;
+  staticKeywords?: string[];
+  staticEnergy?: number;
+  /** Changes that last until the start of a player's next turn. */
+  lasting?: Array<{ bp: number; keyword: string | null; flag?: string | null; untilTurnOf: string }>;
+  /** Abilities of this card already used this turn (for 每回合1次), by index. */
+  used?: number[];
+  /**
+   * Rule-changing marks: until the end of the turn (`flags`) or from continuous abilities (`staticFlags`). Known marks: "cannotAttack",
+   * "unblockableBpAtMost:<n>", "cannotMove", "noSelfRest" (its owner's own effects cannot rest it), "untargetable:character" /
+   * "untargetable:event" (the opponent's character / event effects cannot choose it), "stayRested" (stays resting in this end phase).
+   */
+  flags?: string[];
+  staticFlags?: string[];
+  /** Energy generation change until the end of the turn. */
+  energyTurn?: number;
+  /** Abilities of other cards given to this card until the end of the turn: the source card and the ability's index in its list. */
+  grantedAbilities?: Array<{ cardId: string; index: number }>;
+  /** Cards put face down under this card by effects (not Raid), bottom first. They go to the sideline with it; views hide their identity (""). */
+  faceDown?: string[];
 }
 
 /** One player's visible board. Sideline and removal area are face up, so their cards are public. */
@@ -94,7 +115,32 @@ export type UnionArenaPending =
   | { kind: "block"; playerId: string; attackerUid: string }
   | { kind: "damage"; playerId: string; defenderId: string; amount: number }
   | { kind: "triggers"; playerId: string; attackerId: string; revealed: UnionArenaLifeCard[] }
-  | { kind: "discard"; playerId: string };
+  | { kind: "discard"; playerId: string }
+  | UnionArenaChoice;
+
+/**
+ * A choice a card ability asks for: targets ("target"), which of several abilities resolves first ("order"), or whether to use an optional
+ * part ("confirm", options "yes" / "no"). Options are field card uids, "h:<index>" (hand), "s:<index>" (sideline), "q:<id>" (an ability
+ * waiting to resolve), or "yes" / "no". `cards` gives the card behind each option where there is one (null for the other player's hand).
+ */
+export interface UnionArenaChoice {
+  kind: "choose";
+  playerId: string;
+  purpose: "target" | "order" | "confirm";
+  prompt: string;
+  options: string[];
+  cards: Array<string | null>;
+  min: number;
+  max: number;
+  /** The card whose ability asks. */
+  sourceCardId: string;
+  /** For targets: whether the effect helps the chosen card (computer players use it). */
+  good?: boolean;
+  /** Text for options without a card (modes, lines, AP cards). */
+  labels?: string[];
+  /** Whether the order of the picks matters (e.g. the order cards go to the bottom of the deck). */
+  ordered?: boolean;
+}
 
 /** Public facts about a running game. Hands and decks are shown as counts only. */
 export interface UnionArenaGameState {
@@ -118,6 +164,10 @@ export interface UnionArenaGameState {
   endReason: string | null;
   /** Recent public events, oldest first. */
   log: string[];
+  /** What each card in your hand costs right now (abilities can change it), in hand order. */
+  handCosts: Array<{ energy: number; ap: number }>;
+  /** Your chance to win (0 to 1), estimated from what you can see; null or absent when there is no estimate. */
+  winRate?: number | null;
 }
 
 /** Effects the players resolve by hand, following a card's printed text: the engine runs the rule manual, the card abilities are applied with these. */
@@ -143,6 +193,10 @@ export type UnionArenaAction =
   | { type: "trigger"; lifeId: string; activate: boolean; targetUid?: string; sidelineIndex?: number; raid?: { targetUid: string; toFront?: boolean; remove?: string }; remove?: string }
   | { type: "end_turn" }
   | { type: "discard"; keep: number[] }
+  /** Answers a card ability's choice (see UnionArenaChoice). */
+  | { type: "choose"; picks: string[] }
+  /** Uses an 【启动主要】 ability of one of your field cards (`ability` is its index in the card's ability list). */
+  | { type: "activate"; uid: string; ability: number }
   | { type: "manual"; manual: UnionArenaManualOp }
   | { type: "concede" };
 

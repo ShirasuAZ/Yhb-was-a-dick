@@ -12,16 +12,11 @@ import { CardLightbox } from "./CardLightbox.tsx";
 import { HalfBoard, Seat, type LifeCardEntry } from "./board.tsx";
 import { errorText, useCatalog, type Account, type CardRecord } from "./cards.ts";
 import { useGameController } from "./game.tsx";
+import { AP_COUNT, DECK_SIZE, MAX_COPIES, useDeck } from "./deck.ts";
+import { PRESET_DECKS } from "../shared/ai/decks.ts";
 import "./arknights.css";
 
 type UnionSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
-
-/** Deck rules from the rule manual ("Decks"): exactly 50 cards plus three AP cards, one source material code, at most four copies per card number,
- * at most four cards for each of the 特殊 / 色彩 / 最终 trigger types. */
-const DECK_SIZE = 50;
-const AP_COUNT = 3;
-const MAX_COPIES = 4;
-const LIMITED_TRIGGERS: readonly string[] = ["特殊", "色彩", "最终"];
 
 /** Where the game's own lobby lives. */
 export const ARKNIGHTS_HOME = "/arknights-union-arena/";
@@ -93,8 +88,9 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const { cards, cardsById, ctx } = useCatalog(setError);
   const [selectedCard, setSelectedCard] = useState<CardRecord | null>(null);
   const [cardSearch, setCardSearch] = useState("");
-  /** The deck being built: card id -> copies. */
-  const [deck, setDeck] = useState<ReadonlyMap<string, number>>(() => new Map());
+  /** The deck being built (kept in this browser for the account). */
+  const myDeck = useDeck(cards, cardsById, account.id);
+  const { deck, total: deckTotal, source: deckSource, key: deckKey, canAdd, setCopies } = myDeck;
   /** The deck (as `deckKey`) the server last accepted, so "ready" is only offered for a deck it has seen and approved. */
   const [submittedKey, setSubmittedKey] = useState<string | null>(null);
   const [deckIssues, setDeckIssues] = useState<string[]>([]);
@@ -221,57 +217,8 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const opponentLife = useMemo(() => toLifeEntries(state?.life.opponent, cardsById), [state?.life.opponent, cardsById]);
   const visibleCards = cards.filter((card) => `${card.number} ${card.name}`.toLocaleLowerCase().includes(cardSearch.trim().toLocaleLowerCase()));
 
-  // Deck builder. The server checks the same rules and has the last word; these only keep the buttons honest.
-  const deckKey = [...deck].filter(([, copies]) => copies > 0).map(([id, copies]) => `${id}x${copies}`).sort().join(",");
-  const deckTotal = [...deck.values()].reduce((sum, copies) => sum + copies, 0);
-  const deckNumberCopies = new Map<string, number>();
-  const deckTriggerCopies = new Map<string, number>();
-  let deckSource: string | null = null;
-  for (const [id, copies] of deck) {
-    const card = cardsById.get(id);
-    if (!card || copies <= 0) continue;
-    deckNumberCopies.set(card.number, (deckNumberCopies.get(card.number) ?? 0) + copies);
-    const trigger = card.stats?.trigger?.label;
-    if (trigger) deckTriggerCopies.set(trigger, (deckTriggerCopies.get(trigger) ?? 0) + copies);
-    deckSource ??= card.sourceMaterialCode;
-  }
-  const triggerFull = (card: CardRecord, triggers: ReadonlyMap<string, number>): boolean => {
-    const label = card.stats?.trigger?.label;
-    return label !== undefined && LIMITED_TRIGGERS.includes(label) && (triggers.get(label) ?? 0) >= MAX_COPIES;
-  };
-  const canAdd = (card: CardRecord): boolean =>
-    card.imageAvailable && deckTotal < DECK_SIZE && (deckNumberCopies.get(card.number) ?? 0) < MAX_COPIES && (deckSource === null || deckSource === card.sourceMaterialCode) && !triggerFull(card, deckTriggerCopies);
-  const setCopies = (card: CardRecord, copies: number): void => {
-    const next = new Map(deck);
-    if (copies > 0) next.set(card.id, copies); else next.delete(card.id);
-    setDeck(next);
-  };
-  /** Tops the deck up to 50 with four copies of each card number in catalog order, from the deck's work (or the picked card's, else the first card's). */
-  const quickFill = (): void => {
-    const source = deckSource ?? selectedCard?.sourceMaterialCode ?? cards.find((card) => card.imageAvailable)?.sourceMaterialCode;
-    if (!source) return;
-    const next = new Map(deck);
-    const numbers = new Map(deckNumberCopies);
-    const triggers = new Map(deckTriggerCopies);
-    let total = deckTotal;
-    for (const card of cards) {
-      if (total >= DECK_SIZE) break;
-      if (!card.imageAvailable || card.sourceMaterialCode !== source) continue;
-      const have = numbers.get(card.number) ?? 0;
-      const label = card.stats?.trigger?.label;
-      const triggerRoom = label && LIMITED_TRIGGERS.includes(label) ? MAX_COPIES - (triggers.get(label) ?? 0) : MAX_COPIES;
-      const add = Math.min(MAX_COPIES - have, DECK_SIZE - total, triggerRoom);
-      if (add <= 0) continue;
-      next.set(card.id, (next.get(card.id) ?? 0) + add);
-      numbers.set(card.number, have + add);
-      if (label) triggers.set(label, (triggers.get(label) ?? 0) + add);
-      total += add;
-    }
-    setDeck(next);
-  };
   const submitDeck = async (): Promise<void> => {
-    const cardIds = [...deck].flatMap(([id, copies]) => Array<string>(copies).fill(id));
-    const result = await action<{ structuralOk: boolean; issues: string[] }>("ua:submit_deck", { cardIds, apCount: AP_COUNT });
+    const result = await action<{ structuralOk: boolean; issues: string[] }>("ua:submit_deck", { cardIds: myDeck.cardIds, apCount: AP_COUNT });
     if (!result?.ok) { setError(errorText(result, "提交牌组失败")); return; }
     setDeckIssues(result.data?.issues ?? []);
     setSubmittedKey(result.data?.structuralOk ? deckKey : null);
@@ -349,8 +296,15 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
           <div className="ua-deck-head"><h2 id="ua-deck-heading">我的牌组</h2><span>{deckTotal}/{DECK_SIZE} 张 · AP {AP_COUNT}/{AP_COUNT}</span></div>
           <p className="ua-hint">在下方卡牌目录用 ＋ 选卡：主牌组 {DECK_SIZE} 张，同卡号最多 {MAX_COPIES} 张，只能用同一作品代码（当前：{deckSource ?? "未定"}），【特殊】【色彩】【最终】触发的卡每种最多 {MAX_COPIES} 张。AP 卡固定 {AP_COUNT} 张，无需选择。</p>
           <div className="ua-deck-actions">
-            <button type="button" className="ua-secondary" disabled={busy || deckTotal >= DECK_SIZE || !cards.length} onClick={quickFill}>快速组牌</button>
-            <button type="button" className="ua-secondary" disabled={busy || deckTotal === 0} onClick={() => { setDeck(new Map()); setSubmittedKey(null); setDeckIssues([]); }}>清空</button>
+            <select className="ua-deck-preset" aria-label="以预设牌组为基础" value="" disabled={busy} onChange={(event) => {
+              const preset = PRESET_DECKS.find((entry) => entry.id === event.target.value);
+              if (preset) { myDeck.fromPreset(preset); setSubmittedKey(null); setDeckIssues([]); }
+            }}>
+              <option value="">以预设牌组为基础…</option>
+              {PRESET_DECKS.map((preset) => <option key={preset.id} value={preset.id}>{preset.name}</option>)}
+            </select>
+            <button type="button" className="ua-secondary" disabled={busy || deckTotal >= DECK_SIZE || !cards.length} onClick={() => myDeck.quickFill(selectedCard)}>快速组牌</button>
+            <button type="button" className="ua-secondary" disabled={busy || deckTotal === 0} onClick={() => { myDeck.clear(); setSubmittedKey(null); setDeckIssues([]); }}>清空</button>
             <button type="button" className="ua-primary" disabled={busy || deckTotal !== DECK_SIZE} onClick={() => void submitDeck()}>提交牌组</button>
           </div>
           {deckSubmitted ? <p className="ua-deck-ok" role="status">牌组已通过校验{state.you.ready ? "，你已准备。" : "，可以准备了。"}</p> : null}

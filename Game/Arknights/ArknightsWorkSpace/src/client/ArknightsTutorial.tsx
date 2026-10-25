@@ -80,7 +80,7 @@ export function ArknightsTutorial({ account }: { account: Account }) {
   const state: UnionArenaRoomState = {
     roomCode: "教程", phase: "playing", players: [me, test], you: me,
     life: { you: lifeView(s.me), opponent: lifeView(s.test) },
-    game: gameStateView(s.game, s.me, s.test),
+    game: gameStateView(s.game, s.me, s.test, ctx),
     hand: [...s.me.hand], playerCount: 2, requiredPlayers: 2, startAllowed: false, spectators: [], youAreSpectator: false
   };
   void version;

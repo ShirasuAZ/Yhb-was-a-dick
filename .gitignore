@@ -46,3 +46,21 @@ Thumbs.db
 
 # Packaged Electron test build
 Game/UNO/UNOGame/
+
+# Reinforcement-learning checkpoints and logs (the shipped model is src/shared/ai/policy-weights.json)
+Game/Arknights/ArknightsWorkSpace/rl/checkpoints*/
+Game/Arknights/ArknightsWorkSpace/rl/logs/
+__pycache__/
+
+# Other large artifacts: model checkpoints / datasets / installers / video (the shipped *-weights.json files stay tracked)
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.npz
+*.npy
+*.msi
+*.dmg
+*.iso
+*.mp4
+*.mov

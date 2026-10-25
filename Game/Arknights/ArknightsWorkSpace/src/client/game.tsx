@@ -1,9 +1,38 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { UnionArenaAction, UnionArenaFieldCard, UnionArenaRoomState } from "../shared/protocol.ts";
 import { bpOf, damageOf, energyOf, GRANTABLE_KEYWORDS, hasKeyword, LINE_LIMIT, raidTargetMatches, triggerNeeds, type EngineContext } from "../shared/engine.ts";
 import { CardLightbox } from "./CardLightbox.tsx";
 import { cardKey, type BoardInteraction } from "./board.tsx";
 import { COLOR_NAME, TYPE_NAME, type CardRecord } from "./cards.ts";
+import { clearDropMarks, markDrops, startGesture, type DropInfo } from "./gestures.ts";
+
+const NO_DROPS: ReadonlyMap<string, DropInfo> = new Map();
+
+/** Confirm / cancel buttons floating above the card being moved (below it when there is no room above). */
+function MoveBubble({ anchorKey, count, blocked, busy, onConfirm, onCancel }: { anchorKey: string; count: number; blocked: boolean; busy: boolean; onConfirm: () => void; onCancel: () => void }) {
+  const [, setTick] = useState(0);
+  const [pos, setPos] = useState<{ x: number; y: number; below: boolean } | null>(null);
+  useLayoutEffect(() => {
+    const place = (): void => {
+      const element = document.querySelector<HTMLElement>(`[data-ghost="${anchorKey}"]`);
+      if (!element) { setPos(null); return; }
+      const rect = element.getBoundingClientRect();
+      const below = rect.top < 56;
+      setPos({ x: Math.min(Math.max(rect.left + rect.width / 2, 90), window.innerWidth - 90), y: below ? rect.bottom + 6 : rect.top - 6, below });
+    };
+    place();
+    const again = (): void => { place(); setTick((tick) => tick + 1); };
+    window.addEventListener("resize", again);
+    window.addEventListener("scroll", again, true);
+    return () => { window.removeEventListener("resize", again); window.removeEventListener("scroll", again, true); };
+  }, [anchorKey, count]);
+  if (!pos) return null;
+  // Rendered at the page root (next to the lightbox), so `position: fixed` is relative to the screen.
+  return <div className="ua-move-bubble" role="group" aria-label="确认移动" data-below={pos.below || undefined} style={{ left: pos.x, top: pos.y }}>
+    <button type="button" className="ua-primary" disabled={busy || blocked || count === 0} onClick={onConfirm}>确认移动（{count}）</button>
+    <button type="button" className="ua-secondary" disabled={busy} onClick={onCancel}>取消</button>
+  </div>;
+}
 
 /** A group of cards the lightbox browses with its "<" and ">" buttons. */
 export type CardGroup =
@@ -50,21 +79,28 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const [ask, setAsk] = useState<Ask | null>(null);
   const [notice, setNotice] = useState("");
   const [moveSel, setMoveSel] = useState<{ toFront: string[]; toEnergy: string[]; remove: string[] }>({ toFront: [], toEnergy: [], remove: [] });
+  /** The card the player touched last during the movement phase: the confirm bubble floats above it. */
+  const [moveAnchor, setMoveAnchor] = useState<string | null>(null);
   const [lifePicked, setLifePicked] = useState<string[]>([]);
   const [keepPicked, setKeepPicked] = useState<number[]>([]);
+  const [choicePicked, setChoicePicked] = useState<string[]>([]);
   const [triggerFocus, setTriggerFocus] = useState<string | null>(null);
   const [view, setView] = useState<{ group: CardGroup; index: number } | null>(null);
+  /** The card a click has picked up: its drop zones light up and a click on one of them does the move, like a drag would. */
+  const [armed, setArmed] = useState<string | null>(null);
   const originRef = useRef<HTMLElement | null>(null);
+  const swallowRef = useRef(false);
 
   // Every new decision starts clean.
-  const pendingKey = `${game?.turn}:${game?.phase}:${pending?.kind}:${pending?.playerId}:${pending?.kind === "triggers" ? pending.revealed.length : ""}`;
-  useEffect(() => { setAsk(null); setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setLifePicked([]); setKeepPicked([]); setTriggerFocus(null); }, [pendingKey]);
+  const pendingKey = `${game?.turn}:${game?.phase}:${pending?.kind}:${pending?.playerId}:${pending?.kind === "triggers" ? pending.revealed.length : ""}:${pending?.kind === "choose" ? `${pending.prompt}|${pending.options.join(",")}` : ""}`;
+  useEffect(() => { setAsk(null); setArmed(null); setMoveAnchor(null); setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setLifePicked([]); setKeepPicked([]); setChoicePicked([]); setTriggerFocus(null); }, [pendingKey]);
   useEffect(() => { if (notice) { const timer = window.setTimeout(() => setNotice(""), 4000); return () => window.clearTimeout(timer); } return undefined; }, [notice]);
 
   const run = async (action: UnionArenaAction): Promise<boolean> => {
     const error = await send(action);
     if (error) { setNotice(error); return false; }
     setAsk(null);
+    setArmed(null);
     setNotice("");
     return true;
   };
@@ -91,17 +127,6 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const playTo = (handIndex: number, line: "front" | "energy"): void => {
     closeView();
     withRoom(line, mine?.[line] ?? [], (remove) => void run({ type: "play", handIndex, line, remove }));
-  };
-  const startRaid = (handIndex: number): void => {
-    const cardId = hand[handIndex]!;
-    const raider = stats(cardId);
-    if (!raider || !mine) return;
-    const targets = [...mine.front, ...mine.energy].filter((card) => raidTargetMatches(ctx, raider, card));
-    closeView();
-    setAsk({
-      prompt: `选择「${raider.name}」突进的目标（${raider.raid?.targets.join(" / ")}）`, keys: targets.map((card) => cardKey.field(card.uid)), options: [{ label: "取消", run: () => setAsk(null) }],
-      onPick: (key) => raidOnto(uidOf(key), (target) => run({ type: "raid", handIndex, ...target }))
-    });
   };
   /** After a Raid target is chosen: a character on the energy line may move to the front line. */
   const raidOnto = (targetUid: string, finish: (target: { targetUid: string; toFront?: boolean; remove?: string }) => unknown): void => {
@@ -136,6 +161,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   };
   const toggleMove = (uid: string): void => {
     if (!mine) return;
+    setMoveAnchor(uid);
     const toggle = (list: string[]): string[] => list.includes(uid) ? list.filter((entry) => entry !== uid) : [...list, uid];
     const onFront = mine.front.some((card) => card.uid === uid);
     if (moveSel.remove.includes(uid)) { setMoveSel({ ...moveSel, remove: toggle(moveSel.remove) }); return; }
@@ -187,14 +213,28 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     void run({ type: "trigger", lifeId, activate: true });
   };
 
+  // ---- A card ability's choice: field cards and hand cards are picked on the table, other options with buttons. ----
+  const myChoice = myPending?.kind === "choose" ? myPending : null;
+  // Hand cards ("h:<index>") and field cards (their uid) are on the table; looked-at cards, sideline cards, AP cards, modes and lines are buttons.
+  const onBoard = (option: string): boolean => option.startsWith("h:") || findField(option) !== null;
+  const optionKey = (option: string): string => (option.startsWith("h:") ? option : cardKey.field(option));
+  const choiceKeys = myChoice ? myChoice.options.filter(onBoard).map(optionKey) : [];
+  const pickOption = (option: string): void => {
+    if (!myChoice) return;
+    if (myChoice.max === 1 && myChoice.min === 1) { void run({ type: "choose", picks: [option] }); return; }
+    setChoicePicked(choicePicked.includes(option) ? choicePicked.filter((entry) => entry !== option) : choicePicked.length < myChoice.max ? [...choicePicked, option] : choicePicked);
+  };
+
   // ---- What the table highlights and what a click does. ----
   const candidates: string[] = ask ? ask.keys
+    : myChoice ? choiceKeys
     : moving ? moveCandidates()
     : myPending?.kind === "block" ? blockKeys
     : myPending?.kind === "damage" ? damageKeys
     : myPending?.kind === "discard" ? keepKeys
     : [];
-  const selected: string[] = moving ? [...moveSel.toFront, ...moveSel.toEnergy, ...moveSel.remove].map(cardKey.field)
+  const selected: string[] = myChoice ? choicePicked.filter(onBoard).map(optionKey)
+    : moving ? [...moveSel.toFront, ...moveSel.toEnergy, ...moveSel.remove].map(cardKey.field)
     : myPending?.kind === "damage" ? lifePicked.map(cardKey.life)
     : myPending?.kind === "discard" ? keepPicked.map(cardKey.hand)
     : [];
@@ -221,28 +261,162 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     setView(target);
   };
 
-  const onCard = (key: string, element: HTMLElement): void => {
-    if (busy) return;
-    if (ask) {
-      if (ask.keys.includes(key) && ask.onPick) ask.onPick(key);
-      else openCard(key, element);
+  // ---- Drag and drop. A card is dragged to the zone that does the thing; a click picks it up and a click on a lit zone drops it. ----
+  const mainPhase = free && game?.phase === "main";
+  /** Why a hand card cannot be played right now, or "" when it can. */
+  const playBlock = (handIndex: number): string => {
+    const info = cardsById.get(hand[handIndex] ?? "")?.stats;
+    if (!info || !mine || !game) return "缺少这张卡的卡面数据，无法使用";
+    if (game.phase !== "main") return "卡牌只能在主要阶段使用";
+    const cost = game.handCosts?.[handIndex] ?? { energy: info.energyCost, ap: info.apCost };
+    const energy = energyOf(ctx, mine, info.color);
+    const activeAp = mine.ap.filter((card) => !card.rested).length;
+    if (energy < cost.energy) return `能量不足（需要${COLOR_NAME[info.color] ?? info.color} ${cost.energy}，当前 ${energy}）`;
+    if (activeAp < cost.ap) return `AP 不足（需要 ${cost.ap}，活跃 ${activeAp}）`;
+    return "";
+  };
+  const dropTargets = (key: string): ReadonlyMap<string, DropInfo> => {
+    const out = new Map<string, DropInfo>();
+    if (busy || !game || game.step !== "turn" || ask || pending || !mine || !theirs) return out;
+    if (candidates.length > 0 && !moving) return out;
+    if (key.startsWith("h:")) {
+      const handIndex = Number(key.slice(2));
+      const info = cardsById.get(hand[handIndex] ?? "")?.stats;
+      const block = mainPhase ? playBlock(handIndex) : free ? "卡牌只能在主要阶段使用" : "";
+      if (free && info) {
+        if (info.type === "character") {
+          out.set("you:front", { blocked: block || undefined });
+          out.set("you:energy", { blocked: block || undefined });
+          if (info.raid) for (const card of [...mine.front, ...mine.energy]) if (raidTargetMatches(ctx, info, card)) out.set(cardKey.field(card.uid), { blocked: block || undefined });
+        } else if (info.type === "site") out.set("you:energy", { blocked: block || undefined });
+        else out.set("you:sideline", { blocked: block || undefined });
+      }
+      if (!out.has("you:sideline")) out.set("you:sideline", {});
+      out.set("you:removal", {});
+      return out;
+    }
+    if (key.startsWith("f:")) {
+      const found = findField(uidOf(key));
+      if (!found) return out;
+      const { owner, line, card } = found;
+      // The opponent's cards are never dragged: moving them by hand (to resolve a printed effect) stays in the long-press detail view.
+      if (owner !== "you") return out;
+      const info = cardsById.get(card.cardId)?.stats;
+      if (moving && !pending) {
+        if (line === "energy" && info?.type === "character" && !moveSel.toFront.includes(card.uid)) out.set("you:front", {});
+        if (line === "front" && hasKeyword(ctx, card, "撤步") && !moveSel.toEnergy.includes(card.uid)) out.set("you:energy", {});
+      }
+      if (free && game.phase === "attack" && line === "front" && !card.rested && info?.type === "character") {
+        out.set("opp:front", {});
+        if (hasKeyword(ctx, card, "瞄准攻击")) for (const target of theirs.front) out.set(cardKey.field(target.uid), {});
+      }
+      out.set("you:sideline", {});
+      out.set("you:removal", {});
+      out.set("hand", {});
+      return out;
+    }
+    if (key === cardKey.pile("you", "sideline") && mine.sideline.length) out.set("hand", {});
+    return out;
+  };
+  const drop = (key: string, target: string): void => {
+    const info = dropTargets(key).get(target);
+    if (!info || busy) return;
+    if (info.blocked) { setNotice(info.blocked); return; }
+    setArmed(null);
+    closeView();
+    if (key.startsWith("h:")) {
+      const handIndex = Number(key.slice(2));
+      const card = cardsById.get(hand[handIndex] ?? "")?.stats;
+      if (target === "you:front" || target === "you:energy") { playTo(handIndex, target === "you:front" ? "front" : "energy"); return; }
+      if (target.startsWith("f:")) {
+        const raider = card;
+        if (raider) raidOnto(uidOf(target), (raid) => run({ type: "raid", handIndex, ...raid }));
+        return;
+      }
+      if (target === "you:sideline") { void run(card && card.type === "event" && free ? { type: "event", handIndex } : { type: "manual", manual: { op: "hand", handIndex, act: "sideline" } }); return; }
+      if (target === "you:removal") void run({ type: "manual", manual: { op: "hand", handIndex, act: "removal" } });
       return;
     }
-    if (moving && candidates.includes(key) && key.startsWith("f:")) { toggleMove(uidOf(key)); return; }
-    if (myPending?.kind === "block" && blockKeys.includes(key)) { void run({ type: "block", blockerUid: uidOf(key) }); return; }
+    if (key.startsWith("f:")) {
+      const uid = uidOf(key);
+      const found = findField(uid);
+      if (!found) return;
+      if (target === "opp:front") { startAttack(uid, false); return; }
+      if (target.startsWith("f:")) { void run({ type: "attack", attackerUid: uid, targetUid: uidOf(target) }); return; }
+      if (found.owner === "you" && moving) {
+        if (target === "you:front") { setMoveSel({ ...moveSel, toFront: [...moveSel.toFront, uid] }); setMoveAnchor(uid); return; }
+        if (target === "you:energy") { setMoveSel({ ...moveSel, toEnergy: [...moveSel.toEnergy, uid] }); setMoveAnchor(uid); return; }
+      }
+      const act = target.endsWith(":sideline") ? "sideline" : target.endsWith(":removal") ? "removal" : "hand";
+      void run({ type: "manual", manual: { op: "field", owner: found.owner, uid, act } });
+      return;
+    }
+    if (key === cardKey.pile("you", "sideline") && target === "hand") void run({ type: "manual", manual: { op: "sideline_to_hand", index: (mine?.sideline.length ?? 1) - 1 } });
+  };
+  const armedTargets = armed ? dropTargets(armed) : NO_DROPS;
+  const armedActive = armed !== null && armedTargets.size > 0;
+  // Light up where the picked-up card can go, and mark the card itself.
+  useEffect(() => {
+    clearDropMarks();
+    for (const element of document.querySelectorAll("[data-armed]")) element.removeAttribute("data-armed");
+    if (!armedActive || !armed) return;
+    markDrops(armedTargets);
+    document.querySelector(`[data-card-key="${armed}"]`)?.setAttribute("data-armed", "");
+  });
+  useEffect(() => {
+    if (!armed) return undefined;
+    const onKey = (event: KeyboardEvent): void => { if (event.key === "Escape" && !document.querySelector(".ua-lb")) setArmed(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [armed]);
+
+  /** A click on a card; true when it did something, so the click does not also count for the zone around it. */
+  const onCard = (key: string, element: HTMLElement): boolean => {
+    if (swallowRef.current) { swallowRef.current = false; return true; }
+    if (busy) return true;
+    if (ask) {
+      if (ask.keys.includes(key) && ask.onPick) ask.onPick(key);
+      return true;
+    }
+    if (myChoice && choiceKeys.includes(key)) { pickOption(key.startsWith("f:") ? uidOf(key) : key); return true; }
+    if (moving && candidates.includes(key) && key.startsWith("f:")) { toggleMove(uidOf(key)); return true; }
+    if (myPending?.kind === "block" && blockKeys.includes(key)) { void run({ type: "block", blockerUid: uidOf(key) }); return true; }
     if (myPending?.kind === "damage" && damageKeys.includes(key)) {
       const id = key.slice(2);
       setLifePicked(lifePicked.includes(id) ? lifePicked.filter((entry) => entry !== id) : lifePicked.length < myPending.amount ? [...lifePicked, id] : lifePicked);
-      return;
+      return true;
     }
     if (myPending?.kind === "discard" && keepKeys.includes(key)) {
       const index = Number(key.slice(2));
       setKeepPicked(keepPicked.includes(index) ? keepPicked.filter((entry) => entry !== index) : keepPicked.length < 8 ? [...keepPicked, index] : keepPicked);
-      return;
+      return true;
     }
-    openCard(key, element);
+    if (armedActive && armed !== key && armedTargets.has(key)) { drop(armed!, key); return true; }
+    // A card inside a lit zone counts as a click on that zone.
+    const zone = element.closest<HTMLElement>("[data-drop]")?.dataset.drop;
+    if (armedActive && armed !== key && zone && armedTargets.has(zone)) { drop(armed!, zone); return true; }
+    if (armed === key) { setArmed(null); return true; }
+    if (dropTargets(key).size > 0) { setArmed(key); return true; }
+    setArmed(null);
+    return false;
   };
-  const interaction: BoardInteraction = { candidates: new Set(candidates), selected: new Set(selected), onCard };
+  const onZone = (id: string): void => {
+    if (!armedActive || !armed || !armedTargets.has(id)) return;
+    drop(armed, id);
+  };
+  const gestureHost = {
+    targets: dropTargets,
+    onDrop: drop,
+    onLongPress: (key: string, element: HTMLElement) => { setArmed(null); openCard(key, element); },
+    swallowClick: (on: boolean) => { swallowRef.current = on; }
+  };
+  const interaction: BoardInteraction = {
+    ghosts: moving ? { front: moveSel.toFront, energy: moveSel.toEnergy } : undefined,
+    onGhost: (uid) => { setMoveSel({ ...moveSel, toFront: moveSel.toFront.filter((entry) => entry !== uid), toEnergy: moveSel.toEnergy.filter((entry) => entry !== uid) }); setMoveAnchor(null); },
+    candidates: new Set(candidates), selected: new Set(selected), onCard, onZone, armedTargets: new Set(armedActive ? armedTargets.keys() : []),
+    onPress: (event, key) => startGesture(event, key, gestureHost),
+    onDetail: (key, element) => { setArmed(null); openCard(key, element); }
+  };
 
   // ---- Cards in the lightbox. ----
   const groupIds = (group: CardGroup): string[] => {
@@ -279,29 +453,24 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     const key = viewKey();
     const field = key?.startsWith("f:") ? findField(uidOf(key)) : null;
     const parts: ReactNode[] = [];
+    if (!info) parts.push(<p key="missing" className="ua-lb-warn">缺少这张卡的卡面数据，无法使用。服务器需要带上 Cards/cards.json（重新构建并部署服务端）。</p>);
     if (info) {
       const bp = field && info.type === "character" ? bpOf(ctx, field.card) : info.bp;
+      const textLines = info.abilityText.split("\n").map((line) => line.trim()).filter(Boolean);
+      const hasOwnText = textLines.some((line) => !/^《[^》]+》（[^）]*）$/.test(line));
+      if (hasOwnText) parts.push(<p key="auto" className={ctx.card(viewCard.id)?.abilities ? "ua-lb-auto" : "ua-lb-manual"}>{ctx.card(viewCard.id)?.abilities ? "卡面能力由引擎自动结算。" : "卡面能力需要用下方「卡牌效果」手动结算。"}</p>);
       parts.push(<p key="info" className="ua-lb-info"><strong>{viewCard.name}</strong> · {TYPE_NAME[info.type]} · 需要{COLOR_NAME[info.color] ?? info.color}能量 {info.energyCost} · AP {info.apCost}{bp !== null ? ` · BP ${bp}` : ""}{field ? ` · ${field.card.rested ? "休息" : "活跃"}` : ""}{info.trigger ? ` · 触发【${info.trigger.label}】` : ""}</p>);
     }
+    // Playing, attacking and raiding are done by dragging the card (see dropTargets); the detail view only explains why a play would fail.
     const buttons: ReactNode[] = [];
     if (view.group.kind === "hand" && free && info && !ask) {
-      const handIndex = viewIndex;
-      const energy = mine ? energyOf(ctx, mine, info.color) : 0;
-      const activeAp = mine?.ap.filter((card) => !card.rested).length ?? 0;
-      const short = energy < info.energyCost ? `能量不足（需要${COLOR_NAME[info.color] ?? info.color} ${info.energyCost}，当前 ${energy}）` : activeAp < info.apCost ? `AP 不足（需要 ${info.apCost}，活跃 ${activeAp}）` : "";
-      if (game.phase === "main") {
-        if (info.type === "character") {
-          buttons.push(<button key="front" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "front")}>登场到前线</button>);
-          buttons.push(<button key="energy" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "energy")}>登场到能量线</button>);
-          if (info.raid && mine && [...mine.front, ...mine.energy].some((card) => raidTargetMatches(ctx, info, card))) buttons.push(<button key="raid" type="button" className="ua-secondary" disabled={busy || !!short} onClick={() => startRaid(handIndex)}>突进…</button>);
-        } else if (info.type === "site") buttons.push(<button key="energy" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => playTo(handIndex, "energy")}>登场到能量线</button>);
-        else buttons.push(<button key="event" type="button" className="ua-primary" disabled={busy || !!short} onClick={() => { closeView(); void run({ type: "event", handIndex }); }}>使用事件</button>);
-        if (short) parts.push(<p key="short" className="ua-lb-warn">{short}</p>);
-      } else parts.push(<p key="when" className="ua-hint">卡牌只能在主要阶段使用。</p>);
+      const short = game.phase === "main" ? playBlock(viewIndex) : "卡牌只能在主要阶段使用";
+      if (short) parts.push(<p key="short" className="ua-lb-warn">{short}</p>);
+      else parts.push(<p key="drag" className="ua-hint">关闭后，把这张卡拖到前线或能量线即可登场。</p>);
     }
-    if (field && field.owner === "you" && free && game.phase === "attack" && field.line === "front" && !field.card.rested && info?.type === "character" && !ask) {
-      buttons.push(<button key="attack" type="button" className="ua-primary" disabled={busy} onClick={() => startAttack(field.card.uid, false)}>攻击 {opponentName}</button>);
-      if (hasKeyword(ctx, field.card, "瞄准攻击")) buttons.push(<button key="snipe" type="button" className="ua-secondary" disabled={busy} onClick={() => startAttack(field.card.uid, true)}>瞄准攻击角色…</button>);
+    if (field && field.owner === "you" && free && game.phase === "main" && !ask) {
+      const activated = (ctx.card(field.card.cardId)?.abilities ?? []).map((ability, index) => ({ ability, index })).filter((entry) => entry.ability.kind === "activated");
+      for (const { index } of activated) buttons.push(<button key={`activate-${index}`} type="button" className="ua-primary" disabled={busy} onClick={() => { closeView(); void run({ type: "activate", uid: field.card.uid, ability: index }); }}>发动【启动主要】{activated.length > 1 ? ` ${activated.findIndex((entry) => entry.index === index) + 1}` : ""}</button>);
     }
     if (buttons.length) parts.push(<div key="buttons" className="ua-lb-buttons">{buttons}</div>);
     // Manual operations for printed abilities; the opponent sees each one in the log.
@@ -334,6 +503,11 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     if (view.group.kind === "pile") return `${view.group.owner === "you" ? "我方" : "对方"}${view.group.pile === "sideline" ? "场外" : "移除区"}`;
     return "翻开的生命卡";
   };
+  const moveCount = moveSel.toFront.length + moveSel.toEnergy.length;
+  const movers = [...moveSel.toFront, ...moveSel.toEnergy];
+  const bubbleAnchor = moving && !ask && moveCount > 0 && !view ? (moveAnchor && movers.includes(moveAnchor) ? moveAnchor : movers[0]!) : null;
+  const moveBubble = bubbleAnchor ? <MoveBubble anchorKey={bubbleAnchor} count={moveCount} blocked={frontOver > 0 || energyOver > 0} busy={busy}
+    onConfirm={() => void run({ type: "move", ...moveSel })} onCancel={() => { setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setMoveAnchor(null); }} /> : null;
   const lightbox = view && viewCard?.imageUrl ? <CardLightbox key="game-lightbox" src={viewCard.imageUrl} label={viewCard.name} alt={`${viewCard.name} ${viewCard.number}`} compact={compact}
     getOrigin={() => originRef.current?.isConnected ? originRef.current.getBoundingClientRect() : null} getReturnFocus={() => originRef.current?.isConnected ? originRef.current : null}
     onClose={closeView} onPrev={viewIds.length > 1 ? () => browse(-1) : undefined} onNext={viewIds.length > 1 ? () => browse(1) : undefined}
@@ -351,7 +525,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     if (game.step === "over") return { text: `对局结束：${game.winnerId === meId ? "你获胜了！" : `${nameOf(game.winnerId)} 获胜`}${game.endReason ? `（${game.endReason}）` : ""}`, buttons: overButton ? [button(overButton.label, overButton.run, true)] : [] };
     if (ask) return { text: ask.prompt, buttons: (ask.options ?? []).map((option, index) => button(option.label, option.run, index === 0 && option.label !== "取消")) };
     if (pending && !myPending) {
-      const waiting = { block: "选择是否阻挡", damage: "选择你的生命卡", triggers: "确认触发", discard: "选择保留的手牌" }[pending.kind];
+      const waiting = { block: "选择是否阻挡", damage: "选择你的生命卡", triggers: "确认触发", discard: "选择保留的手牌", choose: "结算卡牌能力" }[pending.kind];
       return { text: `等待 ${nameOf(pending.playerId)} ${waiting}…`, buttons: [] };
     }
     if (myPending?.kind === "block") {
@@ -373,6 +547,25 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       if (!card?.trigger) return { text: `翻开的生命卡「${card?.name ?? "卡牌"}」没有触发，将置于场外。`, buttons: [...chooser, button("确认", () => resolveTrigger(false), true)] };
       return { text: `翻开的生命卡「${card.name}」有触发【${card.trigger.label}】：${card.trigger.text} 是否发动？`, buttons: [...chooser, button("发动", () => resolveTrigger(true), true), button("不发动", () => resolveTrigger(false))] };
     }
+    if (myChoice) {
+      const nameAt = (index: number): string => (myChoice.cards[index] ? cardsById.get(myChoice.cards[index]!)?.name ?? "卡牌" : "卡牌");
+      if (myChoice.purpose === "confirm") return { text: myChoice.prompt, buttons: [button("是", () => void run({ type: "choose", picks: ["yes"] }), true), button("否", () => void run({ type: "choose", picks: ["no"] }))] };
+      if (myChoice.purpose === "order") return { text: myChoice.prompt, buttons: myChoice.options.map((option, index) => button(`先结算「${nameAt(index)}」`, () => void run({ type: "choose", picks: [option] }), index === 0)) };
+      const offBoard = myChoice.options.map((option, index) => ({ option, index })).filter((entry) => !onBoard(entry.option));
+      const range = myChoice.min === myChoice.max ? `选 ${myChoice.min} 张` : `可选 ${myChoice.min}–${myChoice.max} 张`;
+      return {
+        text: `${myChoice.prompt}（${choiceKeys.length ? "点击高亮的卡牌，" : ""}${range}，已选 ${choicePicked.length}）`,
+        buttons: [
+          ...offBoard.map(({ option, index }) => {
+            const picked = choicePicked.indexOf(option);
+            const mark = picked < 0 ? "" : myChoice.ordered ? `${picked + 1}. ` : "✓ ";
+            return <button key={`option-${option}`} type="button" className="ua-secondary" aria-pressed={picked >= 0} disabled={busy} onClick={() => pickOption(option)}>{mark}{myChoice.labels?.[index] || nameAt(index)}</button>;
+          }),
+          button("确定", () => void run({ type: "choose", picks: choicePicked }), true, choicePicked.length < myChoice.min || choicePicked.length > myChoice.max),
+          ...(myChoice.min === 0 ? [button("不选择", () => void run({ type: "choose", picks: [] }))] : [])
+        ]
+      };
+    }
     if (myPending?.kind === "discard") return { text: `手牌超过 8 张：点击手牌，选择要保留的 8 张（已选 ${keepPicked.length}），其余置于移除区`, buttons: [button("确认保留", () => void run({ type: "discard", keep: keepPicked }), true, keepPicked.length !== 8)] };
     if (!myTurn) return { text: `${nameOf(game.turnPlayerId)} 的回合 · ${game.phase ? PHASE_NAME[game.phase] : ""}`, buttons: [] };
     switch (game.phase) {
@@ -381,12 +574,13 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       case "movement": {
         const count = moveSel.toFront.length + moveSel.toEnergy.length;
         const over = frontOver ? `前线将超过 4 张，再点击 ${frontOver} 张前线的卡置于移除区。` : energyOver ? `能量线将超过 4 张，再点击 ${energyOver} 张能量线的卡置于移除区。` : "";
-        return { text: over || "移动阶段：点击能量线的角色把它移到前线；有《撤步》的前线角色可移回能量线（场地不能移动）。所有移动同时进行。", buttons: [button(`确认移动（${count}）`, () => void run({ type: "move", ...moveSel }), true, count === 0 || frontOver > 0 || energyOver > 0), button("不移动，进入主要阶段", () => void run({ type: "next_phase" }))] };
+        // The confirm button floats above the card that was just moved (see MoveBubble); the bar keeps only the way out.
+        return { text: over || (count ? "已选择移动：在发生移动的卡牌上方确认，或继续拖动其他角色。所有移动同时进行。" : "移动阶段：把能量线的角色拖到前线；有《撤步》的前线角色可拖回能量线（场地不能移动）。所有移动同时进行。"), buttons: [button("不移动，进入主要阶段", () => void run({ type: "next_phase" }))] };
       }
       case "main":
-        return { text: `主要阶段：点击手牌查看并使用卡牌（活跃 AP ${activeAp}）。场上卡牌的能力可用放大图里的「卡牌效果」手动结算。`, buttons: [button("进入攻击阶段", () => void run({ type: "next_phase" }), true), button("结束回合", () => void run({ type: "end_turn" }))] };
+        return { text: `主要阶段：把手牌拖到前线或能量线登场（事件拖到场外，突进拖到目标角色上）；长按卡牌查看详情（活跃 AP ${activeAp}）。场上卡牌的能力可用详情里的「卡牌效果」手动结算。`, buttons: [button("进入攻击阶段", () => void run({ type: "next_phase" }), true), button("结束回合", () => void run({ type: "end_turn" }))] };
       case "attack":
-        return { text: "攻击阶段：点击前线中活跃的角色，选择攻击。攻击不消耗 AP。", buttons: [button("结束回合", () => void run({ type: "end_turn" }), true)] };
+        return { text: "攻击阶段：把前线中活跃的角色拖到对手前线进行攻击（瞄准攻击可直接拖到目标角色上）。攻击不消耗 AP。", buttons: [button("结束回合", () => void run({ type: "end_turn" }), true)] };
       default:
         return { text: "结束阶段", buttons: [] };
     }
@@ -402,22 +596,30 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       <button type="button" className="ua-secondary" disabled={busy} onClick={() => { if (window.confirm("确定认输吗？")) void run({ type: "concede" }); }}>认输</button>
     </div>
   </details> : null;
+  // The player's own win chance (estimated by a network from what this player can see): a small unlabelled ring, filled clockwise from the top.
+  const winRate = playing && typeof game?.winRate === "number" ? game.winRate : null;
+  const RING = 2 * Math.PI * 7;
+  const winRateRing = winRate === null ? null : <svg className="ua-winring" viewBox="0 0 20 20" aria-hidden="true">
+    <circle cx="10" cy="10" r="7" />
+    <circle cx="10" cy="10" r="7" strokeDasharray={`${winRate * RING} ${RING}`} />
+  </svg>;
   const actionBar = game ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
     <div className="ua-actionbar-text">
       <p className="ua-actionbar-prompt" aria-live="polite">{barState.text}</p>
       {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : lastLog ? <p className="ua-actionbar-log" title={lastLog}>{lastLog}</p> : null}
     </div>
-    <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}</div>
+    <div className="ua-actionbar-buttons">{barState.buttons}{effectMenu}{winRateRing}</div>
   </div> : null;
 
   // ---- Hands. ----
-  const handStrip = game && game.step !== "over" ? <ol className="ua-handstrip" aria-label={`你的手牌，${hand.length} 张`}>
+  const handStrip = game && game.step !== "over" ? <ol className="ua-handstrip" aria-label={`你的手牌，${hand.length} 张`} data-drop="hand" onClick={() => onZone("hand")}>
     {hand.map((cardId, index) => {
       const card = cardsById.get(cardId);
       const key = cardKey.hand(index);
       return <li key={`${cardId}-${index}`}>
         <button type="button" data-card-key={key} data-candidate={interaction.candidates.has(key) || undefined} data-selected={interaction.selected.has(key) || undefined}
-          aria-label={`手牌 ${index + 1}：${card?.name ?? "卡牌"}`} onClick={(event) => onCard(key, event.currentTarget)}>
+          aria-label={`手牌 ${index + 1}：${card?.name ?? "卡牌"}`} onClick={(event) => { event.stopPropagation(); onCard(key, event.currentTarget); }}
+          onPointerDown={(event) => startGesture(event, key, gestureHost)} onContextMenu={(event) => { event.preventDefault(); setArmed(null); openCard(key, event.currentTarget); }}>
           {card?.imageUrl ? <img src={card.imageUrl} alt="" draggable={false} /> : <span className="ua-card-missing">?</span>}
         </button>
       </li>;
@@ -439,7 +641,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     actionBar,
     handStrip,
     opponentHand,
-    lightbox,
+    lightbox: <>{lightbox}{moveBubble}</>,
     lightboxOpen: lightbox !== null,
     activePhase,
     /** Opens a hand card in the lightbox from somewhere else on the page (the side panel's hand list). */

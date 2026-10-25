@@ -179,6 +179,7 @@
 .ua-card-row { min-width: 0; display: flex; align-items: center; gap: 4px; padding: 4px; border: 1px solid transparent; border-radius: 4px; background: transparent; color: inherit; text-align: left; }
 .ua-card-row:hover, .ua-card-row.is-selected { border-color: #9ca9ae; background: #eef1f2; }
 .ua-card-pick { min-width: 0; flex: 1; display: flex; align-items: center; gap: 8px; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ua-card-pick > span { min-width: 0; }
 .ua-card-pick img, .ua-card-missing { width: 34px; height: 46px; object-fit: cover; flex-shrink: 0; }
 .ua-stepper { flex: none; display: flex; align-items: center; gap: 2px; }
 .ua-stepper button { width: 32px; height: 32px; padding: 0; border: 1px solid #adb5b8; border-radius: 5px; background: #fff; color: inherit; font: inherit; line-height: 1; cursor: pointer; }
@@ -273,14 +274,42 @@
 .ua-actionbar-notice { color: #a3322d; white-space: normal; }
 .ua-actionbar-buttons { flex: 0 1 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .ua-actionbar-buttons > button { min-height: 32px; padding: 3px 12px; }
+.ua-winring { flex: none; width: 18px; height: 18px; transform: rotate(-90deg); }
+.ua-winring circle { fill: none; stroke-width: 2.5; }
+.ua-winring circle:first-child { stroke: #d7dcdf; }
+.ua-winring circle:last-child { stroke: #2f80d8; stroke-linecap: round; transition: stroke-dasharray .4s ease; }
 .ua-effects { position: relative; }
 .ua-effects summary { min-height: 32px; display: grid; place-items: center; padding: 0 10px; border: 1px solid #adb5b8; border-radius: 5px; background: #f6f8f8; cursor: pointer; list-style: none; }
 .ua-effects summary::-webkit-details-marker { display: none; }
 .ua-effects-menu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 15; display: grid; gap: 4px; width: max-content; padding: 6px; border: 1px solid #c3c8cb; border-radius: 6px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
 .ua-effects-menu button { min-height: 32px; padding: 3px 10px; }
 
-/* Cards on the table are buttons: a click shows them large, or picks them when the table asks for a choice. */
-.ua-slot-button { padding: 0; font: inherit; color: inherit; cursor: pointer; }
+/* Cards on the table are buttons: long press shows them large, a drag moves them, a click picks them up or answers the table's question. */
+.ua-handstrip button { touch-action: pan-x; }
+.ua-slot-button, .ua-life-pick { touch-action: none; }
+.ua-slot-button, .ua-handstrip button, .ua-life-pick { -webkit-touch-callout: none; user-select: none; -webkit-user-select: none; }
+.ua-slot-button { padding: 0; font: inherit; color: inherit; cursor: grab; }
+[data-dragging] { opacity: .35; }
+[data-armed] { box-shadow: 0 0 0 3px #0b57d0, 0 0 12px 3px rgba(11, 87, 208, .7) !important; transform: translateY(-4px); }
+.ua-slot[data-armed][data-rested] { transform: rotate(90deg) translateY(-4px); }
+[data-drop-ok="yes"]:not([data-card-key]) { outline: 3px dashed #1f7a45; outline-offset: -3px; background-color: rgba(31, 122, 69, .14); }
+[data-drop-ok="blocked"]:not([data-card-key]) { outline: 3px dashed #a3322d; outline-offset: -3px; opacity: .7; }
+[data-card-key][data-drop-ok="yes"] { box-shadow: 0 0 0 3px #1f7a45, 0 0 10px 2px rgba(31, 122, 69, .6) !important; }
+[data-card-key][data-drop-ok="blocked"] { box-shadow: 0 0 0 3px #a3322d !important; }
+[data-drop-hover]:not([data-card-key]) { background-color: rgba(31, 122, 69, .35); }
+[data-drop-hover][data-card-key] { transform: scale(1.06); }
+/* Where a moving card will stand once the move is confirmed: a see-through copy. */
+.ua-slot-ghost { border-style: dashed; border-color: #0b57d0; background: rgba(11, 87, 208, .08); box-shadow: none; }
+.ua-ghost-card { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; background: none; opacity: .5; cursor: pointer; }
+.ua-ghost-card:hover { opacity: .75; }
+.ua-ghost-card:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
+.ua-move-bubble { position: fixed; z-index: 60; transform: translate(-50%, -100%); display: flex; gap: 6px; padding: 6px; border: 1px solid #adb5b8; border-radius: 8px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .28); white-space: nowrap; }
+.ua-move-bubble[data-below] { transform: translate(-50%, 0); }
+.ua-move-bubble::after { content: ""; position: absolute; left: 50%; top: 100%; width: 10px; height: 10px; background: #fff; border: solid #adb5b8; border-width: 0 1px 1px 0; transform: translate(-50%, -5px) rotate(45deg); }
+.ua-move-bubble[data-below]::after { top: 0; border-width: 1px 0 0 1px; transform: translate(-50%, -5px) rotate(45deg); }
+.ua-move-bubble button { min-height: 32px; padding: 3px 10px; font: inherit; }
+.ua-drag-ghost { position: fixed; left: 0; top: 0; z-index: 1000; width: clamp(54px, 7vw, 96px); aspect-ratio: 5 / 7; pointer-events: none; border-radius: .4em; overflow: hidden; background: #fff; box-shadow: 0 8px 22px rgba(0, 0, 0, .4); opacity: .92; }
+.ua-drag-ghost img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ua-slot-button:focus-visible, .ua-life-pick:focus-visible, .ua-handstrip button:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
 [data-candidate] { box-shadow: 0 0 0 3px #e3a008, 0 0 10px 2px rgba(227, 160, 8, .65) !important; }
 [data-selected] { box-shadow: 0 0 0 3px #0b57d0, 0 0 10px 2px rgba(11, 87, 208, .6) !important; }
@@ -297,7 +326,7 @@
 /* Hands: yours as cards under your nameplate, the opponent's as a count of card backs. */
 .ua-handstrip { min-width: 0; flex: 0 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; list-style: none; }
 .ua-handstrip li { flex: none; }
-.ua-handstrip button { display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
+.ua-handstrip button { cursor: grab; display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
 .ua-handstrip img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ua-opp-hand { display: flex; align-items: center; gap: 2px; }
 .ua-opp-hand .ua-card-back { width: 1.2em; aspect-ratio: 5 / 7; border-radius: 2px; }
@@ -351,3 +380,35 @@
 .ua-app[data-compact="true"] .ua-actionbar-text { flex-basis: 100%; }
 .ua-app[data-compact="true"] .ua-actionbar-prompt { max-height: 3em; overflow-y: auto; font-weight: 600; line-height: 1.5; }
 .ua-app[data-compact="true"] .ua-actionbar-log { display: none; }
+
+/* ---- Vs. computer: choose the level and the decks ---- */
+.ua-ai-setup { width: min(860px, 100%); margin: 0 auto; align-self: start; display: grid; gap: 18px; }
+.ua-ai-setup section { display: grid; gap: 10px; padding: 14px 16px; border: 1px solid #c3c8cb; border-radius: 10px; background: #fff; }
+.ua-ai-setup h2 { margin: 0; font-size: 17px; }
+.ua-ai-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) 1px minmax(0, 1fr); gap: 8px; }
+.ua-ai-divider { align-self: stretch; margin: 4px 0; background: #c3c8cb; }
+@media (max-width: 640px) {
+  .ua-ai-options { grid-template-columns: minmax(0, 1fr); }
+  .ua-ai-divider { height: 1px; margin: 4px 0; }
+}
+.ua-ai-option { display: grid; align-content: start; gap: 4px; padding: 10px 12px; border: 1px solid #adb5b8; border-radius: 8px; background: #fff; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.ua-ai-option strong { font-size: 15px; }
+.ua-ai-option span { color: #4d565b; font-size: 12px; line-height: 1.5; }
+.ua-ai-option[aria-checked="true"] { border-color: #26363d; box-shadow: 0 0 0 2px #26363d; background: #f2f5f6; }
+.ua-ai-option[data-level="master"] { border-color: #111518; background: #111518; color: #fff; }
+.ua-ai-option[data-level="master"] span { color: #b9c2c7; }
+.ua-ai-option[data-level="master"][aria-checked="true"] { background: #000; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111518; }
+.ua-ai-decks { display: flex; flex-wrap: wrap; gap: 12px; }
+.ua-ai-decks label { display: grid; gap: 4px; font-size: 13px; }
+.ua-ai-decks select { min-height: 36px; padding: 4px 8px; border: 1px solid #adb5b8; border-radius: 5px; font: inherit; }
+.ua-ai-builder-filter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 13px; }
+.ua-ai-builder-filter > input { flex: 1 1 220px; min-height: 36px; padding: 6px 8px; border: 1px solid #adb5b8; border-radius: 5px; background: #fff; color: #1e252a; font: inherit; }
+.ua-ai-builder-filter label { display: flex; align-items: center; gap: 6px; }
+.ua-ai-builder-list { max-height: 440px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.ua-deck-preset { min-height: 36px; padding: 4px 8px; border: 1px solid #adb5b8; border-radius: 5px; background: #fff; color: #1e252a; font: inherit; }
+.ua-ai-start { justify-self: center; min-width: 200px; min-height: 44px; font-size: 16px; }
+
+/* Whether the engine resolves a card's own ability text, or the players do it by hand. */
+.ua-lb-auto, .ua-lb-manual { margin: 0; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+.ua-lb-auto { background: #e6f4ec; color: #1f6b43; }
+.ua-lb-manual { background: #fff4e0; color: #8a5a00; }

@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import type { UnionArenaApCard, UnionArenaBoard, UnionArenaFieldCard, UnionArenaPlayer } from "../shared/protocol.ts";
 import { bpOf, type EngineContext } from "../shared/engine.ts";
 import type { CardRecord } from "./cards.ts";
@@ -23,11 +23,23 @@ export const KEYWORDS: ReadonlyArray<{ name: string; text: string }> = [
   { name: "突进", text: "宣告突进并叠放到指定角色上：下方角色的能力失效；若该角色为横置则变为活动；若在能量线可移到前线；然后发动此卡的突进相关能力。" }
 ];
 
-/** How the table reacts to clicks: cards in `candidates` can be picked now, `selected` ones are already picked. */
+/** How the table reacts to the pointer: cards in `candidates` can be picked now, `selected` ones are already picked. */
 export interface BoardInteraction {
   candidates: ReadonlySet<string>;
   selected: ReadonlySet<string>;
-  onCard: (key: string, element: HTMLElement) => void;
+  /** A click on a card; returns true when the click did something. */
+  onCard: (key: string, element: HTMLElement) => boolean;
+  /** A click on a zone while a card is picked up: drops it there. */
+  onZone?: (id: string) => void;
+  /** Zones and cards the picked-up card can be dropped on right now. */
+  armedTargets?: ReadonlySet<string>;
+  /** A press on a card: starts the long-press / drag gesture. */
+  onPress?: (event: ReactPointerEvent<HTMLElement>, key: string) => void;
+  /** Cards of yours waiting to move: shown as see-through copies in the line they are moving to. Clicking one cancels that move. */
+  ghosts?: { front: readonly string[]; energy: readonly string[] };
+  onGhost?: (uid: string) => void;
+  /** Opens the card's detail view (right click, Shift+F10 or the menu key; a long press gets there through `onPress`). */
+  onDetail?: (key: string, element: HTMLElement) => void;
 }
 export const NO_KEYS: ReadonlySet<string> = new Set();
 
@@ -81,11 +93,13 @@ export function CardSlot({ card, rested = false, faceDown = false, badges, pickK
     "data-selected": (pickKey && interaction?.selected.has(pickKey)) || undefined
   };
   if (!clickable) return <div className="ua-slot" {...state}>{content}</div>;
-  return <button type="button" className="ua-slot ua-slot-button" {...state} data-card-key={pickKey} aria-label={label ?? (card ? `${card.name} ${card.number}` : "卡牌")} onClick={(event) => interaction!.onCard(pickKey!, event.currentTarget)}>{content}</button>;
+  return <button type="button" className="ua-slot ua-slot-button" {...state} data-card-key={pickKey} aria-label={label ?? (card ? `${card.name} ${card.number}` : "卡牌")} onClick={(event) => { if (interaction!.onCard(pickKey!, event.currentTarget)) event.stopPropagation(); }}
+    onPointerDown={(event) => interaction!.onPress?.(event, pickKey!)} onContextMenu={(event) => { event.preventDefault(); interaction!.onDetail?.(pickKey!, event.currentTarget); }}>{content}</button>;
 }
 
-function ZoneFrame({ className, name, count, large = false, children }: { className: string; name: string; count: number; large?: boolean; children: ReactNode }) {
-  return <div className={`ua-zone ${large ? "ua-zone-large" : ""} ${className}`} style={{ "--n": count } as CSSProperties} role="group" aria-label={name}>
+function ZoneFrame({ className, name, count, large = false, drop, onZone, children }: { className: string; name: string; count: number; large?: boolean; drop?: string; onZone?: (id: string) => void; children: ReactNode }) {
+  return <div className={`ua-zone ${large ? "ua-zone-large" : ""} ${className}`} style={{ "--n": count } as CSSProperties} role="group" aria-label={name} data-drop={drop}
+    onClick={drop && onZone ? () => onZone(drop) : undefined}>
     {children}
     <span className="ua-zone-name" aria-hidden="true">{name}</span>
   </div>;
@@ -98,11 +112,21 @@ export function SlotZone({ className, name, count, large = false }: { className:
 }
 
 /** A front line or energy line: its cards in order, then empty slots up to four. */
-function LineZone({ className, name, cards, cardsById, ctx, interaction }: { className: string; name: string; cards: readonly UnionArenaFieldCard[]; cardsById: ReadonlyMap<string, CardRecord>; ctx: EngineContext; interaction?: BoardInteraction }) {
-  return <ZoneFrame className={className} name={name} count={ZONE_LIMITS.front}>
+function LineZone({ className, name, cards, cardsById, ctx, interaction, drop, ghosts = [] }: { className: string; name: string; cards: readonly UnionArenaFieldCard[]; cardsById: ReadonlyMap<string, CardRecord>; ctx: EngineContext; interaction?: BoardInteraction; drop: string; ghosts?: readonly UnionArenaFieldCard[] }) {
+  return <ZoneFrame className={className} name={name} count={ZONE_LIMITS.front} drop={drop} onZone={interaction?.onZone}>
     {Array.from({ length: ZONE_LIMITS.front }, (_, index) => {
       const field = cards[index];
-      if (!field) return <CardSlot key={`empty-${index}`} />;
+      if (!field) {
+        // A card that is about to move here (movement phase, not confirmed yet) is shown as a see-through copy in the first free slots.
+        const ghost = ghosts[index - cards.length];
+        if (!ghost) return <CardSlot key={`empty-${index}`} />;
+        const record = cardsById.get(ghost.cardId);
+        return <div key={`ghost-${ghost.uid}`} className="ua-slot ua-slot-ghost" data-rested={ghost.rested || undefined}>
+          <button type="button" className="ua-ghost-card" data-ghost={ghost.uid} aria-label={`${record?.name ?? "卡牌"}（待移动，点击取消）`} onClick={(event) => { event.stopPropagation(); interaction?.onGhost?.(ghost.uid); }}>
+            {record?.imageUrl ? <img className="ua-slot-card" src={record.imageUrl} alt="" draggable={false} /> : <span className="ua-slot-card ua-slot-name">{record?.name}</span>}
+          </button>
+        </div>;
+      }
       const record = cardsById.get(field.cardId);
       const isCharacter = record?.stats?.type === "character";
       const bp = isCharacter ? bpOf(ctx, field) : null;
@@ -130,9 +154,9 @@ function ApZone({ cards }: { cards: readonly UnionArenaApCard[] }) {
 }
 
 /** A face-up pile (sideline or removal area): its top card and how many cards are in it. */
-function PileZone({ className, name, cards, cardsById, pickKey, interaction }: { className: string; name: string; cards: readonly string[]; cardsById: ReadonlyMap<string, CardRecord>; pickKey: string; interaction?: BoardInteraction }) {
+function PileZone({ className, name, cards, cardsById, pickKey, interaction, drop }: { className: string; name: string; cards: readonly string[]; cardsById: ReadonlyMap<string, CardRecord>; pickKey: string; interaction?: BoardInteraction; drop: string }) {
   const top = cards.length ? cardsById.get(cards[cards.length - 1]!) : undefined;
-  return <ZoneFrame className={className} name={name} count={1} large>
+  return <ZoneFrame className={className} name={name} count={1} large drop={drop} onZone={interaction?.onZone}>
     {cards.length
       ? <CardSlot card={top} pickKey={pickKey} interaction={interaction} label={`${name}，${cards.length} 张`} badges={<span className="ua-badge">{cards.length}</span>} />
       : <CardSlot />}
@@ -167,7 +191,7 @@ function LifeZone({ cards, interaction }: { cards: readonly LifeCardEntry[]; int
           : <span className="ua-card-back" aria-hidden="true" />;
         return <li className="ua-life-card" key={entry.id} style={{ "--i": index, zIndex: cards.length - index } as CSSProperties} title={entry.card ? `${entry.card.name} ${entry.card.number}` : "生命卡（背面）"}
           data-candidate={pickable || undefined} data-selected={interaction?.selected.has(key) || undefined}>
-          {pickable ? <button type="button" className="ua-life-pick" data-card-key={key} aria-label={`第 ${index + 1} 张生命卡`} aria-pressed={interaction!.selected.has(key)} onClick={(event) => interaction!.onCard(key, event.currentTarget)}>{face}</button> : face}
+          {pickable ? <button type="button" className="ua-life-pick" data-card-key={key} aria-label={`第 ${index + 1} 张生命卡`} aria-pressed={interaction!.selected.has(key)} onClick={(event) => { interaction!.onCard(key, event.currentTarget); }}>{face}</button> : face}
         </li>;
       })}
     </ol>
@@ -216,16 +240,20 @@ export interface HalfBoardProps {
 export function HalfBoard({ side, activePhase, life = NO_LIFE, board, deckCount = 0, cardsById, ctx, interaction }: HalfBoardProps) {
   const self = side === "self";
   const owner = self ? "you" : "opponent";
+  /** Prefix of this half's drop targets (`you:front`, `opp:sideline`, ...). */
+  const drop = self ? "you" : "opp";
   const inGame = board && cardsById && ctx;
   return <div className="ua-half" data-side={side}>
-    {inGame ? <LineZone className="ua-z-front" name="前线" cards={board.front} cardsById={cardsById} ctx={ctx} interaction={interaction} /> : <SlotZone className="ua-z-front" name="前线" count={ZONE_LIMITS.front} />}
-    {inGame ? <LineZone className="ua-z-energy" name="能量线" cards={board.energy} cardsById={cardsById} ctx={ctx} interaction={interaction} /> : <SlotZone className="ua-z-energy" name="能量线" count={ZONE_LIMITS.energy} />}
+    {inGame ? <LineZone className="ua-z-front" name="前线" cards={board.front} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:front`}
+      ghosts={self && interaction?.ghosts ? board.energy.filter((card) => interaction.ghosts!.front.includes(card.uid)) : undefined} /> : <SlotZone className="ua-z-front" name="前线" count={ZONE_LIMITS.front} />}
+    {inGame ? <LineZone className="ua-z-energy" name="能量线" cards={board.energy} cardsById={cardsById} ctx={ctx} interaction={interaction} drop={`${drop}:energy`}
+      ghosts={self && interaction?.ghosts ? board.front.filter((card) => interaction.ghosts!.energy.includes(card.uid)) : undefined} /> : <SlotZone className="ua-z-energy" name="能量线" count={ZONE_LIMITS.energy} />}
     {inGame ? <ApZone cards={board.ap} /> : <SlotZone className="ua-z-ap" name="行动点区" count={ZONE_LIMITS.actionPoints} />}
     <LifeZone cards={life} interaction={interaction} />
     {inGame ? <DeckZone count={deckCount} /> : <SlotZone className="ua-z-deck" name="卡组放置处" count={1} large />}
     <PhaseBar activePhase={activePhase} />
-    {inGame ? <PileZone className="ua-z-removal" name="移除区" cards={board.removal} cardsById={cardsById} pickKey={cardKey.pile(owner, "removal")} interaction={interaction} /> : <SlotZone className="ua-z-removal" name="移除区" count={1} large />}
-    {inGame ? <PileZone className="ua-z-discard" name="场外" cards={board.sideline} cardsById={cardsById} pickKey={cardKey.pile(owner, "sideline")} interaction={interaction} /> : <SlotZone className="ua-z-discard" name="场外" count={1} large />}
+    {inGame ? <PileZone className="ua-z-removal" name="移除区" cards={board.removal} cardsById={cardsById} pickKey={cardKey.pile(owner, "removal")} interaction={interaction} drop={`${drop}:removal`} /> : <SlotZone className="ua-z-removal" name="移除区" count={1} large />}
+    {inGame ? <PileZone className="ua-z-discard" name="场外" cards={board.sideline} cardsById={cardsById} pickKey={cardKey.pile(owner, "sideline")} interaction={interaction} drop={`${drop}:sideline`} /> : <SlotZone className="ua-z-discard" name="场外" count={1} large />}
     {self ? <KeywordTable /> : null}
   </div>;
 }
