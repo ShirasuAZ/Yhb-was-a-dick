@@ -11,6 +11,7 @@ import { ThemeControl } from "./ThemeControl.tsx";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
 import { InviteDialog } from "./InviteDialog.tsx";
+import { SpectatorSeats } from "./SpectatorSeats.tsx";
 import type { RoomRole } from "@shared/social.ts";
 import type { ConnectionStatus } from "../types.ts";
 
@@ -266,7 +267,7 @@ export function WaitingRoom({
             </p>
           ) : null}
           <div className="room-friend-invites"><strong>邀请好友</strong><button type="button" className="secondary" onClick={() => setInviteRole("player")}>邀请对战席</button><button type="button" className="secondary" onClick={() => setInviteRole("spectator")}>邀请观战席</button>{inviteResult ? <small>{inviteResult}</small> : null}</div>
-          <div className="spectator-list"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div>
+          <div className="spectator-block"><strong>观战席（{room.spectators.length}）</strong><SpectatorSeats spectators={room.spectators} canInvite onInvite={() => setInviteRole("spectator")} /></div>
           {error ? (
             <p className="error-text" role="alert">
               {error}

@@ -16,6 +16,7 @@ import { VersionBadge } from "./VersionBadge.tsx";
 import { ThemeControl } from "./ThemeControl.tsx";
 import { seatedOpponents } from "./seatLayout.ts";
 import { InviteDialog } from "./InviteDialog.tsx";
+import { SpectatorSeats } from "./SpectatorSeats.tsx";
 import type { RoomRole } from "@shared/social.ts";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
@@ -667,7 +668,7 @@ export function GameScreen({
         <button type="button" className="secondary" disabled={spectator} onClick={() => setInviteRole("spectator")}>邀请观战席</button>
         {inviteResult ? <small>{inviteResult}</small> : null}
       </section>
-      <section className="spectator-list" aria-label="观战席"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</section>
+      <section className="spectator-block" aria-label="观战席"><strong>观战席（{room.spectators.length}）</strong><SpectatorSeats spectators={room.spectators} canInvite={!spectator} onInvite={() => setInviteRole("spectator")} /></section>
 
       <main className="table-stage">
         <div className="table-surface">

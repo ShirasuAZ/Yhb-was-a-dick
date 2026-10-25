@@ -13,7 +13,7 @@ import { HalfBoard, Seat, type LifeCardEntry } from "./board.tsx";
 import { errorText, useCatalog, type Account, type CardRecord } from "./cards.ts";
 import { useGameController } from "./game.tsx";
 import { useFloatNotices, type FloatNotice } from "./floatNotices.tsx";
-import { SpectatorSeats } from "./SpectatorSeats.tsx";
+import { SpectatorSeats } from "@uno-client/components/SpectatorSeats.tsx";
 import { ArknightsRoomPage } from "./ArknightsRoomPage.tsx";
 import { InviteDialog } from "@uno-client/components/InviteDialog.tsx";
 import type { RoomRole } from "@shared/social.ts";
@@ -376,7 +376,7 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
         {!state ? <div className="ua-room-actions"><p className="ua-hint">还没有加入房间。到房间页面创建或加入一个房间。</p><button className="ua-primary" disabled={busy} onClick={() => window.location.assign(`${ARKNIGHTS_HOME}pvp`)}>前往房间页面</button></div> : <>
           <p className="ua-room-window-code">房间号 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{readOnly ? " · 观战中" : ""}</p>
           <div className="ua-room-window-players"><strong>玩家</strong>{state.players.map((player) => <span key={player.id}>{player.username}{player.isHost ? " · 房主" : ""}{player.connected ? "" : " · 离线"}</span>)}</div>
-          <div className="ua-spectator-block"><strong>观战席（{state.spectators.length}）</strong><SpectatorSeats spectators={state.spectators} canInvite={!readOnly} onInvite={() => setInviteRole("spectator")} /></div>
+          <div className="spectator-block"><strong>观战席（{state.spectators.length}）</strong><SpectatorSeats spectators={state.spectators.map((person) => ({ id: person.id, name: person.username, connected: person.connected, avatarUrl: person.avatarUrl }))} canInvite={!readOnly} onInvite={() => setInviteRole("spectator")} /></div>
           {/* Inviting to a seat happens on the table itself: the empty seat's "+" and the spectator list's button. */}
           <button className="ua-secondary" disabled={busy} onClick={() => void leaveRoom()}>离开房间</button>
         </>}

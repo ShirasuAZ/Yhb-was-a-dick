@@ -129,7 +129,7 @@ export interface RoomState {
   phase: RoomPhase;
   hostId: string;
   players: PublicPlayer[];
-  spectators: Array<{ id: string; name: string; connected: boolean }>;
+  spectators: Array<{ id: string; name: string; connected: boolean; avatarUrl: string | null }>;
   youAreSpectator: boolean;
   you: OwnPlayer;
   game: PublicGameView | null;

@@ -52,7 +52,7 @@ interface ShogiRoomState {
   yourSide: Side;
   hostSide: Side;
   spectator?: boolean;
-  spectators?: Array<{ id: string; name: string; connected: boolean }>;
+  spectators?: Array<{ id: string; name: string; connected: boolean; avatarUrl: string | null }>;
 }
 
 interface IdentityState {
@@ -93,7 +93,7 @@ class ShogiRoom {
   readonly code: string;
   readonly game = new ShogiGame();
   readonly players = new Map<Side, ShogiPlayer>();
-  readonly spectators = new Map<string, { id: string; name: string; socketId: string; connected: boolean }>();
+  readonly spectators = new Map<string, { id: string; name: string; socketId: string; connected: boolean; avatarUrl: string | null }>();
   readonly ready = new Set<Side>();
   hostAccountId: string | null = null;
   started = false;
@@ -415,7 +415,7 @@ export function createShogiServer(options: {
       if (room || findAccountSeat(account.id)) { ack?.({ ok: false, message: "当前账号已经在房间中" }); return; }
       const target = findRoom(payload?.roomCode);
       if (!target) { ack?.({ ok: false, message: "房间不存在或已关闭" }); return; }
-      const spectator = { id: account.id, name: account.username, socketId: socket.id, connected: true };
+      const spectator = { id: account.id, name: account.username, socketId: socket.id, connected: true, avatarUrl: account.avatarUrl };
       target.spectators.set(account.id, spectator); target.sockets.add(socket); socket.join(target.code);
       room = target; player = null;
       ack?.({ ok: true, data: { roomCode: target.code } });

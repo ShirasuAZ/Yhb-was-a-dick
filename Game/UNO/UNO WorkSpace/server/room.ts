@@ -47,7 +47,7 @@ export interface RoomPlayer {
   ready: boolean;
   active: boolean;
 }
-export interface RoomSpectator { id: string; accountId: string; name: string; socketId: string; connected: boolean; }
+export interface RoomSpectator { id: string; accountId: string; name: string; socketId: string; connected: boolean; avatarUrl: string | null; }
 
 const ROOM_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 export const RECONNECT_GRACE_SECONDS = 10 * 60;
@@ -167,7 +167,7 @@ export class Room {
       phase: this.phase,
       hostId: this.hostId,
       players,
-      spectators: this.spectators.map((entry) => ({ id: entry.id, name: entry.name, connected: entry.connected })),
+      spectators: this.spectators.map((entry) => ({ id: entry.id, name: entry.name, connected: entry.connected, avatarUrl: entry.avatarUrl })),
       youAreSpectator: !viewer,
       you,
       game: this.game?.publicView(viewer ? playerId : "") ?? null,
@@ -896,7 +896,7 @@ export class RoomManager {
     const account = this.requireAccount(socket);
     if (!room) throw new RoomError("ROOM_NOT_FOUND", "房间不存在或已关闭");
     if (room.players.some((entry) => entry.accountId === account.id)) throw new RoomError("ALREADY_IN_ROOM", "你已经在该房间中");
-    const spectator = { id: randomUUID(), accountId: account.id, name: account.username, socketId: socket.id, connected: true };
+    const spectator = { id: randomUUID(), accountId: account.id, name: account.username, socketId: socket.id, connected: true, avatarUrl: account.avatarUrl };
     room.spectators.push(spectator);
     socket.data.spectatingRoom = room.code;
     socket.data.spectatorId = spectator.id;

@@ -468,30 +468,3 @@
   .ua-notice { animation-duration: .6s; }
   @keyframes ua-notice-rise { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0; } }
 }
-
-/* Spectator gallery: four dashed "+" places in a row; joined spectators replace them with their avatar. */
-.ua-spectator-block { display: grid; gap: 8px; }
-.ua-spectator-seats { position: relative; display: flex; align-items: center; gap: 10px; }
-.ua-spectator-seat {
-  width: 42px; height: 42px; min-width: 42px; min-height: 42px; flex: none;
-  display: grid; place-items: center; padding: 0; overflow: hidden;
-  border-radius: 50%; border: 2px dashed #9aa7ad; background: transparent;
-  color: #7c8b92; font-size: 20px; line-height: 1; cursor: default;
-}
-.ua-spectator-seat.is-empty { cursor: pointer; transition: border-color .16s ease, background .16s ease; }
-.ua-spectator-seat.is-empty:hover { border-color: #425057; background: #eef3f5; color: #425057; }
-.ua-spectator-seat.is-filled { border: 2px solid #7f8f96; background: #dfe8eb; color: #2b373d; cursor: pointer; }
-.ua-spectator-seat.is-filled[data-offline] { opacity: .5; }
-.ua-spectator-seat img { width: 100%; height: 100%; object-fit: cover; }
-.ua-spectator-initial { display: grid; place-items: center; width: 100%; height: 100%; font-size: 15px; font-weight: 700; }
-
-/* The name card shown while an avatar is held down. */
-.ua-spectator-peek {
-  position: fixed; z-index: 70; transform: translate(-50%, calc(-100% - 8px));
-  display: grid; justify-items: center; gap: 4px; min-width: 96px; padding: 10px 12px;
-  background: #fff; border: 1px solid #c3c8cb; border-radius: 10px; box-shadow: 0 10px 26px rgba(20, 28, 32, .22);
-  pointer-events: none;
-}
-.ua-spectator-peek img, .ua-spectator-peek .ua-spectator-initial { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #dfe8eb; }
-.ua-spectator-peek strong { font-size: 13px; }
-.ua-spectator-peek small { color: #697278; font-size: 11px; }

@@ -11,6 +11,7 @@ import {
 } from "@shogi/engine";
 import { ThemeControl } from "./ThemeControl.tsx";
 import { InviteDialog } from "./InviteDialog.tsx";
+import { SpectatorSeats } from "./SpectatorSeats.tsx";
 import type { RoomRole } from "@shared/social.ts";
 import { shogiPieceFacing } from "../shogiFacing.ts";
 
@@ -32,7 +33,7 @@ type OnlineState = {
   yourSide: Side;
   hostSide: Side;
   spectator?: boolean;
-  spectators?: Array<{ id: string; name: string; connected: boolean }>;
+  spectators?: Array<{ id: string; name: string; connected: boolean; avatarUrl: string | null }>;
 };
 type AckResult<T = unknown> = { ok: boolean; message?: string; data?: T };
 
@@ -429,7 +430,7 @@ export function ShogiApp() {
       : `轮到对手行棋 · ${online?.players[game.turn] ?? sideLabel[game.turn]}`
     : statusText;
   const invitePanel = online && !online.spectator ? <div className="shogi-friend-invites"><strong>邀请好友</strong><button type="button" className="secondary" onClick={() => setInviteRole("player")}>邀请对战席</button><button type="button" className="secondary" onClick={() => setInviteRole("spectator")}>邀请观战席</button>{inviteResult ? <small>{inviteResult}</small> : null}</div> : null;
-  const spectatorsPanel = online ? <div className="spectator-list"><strong>观战席（{online.spectators?.length ?? 0}）</strong>{online.spectators?.length ? online.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div> : null;
+  const spectatorsPanel = online ? <div className="spectator-block"><strong>观战席（{online.spectators?.length ?? 0}）</strong><SpectatorSeats spectators={(online.spectators ?? []).map((person) => ({ ...person, avatarUrl: person.avatarUrl ?? null }))} canInvite={!online.spectator} onInvite={() => setInviteRole("spectator")} /></div> : null;
 
   return <main className={`shogi-app ${online?.started ? "shogi-playing" : ""}`}>
     {inviteRole && online ? <InviteDialog game="shogi" roomCode={online.roomCode} role={inviteRole} onClose={() => setInviteRole(null)} /> : null}
