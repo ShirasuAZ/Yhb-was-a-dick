@@ -10,6 +10,8 @@ import {
   pieceLabel
 } from "@shogi/engine";
 import { ThemeControl } from "./ThemeControl.tsx";
+import { InviteDialog } from "./InviteDialog.tsx";
+import type { RoomRole } from "@shared/social.ts";
 import { shogiPieceFacing } from "../shogiFacing.ts";
 
 type Identity = { username: string; roomCode: string | null; side: Side | null };
@@ -99,7 +101,8 @@ function PieceImage({ piece, yourSide, size = "board" }: { piece: Piece; yourSid
 
 export function ShogiApp() {
   const [socket] = useState(makeSocket);
-  const [authState, setAuthState] = useState<"checking" | "required" | "ready">("checking");
+  const [authState, setAuthState] = useState<"checking" | "required" | "ready" | "unreachable">("checking");
+  const [authAttempt, setAuthAttempt] = useState(0);
   const [identity, setIdentity] = useState<Identity | null>(null);
   const [online, setOnline] = useState<OnlineState | null>(null);
   const [roomCode, setRoomCode] = useState(inviteCode());
@@ -117,6 +120,7 @@ export function ShogiApp() {
   const [confirmingResign, setConfirmingResign] = useState(false);
   const [inviteTargets, setInviteTargets] = useState<Array<{ id: string; username: string }>>([]);
   const [inviteResult, setInviteResult] = useState("");
+  const [inviteRole, setInviteRole] = useState<RoomRole | null>(null);
   const [incomingInvite, setIncomingInvite] = useState<{ id: string; game: string; roomCode: string; role: string; inviter: string } | null>(null);
 
   useEffect(() => {
@@ -178,6 +182,9 @@ export function ShogiApp() {
         setAuthState("required");
         setOnlineError("登录已过期，请重新登录");
       } else {
+        // The token may be fine and the service merely unreachable: stop claiming we are still
+        // verifying, and offer a retry instead of waiting forever on an identity that never comes.
+        setAuthState((current) => (current === "checking" ? "unreachable" : current));
         setOnlineError("将棋联机服务暂不可用，正在尝试重连");
       }
     };
@@ -228,7 +235,12 @@ export function ShogiApp() {
     socket.on("shogi:closed", onRoomClosed);
     window.addEventListener("storage", onStorage);
     connectWithCurrentAccount();
+    // A silent handshake (no connect, no error) must not leave the screen on "verifying" forever.
+    const handshakeTimer = window.setTimeout(() => {
+      setAuthState((current) => (current === "checking" ? "unreachable" : current));
+    }, 12000);
     return () => {
+      window.clearTimeout(handshakeTimer);
       window.removeEventListener("storage", onStorage);
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
@@ -238,7 +250,7 @@ export function ShogiApp() {
       socket.off("shogi:closed", onRoomClosed);
       socket.disconnect();
     };
-  }, [socket]);
+  }, [socket, authAttempt]);
 
   const game = online?.game;
   const currentSide = game?.turn;
@@ -416,10 +428,11 @@ export function ShogiApp() {
       ? `轮到你行棋 · ${identity?.username ?? online?.players[game.turn] ?? sideLabel[game.turn]}`
       : `轮到对手行棋 · ${online?.players[game.turn] ?? sideLabel[game.turn]}`
     : statusText;
-  const invitePanel = online && !online.spectator && inviteTargets.length ? <div className="shogi-friend-invites"><strong>邀请好友</strong>{inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" onClick={() => void sendFriendInvite(friend.id, online.roomCode, "player").then((ok) => setInviteResult(ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态"))}>参战</button><button className="text-button" onClick={() => void sendFriendInvite(friend.id, online.roomCode, "spectator").then((ok) => setInviteResult(ok ? "邀请已发送" : "邀请失败，请确认好友关系和房间状态"))}>观战</button></span>)}{inviteResult ? <small>{inviteResult}</small> : null}</div> : null;
+  const invitePanel = online && !online.spectator ? <div className="shogi-friend-invites"><strong>邀请好友</strong><button type="button" className="secondary" onClick={() => setInviteRole("player")}>邀请对战席</button><button type="button" className="secondary" onClick={() => setInviteRole("spectator")}>邀请观战席</button>{inviteResult ? <small>{inviteResult}</small> : null}</div> : null;
   const spectatorsPanel = online ? <div className="spectator-list"><strong>观战席（{online.spectators?.length ?? 0}）</strong>{online.spectators?.length ? online.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div> : null;
 
   return <main className={`shogi-app ${online?.started ? "shogi-playing" : ""}`}>
+    {inviteRole && online ? <InviteDialog game="shogi" roomCode={online.roomCode} role={inviteRole} onClose={() => setInviteRole(null)} /> : null}
     {incomingInvite ? <aside className="invite-toast"><strong>{incomingInvite.inviter} 邀请你{incomingInvite.role === "spectator" ? "观战" : "加入房间"}</strong><span>日本将棋 · {incomingInvite.roomCode}</span><button className="primary" onClick={() => void answerIncomingInvite(true)}>{incomingInvite.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="text-button" onClick={() => void answerIncomingInvite(false)}>忽略</button></aside> : null}
     <header className="shogi-topbar">
       <button className="secondary shogi-back" onClick={() => location.assign("/")}>返回大厅</button>
@@ -428,9 +441,15 @@ export function ShogiApp() {
     </header>
 
     {authState !== "ready" ? <section className="panel shogi-login-panel">
-      <strong>{authState === "checking" ? "正在验证登录状态" : "请先登录 LayUDown 账号"}</strong>
+      <strong>{authState === "checking" ? "正在验证登录状态" : authState === "unreachable" ? "将棋联机服务暂不可用" : "请先登录 LayUDown 账号"}</strong>
       <p className="muted">将棋房间使用当前登录账号身份，切换账号不会继承其他账号的座位。</p>
-      {authState === "required" ? <a className="primary shogi-login-link" href="/">前往登录</a> : <span className="muted">连接状态：{connection ? "已连接" : "正在连接"}</span>}
+      {authState === "required" ? <a className="primary shogi-login-link" href="/">前往登录</a>
+        : authState === "unreachable" ? <>
+          <span className="muted">连接状态：{connection ? "已连接" : "连接中断"}</span>
+          <button type="button" className="secondary" onClick={() => { setOnlineError(""); setAuthState("checking"); setAuthAttempt((value) => value + 1); }}>重新连接</button>
+        </>
+          : <span className="muted">连接状态：{connection ? "已连接" : "正在连接"}</span>}
+      {onlineError ? <p className="muted" role="status">{onlineError}</p> : null}
     </section> : !online ? <>
       <section className="panel shogi-room-lobby" aria-labelledby="shogi-room-title">
         <div className="shogi-room-lobby-heading">

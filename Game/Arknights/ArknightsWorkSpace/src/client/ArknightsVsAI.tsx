@@ -115,7 +115,7 @@ export function ArknightsVsAI({ account }: { account: Account }) {
     roomCode: "人机", phase: "playing", players: [me, cpu], you: me,
     life: { you: lifeView(match.players[0]), opponent: lifeView(match.players[1]) },
     game: { ...gameStateView(match.game, match.players[0], match.players[1], ctx), winRate: winRateModel ? estimateWinRate(winRateModel, match.game, match.players, ctx, account.id) : null },
-    hand: [...match.players[0].hand], playerCount: 2, requiredPlayers: 2, startAllowed: false
+    hand: [...match.players[0].hand], playerCount: 2, requiredPlayers: 2, startAllowed: false, spectators: [], youAreSpectator: false
   } : null;
   const controller = useGameController({
     state, meId: account.id, cardsById, ctx, compact, busy: false, send, onMulligan,

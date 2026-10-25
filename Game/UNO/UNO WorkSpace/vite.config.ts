@@ -16,6 +16,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@shared": path.resolve(process.cwd(), "shared"),
+      "@uno-client": path.resolve(process.cwd(), "client/src"),
       "@arknights": path.resolve(process.cwd(), "../../Arknights/ArknightsWorkSpace/src/client"),
       "react/jsx-runtime": path.resolve(process.cwd(), "node_modules/react/jsx-runtime.js"),
       "react/jsx-dev-runtime": path.resolve(process.cwd(), "node_modules/react/jsx-dev-runtime.js"),

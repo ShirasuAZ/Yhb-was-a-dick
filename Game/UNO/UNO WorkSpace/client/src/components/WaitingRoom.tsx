@@ -10,6 +10,8 @@ import { VersionBadge } from "./VersionBadge.tsx";
 import { ThemeControl } from "./ThemeControl.tsx";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
+import { InviteDialog } from "./InviteDialog.tsx";
+import type { RoomRole } from "@shared/social.ts";
 import type { ConnectionStatus } from "../types.ts";
 
 async function emitInvite(targetId: string, role: "player" | "spectator"): Promise<boolean> {
@@ -47,6 +49,7 @@ export function WaitingRoom({
 }: WaitingRoomProps) {
   const [inviteTargets, setInviteTargets] = useState<Array<{id:string;username:string}>>([]);
   const [inviteResult, setInviteResult] = useState("");
+  const [inviteRole, setInviteRole] = useState<RoomRole | null>(null);
   useEffect(() => { fetch("/api/social", { headers: { Authorization: `Bearer ${localStorage.getItem("uno.accountToken") ?? ""}` } }).then((r) => r.json()).then((v: { data?: { friends?: Array<{id:string;username:string}> } }) => setInviteTargets(v.data?.friends ?? [])).catch(() => undefined); }, []);
   const invite = async (id: string, role: "player" | "spectator"): Promise<void> => { const ok = await emitInvite(id, role); setInviteResult(ok ? "已发送" : "邀请失败，请确认好友关系和房间状态"); };
   const [copied, setCopied] = useState<"code" | "link" | null>(null);
@@ -132,6 +135,7 @@ export function WaitingRoom({
 
   return (
     <div className="app-shell room-shell">
+      {inviteRole ? <InviteDialog game="uno" roomCode={room.roomCode} role={inviteRole} onClose={() => setInviteRole(null)} /> : null}
       <header className="topbar">
         <div>
           <p className="eyebrow">房间号</p>
@@ -261,7 +265,7 @@ export function WaitingRoom({
                     : ""}
             </p>
           ) : null}
-          {inviteTargets.length ? <div className="room-friend-invites"><strong>邀请好友</strong>{inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" onClick={() => void invite(friend.id, "player")}>参战</button><button className="text-button" onClick={() => void invite(friend.id, "spectator")}>观战</button></span>)}{inviteResult ? <small>{inviteResult}</small> : null}</div> : null}
+          <div className="room-friend-invites"><strong>邀请好友</strong><button type="button" className="secondary" onClick={() => setInviteRole("player")}>邀请对战席</button><button type="button" className="secondary" onClick={() => setInviteRole("spectator")}>邀请观战席</button>{inviteResult ? <small>{inviteResult}</small> : null}</div>
           <div className="spectator-list"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</div>
           {error ? (
             <p className="error-text" role="alert">

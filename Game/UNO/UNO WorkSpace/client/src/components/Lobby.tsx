@@ -70,11 +70,13 @@ export function Lobby({
     <div className="app-shell lobby-shell">
       <header className="lobby-header">
         <div>
-          <button className="my-link" onClick={() => setMyMenuOpen((open) => !open)} aria-expanded={myMenuOpen}>
-            {account.avatarUrl ? <img className="my-avatar-placeholder" src={account.avatarUrl} alt="" /> : <span className="my-avatar-placeholder" aria-hidden="true">{account.username.slice(0, 1)}</span>}
-            <strong>我的</strong>
-          </button>
-          {myMenuOpen ? <div className="my-menu"><a href="/">主页</a><a href="/friends">我的好友</a><a href="/about">账号设置</a></div> : null}
+          <div className="my-menu-anchor">
+            <button className="my-link" onClick={() => setMyMenuOpen((open) => !open)} aria-expanded={myMenuOpen} aria-haspopup="menu">
+              {account.avatarUrl ? <img className="my-avatar-placeholder" src={account.avatarUrl} alt="" /> : <span className="my-avatar-placeholder" aria-hidden="true">{account.username.slice(0, 1)}</span>}
+              <strong>我的</strong>
+            </button>
+            {myMenuOpen ? <div className="my-menu" role="menu"><a role="menuitem" href="/">主页</a><a role="menuitem" href="/friends">我的好友</a><a role="menuitem" href="/about">账号设置</a></div> : null}
+          </div>
           {/* Keep LayUDown on the homepage and label the UNO route as UNO. */}
           <h1>{gameMode ? "UNO" : "LayUDown"}</h1>
         </div>

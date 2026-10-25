@@ -15,6 +15,8 @@ import { TableSeat } from "./TableSeat.tsx";
 import { VersionBadge } from "./VersionBadge.tsx";
 import { ThemeControl } from "./ThemeControl.tsx";
 import { seatedOpponents } from "./seatLayout.ts";
+import { InviteDialog } from "./InviteDialog.tsx";
+import type { RoomRole } from "@shared/social.ts";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
 import type { ConnectionStatus } from "../types.ts";
@@ -82,6 +84,7 @@ export function GameScreen({
   const [emojiOpen, setEmojiOpen] = useState(false);
   const [inviteTargets, setInviteTargets] = useState<Array<{ id: string; username: string }>>([]);
   const [inviteResult, setInviteResult] = useState("");
+  const [inviteRole, setInviteRole] = useState<RoomRole | null>(null);
   const [visibleEmotes, setVisibleEmotes] = useState<
     Record<string, EmoteMessage>
   >({});
@@ -584,6 +587,7 @@ export function GameScreen({
 
   return (
     <div className="table-screen">
+      {inviteRole ? <InviteDialog game="uno" roomCode={room.roomCode} role={inviteRole} onClose={() => setInviteRole(null)} /> : null}
       <header className="table-topbar">
         <div className="table-heading">
           <div>
@@ -659,7 +663,8 @@ export function GameScreen({
       </section>
       <section className="room-friend-invites" aria-label="房间好友邀请">
         <strong>邀请好友</strong>
-        {!inviteTargets.length ? <small>暂无可邀请好友</small> : inviteTargets.map((friend) => <span key={friend.id}>{friend.username}<button className="text-button" disabled={spectator} onClick={() => void inviteFriend(friend.id, "player")}>参战</button><button className="text-button" disabled={spectator} onClick={() => void inviteFriend(friend.id, "spectator")}>观战</button></span>)}
+        <button type="button" className="secondary" disabled={spectator} onClick={() => setInviteRole("player")}>邀请对战席</button>
+        <button type="button" className="secondary" disabled={spectator} onClick={() => setInviteRole("spectator")}>邀请观战席</button>
         {inviteResult ? <small>{inviteResult}</small> : null}
       </section>
       <section className="spectator-list" aria-label="观战席"><strong>观战席（{room.spectators.length}）</strong>{room.spectators.length ? room.spectators.map((person) => <span key={person.id}>{person.name}</span>) : <small>暂无观战者</small>}</section>

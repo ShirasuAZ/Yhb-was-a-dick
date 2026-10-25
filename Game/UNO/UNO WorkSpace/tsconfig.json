@@ -7,6 +7,7 @@
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["shared/*"],
+      "@uno-client/*": ["client/src/*"],
       "@arknights/*": ["../../Arknights/ArknightsWorkSpace/src/client/*"],
       "react": ["node_modules/@types/react"],
       "react/*": ["node_modules/@types/react/*"],
