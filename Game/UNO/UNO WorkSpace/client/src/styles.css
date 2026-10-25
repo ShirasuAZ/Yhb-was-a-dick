@@ -621,14 +621,18 @@ h2 {
 
 .update-log {
   min-height: 150px;
-  display: grid;
-  align-content: start;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
 }
 
-.update-log h2 { margin: 0; font-size: 20px; }
+.update-log h2 { margin: 2px 0 0; font-size: 20px; }
 .update-log p { margin: 0; line-height: 1.65; }
-.update-log-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+/* Heading, body and pager stack top to bottom; the pager sits under the text, not beside it. */
+.update-log-heading { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+.update-log-body { flex: 1; }
+.update-log-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--border); }
 .update-controls { display: inline-flex; align-items: center; gap: 6px; }
 .update-controls button { width: 28px; height: 28px; display: grid; place-items: center; padding: 0; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); color: var(--text); font-size: 18px; line-height: 1; }
 .update-controls button:disabled { opacity: .4; cursor: not-allowed; }
@@ -3183,7 +3187,8 @@ button.playing-card {
 
 /* Update log: entries stack vertically and page through dots, advancing on their own. */
 .update-dots{display:inline-flex;align-items:center;gap:8px;padding-top:4px}
-.update-dot{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:var(--border-strong,#c7cfd8);cursor:pointer;transition:background .18s ease,transform .18s ease}
+/* The global button rule sets min-height 38px and 8/16 padding; a page dot must override all of it. */
+.update-dot{width:9px;height:9px;min-width:9px;min-height:9px;flex:0 0 auto;padding:0;border:0;border-radius:50%;background:var(--border-strong,#c7cfd8);cursor:pointer;transition:background .18s ease,transform .18s ease}
 .update-dot:hover{transform:scale(1.15)}
 .update-dot.is-active{background:var(--text,#1e252a)}
 .update-dot:focus-visible{outline:2px solid var(--accent,#2f6f8f);outline-offset:3px}

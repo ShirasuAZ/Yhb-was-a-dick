@@ -52,12 +52,15 @@ export const cardKey = {
 };
 
 /** A player's nameplate. It lives in the bar on the outer edge of that player's half: top for the opponent, bottom for you. */
-export function Seat({ player, self, status: statusText }: { player?: UnionArenaPlayer; self: boolean; status?: string }) {
+export function Seat({ player, self, status: statusText, onInvite }: { player?: UnionArenaPlayer; self: boolean; status?: string; onInvite?: () => void }) {
   const status = statusText ?? (player ? `${player.connected ? "在线" : "已断线"} · ${player.ready ? "已准备" : "未准备"}` : "空座位");
-  return <div className={`ua-seat ${self ? "ua-seat-self" : ""}`} title={player ? `${player.username} · ${status}` : "待玩家加入"}>
+  const invite = !player && onInvite ? onInvite : undefined;
+  return <div className={`ua-seat ${self ? "ua-seat-self" : ""}`} title={player ? `${player.username} · ${status}` : invite ? "点击邀请好友加入" : "待玩家加入"}>
     {player
       ? player.avatarUrl ? <img src={player.avatarUrl} alt={`${player.username}的头像`} /> : <span className="ua-avatar-fallback">{player.username.slice(0, 1)}</span>
-      : <span className="ua-empty-avatar">+</span>}
+      : invite
+        ? <button type="button" className="ua-empty-avatar ua-empty-invite" aria-label="邀请好友加入房间" title="邀请好友加入" onClick={invite}>+</button>
+        : <span className="ua-empty-avatar">+</span>}
     <div className="ua-seat-text"><strong>{player ? player.username : "待玩家加入"}</strong><small>{status}</small></div>
   </div>;
 }

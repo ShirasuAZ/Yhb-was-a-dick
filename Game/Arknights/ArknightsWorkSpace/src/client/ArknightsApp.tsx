@@ -86,7 +86,6 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const [busy, setBusy] = useState(false);
   const [roomWindowOpen, setRoomWindowOpen] = useState(false);
   const [inviteRole, setInviteRole] = useState<RoomRole | null>(null);
-  const [inviteResult, setInviteResult] = useState("");
   const [incomingInvite, setIncomingInvite] = useState<{ id: string; roomCode: string; role: string; inviter: string } | null>(null);
   const { cards, cardsById, ctx } = useCatalog(setError);
   const [selectedCard, setSelectedCard] = useState<CardRecord | null>(null);
@@ -274,7 +273,7 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
         <div className="ua-table-wrapper">
           <section className="ua-table" aria-label="明日方舟 UNION ARENA 对战桌面">
             <span className="ua-centerline" aria-hidden="true" />
-            <div className="ua-seatbar" data-side="opponent"><Seat player={opponent} self={false} />{controller.opponentHand}</div>
+            <div className="ua-seatbar" data-side="opponent"><Seat player={opponent} self={false} onInvite={readOnly ? undefined : () => setInviteRole("player")} />{controller.opponentHand}</div>
             <HalfBoard side="opponent" life={opponentLife} board={game?.board.opponent} deckCount={game?.deckCount.opponent} cardsById={cardsById} ctx={ctx} interaction={readOnly ? undefined : controller.interaction} activePhase={controller.activePhase("opponent")} />
             <HalfBoard side="self" life={selfLife} board={game?.board.you} deckCount={game?.deckCount.you} cardsById={cardsById} ctx={ctx} interaction={readOnly ? undefined : controller.interaction} activePhase={controller.activePhase("self")} />
             <div className="ua-seatbar" data-side="self"><Seat player={me} self />{readOnly ? null : controller.handStrip}</div>
@@ -364,8 +363,8 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
         {!state ? <div className="ua-room-actions"><p className="ua-hint">还没有加入房间。到房间页面创建或加入一个房间。</p><button className="ua-primary" disabled={busy} onClick={() => window.location.assign(`${ARKNIGHTS_HOME}pvp`)}>前往房间页面</button></div> : <>
           <p className="ua-room-window-code">房间号 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{readOnly ? " · 观战中" : ""}</p>
           <div className="ua-room-window-players"><strong>玩家</strong>{state.players.map((player) => <span key={player.id}>{player.username}{player.isHost ? " · 房主" : ""}{player.connected ? "" : " · 离线"}</span>)}</div>
-          <div className="spectator-list"><strong>观战席（{state.spectators.length}）</strong>{state.spectators.length ? state.spectators.map((person) => <span key={person.id}>{person.username}</span>) : <small>暂无观战者</small>}</div>
-          {!readOnly ? <div className="room-friend-invites"><strong>邀请好友</strong><button type="button" className="ua-secondary" onClick={() => setInviteRole("player")}>邀请对战席</button><button type="button" className="ua-secondary" onClick={() => setInviteRole("spectator")}>邀请观战席</button>{inviteResult ? <small>{inviteResult}</small> : null}</div> : null}
+          <div className="spectator-list"><strong>观战席（{state.spectators.length}）</strong>{state.spectators.length ? state.spectators.map((person) => <span key={person.id}>{person.username}</span>) : <small>暂无观战者</small>}{!readOnly ? <button type="button" className="text-button" onClick={() => setInviteRole("spectator")}>邀请观战</button> : null}</div>
+          {/* Inviting to a seat happens on the table itself: the empty seat's "+" and the spectator list's button. */}
           <button className="ua-secondary" disabled={busy} onClick={() => void leaveRoom()}>离开房间</button>
         </>}
         {error ? <p className="ua-error" role="alert">{error}</p> : null}

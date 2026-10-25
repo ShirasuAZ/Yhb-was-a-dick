@@ -53,6 +53,11 @@
 .ua-seat img, .ua-avatar-fallback, .ua-empty-avatar { flex: none; width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; }
 .ua-avatar-fallback, .ua-empty-avatar { display: grid; place-items: center; background: #d5dcde; color: #425057; font-size: 1.1em; }
 .ua-empty-avatar { border: 1px dashed #8b989d; background: transparent; }
+/* The empty seat's "+" is the invite entry point: reset the global button box so it stays a round badge. */
+.ua-empty-invite { min-width: 0; min-height: 0; padding: 0; border: 1px dashed #8b989d; background: transparent; color: inherit; cursor: pointer; transition: background .16s ease, border-color .16s ease, transform .16s ease; }
+.ua-empty-invite:hover { background: #e3ecef; border-color: #425057; transform: scale(1.08); }
+.ua-empty-invite:active:not(:disabled) { transform: scale(1.02); }
+.ua-empty-invite:focus-visible { outline: 2px solid #2f6f8f; outline-offset: 2px; }
 .ua-seat-text { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
 .ua-seat-text strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.1em; }
 .ua-seat-text small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #697278; font-size: .88em; }

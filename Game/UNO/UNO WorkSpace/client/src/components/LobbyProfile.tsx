@@ -88,7 +88,11 @@ export function LobbyProfile({ onEnterGame }: { onEnterGame: () => void }) {
 
       <section className="update-log panel" aria-labelledby="update-log-heading">
         <div className="update-log-heading">
-          <div><p className="eyebrow">更新记录</p><h2 id="update-log-heading">v{update.version}</h2></div>
+          <p className="eyebrow">更新记录</p>
+          <h2 id="update-log-heading">v{update.version}</h2>
+        </div>
+        <p className="update-log-body">{update.content}</p>
+        <div className="update-log-footer">
           <div className="update-dots" role="tablist" aria-label="更新记录分页">
             {updateHistory.map((entry, index) => (
               <button key={entry.version} type="button" role="tab" aria-selected={index === updateIndex}
@@ -97,9 +101,8 @@ export function LobbyProfile({ onEnterGame }: { onEnterGame: () => void }) {
                 onClick={() => setUpdateIndex(index)} />
             ))}
           </div>
+          <span className="muted">仅显示最近 {updateHistory.length} 次更新。</span>
         </div>
-        <p>{update.content}</p>
-        <span className="muted">仅显示最近 {updateHistory.length} 次更新。</span>
       </section>
 
     </div>
