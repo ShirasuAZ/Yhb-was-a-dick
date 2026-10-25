@@ -3188,16 +3188,16 @@ button.playing-card {
 @media (max-width: 760px) and (orientation: landscape) {
   .lobby-waterfall { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
 }
-.my-menu{position:absolute;left:0;top:calc(100% + 6px);z-index:20;display:grid;min-width:130px;padding:6px;background:var(--panel,#fff);border:1px solid var(--line,#d5dbe2);border-radius:10px;box-shadow:0 8px 24px #0002}.my-menu a{padding:8px 12px;color:inherit;text-decoration:none}.my-menu a:hover{background:#eef2f6}.friends-page{max-width:720px;margin:0 auto}.friend-search{display:flex;gap:8px}.friend-search input{flex:1}.simple-list{list-style:none;padding:0}.simple-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line,#d5dbe2)}.simple-list small{display:block;color:#7c8794;font-size:11px}
-.invite-toast{position:fixed;right:22px;bottom:22px;z-index:50;display:grid;gap:8px;width:min(320px,calc(100vw - 44px));padding:16px;background:var(--panel,#fff);border:1px solid var(--line,#d5dbe2);border-radius:10px;box-shadow:0 12px 32px #0003}.invite-toast span{color:#687481;font-size:13px}.room-friend-invites,.spectator-list{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;border-top:1px solid var(--line,#d5dbe2)}.room-friend-invites span,.spectator-list span{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:#eef2f6;border-radius:8px}.room-friend-invites small,.spectator-list small{color:#687481}.shogi-friend-invites{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;border-top:1px solid var(--line,#d5dbe2)}.shogi-friend-invites span{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:#eef2f6;border-radius:8px}.shogi-friend-invites small{color:#687481}
+.my-menu{position:absolute;left:0;top:calc(100% + 6px);z-index:20;display:grid;min-width:130px;padding:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 8px 24px #0002}.my-menu a{padding:8px 12px;color:var(--text);text-decoration:none;border-radius:6px}.my-menu a:hover{background:var(--surface-raised)}.friends-page{max-width:720px;margin:0 auto}.friend-search{display:flex;gap:8px}.friend-search input{flex:1}.simple-list{list-style:none;padding:0}.simple-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}.simple-list small{display:block;color:var(--muted);font-size:11px}
+.invite-toast{position:fixed;right:22px;bottom:22px;z-index:50;display:grid;gap:8px;width:min(320px,calc(100vw - 44px));padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:0 12px 32px #0003}.invite-toast span{color:var(--muted);font-size:13px}.room-friend-invites,.spectator-list{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;border-top:1px solid var(--border)}.room-friend-invites span,.spectator-list span{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:var(--surface-raised);border-radius:8px}.room-friend-invites small,.spectator-list small{color:var(--muted)}.shogi-friend-invites{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0;border-top:1px solid var(--border)}.shogi-friend-invites span{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:var(--surface-raised);border-radius:8px}.shogi-friend-invites small{color:var(--muted)}
 
 /* Invite dialog: one window per seat kind, opened from the room's own invite buttons. */
 .invite-dialog-backdrop{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:#0b141a7a}
-.invite-dialog{width:min(460px,100%);max-height:min(640px,calc(100vh - 40px));overflow-y:auto;display:grid;gap:12px;padding:20px;box-sizing:border-box;background:var(--panel,#fff);border:1px solid var(--line,#d5dbe2);border-radius:12px;box-shadow:0 18px 48px #0003}
+.invite-dialog{width:min(460px,100%);max-height:min(640px,calc(100vh - 40px));overflow-y:auto;display:grid;gap:12px;padding:20px;box-sizing:border-box;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 18px 48px #0003}
 .invite-dialog-head{display:flex;align-items:start;justify-content:space-between;gap:12px}
 .invite-dialog-head h2{margin:2px 0 0;font-size:20px}
 .invite-dialog-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.invite-dialog-list li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line,#d5dbe2)}
+.invite-dialog-list li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .invite-dialog-list li:last-child{border-bottom:0}
 .invite-dialog-list small{display:block;color:var(--muted,#7c8794);font-size:11px}
 
@@ -3227,8 +3227,8 @@ button.playing-card {
 }
 
 /* Friend rows: each person's avatar, name and account id. */
-.friend-avatar { width: 34px; height: 34px; min-width: 34px; flex: none; border-radius: 50%; object-fit: cover; background: #dfe6ea; }
-.friend-avatar-fallback { display: grid; place-items: center; color: #425057; font-size: 14px; font-weight: 700; }
+.friend-avatar { width: 34px; height: 34px; min-width: 34px; flex: none; border-radius: 50%; object-fit: cover; background: var(--surface-raised); }
+.friend-avatar-fallback { display: grid; place-items: center; color: var(--muted); font-size: 14px; font-weight: 700; }
 .simple-list li { gap: 10px; }
 .friend-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .friend-actions { display: inline-flex; gap: 6px; }
@@ -3241,11 +3241,11 @@ button.playing-card {
   width: 42px; height: 42px; min-width: 42px; min-height: 42px; flex: none;
   display: grid; place-items: center; padding: 0; overflow: hidden;
   border-radius: 50%; border: 2px dashed #9aa7ad; background: transparent;
-  color: #7c8b92; font-size: 20px; line-height: 1; cursor: default;
+  color: var(--muted); font-size: 20px; line-height: 1; cursor: default;
 }
 .spectator-seat.is-empty { cursor: pointer; transition: border-color .16s ease, background .16s ease; }
-.spectator-seat.is-empty:hover { border-color: #425057; background: #eef3f5; color: #425057; }
-.spectator-seat.is-filled { border: 2px solid #7f8f96; background: #dfe8eb; color: #2b373d; cursor: pointer; }
+.spectator-seat.is-empty:hover { border-color: var(--text); background: var(--surface-raised); color: var(--text); }
+.spectator-seat.is-filled { border: 2px solid var(--border-strong); background: var(--surface-raised); color: var(--text); cursor: pointer; }
 .spectator-seat.is-filled[data-offline] { opacity: .5; }
 .spectator-seat img { width: 100%; height: 100%; object-fit: cover; }
 .spectator-initial { display: grid; place-items: center; width: 100%; height: 100%; font-size: 15px; font-weight: 700; }
@@ -3254,12 +3254,12 @@ button.playing-card {
 .spectator-peek {
   position: fixed; z-index: 70; transform: translate(-50%, calc(-100% - 8px));
   display: grid; justify-items: center; gap: 4px; min-width: 96px; padding: 10px 12px;
-  background: var(--panel, #fff); border: 1px solid var(--line, #c3c8cb); border-radius: 10px; box-shadow: 0 10px 26px rgba(20, 28, 32, .22);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 10px 26px rgba(20, 28, 32, .22);
   pointer-events: none;
 }
-.spectator-peek img, .spectator-peek .spectator-initial { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: #dfe8eb; }
+.spectator-peek img, .spectator-peek .spectator-initial { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; background: var(--surface-raised); }
 .spectator-peek strong { font-size: 13px; }
-.spectator-peek small { color: #697278; font-size: 11px; }
+.spectator-peek small { color: var(--muted); font-size: 11px; }
 
 /* Avatar editor: comfortable touch targets, and buttons that wrap one per row on a phone. */
 .avatar-select { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 6px; background: transparent; color: var(--text); }
