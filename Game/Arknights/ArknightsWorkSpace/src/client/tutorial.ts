@@ -143,6 +143,8 @@ export function stepDone(step: TutorialStep, s: TutorialSetup, acted: boolean): 
   return step.until?.(s) ?? false;
 }
 
+/** Spotlight a button in the action bar by its label (those buttons have no stable selector of their own). */
+const BUTTON = (label: string): string => `btn:${label}`;
 const SELF = '.ua-half[data-side="self"]';
 const OPP = '.ua-half[data-side="opponent"]';
 const handIndex = (s: TutorialSetup, cardId: string): number => s.me.hand.indexOf(cardId);
@@ -175,10 +177,10 @@ export const TUTORIAL_STEPS: readonly TutorialStep[] = [
   { next: true, highlight: `${SELF} .ua-phases`, text: "阶段栏：每个回合依次是 ① 起始 ② 移动 ③ 主要 ④ 攻击 ⑤ 结束，然后轮到对手。你的手牌在牌桌下方。长按任何一张卡（电脑上也可以右键）都能放大查看，放大后可以用左右的 < > 按钮翻看同一区域的其他卡。" },
   { mulligan: true, highlight: ".ua-handstrip", text: "起手 7 张已经发好。规则允许重抽一次（手牌放到牌库底，抽 7 张新牌，再洗牌）。这次手牌很好，点击操作栏的『保留起手牌』。之后双方各从牌库顶拿 7 张盖着放进生命区。" },
   { expect: isNext, demo: next, highlight: `${SELF} .ua-z-ap`, text: "第 1 回合，你是先手。起始阶段：场上卡牌与 AP 卡转为活跃，AP 卡补到规定张数——先手第 1 回合 1 张，第 2 回合 2 张，第 3 回合起 3 张（后手第 1 回合就有 2 张）。先手第 1 回合不抽卡。点击『进入移动阶段』。" },
-  { expect: isNext, demo: next, text: "移动阶段：可以把能量线的角色移到前线。现在场上还没有卡，点击『不移动，进入主要阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("不移动，进入主要阶段"), text: "移动阶段：可以把能量线的角色移到前线。现在场上还没有卡，点击『不移动，进入主要阶段』。" },
   { expect: isPlay(C.chen, "energy"), demo: play(C.chen, "energy"), highlight: ".ua-handstrip", text: "主要阶段：把手牌中的『陈』拖到能量线（也可以先点一下手牌，再点能量线）。它所需能量为 0，花费 1 AP。登场的卡都是休息（横放）状态。" },
-  { expect: isNext, demo: next, text: "AP 用完了。点击『进入攻击阶段』。" },
-  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), text: "前线没有角色，不能攻击。点击『结束回合』：结束阶段会把场上休息的角色和场地转为活跃（AP 卡保持休息），然后轮到对手。" },
+  { expect: isNext, demo: next, highlight: BUTTON("进入攻击阶段"), text: "AP 用完了。点击『进入攻击阶段』。" },
+  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), highlight: BUTTON("结束回合"), text: "前线没有角色，不能攻击。点击『结束回合』：结束阶段会把场上休息的角色和场地转为活跃（AP 卡保持休息），然后轮到对手。" },
   { until: myTurnStart(3), highlight: OPP, text: "test 的回合：它是后手，第 1 回合就有 2 张 AP，并抽 1 张卡。看它把两张角色放到前线……" },
   { expect: isNext, demo: next, highlight: `${SELF} .ua-z-ap`, text: "第 3 回合：你抽了 1 张卡，AP 变为 2 张，横放的卡都转为活跃。起始阶段可以支付 1 AP 额外抽 1 张（每回合 1 次），但这回合 AP 要用来出牌。点击『进入移动阶段』。" },
   { expect: (action, s) => action.type === "move" && action.toFront.length === 1 && action.toFront[0] === field(s, C.chen)?.uid && !action.toEnergy.length,
@@ -198,8 +200,8 @@ export const TUTORIAL_STEPS: readonly TutorialStep[] = [
     highlight: `${SELF} .ua-z-life`,
     text: "受到 1 点伤害：攻击方选了你的 1 张生命卡翻开。『陨星』有触发【激活】！点击『发动』，再选择你的『陈』：它转为活跃，本回合 BP+3000。触发处理完后，这张卡进入场外。" },
   { until: myTurnStart(5), text: "test 的回合结束……" },
-  { expect: isNext, demo: next, text: "第 5 回合：AP 补到 3 张，你抽到了带《突进》的『能天使』。点击『进入移动阶段』。" },
-  { expect: isNext, demo: next, text: "这回合不移动，点击『不移动，进入主要阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("进入移动阶段"), text: "第 5 回合：AP 补到 3 张，你抽到了带《突进》的『能天使』。点击『进入移动阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("不移动，进入主要阶段"), text: "这回合不移动，点击『不移动，进入主要阶段』。" },
   { expect: (action, s) => isPlay(C.texas, "energy")(action, s) || isPlay(C.texasStep, "energy")(action, s),
     demo: (s) => play(s.me.hand.includes(C.texas) ? C.texas : C.texasStep, "energy")(s), until: (s) => !s.me.hand.includes(C.texas) && !s.me.hand.includes(C.texasStep), highlight: ".ua-handstrip",
     text: "把手牌里的两张『德克萨斯』都拖到能量线。一张所需能量 0；另一张需要 1 点红色能量（能量线已经足够），它有《撤步》，以后可以在移动阶段从前线退回能量线。" },
@@ -213,7 +215,7 @@ export const TUTORIAL_STEPS: readonly TutorialStep[] = [
     highlight: `${SELF} .ua-z-front`, text: "test 用『W』（BP 2000）阻挡，被『能天使』击败退场。现在用『陈』攻击。" },
   { expect: (action) => action.type === "damage", demo: (s) => ({ type: "damage", lifeIds: [s.test.life[0]!.id] }), until: settled, highlight: `${OPP} .ua-z-life`,
     text: "test 前线已经没有活跃角色可以阻挡，攻击直接命中！点击 test 生命区里的 1 张生命卡，再点『确认』（也可以『随机选择』）。" },
-  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), text: "test 受到 1 点伤害，翻开的生命卡没有触发，进入它的场外。点击『结束回合』。" },
+  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), highlight: BUTTON("结束回合"), text: "test 受到 1 点伤害，翻开的生命卡没有触发，进入它的场外。点击『结束回合』。" },
   { until: myPending("block"), highlight: OPP, text: "test 的回合：它把能量线的 2 张角色移到前线，又登场了 1 张角色，然后发起攻击……" },
   { expect: (action, s) => action.type === "block" && action.blockerUid === field(s, C.chen)?.uid, demo: (s) => ({ type: "block", blockerUid: field(s, C.chen)!.uid }),
     until: (s) => myPending("block")(s) || myTurnStart(7)(s), highlight: `${SELF} .ua-z-front`,
@@ -221,18 +223,18 @@ export const TUTORIAL_STEPS: readonly TutorialStep[] = [
   { expect: (action, s) => action.type === "block" && action.blockerUid === field(s, C.angelinaRaid)?.uid, demo: (s) => ({ type: "block", blockerUid: field(s, C.angelinaRaid)!.uid }),
     until: myTurnStart(7), highlight: `${SELF} .ua-z-front`,
     text: "『米莎』输了战斗，但攻击方输了不会退场。现在『梅菲斯特』攻击你，点击『能天使』阻挡。" },
-  { expect: isNext, demo: next, text: "第 7 回合：你抽到了场地『龙门』。点击『进入移动阶段』。" },
-  { expect: isNext, demo: next, text: "点击『不移动，进入主要阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("进入移动阶段"), text: "第 7 回合：你抽到了场地『龙门』。点击『进入移动阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("不移动，进入主要阶段"), text: "点击『不移动，进入主要阶段』。" },
   { expect: isPlay(C.lungmen, "energy"), demo: play(C.lungmen, "energy"), highlight: ".ua-handstrip", text: "场地卡只能放在能量线，『龙门』能产生 2 点红色能量。把它登场到能量线。" },
   { expect: isPlay(C.chenDamage, "front"), demo: play(C.chenDamage, "front"), highlight: ".ua-handstrip",
     text: "把带《伤害2》的『陈』登场到前线：需要 4 点红色能量、2 AP。《伤害2》的角色攻击未被阻挡时造成 2 点伤害。新登场的卡是休息状态，下回合才能攻击。" },
-  { expect: isNext, demo: next, text: "点击『进入攻击阶段』。" },
+  { expect: isNext, demo: next, highlight: BUTTON("进入攻击阶段"), text: "点击『进入攻击阶段』。" },
   { expect: isAttackOrDamage, demo: nextAttackOrDamage, until: (s) => s.test.life.length === 4 && settled(s), highlight: `${SELF} .ua-z-front`,
     text: "用前线的『陈』和『能天使』各攻击一次。test 选择不阻挡，每次攻击后点击 test 的 1 张生命卡并确认。『能天使』攻击结束时，它的卡面能力会问你是否发动（可以让它再次转为活跃），这里选『否』即可。" },
-  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), text: "test 还剩 4 张生命。点击『结束回合』。" },
+  { expect: (action) => action.type === "end_turn", demo: () => ({ type: "end_turn" }), highlight: BUTTON("结束回合"), text: "test 还剩 4 张生命。点击『结束回合』。" },
   { until: myTurnStart(9), text: "test 的回合……" },
-  { expect: (action) => action.type === "extra_draw", demo: () => ({ type: "extra_draw" }), text: "第 9 回合。试试额外抽卡：点击『额外抽卡（1 AP）』。每回合只能用 1 次。" },
-  { expect: isNext, demo: next, until: (s) => s.game.phase === "main", text: "点击『进入移动阶段』，再点『不移动，进入主要阶段』。" },
+  { expect: (action) => action.type === "extra_draw", demo: () => ({ type: "extra_draw" }), highlight: BUTTON("额外抽卡（1 AP）"), text: "第 9 回合。试试额外抽卡：点击『额外抽卡（1 AP）』。每回合只能用 1 次。" },
+  { expect: isNext, demo: next, until: (s) => s.game.phase === "main", highlight: BUTTON("进入移动阶段"), text: "点击『进入移动阶段』，再点『不移动，进入主要阶段』。" },
   { expect: (action, s) => action.type === "event" && s.me.hand[action.handIndex] === C.barrage, demo: (s) => ({ type: "event", handIndex: handIndex(s, C.barrage) }), until: myPending("choose"), highlight: ".ua-handstrip",
     text: "使用事件『弹幕！』：把手牌中的它拖到自己的场外区域（所需能量 3，1 AP）。事件结算后进入场外。" },
   { expect: (action, s) => action.type === "choose" && action.picks.length === 1 && s.test.front.some((card) => card.uid === action.picks[0] && card.cardId === C.kingslayer),

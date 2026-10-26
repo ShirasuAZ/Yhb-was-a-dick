@@ -1,7 +1,8 @@
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import type { UnionArenaAction, UnionArenaFieldCard, UnionArenaRoomState } from "../shared/protocol.ts";
 import { bpOf, damageOf, energyOf, GRANTABLE_KEYWORDS, hasKeyword, LINE_LIMIT, raidTargetMatches, triggerNeeds, type EngineContext } from "../shared/engine.ts";
 import { CardLightbox } from "./CardLightbox.tsx";
+import { DragLine, useDragGuidance } from "./dragGuide.tsx";
 import { cardKey, type BoardInteraction } from "./board.tsx";
 import { COLOR_NAME, TYPE_NAME, type CardRecord } from "./cards.ts";
 import { clearDropMarks, markDrops, startGesture, type DropInfo } from "./gestures.ts";
@@ -182,6 +183,27 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const keepKeys = myPending?.kind === "discard" ? hand.map((_, index) => cardKey.hand(index)) : [];
   const revealed = pending?.kind === "triggers" ? pending.revealed : [];
   const focusedLife = myPending?.kind === "triggers" ? (revealed.find((slot) => slot.id === triggerFocus) ?? revealed[0] ?? null) : null;
+
+  /**
+   * Letting go of the 发动 button over a card picks that card. It reuses `resolveTrigger`'s own target check, so a drop on
+   * anything the trigger cannot choose is simply ignored and the panel stays open — exactly like a miss.
+   */
+  const grabButtonRef = useRef<HTMLButtonElement | null>(null);
+  const dropOnCard = useCallback((element: HTMLElement): boolean => {
+    if (!focusedLife || myPending?.kind !== "triggers" || !mine || !theirs) return false;
+    const cardId = focusedLife.cardId!;
+    const card = stats(cardId);
+    if (!card?.trigger) return false;
+    const needs = triggerNeeds(ctx, mine, theirs, cardId);
+    // Walk up from what the finger found: the card element carries the key, and its button sits inside it.
+    const holder = element.closest<HTMLElement>("[data-card-key]");
+    const uid = holder?.dataset.cardKey?.startsWith("f:") ? holder.dataset.cardKey.slice(2) : null;
+    if (!uid || !needs.targets.includes(uid)) return false;
+    void run({ type: "trigger", lifeId: focusedLife.id, activate: true, targetUid: uid });
+    return true;
+  }, [focusedLife, myPending, mine, theirs, stats, ctx, run]); // eslint-disable-line react-hooks/exhaustive-deps
+  const grab = useDragGuidance(dropOnCard);
+  useEffect(() => { grabButtonRef.current = null; }, [focusedLife?.id]);
 
   const resolveTrigger = (activate: boolean): void => {
     if (!focusedLife || myPending?.kind !== "triggers" || !mine || !theirs) return;
@@ -521,13 +543,22 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
       {revealed.map((slot) => <button key={slot.id} type="button" aria-pressed={slot.id === focusedLife.id}
         className="ua-reveal-tab" onClick={() => setTriggerFocus(slot.id)}>{cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}</button>)}
     </div> : null;
+    // 【激活】/【突进】 pick a card of yours on the board, which the panel covers — so the button is pressed and dragged
+    // onto the card instead of asking the player to click through an overlay.
+    const picksCard = trigger !== null && triggerNeeds(ctx, mine!, theirs!, focusedLife.cardId!).targets.length > 0;
     const buttons = trigger
       ? [
-        <button key="yes" type="button" className="ua-primary" disabled={busy} onClick={() => resolveTrigger(true)}>发动</button>,
+        picksCard
+          ? <button key="yes" type="button" className="ua-primary ua-reveal-grab" disabled={busy}
+              ref={(node) => { grabButtonRef.current = node; }} {...grab.onPointerDown}
+              aria-label="按住并拖到场上的一张角色上发动">按住，拖到角色上发动</button>
+          : <button key="yes" type="button" className="ua-primary" disabled={busy} onClick={() => resolveTrigger(true)}>发动</button>,
         <button key="no" type="button" className="ua-secondary" disabled={busy} onClick={() => resolveTrigger(false)}>不发动</button>
       ]
       : [<button key="ok" type="button" className="ua-primary" disabled={busy} onClick={() => resolveTrigger(false)}>确认</button>];
-    return <div className="ua-reveal" role="dialog" aria-modal="true" aria-label="翻开的生命卡">
+    // While the button is being dragged the panel stops taking pointer events, so the finger can reach the cards under it
+    // (`elementFromPoint` must find the card, not this overlay). A miss simply lands back on the panel.
+    return <div className={`ua-reveal ${grab.dragging ? "is-dragging" : ""}`} role="dialog" aria-modal="true" aria-label="翻开的生命卡">
       <div className="ua-reveal-stage">
         {card?.imageUrl
           ? <img className="ua-reveal-card" src={card.imageUrl} alt={`${card.name} ${card.number}`} draggable={false} />
@@ -540,6 +571,7 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
             ? <>有触发【{trigger.label}】：{trigger.text}</>
             : "这张生命卡没有触发，将置于场外。"}
         </p>
+        {picksCard ? <p className="ua-reveal-hint">按住下面的按钮，拖到场上要选的角色上再松手；松在空白处会回到这里。</p> : null}
         {others}
         <div className="ua-reveal-buttons">{buttons}</div>
       </div>
@@ -681,9 +713,11 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     actionBar,
     handStrip,
     opponentHand,
-    lightbox: <>{lightbox}{revealPanel}{moveBubble}</>,
+    lightbox: <>{lightbox}{revealPanel}{grab.dragging ? <DragLine from={grabButtonRef.current} to={grab.point} /> : null}{moveBubble}</>,
     /** True while a revealed life card holds the screen, so the page can inert the board behind it. */
     revealOpen: revealPanel !== null,
+    /** True while the 发动 button is being dragged: the board must be live so the card under the finger can be hit. */
+    draggingToCard: grab.dragging,
     lightboxOpen: lightbox !== null,
     activePhase,
     /** Opens a hand card in the lightbox from somewhere else on the page (the side panel's hand list). */

@@ -13,10 +13,23 @@ export interface SpotRect {
   height: number;
 }
 
-/** The union of the boxes of everything `selector` matches, with the ring's padding; null when nothing matches. */
+/**
+ * A step can name its target either with a CSS selector, or as `btn:<label>` for a button in the action bar — the buttons
+ * that move the turn along have no stable selector of their own, only their text.
+ */
+function elementsFor(target: string): HTMLElement[] {
+  if (target.startsWith("btn:")) {
+    const label = target.slice(4);
+    return [...document.querySelectorAll<HTMLElement>(".ua-actionbar-buttons > button:not(:disabled)")]
+      .filter((element) => (element.textContent ?? "").trim() === label);
+  }
+  return [...document.querySelectorAll<HTMLElement>(target)];
+}
+
+/** The union of the boxes of everything the target matches, with the ring's padding; null when nothing matches. */
 function measure(selector: string | null): SpotRect | null {
   if (!selector) return null;
-  const boxes = [...document.querySelectorAll<HTMLElement>(selector)]
+  const boxes = elementsFor(selector)
     .map((element) => element.getBoundingClientRect())
     .filter((box) => box.width > 0 && box.height > 0);
   if (!boxes.length) return null;
