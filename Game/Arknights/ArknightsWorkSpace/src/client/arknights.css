@@ -51,7 +51,7 @@
 
 /* The nameplate keeps its size; the hand takes the rest of the row and scrolls sideways. Without
    flex:none on the seat, a long status line could squeeze the hand down to a single visible card. */
-.ua-seat { flex: none; max-width: 100%; display: flex; align-items: center; gap: .6em; padding: .25em 1em .25em .3em; border: 1px solid rgba(65, 75, 80, .4); border-radius: 999px; background: rgba(255, 255, 255, .94); box-sizing: border-box; }
+.ua-seat { flex: 0 0 auto; max-width: min(60%, 26em); min-width: 0; display: flex; align-items: center; gap: .6em; padding: .25em 1em .25em .3em; border: 1px solid rgba(65, 75, 80, .4); border-radius: 999px; background: rgba(255, 255, 255, .94); box-sizing: border-box; }
 .ua-seat-self { border-color: #26363d; box-shadow: 0 0 0 1px #26363d; }
 .ua-seat img, .ua-avatar-fallback, .ua-empty-avatar { flex: none; width: 2.4em; height: 2.4em; border-radius: 50%; object-fit: cover; }
 .ua-avatar-fallback, .ua-empty-avatar { display: grid; place-items: center; background: #d5dcde; color: #425057; font-size: 1.1em; }
@@ -332,9 +332,15 @@
 .ua-life-pick { position: absolute; inset: 0; padding: 0; border: 0; border-radius: inherit; overflow: hidden; background: none; cursor: pointer; }
 
 /* Hands: yours as cards under your nameplate, the opponent's as a count of card backs. */
-.ua-handstrip { min-width: 0; flex: 1 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; overflow-y: hidden; list-style: none; scrollbar-width: thin; }
-.ua-handstrip li { flex: none; }
-.ua-handstrip button { cursor: grab; display: block; height: clamp(46px, 4.6em, 110px); aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
+.ua-handstrip { min-width: 0; flex: 1 1 auto; display: flex; gap: .35em; margin: 0; padding: .2em; overflow-x: auto; overflow-y: hidden; list-style: none; scrollbar-width: thin; -webkit-overflow-scrolling: touch; }
+.ua-handstrip li { flex: 0 0 auto; }
+/*
+ * The card box is given both height and width, so a browser that mishandles `aspect-ratio` on a
+ * <button> still draws a correctly sized card. A zero-width button here used to make the whole hand
+ * look like a single card on some mobile browsers.
+ */
+.ua-handstrip button { cursor: grab; display: block; height: clamp(46px, 4.6em, 110px); width: clamp(33px, calc(4.6em * 5 / 7), 79px); flex: 0 0 auto; min-width: 0; aspect-ratio: 5 / 7; padding: 0; border: 1px solid #adb3b7; border-radius: .35em; background: #fff; overflow: hidden; cursor: pointer; }
+.ua-handstrip .ua-card-missing { display: grid; place-items: center; width: 100%; height: 100%; }
 .ua-handstrip img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ua-opp-hand { display: flex; align-items: center; gap: 2px; }
 .ua-opp-hand .ua-card-back { width: 1.2em; aspect-ratio: 5 / 7; border-radius: 2px; }
@@ -470,4 +476,16 @@
 @media (prefers-reduced-motion: reduce) {
   .ua-notice { animation-duration: .6s; }
   @keyframes ua-notice-rise { 0% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 0; } }
+}
+
+/*
+ * Fallback for browsers without container query units (Safari before 16, Chrome before 105): the
+ * table's font-size would fall back to 16px and every em-sized card would balloon. These rules pin the
+ * hand to absolute sizes so the hand row keeps showing all of it rather than one oversized card.
+ */
+@supports not (width: 1cqmin) {
+  .ua-table { font-size: 12px; }
+  .ua-handstrip button { height: 52px; width: 37px; }
+  .ua-seat img, .ua-avatar-fallback, .ua-empty-avatar { width: 26px; height: 26px; }
+  .ua-slot { height: 84px; }
 }
