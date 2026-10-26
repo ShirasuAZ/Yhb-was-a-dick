@@ -5,7 +5,7 @@ import { ARKNIGHTS_HOME, settingsUrl, toLifeEntries, useCompactLayout, useViewpo
 import { HalfBoard, Seat } from "./board.tsx";
 import { ERROR_TEXT, useCatalog, type Account } from "./cards.ts";
 import { useGameController } from "./game.tsx";
-import { SpotlightRing, SpotlightScrim, tooltipStyle, useSpotRect } from "./Spotlight.tsx";
+import { SpotlightRing, SpotlightScrim, tooltipStyle, useSpotRect, type SpotRect } from "./Spotlight.tsx";
 import { createTutorial, finishMulligan, stepDone, testAction, TUTORIAL_OPPONENT, TUTORIAL_STEPS, type TutorialStep } from "./tutorial.ts";
 import "./arknights.css";
 
@@ -162,6 +162,22 @@ export function ArknightsTutorial({ account }: { account: Account }) {
   /** The step's target, measured from the live DOM: an explanation points at the zone it talks about, an action step at what to use. */
   const spotSelector = tourOpen ? shownStep.highlight ?? null : null;
   const rect = useSpotRect(spotSelector, [shownIndex, version, compact]);
+  /**
+   * Where the tooltip last sat on this step. Its target can vanish while the text is still fading out — pressing the very
+   * button the step names removes it — and measuring that moment would give no box at all, sending the tooltip to the
+   * middle of the screen for the length of the fade. So each step remembers the last real position, and a fade-out keeps
+   * using it. A step with no target at all still centres, as before.
+   */
+  /**
+   * The placement the text had on this step, so it never jumps. A step's target disappears the instant its button is pressed,
+   * and for the frames before the next step's text is swapped in there is no box to measure — measuring would drop the
+   * tooltip into the middle of the screen. Within one step the last real placement is therefore kept; a step that has no
+   * target at all (a pure explanation) still centres, and a new step starts its own placement.
+   */
+  const lastSpot = useRef<{ index: number; style: React.CSSProperties | null }>({ index: -1, style: null });
+  if (lastSpot.current.index !== shownIndex) lastSpot.current = { index: shownIndex, style: null };
+  if (rect) lastSpot.current = { index: shownIndex, style: tooltipStyle(rect, tipHeight) };
+  const tipPlacement = lastSpot.current.style ?? tooltipStyle(rect, tipHeight);
 
   const send = async (action: UnionArenaAction): Promise<string | null> => {
     if (!step.expect) return step.until ? "请稍等，test 正在行动。" : step.mulligan ? "请先在操作栏选择『保留起手牌』。" : "请先看完说明。";
@@ -257,7 +273,7 @@ export function ArknightsTutorial({ account }: { account: Account }) {
     </> : null}
     {tourOpen ? <div ref={tipRef} className="ua-spot-tip" role="dialog" aria-label="教程提示" aria-live="polite"
       inert={!tipShown} data-fading={tipShown ? undefined : "true"}
-      style={{ ...tooltipStyle(rect, tipHeight), pointerEvents: tipShown ? "auto" : "none" }}>
+      style={{ ...tipPlacement, pointerEvents: tipShown ? "auto" : "none" }}>
       <div className="ua-spot-tip-head">
         <span className="ua-spot-progress">{shownIndex + 1} / {TUTORIAL_STEPS.length}</span>
         <span className="ua-spot-tip-title">新手教程</span>
