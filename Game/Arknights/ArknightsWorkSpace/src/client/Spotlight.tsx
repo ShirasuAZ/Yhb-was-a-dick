@@ -18,10 +18,16 @@ export interface SpotRect {
  * that move the turn along have no stable selector of their own, only their text.
  */
 function elementsFor(target: string): HTMLElement[] {
-  if (target.startsWith("btn:")) {
-    const label = target.slice(4);
-    return [...document.querySelectorAll<HTMLElement>(".ua-actionbar-buttons > button:not(:disabled)")]
-      .filter((element) => (element.textContent ?? "").trim() === label);
+  // A target may be a comma-separated list, and each part may name a button by its label instead of a selector.
+  const parts = target.split(",").map((part) => part.trim()).filter(Boolean);
+  if (parts.some((part) => part.startsWith("btn:"))) {
+    const labels = parts.filter((part) => part.startsWith("btn:")).map((part) => part.slice(4));
+    const selectors = parts.filter((part) => !part.startsWith("btn:"));
+    return [
+      ...[...document.querySelectorAll<HTMLElement>(".ua-actionbar-buttons > button:not(:disabled)")]
+        .filter((element) => labels.includes((element.textContent ?? "").trim())),
+      ...selectors.flatMap((selector) => [...document.querySelectorAll<HTMLElement>(selector)])
+    ];
   }
   return [...document.querySelectorAll<HTMLElement>(target)];
 }
