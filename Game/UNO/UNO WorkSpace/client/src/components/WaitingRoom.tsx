@@ -7,7 +7,6 @@ import type {
 import { ConnectionBadge } from "./ConnectionBadge.tsx";
 import { LanAccessPanel } from "./LanAccessPanel.tsx";
 import { VersionBadge } from "./VersionBadge.tsx";
-import { ThemeControl } from "./ThemeControl.tsx";
 import { createActionId } from "../actionId.ts";
 import { copyText } from "../clipboard.ts";
 import { InviteDialog } from "./InviteDialog.tsx";
@@ -160,7 +159,6 @@ export function WaitingRoom({
             {refreshing ? "刷新中…" : "刷新"}
           </button>
           <VersionBadge />
-          <ThemeControl />
         </div>
       </header>
 

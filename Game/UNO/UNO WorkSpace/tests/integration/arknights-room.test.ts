@@ -128,22 +128,15 @@ describe("Arknights UNION ARENA integration", () => {
     expect(short.data?.issues.some((issue) => issue.includes("49/50"))).toBe(true);
     expect((await emitAck(bobSocket, "ua:ready", { ready: true })).code).toBe("DECK_INCOMPLETE");
 
-    // Nobody can start before both decks are in and both players are ready.
-    expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("DECKS_NOT_READY");
+    // Nobody can start while the other deck is missing or illegal.
     expect((await emitAck<{ structuralOk: boolean }>(aliceSocket, "ua:submit_deck", ap)).data?.structuralOk).toBe(true);
-    expect((await emitAck(aliceSocket, "ua:ready", { ready: true })).ok).toBe(true);
     expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("DECKS_NOT_READY");
 
-    // Bob's legal deck and readiness: now only the host may start.
-    expect((await emitAck<{ structuralOk: boolean }>(bobSocket, "ua:submit_deck", ap)).data?.structuralOk).toBe(true);
-    expect((await emitAck(bobSocket, "ua:ready", { ready: true })).ok).toBe(true);
-    const bobStart = await emitAck(bobSocket, "ua:start_game", {});
-    expect(bobStart.ok).toBe(false);
-    expect(bobStart.code).toBe("HOST_ONLY");
-
+    // A legal deck readies its seat, so the second legal deck completes the room — and the game starts by itself:
+    // no host, no start button. The state both clients receive is already the opening of the game.
     const aliceStarted = waitForState(aliceSocket, (state) => state.phase === "playing");
     const bobStarted = waitForState(bobSocket, (state) => state.phase === "playing");
-    expect((await emitAck(aliceSocket, "ua:start_game", {})).ok).toBe(true);
+    expect((await emitAck<{ structuralOk: boolean }>(bobSocket, "ua:submit_deck", ap)).data?.structuralOk).toBe(true);
     const aliceView = await aliceStarted;
     const bobView = await bobStarted;
     expect((await emitAck(aliceSocket, "ua:start_game", {})).code).toBe("GAME_ALREADY_STARTED");
@@ -178,16 +171,22 @@ describe("Arknights UNION ARENA integration", () => {
       expect(view.game).toMatchObject({ step: "turn", turn: 1, turnPlayerId: firstId, mulliganPlayerId: null, handCount: { you: 7, opponent: 7 }, deckCount: { you: 36, opponent: 36 } });
     }
 
-    // A dropped connection resumes into exactly the same game state.
+    // A dropped connection resumes into exactly the same game state — but only when the client asks for its room back.
+    // A fresh connection that does not ask stays out, which is what stops "返回大厅" from being undone by a reconnect.
     bobSocket.disconnect();
-    // The server resumes the seat while the connection is still being set up, so listen before connecting.
     const bobBack: UaSocket = io(`${url}/arknights`, { auth: { token: bob.token }, transports: ["websocket"], forceNew: true, reconnection: false });
     clients.push(bobBack);
+    await new Promise<void>((resolve) => bobBack.once("connect", () => resolve()));
+    // The ack is sent after the room's broadcast, so listen for the state before asking for it back.
     const resumedState = waitForState(bobBack, (state) => state.phase === "playing" && state.players.every((player) => player.connected));
+    expect((await emitAck(bobBack, "ua:resume_room", {})).ok).toBe(true);
     const resumed = await resumedState;
     expect(resumed.hand).toEqual(bobTurn.hand);
     expect(resumed.life).toEqual(bobTurn.life);
     expect(resumed.game).toEqual(bobTurn.game);
+
+    // Asking for a room nobody holds says so, instead of attaching to somebody else's.
+    expect((await emitAck(await connect(server.auth.register("ArkStranger", "Password123!").token), "ua:resume_room", {})).code).toBe("NO_ACTIVE_ROOM");
 
     // A third account cannot join a running game.
     const carol = server.auth.register("ArkCarol", "Password123!");
@@ -215,12 +214,11 @@ describe("Arknights UNION ARENA integration", () => {
     const cheap = [...new Map(cards.filter((card) => card.imageAvailable && card.stats?.type === "character" && card.stats.energyCost === 0 && card.stats.apCost === 1 && !["特殊", "色彩", "最终"].includes(card.stats.trigger?.label ?? "")).map((card) => [card.number, card])).values()];
     expect(cheap.length).toBeGreaterThanOrEqual(13);
     const deck = cheap.slice(0, 13).flatMap((card) => Array(4).fill(card.id)).slice(0, 50);
+    // Two legal decks fill the room, and the room starts the game itself — there is no start button any more.
+    const started = waitForState(danaSocket, (state) => state.phase === "playing");
     for (const socket of [danaSocket, evanSocket]) {
       expect((await emitAck<{ structuralOk: boolean }>(socket, "ua:submit_deck", { cardIds: deck, apCount: 3 })).data?.structuralOk).toBe(true);
-      expect((await emitAck(socket, "ua:ready", { ready: true })).ok).toBe(true);
     }
-    const started = waitForState(danaSocket, (state) => state.phase === "playing");
-    expect((await emitAck(danaSocket, "ua:start_game", {})).ok).toBe(true);
     const firstId = (await started).game!.firstPlayerId;
     const first = firstId === dana.account.id ? danaSocket : evanSocket;
     const second = first === danaSocket ? evanSocket : danaSocket;
@@ -260,11 +258,83 @@ describe("Arknights UNION ARENA integration", () => {
     expect((await lobby).game).toBeNull();
   });
 
+  it("starts the game by itself once the room is full, and only the host can dissolve it", async () => {
+    const frank = server.auth.register("ArkFrank", "Password123!");
+    const gina = server.auth.register("ArkGina", "Password123!");
+    const frankSocket = await connect(frank.token);
+    const ginaSocket = await connect(gina.token);
+    const created = await emitAck<{ roomCode: string }>(frankSocket, "ua:create_room", {});
+    const roomCode = created.data!.roomCode;
+    const joined = waitForState(frankSocket, (state) => state.playerCount === 2);
+    expect((await emitAck(ginaSocket, "ua:join_room", { roomCode })).ok).toBe(true);
+    await joined;
+
+    // Rooms are full at two players, and the room starts once both decks are legal — no start button involved.
+    const third = server.auth.register("ArkHana", "Password123!");
+    const thirdSocket = await connect(third.token);
+    expect((await emitAck(thirdSocket, "ua:join_room", { roomCode })).code).toBe("ROOM_FULL");
+
+    const cards = (await (await fetch(`${url}/api/arknights/catalog`)).json()).cards as Array<{ id: string; number: string; imageAvailable: boolean }>;
+    const numbers = [...new Map(cards.filter((card) => card.imageAvailable && card.number.startsWith("UC01BT/ARK-1-")).map((card) => [card.number, card])).values()].slice(0, 13);
+    const deck = numbers.flatMap((card) => Array(4).fill(card.id)).slice(0, 50);
+    const started = waitForState(ginaSocket, (state) => state.phase === "playing");
+    for (const socket of [frankSocket, ginaSocket]) {
+      expect((await emitAck<{ structuralOk: boolean }>(socket, "ua:submit_deck", { cardIds: deck, apCount: 3 })).data?.structuralOk).toBe(true);
+    }
+    // Both seats are ready without anyone pressing "ready"; the first state after the last deck is the opening.
+    expect((await started).game?.step).toBe("mulligan");
+
+    // Only the host may dissolve the room, and everyone in it is told.
+    expect((await emitAck(ginaSocket, "ua:dissolve_room", {})).code).toBe("HOST_ONLY");
+    const closed = new Promise<{ message: string }>((resolve) => ginaSocket.once("ua:room_closed", resolve));
+    expect((await emitAck(frankSocket, "ua:dissolve_room", {})).ok).toBe(true);
+    expect((await closed).message).toContain("解散");
+    // The room is gone: neither player is in it any more, so they can create a fresh one.
+    expect((await emitAck(ginaSocket, "ua:create_room", {})).ok).toBe(true);
+  });
+
+  it("tells a player's friends when they come online, and which game they are in", async () => {
+    const iris = server.auth.register("ArkIris", "Password123!");
+    const jay = server.auth.register("ArkJay", "Password123!");
+    server.auth.sendFriendRequest(iris.account.id, jay.account.id);
+    server.auth.acceptFriendRequest(jay.account.id, iris.account.id);
+
+    const jaySocket = await connect(jay.token);
+    // The friends list lives on the site's own socket, not the Arknights namespace.
+    const socialSocket = (token: string): Promise<Socket> => new Promise((resolve, reject) => {
+      const socket = io(`${url}/`, { auth: { token }, transports: ["websocket"], forceNew: true, reconnection: false });
+      clients.push(socket);
+      socket.once("connect", () => resolve(socket));
+      socket.once("connect_error", reject);
+    });
+    const irisMain = await socialSocket(iris.token);
+    const list = (socket: Socket): Promise<Array<{ id: string; online?: boolean; game?: string | null }>> =>
+      new Promise((resolve) => (socket as unknown as { emit: (name: string, body: unknown, cb: (result: { data?: { friends: Array<{ id: string; online?: boolean; game?: string | null }> } }) => void) => void })
+        .emit("social_get", {}, (result) => resolve(result.data?.friends ?? [])));
+
+    // Both are connected, so each sees the other online and not in a game.
+    expect(await list(irisMain)).toEqual([expect.objectContaining({ id: jay.account.id, online: true, game: null })]);
+
+    // Seated in a Union Arena room, the friend is shown playing Arknights — the room's own bookkeeping says so.
+    const created = await emitAck<{ roomCode: string }>(jaySocket, "ua:create_room", {});
+    expect(created.ok).toBe(true);
+    expect(await list(irisMain)).toEqual([expect.objectContaining({ id: jay.account.id, online: true, game: "arknights" })]);
+
+    // Leaving the room clears the game line but keeps the account online.
+    expect((await emitAck(jaySocket, "ua:leave_room", {})).ok).toBe(true);
+    expect(await list(irisMain)).toEqual([expect.objectContaining({ id: jay.account.id, online: true, game: null })]);
+
+    // A closed tab takes the account offline.
+    jaySocket.disconnect();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    expect(await list(irisMain)).toEqual([expect.objectContaining({ id: jay.account.id, online: false, game: null })]);
+  });
+
   it("survives ua:* and UNO events emitted without an ack callback", async () => {
     const mallory = server.auth.register("ArkMallory", "Password123!");
     const socket = await connect(mallory.token);
     const raw = socket as unknown as { emit: (name: string, body?: unknown) => void };
-    const events = ["ua:create_room", "ua:join_room", "ua:resume_room", "ua:submit_deck", "ua:ready", "ua:start_game", "ua:mulligan", "ua:action", "ua:return_to_lobby", "ua:leave_room"];
+    const events = ["ua:create_room", "ua:join_room", "ua:resume_room", "ua:submit_deck", "ua:ready", "ua:start_game", "ua:dissolve_room", "ua:mulligan", "ua:action", "ua:return_to_lobby", "ua:leave_room"];
     for (const event of events) raw.emit(event, {});
     raw.emit("ua:join_room");
     raw.emit("ua:action", null);

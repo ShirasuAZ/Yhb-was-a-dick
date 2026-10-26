@@ -57,11 +57,24 @@ describe("Arknights opening sequence", () => {
     expect(room.stateFor(b).startAllowed).toBe(true);
   });
 
-  it("changing the deck clears readiness", () => {
+  it("a submitted deck decides readiness: legal readies the seat, broken clears it", () => {
     const { room, a } = readyRoom();
+    // A legal deck readies the seat on the spot, so a full room starts without anyone pressing "start".
     room.updateDeck(a, deckA, 3);
+    expect(a.ready).toBe(true);
+    expect(room.readyForStart).toBe(true);
+    // A deck that no longer passes the structural check takes readiness away again.
+    room.updateDeck(a, deckA.slice(0, 49), 3);
     expect(a.ready).toBe(false);
     expect(room.readyForStart).toBe(false);
+  });
+
+  it("starts itself once every seat is taken and every deck is legal", () => {
+    const { room } = readyRoom();
+    expect(room.autoStartIfReady()).toBe(true);
+    expect(room.phase).toBe("playing");
+    // A second call cannot start a second game.
+    expect(room.autoStartIfReady()).toBe(false);
   });
 
   it("deals the starting hands, then asks Player One first about the mulligan", () => {

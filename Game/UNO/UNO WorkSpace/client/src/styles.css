@@ -3270,3 +3270,84 @@ button.playing-card {
   .profile-setting h3 { font-size: 15px; }
   .about-identity { gap: 12px; }
 }
+
+/* Friends list: presence as a dot plus words (never colour alone), and the game a friend is in. */
+.friend-presence{display:inline-flex;align-items:center;gap:5px;font-size:12px;white-space:nowrap;color:var(--muted)}
+.friend-presence .friend-dot{font-style:normal;font-size:20px;line-height:0;transform:translateY(1px)}
+.friend-presence.is-online{color:var(--text)}
+.friend-presence.is-online .friend-dot{color:#1f9d55}
+.friend-presence.is-offline .friend-dot{color:#9aa4ad}
+.friend-playing{color:var(--muted)}
+.friends-home{text-decoration:none}
+/* A friend's avatar in the room-invite dialog, matching the friends page. */
+.invite-dialog-list .friend-avatar{flex:none}
+
+/* Account settings: the site's single theme switch, and the avatar cropper. */
+.theme-setting { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.theme-setting .theme-control { min-height: 38px; }
+.avatar-crop-backdrop { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 16px; background: rgba(12, 18, 22, .62); }
+.avatar-crop { width: min(420px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; display: grid; gap: 12px; padding: 16px; box-sizing: border-box; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text); box-shadow: 0 20px 48px rgba(0, 0, 0, .32); }
+.avatar-crop-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.avatar-crop-head h2 { margin: 0; font-size: 18px; }
+.avatar-crop-stage { display: grid; place-items: center; }
+.avatar-crop-window { position: relative; overflow: hidden; border-radius: 10px; background: var(--surface-raised, #eef2f3); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.avatar-crop-window:active { cursor: grabbing; }
+.avatar-crop-window > img { position: absolute; max-width: none; pointer-events: none; -webkit-user-drag: none; }
+.avatar-crop-loading { margin: 0; padding: 24px; text-align: center; color: var(--muted); font-size: 13px; }
+/* Thirds, so the crop can be lined up by eye. */
+.avatar-crop-grid { position: absolute; inset: 0; pointer-events: none; background:
+  linear-gradient(to right, rgba(255,255,255,.35) 1px, transparent 1px) 33.33% 0 / 33.34% 100% no-repeat,
+  linear-gradient(to right, rgba(255,255,255,.35) 1px, transparent 1px) 66.66% 0 / 33.34% 100% no-repeat,
+  linear-gradient(to bottom, rgba(255,255,255,.35) 1px, transparent 1px) 0 33.33% / 100% 33.34% no-repeat,
+  linear-gradient(to bottom, rgba(255,255,255,.35) 1px, transparent 1px) 0 66.66% / 100% 33.34% no-repeat;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.6), inset 0 0 0 9999px rgba(12,18,22,.18); border-radius: 10px; }
+.avatar-crop-zoom { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.avatar-crop-zoom input { flex: 1; }
+.avatar-crop-buttons { display: flex; justify-content: flex-end; gap: 8px; }
+@media (max-width: 520px) {
+  .avatar-crop { padding: 14px; }
+  .avatar-crop-buttons { flex-direction: column-reverse; }
+  .avatar-crop-buttons button { width: 100%; min-height: 44px; }
+}
+/* The two "返回主页" entries are links, so they must lose the browser's link look on top of the button box. */
+a.about-back, a.friends-home { display: inline-flex; align-items: center; gap: 6px; color: var(--text); text-decoration: none; }
+a.about-back { align-self: flex-start; }
+a.friends-home { padding: 6px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; }
+a.friends-home:hover, a.about-back:hover { background: var(--surface-raised); }
+
+/*
+ * Friends page: the list keeps its own centred column, and the page's spare left space holds the way home — so the
+ * heading row stays a heading, and the return entry never competes with the list for attention.
+ */
+/* The page is the button plus the panel; the panel itself is unchanged by the button beside it. */
+.friends-layout { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: start; max-width: 940px; margin: 0 auto; }
+.friends-side { display: flex; flex-direction: column; gap: 8px; }
+.friends-page { margin: 0; max-width: none; }
+.friends-body { min-width: 0; display: grid; gap: 10px; }
+a.friends-home, button.friends-home { justify-self: start; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; font-size: 14px; text-decoration: none; cursor: pointer; }
+a.friends-home:hover, button.friends-home:hover { background: var(--surface-raised); }
+/* The whole friend row is the avatar, the name and then the state plus, when they can be watched, one small button. */
+.friends-body .friend-actions { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.friend-watch { min-height: 30px; padding: 3px 12px; font-size: 13px; }
+/* Phones: one column, and the way home goes above the list. */
+/* Phones: the button goes above the panel, in one column. */
+@media (max-width: 640px) {
+  .friends-layout { grid-template-columns: minmax(0, 1fr); }
+  .friends-side { flex-direction: row; }
+}
+/* Room-invite dialog: an offline friend (or one already in a room) is greyed out and cannot be invited. */
+.invite-dialog-list li[data-unavailable="true"] { opacity: .55; }
+.invite-dialog-list li[data-unavailable="true"] .friend-avatar { filter: grayscale(1); }
+.invite-dialog-state { display: inline-flex; align-items: center; gap: 10px; flex: none; }
+.invite-dialog-state .friend-presence { font-size: 11px; }
+
+/*
+ * Touch play: keep the browser's own gestures out of the way while a game is on screen, so a swipe on the mat is a card
+ * drag rather than a pull-to-refresh or a history gesture. Text fields keep their normal selection behaviour.
+ */
+html, body { overscroll-behavior: none; }
+.ua-app, .shogi-app { overscroll-behavior: none; touch-action: manipulation; }
+/* A long press on the mat must not start a system text selection or an image drag. */
+.ua-app :is(.ua-table, .ua-slot, .ua-handstrip), .shogi-app .shogi-board { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+/* Pinch is used by the table's own gestures only where it is handled; elsewhere it may still zoom the page normally. */
+.ua-app input, .ua-app textarea, .shogi-app input { user-select: text; -webkit-user-select: text; }

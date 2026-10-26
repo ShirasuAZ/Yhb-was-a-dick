@@ -508,6 +508,44 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   const bubbleAnchor = moving && !ask && moveCount > 0 && !view ? (moveAnchor && movers.includes(moveAnchor) ? moveAnchor : movers[0]!) : null;
   const moveBubble = bubbleAnchor ? <MoveBubble anchorKey={bubbleAnchor} count={moveCount} blocked={frontOver > 0 || energyOver > 0} busy={busy}
     onConfirm={() => void run({ type: "move", ...moveSel })} onCancel={() => { setMoveSel({ toFront: [], toEnergy: [], remove: [] }); setMoveAnchor(null); }} /> : null;
+  /**
+   * A revealed life card is read in the middle of the screen: the card itself lies on its side (life cards are sideways on
+   * the mat) and lifts into the centre, and the event it triggered fades in underneath with its choices. Nothing goes in a
+   * top bar, so the board keeps its full height while a trigger is being decided.
+   */
+  const revealPanel = myPending?.kind === "triggers" && focusedLife ? (() => {
+    const card = focusedLife.cardId ? cardsById.get(focusedLife.cardId) : undefined;
+    const stats2 = focusedLife.cardId ? stats(focusedLife.cardId) : null;
+    const trigger = stats2?.trigger ?? null;
+    const others = revealed.length > 1 ? <div className="ua-reveal-tabs" role="group" aria-label="翻开的生命卡">
+      {revealed.map((slot) => <button key={slot.id} type="button" aria-pressed={slot.id === focusedLife.id}
+        className="ua-reveal-tab" onClick={() => setTriggerFocus(slot.id)}>{cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}</button>)}
+    </div> : null;
+    const buttons = trigger
+      ? [
+        <button key="yes" type="button" className="ua-primary" disabled={busy} onClick={() => resolveTrigger(true)}>发动</button>,
+        <button key="no" type="button" className="ua-secondary" disabled={busy} onClick={() => resolveTrigger(false)}>不发动</button>
+      ]
+      : [<button key="ok" type="button" className="ua-primary" disabled={busy} onClick={() => resolveTrigger(false)}>确认</button>];
+    return <div className="ua-reveal" role="dialog" aria-modal="true" aria-label="翻开的生命卡">
+      <div className="ua-reveal-stage">
+        {card?.imageUrl
+          ? <img className="ua-reveal-card" src={card.imageUrl} alt={`${card.name} ${card.number}`} draggable={false} />
+          : <div className="ua-reveal-card ua-reveal-missing"><span>{card?.name ?? "生命卡"}</span></div>}
+      </div>
+      <div className="ua-reveal-info">
+        <p className="ua-reveal-name">{card ? `${card.name} ${card.number}` : "生命卡"}</p>
+        <p className="ua-reveal-event">
+          {trigger
+            ? <>有触发【{trigger.label}】：{trigger.text}</>
+            : "这张生命卡没有触发，将置于场外。"}
+        </p>
+        {others}
+        <div className="ua-reveal-buttons">{buttons}</div>
+      </div>
+    </div>;
+  })() : null;
+
   const lightbox = view && viewCard?.imageUrl ? <CardLightbox key="game-lightbox" src={viewCard.imageUrl} label={viewCard.name} alt={`${viewCard.name} ${viewCard.number}`} compact={compact}
     getOrigin={() => originRef.current?.isConnected ? originRef.current.getBoundingClientRect() : null} getReturnFocus={() => originRef.current?.isConnected ? originRef.current : null}
     onClose={closeView} onPrev={viewIds.length > 1 ? () => browse(-1) : undefined} onNext={viewIds.length > 1 ? () => browse(1) : undefined}
@@ -603,7 +641,9 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     <circle cx="10" cy="10" r="7" />
     <circle cx="10" cy="10" r="7" strokeDasharray={`${winRate * RING} ${RING}`} />
   </svg>;
-  const actionBar = game ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
+  // While a revealed life card is on screen the panel carries the prompt and the choices, so the top bar steps aside.
+  const revealOwnsBar = myPending?.kind === "triggers" && !!focusedLife;
+  const actionBar = game && !revealOwnsBar ? <div className="ua-actionbar" role="region" aria-label="对局操作" data-mine={(myTurn && !pending) || !!myPending || undefined}>
     <div className="ua-actionbar-text">
       <p className="ua-actionbar-prompt" aria-live="polite">{barState.text}</p>
       {notice ? <p className="ua-actionbar-notice" role="alert">{notice}</p> : null}
@@ -641,7 +681,9 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     actionBar,
     handStrip,
     opponentHand,
-    lightbox: <>{lightbox}{moveBubble}</>,
+    lightbox: <>{lightbox}{revealPanel}{moveBubble}</>,
+    /** True while a revealed life card holds the screen, so the page can inert the board behind it. */
+    revealOpen: revealPanel !== null,
     lightboxOpen: lightbox !== null,
     activePhase,
     /** Opens a hand card in the lightbox from somewhere else on the page (the side panel's hand list). */

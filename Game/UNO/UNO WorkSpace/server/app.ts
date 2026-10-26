@@ -14,6 +14,7 @@ import { LanAccessController } from "./lan.ts";
 import { AuthService } from "./auth.ts";
 import { clientAddress } from "./requestAddress.ts";
 import { installSocialApi } from "./social.ts";
+import { PresenceService } from "./presence.ts";
 import {
   UNION_ARENA_ASSET_ROOT,
   UNION_ARENA_BATTLE_MAP,
@@ -75,6 +76,7 @@ export interface AppServer {
   lanAccess: LanAccessController;
   auth: AuthService;
   unionArenaRooms: UnionArenaRoomManager;
+  presence: PresenceService;
   listen: (port?: number, host?: string) => Promise<number>;
   close: () => Promise<void>;
 }
@@ -127,8 +129,83 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
     next();
   });
   const rooms = new RoomManager(io, lanAccess, auth);
-  io.on("connection", (socket) => rooms.handleConnection(socket));
   const unionArenaRooms = new UnionArenaRoomManager(io as never, auth, UNION_ARENA_CATALOG);
+  /** Live sockets per account, across this server's namespaces: what "online" means for the friends list. */
+  const onlineAccounts = new Set<string>();
+  const refreshOnline = (): void => {
+    onlineAccounts.clear();
+    for (const socket of io.sockets.sockets.values()) {
+      const accountId = socket.data.accountId;
+      if (typeof accountId === "string") onlineAccounts.add(accountId);
+    }
+    for (const socket of io.of("/arknights").sockets.values()) {
+      const accountId = socket.data.accountId;
+      if (typeof accountId === "string") onlineAccounts.add(accountId);
+    }
+  };
+  const presence = new PresenceService(() => onlineAccounts);
+  // Each game answers for its own rooms, so a friend is only ever shown in a game (and a room) its server agrees on.
+  presence.register((accountId) => rooms.locate(accountId));
+  presence.register((accountId) => unionArenaRooms.locate(accountId));
+  const notifyPresence = (accountId: string): void => {
+    const friends = auth.socialState(accountId).friends.map((friend) => friend.id);
+    for (const friendId of friends) {
+      for (const socket of io.sockets.sockets.values()) {
+        if (socket.data.accountId === friendId) socket.emit("social_updated");
+      }
+    }
+    // The account's own tabs keep their own list current too (its friends' state may have moved meanwhile).
+    for (const socket of io.sockets.sockets.values()) {
+      if (socket.data.accountId === accountId) socket.emit("social_updated");
+    }
+  };
+  presence.onChange = (accountId) => { refreshOnline(); notifyPresence(accountId); };
+  rooms.onAccountBound = (accountId) => { refreshOnline(); presence.touch(accountId); };
+  // Seats and room membership are what the friends list's "playing" line is made of, so each game reports when they move.
+
+  rooms.presenceOf = (accountId) => presence.stateOf(accountId);
+  // The shogi service is its own process: it reports who it holds, and those accounts count as online here too.
+  const pollShogiPresence = async (): Promise<void> => {
+    if (process.env.SHOGI_PRESENCE_POLL === "0") return;
+    try {
+      const result = await fetch(`http://127.0.0.1:${Number(process.env.SHOGI_PORT ?? 3001)}/api/shogi/presence`, { signal: AbortSignal.timeout(2000) });
+      if (!result.ok) return;
+      const body = await result.json() as { connected?: string[]; seated?: Array<{ id: string; roomCode: string; watching: boolean }> };
+      presence.reportShogi(Array.isArray(body.connected) ? body.connected : [], Array.isArray(body.seated) ? body.seated : []);
+    } catch { /* the shogi service may simply not be running */ }
+  };
+  void pollShogiPresence();
+  const shogiPoll = setInterval(() => void pollShogiPresence(), 15_000);
+  shogiPoll.unref?.();
+  /**
+   * Room membership is what the friends list's "playing" line reports, so every event a socket sends is followed by a fresh
+   * look at that account's presence. It runs after the handler (and after its ack) and only announces a real change, so a
+   * lobby that is merely redrawn costs nothing.
+   */
+  const watchPresence = (socket: { data: { accountId?: unknown }; onAny: (handler: () => void) => void }): void => {
+    socket.onAny(() => {
+      setImmediate(() => {
+        refreshOnline();
+        const accountId = socket.data.accountId;
+        if (typeof accountId === "string") presence.touch(accountId);
+      });
+    });
+  };
+  io.on("connection", (socket) => {
+    refreshOnline();
+    const boundAccount = socket.data.accountId;
+    if (typeof boundAccount === "string") presence.touch(boundAccount);
+    watchPresence(socket);
+    rooms.handleConnection(socket);
+    socket.on("disconnect", () => { refreshOnline(); const accountId = socket.data.accountId; if (typeof accountId === "string") presence.touch(accountId); });
+  });
+  io.of("/arknights").on("connection", (socket) => {
+    refreshOnline();
+    watchPresence(socket);
+    const accountId = socket.data.accountId;
+    if (typeof accountId === "string") presence.touch(accountId);
+    socket.on("disconnect", () => { refreshOnline(); if (typeof accountId === "string") presence.touch(accountId); });
+  });
 
   app.use((request, response, next) => {
     if (
@@ -181,7 +258,7 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
       const body = await result.json() as { member?: boolean };
       return result.ok && body.member === true;
     } catch { return false; }
-  });
+  }, (accountId) => presence.stateOf(accountId));
 
   app.get("/api/health", (_request, response) => {
     response.json({
@@ -235,7 +312,7 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
     });
   });
 
-  app.put("/api/profile/avatar", express.raw({ type: "application/octet-stream", limit: "3mb" }), async (request, response) => {
+  app.put("/api/profile/avatar", express.raw({ type: "*/*", limit: "8mb" }), async (request, response) => {
     const authorization = request.get("authorization") ?? "";
     const token = /^Bearer\s+(.+)$/i.exec(authorization)?.[1];
     const account = auth.verifyToken(token);
@@ -247,16 +324,22 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
       response.status(400).json({ ok: false, message: "请选择有效图片" });
       return;
     }
-    const declaredType = request.get("x-image-type")?.toLowerCase();
+    // The browser's own guess. Phone pickers are unreliable here — an empty string, "application/octet-stream"
+    // for a real PNG, or "image/heic" from the camera roll — so it is only used as a hint when it names one of the
+    // formats this route accepts. What the bytes actually are comes from decoding them below.
+    const declaredType = request.get("x-image-type")?.toLowerCase().trim() ?? "";
+    const knownType = ["image/png", "image/jpeg", "image/webp", "image/gif", "image/avif"].includes(declaredType) ? declaredType : "";
     try {
-      const image = sharp(request.body, { limitInputPixels: 20_000_000 });
+      const image = sharp(request.body, { limitInputPixels: 40_000_000 });
       const metadata = await image.metadata();
-      const allowedFormats = new Set(["png", "jpeg", "webp"]);
+      // GIF and AVIF are accepted as input: they are re-encoded to WebP like everything else, so one phone's
+      // photo library does not get refused for a format the site never serves.
+      const allowedFormats = new Set(["png", "jpeg", "webp", "gif", "avif", "heif"]);
       const actualType = metadata.format === "jpeg" ? "image/jpeg" : `image/${metadata.format ?? ""}`;
       if (!metadata.format || !allowedFormats.has(metadata.format) ||
-        (declaredType && declaredType !== actualType) ||
-        !metadata.width || !metadata.height || metadata.width * metadata.height > 20_000_000) {
-        response.status(415).json({ ok: false, message: "仅支持有效的 PNG、JPEG 或 WebP 图片" });
+        (knownType && knownType !== actualType && !(knownType === "image/gif" && metadata.format === "gif")) ||
+        !metadata.width || !metadata.height || metadata.width * metadata.height > 40_000_000) {
+        response.status(415).json({ ok: false, message: "仅支持有效的 PNG、JPEG、WebP、GIF 或 AVIF 图片" });
         return;
       }
       const avatarDir = path.join(auth.dataDir, "avatars");
@@ -425,6 +508,7 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
     });
 
   const close = async (): Promise<void> => {
+    clearInterval(shogiPoll);
     rooms.close();
     unionArenaRooms.close();
     await new Promise<void>((resolve) => {
@@ -443,5 +527,5 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
     }
   };
 
-  return { app, httpServer, io, rooms, unionArenaRooms, lanAccess, auth, listen, close };
+  return { app, httpServer, io, rooms, unionArenaRooms, lanAccess, auth, presence, listen, close };
 }

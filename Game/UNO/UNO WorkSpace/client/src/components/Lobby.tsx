@@ -3,7 +3,6 @@ import type { AuthAccount } from "@shared/protocol.ts";
 import { ConnectionBadge } from "./ConnectionBadge.tsx";
 import { ConnectHostPanel } from "./ConnectHostPanel.tsx";
 import { VersionBadge } from "./VersionBadge.tsx";
-import { ThemeControl } from "./ThemeControl.tsx";
 import { LobbyProfile } from "./LobbyProfile.tsx";
 import { AboutPage } from "./AboutPage.tsx";
 import { FriendsPage } from "./FriendsPage.tsx";
@@ -75,7 +74,8 @@ export function Lobby({
               {account.avatarUrl ? <img className="my-avatar-placeholder" src={account.avatarUrl} alt="" /> : <span className="my-avatar-placeholder" aria-hidden="true">{account.username.slice(0, 1)}</span>}
               <strong>我的</strong>
             </button>
-            {myMenuOpen ? <div className="my-menu" role="menu"><a role="menuitem" href="/">主页</a><a role="menuitem" href="/friends">我的好友</a><a role="menuitem" href="/about">账号设置</a></div> : null}
+            {/* No "主页" item: the site's home is one click away from the friends and settings pages themselves. */}
+            {myMenuOpen ? <div className="my-menu" role="menu"><a role="menuitem" href="/friends">我的好友</a><a role="menuitem" href="/about">账号设置</a></div> : null}
           </div>
           {/* Keep LayUDown on the homepage and label the UNO route as UNO. */}
           <h1>{gameMode ? "UNO" : "LayUDown"}</h1>
@@ -86,7 +86,6 @@ export function Lobby({
             已登录：<strong>{account.username}</strong>
           </span>
           <VersionBadge />
-          <ThemeControl />
         </div>
       </header>
 

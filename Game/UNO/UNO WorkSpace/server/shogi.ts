@@ -340,6 +340,25 @@ export function createShogiServer(options: {
 
   app.get("/health", (_request, response) => response.json({ ok: true, service: "shogi", rooms: rooms.size }));
   app.get("/api/shogi/health", (_request, response) => response.json({ ok: true, service: "shogi", rooms: rooms.size }));
+  /**
+   * Who this service holds right now: every account with a live socket, and which of them sit in a room. The main
+   * server reads it so the friends list can say "在线 · 正在游玩 日本将棋" without ever guessing.
+   */
+  app.get("/api/shogi/presence", (_request, response) => {
+    const connected = new Set<string>();
+    /** Account → the room it holds, and whether it is only watching it. */
+    const seated = new Map<string, { id: string; roomCode: string; watching: boolean }>();
+    for (const socket of io.sockets.sockets.values()) {
+      const account = socket.data.shogiAccount as PublicAccount | undefined;
+      if (account) connected.add(account.id);
+    }
+    for (const room of rooms.values()) {
+      for (const player of room.players.values()) if (player.connected) seated.set(player.accountId, { id: player.accountId, roomCode: room.code, watching: false });
+      for (const spectator of room.spectators.values()) if (spectator.connected && !seated.has(spectator.id)) seated.set(spectator.id, { id: spectator.id, roomCode: room.code, watching: true });
+    }
+    response.setHeader("Cache-Control", "no-store");
+    response.json({ ok: true, connected: [...connected], seated: [...seated.values()] });
+  });
   app.get("/api/shogi/membership", (request, response) => {
     const account = auth.verifyToken(request.headers.authorization?.replace(/^Bearer /, ""));
     const room = findRoom(request.query.room);

@@ -229,6 +229,8 @@ export interface UnionArenaRoomResult {
 
 export interface ServerToClientEvents {
   "ua:state": (state: UnionArenaRoomState) => void;
+  /** The room is gone (the host dissolved it, or the server closed it): leave the table. */
+  "ua:room_closed": (payload: { message: string }) => void;
 }
 
 export interface ClientToServerEvents {
@@ -263,6 +265,11 @@ export interface ClientToServerEvents {
     ack: (result: ActionAck) => void
   ) => void;
   "ua:leave_room": (
+    payload: Record<string, never>,
+    ack: (result: ActionAck) => void
+  ) => void;
+  /** Host only: close the room for everybody. */
+  "ua:dissolve_room": (
     payload: Record<string, never>,
     ack: (result: ActionAck) => void
   ) => void;

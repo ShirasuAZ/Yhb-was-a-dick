@@ -64,3 +64,9 @@ __pycache__/
 *.iso
 *.mp4
 *.mov
+
+# Card artwork and audio libraries: large binary media, shipped separately from the repository
+Game/Arknights/ArknightsWorkSpace/Cards/images/
+Game/Arknights/ArknightsWorkSpace/Map/
+Game/UNO/音效库/
+老牧师音效/

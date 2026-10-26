@@ -734,6 +734,10 @@ export class RoomManager {
   readonly rooms = new Map<string, Room>();
   readonly lanAccess: LanAccessController;
   readonly auth: AuthService;
+  /** Called when a socket is bound to an account it was not connected as (a login or a registration on that socket). */
+  onAccountBound: ((accountId: string) => void) | null = null;
+  /** Online state for the friends list; left unset in tests that build a RoomManager on its own. */
+  presenceOf: ((accountId: string) => { online: boolean; game: string | null }) | null = null;
 
   constructor(
     io: SocketServer<ClientToServerEvents, ServerToClientEvents>,
@@ -939,6 +943,7 @@ export class RoomManager {
           socket.handshake.address
         );
         socket.data.accountId = result.account.id;
+        this.onAccountBound?.(result.account.id);
         return result;
       });
     });
@@ -951,6 +956,7 @@ export class RoomManager {
           socket.handshake.address
         );
         socket.data.accountId = result.account.id;
+        this.onAccountBound?.(result.account.id);
         return result;
       });
     });
@@ -960,7 +966,7 @@ export class RoomManager {
         return { account };
       });
     });
-    socket.on("social_get", (_payload, ack) => this.respond(ack, () => this.auth.socialState(this.requireAccount(socket).id)));
+    socket.on("social_get", (_payload, ack) => this.respond(ack, () => this.auth.socialState(this.requireAccount(socket).id, (id) => this.presenceOf?.(id) ?? { online: false, game: null })));
     socket.on("social_search", (payload, ack) => this.respond(ack, () => ({ accounts: this.auth.searchAccounts(payload?.query, this.requireAccount(socket).id) })));
     socket.on("social_request", (payload, ack) => this.respond(ack, () => { const account = this.requireAccount(socket); this.auth.sendFriendRequest(account.id, payload?.target); const target = this.auth.searchAccounts(String(payload?.target), account.id)[0]; if (target) this.notifyAccount(target.id); return { duplicate: false }; }));
     socket.on("social_accept", (payload, ack) => this.respond(ack, () => { const account = this.requireAccount(socket); this.auth.acceptFriendRequest(account.id, payload?.requesterId); this.notifyAccount(account.id); this.notifyAccount(String(payload?.requesterId)); return { duplicate: false }; }));
@@ -1336,6 +1342,18 @@ export class RoomManager {
       });
       if (code === "INTERNAL_ERROR") console.error(error);
     });
+  }
+
+  /**
+   * Where an account is in UNO: the room it plays in or watches. One room at a time, so the first hit wins. Used by the
+   * friends list, so it reads the rooms rather than trusting whatever page a browser last showed.
+   */
+  locate(accountId: string): { game: "uno"; roomCode: string; watching: boolean } | null {
+    for (const room of this.rooms.values()) {
+      if (room.players.some((player) => player.accountId === accountId && player.active)) return { game: "uno", roomCode: room.code, watching: false };
+      if (room.spectators.some((person) => person.accountId === accountId && person.connected)) return { game: "uno", roomCode: room.code, watching: true };
+    }
+    return null;
   }
 
   deleteRoom(code: string): void {

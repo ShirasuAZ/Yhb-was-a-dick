@@ -20,12 +20,32 @@ import type { RoomRole } from "@shared/social.ts";
 import { AP_COUNT, DECK_SIZE, MAX_COPIES, useDeck } from "./deck.ts";
 import { PRESET_DECKS } from "../shared/ai/decks.ts";
 import "./arknights.css";
-import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 type UnionSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
 /** Where the game's own lobby lives. */
 export const ARKNIGHTS_HOME = "/arknights-union-arena/";
+/** The site's account settings page, which owns the theme switch for the whole site. */
+export const ACCOUNT_SETTINGS = "/about";
+/** That same page, opened from inside a game: it then offers "返回对局" instead of "返回主页". */
+export const settingsUrl = (from: "arknights-pvp" | "arknights-ai" | "arknights-tutorial"): string =>
+  `${ACCOUNT_SETTINGS}?from=${from}`;
+/**
+ * Set while this tab is at a table, so a reload (or a socket reconnect) puts the player back in that room.
+ * "返回大厅" clears it first, which is what keeps a deliberate exit from being undone later.
+ */
+const IN_ROOM_MARKER = "ua.inRoom";
+
+function readRoomMarker(): boolean {
+  try { return sessionStorage.getItem(IN_ROOM_MARKER) === "1"; } catch { return false; }
+}
+
+function writeRoomMarker(inRoom: boolean): void {
+  try {
+    if (inRoom) sessionStorage.setItem(IN_ROOM_MARKER, "1");
+    else sessionStorage.removeItem(IN_ROOM_MARKER);
+  } catch { /* private mode: the tab simply does not resume */ }
+}
 
 function emitAck<T>(socket: UnionSocket, event: keyof ClientToServerEvents, payload: unknown): Promise<ActionAck<T>> {
   return new Promise((resolve) => {
@@ -86,8 +106,11 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const [state, setState] = useState<UnionArenaRoomState | null>(null);
   const [roomCode, setRoomCode] = useState("");
   const [error, setError] = useState("");
+  const [closedMessage, setClosedMessage] = useState("");
   const [busy, setBusy] = useState(false);
-  const [roomWindowOpen, setRoomWindowOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  /** The table bar folds away during play (and whenever the tools panel is open); this re-opens it on demand. */
+  const [barExpanded, setBarExpanded] = useState(false);
   const [inviteRole, setInviteRole] = useState<RoomRole | null>(null);
   const [incomingInvite, setIncomingInvite] = useState<{ id: string; roomCode: string; role: string; inviter: string } | null>(null);
   const { cards, cardsById, ctx } = useCatalog(setError);
@@ -112,14 +135,31 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const closeRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
   const lastVisible = useRef(panelVisible);
+  const menuRef = useRef<HTMLDivElement>(null);
+  /** Set once this page has attached to a room, so a reconnect resumes instead of staying on the room page. */
+  const resumeWanted = useRef(readRoomMarker());
 
-  // Esc closes the panel.
+  // Esc closes the panel (and the room menu).
   useEffect(() => {
-    if (!panelVisible) return undefined;
-    const onKey = (event: KeyboardEvent): void => { if (event.key === "Escape") setPanelOpen(false); };
+    if (!panelVisible && !menuOpen) return undefined;
+    const onKey = (event: KeyboardEvent): void => {
+      if (event.key !== "Escape") return;
+      if (menuOpen) setMenuOpen(false);
+      else setPanelOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [panelVisible]);
+  }, [panelVisible, menuOpen]);
+
+  // A click anywhere else closes the room menu.
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const onDown = (event: PointerEvent): void => {
+      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false);
+    };
+    window.addEventListener("pointerdown", onDown);
+    return () => window.removeEventListener("pointerdown", onDown);
+  }, [menuOpen]);
 
   // Keep keyboard focus sensible when the panel opens or closes.
   useEffect(() => {
@@ -147,7 +187,13 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   }, [token]);
 
   useEffect(() => {
-    socket.on("ua:state", setState);
+    socket.on("ua:state", (next) => { setState(next); writeRoomMarker(true); resumeWanted.current = true; });
+    socket.on("ua:room_closed", (payload) => {
+      writeRoomMarker(false);
+      resumeWanted.current = false;
+      setState(null);
+      setClosedMessage(payload.message || "房间已关闭");
+    });
     socket.on("connect_error", (reason) => setError(reason.message === "AUTH_REQUIRED" ? "登录状态已失效，请返回重新登录。" : "无法连接明日方舟对战服务。"));
     const params = new URLSearchParams(window.location.search);
     const invite = params.get("room");
@@ -158,6 +204,15 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
     const onConnect = (): void => {
       if (invite) void emitAck(socket, watch ? "ua:spectate_room" : "ua:join_room", { roomCode: invite });
       else if (create) void emitAck(socket, "ua:create_room", {});
+      // A reload, or a connection that came back: only resume when this tab was at a table. A tab that never was
+      // (the room page, or one that just pressed "返回大厅") stays there instead of being pulled back into a game.
+      else if (resumeWanted.current) {
+        void emitAck<{ roomCode: string }>(socket, "ua:resume_room", {}).then((result) => {
+          if (result.ok) return;
+          resumeWanted.current = false;
+          writeRoomMarker(false);
+        });
+      }
     };
     socket.on("connect", onConnect);
     return () => { socket.off("connect", onConnect); socket.disconnect(); socket.removeAllListeners(); };
@@ -172,33 +227,42 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   const createRoom = async (): Promise<void> => {
     const result = await action<{ roomCode: string }>("ua:create_room", {});
     if (!result?.ok) setError(errorText(result, "创建房间失败"));
-    else setPanelOpen(false);
+    else { resumeWanted.current = true; setPanelOpen(false); }
   };
   const joinRoom = async (): Promise<void> => {
     const result = await action<{ roomCode: string }>("ua:join_room", { roomCode: roomCode.trim().toUpperCase() });
     if (!result?.ok) setError(errorText(result, "加入房间失败"));
-    else setPanelOpen(false);
+    else { resumeWanted.current = true; setPanelOpen(false); }
   };
   const spectateRoom = async (): Promise<void> => {
     const result = await action<{ roomCode: string }>("ua:spectate_room", { roomCode: roomCode.trim() });
-    if (!result?.ok) setError(errorText(result, "进入观战席失败")); else setPanelOpen(false);
-  };
-  const toggleReady = async (): Promise<void> => {
-    const result = await action("ua:ready", { ready: !state?.you.ready });
-    if (!result?.ok) setError(errorText(result, "更新准备状态失败"));
-  };
-  const startGame = async (): Promise<void> => {
-    const result = await action("ua:start_game", {});
-    if (!result?.ok) setError(errorText(result, "当前不能开始对局"));
+    if (!result?.ok) setError(errorText(result, "进入观战席失败")); else { resumeWanted.current = true; setPanelOpen(false); }
   };
   const answerMulligan = async (redraw: boolean): Promise<void> => {
     const result = await action("ua:mulligan", { redraw });
     if (!result?.ok) setError(errorText(result, "换牌操作失败"));
   };
+  const forgetRoom = (): void => { resumeWanted.current = false; writeRoomMarker(false); };
   const leaveRoom = async (): Promise<void> => {
     const result = await action(state?.youAreSpectator ? "ua:leave_spectating" : "ua:leave_room", {});
     if (!result?.ok) setError(errorText(result, "离开房间失败"));
-    else setState(null);
+    forgetRoom();
+    setState(null);
+  };
+  /** The menu's "返回大厅": leave the room (so nothing brings it back) and go to the game's lobby. */
+  const backToLobby = async (): Promise<void> => {
+    setMenuOpen(false);
+    await leaveRoom();
+    window.location.assign(ARKNIGHTS_HOME);
+  };
+  const dissolveRoom = async (): Promise<void> => {
+    setMenuOpen(false);
+    if (!window.confirm("解散房间后，房间内的玩家都会被移出，确定解散吗？")) return;
+    const result = await action("ua:dissolve_room", {});
+    forgetRoom();
+    if (!result?.ok) { setError(errorText(result, "解散房间失败")); return; }
+    setState(null);
+    window.location.assign(ARKNIGHTS_HOME);
   };
   const sendGameAction = async (gameAction: UnionArenaAction): Promise<string | null> => {
     if (state?.youAreSpectator) return "观战席只能查看对局";
@@ -257,31 +321,28 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
   // When it is your turn to decide on the mulligan, bring the tools panel (where the choice lives) up.
   const needsMulligan = game?.mulliganPlayerId === account.id;
   useEffect(() => { if (needsMulligan) setPanelOpen(true); }, [needsMulligan]);
+  // A folded bar stays folded: closing the tools panel mid-game leaves the small key, not the full bar.
+  useEffect(() => { if (game) setBarExpanded(false); }, [game?.step === "over", game?.turn]); // eslint-disable-line react-hooks/exhaustive-deps
   const gameStatus = !game ? "" : game.step === "mulligan"
     ? (needsMulligan ? "换牌阶段：轮到你选择" : `换牌阶段：等待 ${nameOf(game.mulliganPlayerId)}`)
     : game.step === "over" ? `对局结束 · ${game.winnerId === account.id ? "你获胜了" : `${nameOf(game.winnerId)} 获胜`}`
     : `第 ${game.turn} 回合 · ${game.turnPlayerId === account.id ? "你的回合" : `${nameOf(game.turnPlayerId)} 的回合`}`;
-  const anyLightbox = zoomCard !== null || controller.lightboxOpen;
+  const anyLightbox = zoomCard !== null || controller.lightboxOpen || controller.revealOpen;
+  // In a game the bar folds away to one small key; opening the tools panel hides it altogether (the panel has its own close).
+  /** The seat names of everyone watching this table, in join order (the server keeps that list). */
+  const watchers = state?.spectators.map((person) => person.username) ?? [];
+  const showBar = !panelVisible && (game === null || barExpanded);
+  const showMini = !panelVisible && !showBar;
   // Until you are in a room, the player-vs-player route is the standalone room page, like UNO and shogi.
   if (!state) {
     return <>
       {incomingInvite ? <aside className="invite-toast"><strong>{incomingInvite.inviter} 邀请你{incomingInvite.role === "spectator" ? "观战" : "加入房间"}</strong><span>明日方舟 · {incomingInvite.roomCode}</span><button className="ua-primary" onClick={() => void answerIncomingInvite(true)}>{incomingInvite.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="ua-secondary" onClick={() => void answerIncomingInvite(false)}>忽略</button></aside> : null}
-      <ArknightsRoomPage account={account} roomCode={roomCode} busy={busy} error={error}
+      <ArknightsRoomPage account={account} roomCode={roomCode} busy={busy} error={error} notice={closedMessage}
         onRoomCode={setRoomCode} onCreate={() => void createRoom()} onJoin={() => void joinRoom()} onSpectate={() => void spectateRoom()} />
     </>;
   }
-  return <div className="ua-app" data-compact={compact} data-in-game={game ? "true" : undefined}>
+  return <div className="ua-app" data-compact={compact} data-bare="true" data-in-game={game ? "true" : undefined}>
     {incomingInvite ? <aside className="invite-toast"><strong>{incomingInvite.inviter} 邀请你{incomingInvite.role === "spectator" ? "观战" : "加入房间"}</strong><span>明日方舟 · {incomingInvite.roomCode}</span><button className="ua-primary" onClick={() => void answerIncomingInvite(true)}>{incomingInvite.role === "spectator" ? "前往观战" : "接受邀请"}</button><button className="ua-secondary" onClick={() => void answerIncomingInvite(false)}>忽略</button></aside> : null}
-    <header className="ua-header" inert={anyLightbox}>
-      <button className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
-      <div className="ua-roominfo">{state ? <span className="ua-roominfo-main">房间 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{gameStatus ? ` · ${gameStatus}` : ""}</span> : <span>未加入房间</span>}{error ? <span className="ua-roominfo-error" role="alert">{error}</span> : null}</div>
-      <div className="ua-header-end">
-        <button type="button" className="ua-toggle" onClick={() => setRoomWindowOpen(true)}>房间信息</button>
-        <button ref={toggleRef} type="button" className="ua-toggle" aria-expanded={panelVisible} aria-controls="ua-panel" aria-label={compact ? "打开工具面板" : panelVisible ? "收起侧栏" : "展开侧栏"} onClick={togglePanel}>{compact ? "工具" : panelVisible ? "侧栏 ›" : "‹ 侧栏"}</button>
-        <ThemeControl />
-        <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
-      </div>
-    </header>
     {controller.actionBar && !readOnly ? <div className="ua-actionbar-row" inert={anyLightbox}>{controller.actionBar}</div> : null}
     <main className="ua-main" data-panel-open={panelVisible} inert={anyLightbox}>
       <div className="ua-stage">
@@ -295,15 +356,48 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
           </section>
         </div>
       </div>
+      {/* The table's own controls float in the board's top-right corner: the page has no top bar any more. */}
+      {/*
+        The bar only holds the room number and the controls the table needs; during a game (and while the tools panel is
+        open) it folds down to a single small key in the corner, so the board keeps that space.
+      */}
+      {showBar ? <div className="ua-tablebar" inert={anyLightbox}>
+        {error ? <span className="ua-tablebar-error" role="alert">{error}</span> : null}
+        <span className="ua-roomchip" title={`房间 ${state.roomCode}`}>
+          <span className="ua-roomchip-label">房间</span>
+          <strong>{state.roomCode}</strong>
+          <span className="ua-roomchip-people">{state.playerCount}/{state.requiredPlayers} 人{readOnly ? " · 观战中" : ""}</span>
+          {gameStatus ? <span className="ua-roomchip-status">{gameStatus}</span> : <span className="ua-roomchip-status">等待对手准备</span>}
+        </span>
+        <button ref={toggleRef} type="button" className="ua-toggle" aria-expanded={panelVisible} aria-controls="ua-panel" aria-label={compact ? "打开工具面板" : panelVisible ? "收起侧栏" : "展开侧栏"} onClick={togglePanel}>{compact ? "工具" : panelVisible ? "侧栏 ›" : "‹ 侧栏"}</button>
+        <div className="ua-menu-anchor" ref={menuRef}>
+          <button type="button" className="ua-hamburger" aria-haspopup="menu" aria-expanded={menuOpen} aria-label="房间菜单" title="房间菜单"
+            onClick={() => setMenuOpen((open) => !open)}><span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" /></button>
+          {menuOpen ? <div className="ua-menu" role="menu" aria-label="房间菜单">
+            {state.you.isHost && !readOnly ? <button type="button" role="menuitem" className="ua-menu-item ua-menu-danger" disabled={busy} onClick={() => void dissolveRoom()}>解散房间</button> : null}
+            <button type="button" role="menuitem" className="ua-menu-item" disabled={busy} onClick={() => void backToLobby()}>返回大厅</button>
+            <button type="button" role="menuitem" className="ua-menu-item" onClick={() => { setMenuOpen(false); window.location.assign(settingsUrl("arknights-pvp")); }}>设置</button>
+          </div> : null}
+        </div>
+      </div> : null}
+      {/* A single line in the corner: who is watching. It floats, so it costs the board no space at all. */}
+      {watchers.length && !readOnly ? <p className="ua-watchers" role="status" inert={anyLightbox}>
+        {watchers.length === 1 ? `${watchers[0]} 正在观战` : `${watchers.length} 人正在观战`}
+      </p> : null}
+      {showMini ? <div className="ua-minibar" inert={anyLightbox}>
+        <button type="button" className="ua-hamburger ua-hamburger-mini" aria-label="展开房间栏" title="房间与设置"
+          aria-expanded={false} onClick={() => setBarExpanded(true)}><span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" /></button>
+      </div> : null}
       {compact ? <div className="ua-backdrop" data-open={panelVisible} onClick={() => setPanelOpen(false)} aria-hidden="true" /> : null}
       <div className="ua-dock" data-open={panelVisible}>
       <aside ref={panelRef} id="ua-panel" className="ua-panel" data-open={panelVisible} inert={!panelVisible} aria-hidden={!panelVisible} aria-label="房间与卡牌目录">
-        <div className="ua-panel-head"><strong>房间 · 卡牌目录</strong><button ref={closeRef} type="button" className="ua-secondary ua-panel-close" aria-label="关闭工具面板" onClick={() => setPanelOpen(false)}>关闭</button></div>
-        <div className="ua-status"><span>玩家人数</span><strong>{state?.playerCount ?? 0}/{state?.requiredPlayers ?? 2}</strong></div>
-        {state && !readOnly && deckEditable && !state.you.isHost ? <div className="ua-room-actions"><button className="ua-secondary" disabled={busy || (!state.you.ready && !deckSubmitted)} onClick={() => void toggleReady()}>{state.you.ready ? "取消准备" : "准备"}</button></div> : null}
-        {state && !readOnly && deckEditable && state.you.isHost ? <div className="ua-room-actions"><button className="ua-primary" disabled={busy || !state.startAllowed} onClick={() => void startGame()}>开始游戏</button></div> : null}
-        {!state ? <div className="ua-room-actions"><p>建房、加入和观战入口位于顶部“房间”窗口。</p></div> : null}
-        {state && deckEditable && !state.startAllowed ? <p className="ua-hint">需要两名在线玩家各自提交合法牌组并准备，房主才能开始。</p> : null}
+        <div className="ua-panel-head"><strong>房间 <span className="ua-panel-code">{state.roomCode}</span></strong><button ref={closeRef} type="button" className="ua-secondary ua-panel-close" aria-label="关闭工具面板" onClick={() => setPanelOpen(false)}>关闭</button></div>
+        {/* Room number, who is seated and who is watching: the seats on the table already show the players themselves, so the
+            old head count, start button and its explanation are gone — the game starts by itself when the room is full. */}
+        <section className="ua-room-card" aria-label="房间">
+          <div className="ua-room-window-players">{state.players.map((player) => <span key={player.id}>{player.username}{player.isHost ? " · 房主" : ""}{player.connected ? "" : " · 离线"}</span>)}</div>
+          <div className="spectator-block"><strong>观战席（{state.spectators.length}）</strong><SpectatorSeats spectators={state.spectators.map((person) => ({ id: person.id, name: person.username, connected: person.connected, avatarUrl: person.avatarUrl }))} canInvite={!readOnly} onInvite={() => setInviteRole("spectator")} /></div>
+        </section>
         {error ? <p className="ua-error" role="alert">{error}</p> : null}
         {state && !state.youAreSpectator && deckEditable ? <section className="ua-deck" aria-labelledby="ua-deck-heading">
           <div className="ua-deck-head"><h2 id="ua-deck-heading">我的牌组</h2><span>{deckTotal}/{DECK_SIZE} 张 · AP {AP_COUNT}/{AP_COUNT}</span></div>
@@ -320,7 +414,7 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
             <button type="button" className="ua-secondary" disabled={busy || deckTotal === 0} onClick={() => { myDeck.clear(); setSubmittedKey(null); setDeckIssues([]); }}>清空</button>
             <button type="button" className="ua-primary" disabled={busy || deckTotal !== DECK_SIZE} onClick={() => void submitDeck()}>提交牌组</button>
           </div>
-          {deckSubmitted ? <p className="ua-deck-ok" role="status">牌组已通过校验{state.you.ready ? "，你已准备。" : "，可以准备了。"}</p> : null}
+          {deckSubmitted ? <p className="ua-deck-ok" role="status">牌组已通过校验{state.you.ready ? "，已准备。" : ""}</p> : null}
           {!deckSubmitted && deckIssues.length ? <ul className="ua-deck-issues" role="alert">{deckIssues.map((issue) => <li key={issue}>{issue}</li>)}</ul> : null}
         </section> : null}
         {game && state ? <section className="ua-game" aria-labelledby="ua-game-heading">
@@ -372,19 +466,6 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
       </aside>
       </div>
     </main>
-    {roomWindowOpen ? <div className="ua-room-window-backdrop" role="presentation" onClick={() => setRoomWindowOpen(false)}>
-      <section className="ua-room-window" role="dialog" aria-modal="true" aria-labelledby="ua-room-window-title" onClick={(event) => event.stopPropagation()}>
-        <div className="ua-panel-head"><strong id="ua-room-window-title">房间</strong><button type="button" className="ua-secondary" onClick={() => setRoomWindowOpen(false)}>关闭</button></div>
-        {!state ? <div className="ua-room-actions"><p className="ua-hint">还没有加入房间。到房间页面创建或加入一个房间。</p><button className="ua-primary" disabled={busy} onClick={() => window.location.assign(`${ARKNIGHTS_HOME}pvp`)}>前往房间页面</button></div> : <>
-          <p className="ua-room-window-code">房间号 <strong>{state.roomCode}</strong> · {state.playerCount}/{state.requiredPlayers} 人{readOnly ? " · 观战中" : ""}</p>
-          <div className="ua-room-window-players"><strong>玩家</strong>{state.players.map((player) => <span key={player.id}>{player.username}{player.isHost ? " · 房主" : ""}{player.connected ? "" : " · 离线"}</span>)}</div>
-          <div className="spectator-block"><strong>观战席（{state.spectators.length}）</strong><SpectatorSeats spectators={state.spectators.map((person) => ({ id: person.id, name: person.username, connected: person.connected, avatarUrl: person.avatarUrl }))} canInvite={!readOnly} onInvite={() => setInviteRole("spectator")} /></div>
-          {/* Inviting to a seat happens on the table itself: the empty seat's "+" and the spectator list's button. */}
-          <button className="ua-secondary" disabled={busy} onClick={() => void leaveRoom()}>离开房间</button>
-        </>}
-        {error ? <p className="ua-error" role="alert">{error}</p> : null}
-      </section>
-    </div> : null}
     {inviteRole && state ? <InviteDialog game="arknights" roomCode={state.roomCode} role={inviteRole} onClose={() => setInviteRole(null)} /> : null}
     {zoomCard?.imageUrl ? <CardLightbox src={zoomCard.imageUrl} label={zoomCard.name} alt={`${zoomCard.name} ${zoomCard.number}`} compact={compact} getOrigin={() => previewRef.current?.getBoundingClientRect() ?? null} getReturnFocus={() => previewRef.current} onClose={() => setZoomCard(null)} /> : null}
     {controller.lightbox}

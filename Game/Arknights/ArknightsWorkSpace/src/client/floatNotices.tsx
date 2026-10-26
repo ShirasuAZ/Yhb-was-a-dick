@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { flyCardToPile } from "./flyCard.ts";
 
 /** One event as the engine reports it. */
 export type FloatEvent = { seq: number; text: string; uid?: string; kind: string };
@@ -36,6 +37,15 @@ export function useFloatNotices(events: FloatEvent[] | undefined, enabled: boole
     const fresh = events.filter((event) => event.seq > seen.current && event.uid);
     if (!fresh.length) return;
     seen.current = events[events.length - 1]!.seq;
+
+    // A card that just left the field (beaten as a blocker, or sent off by an effect) travels from where it stood to its
+    // pile, so the eye can follow it instead of the card simply vanishing. The board still has its old position on screen
+    // for this frame, which is exactly what the flight starts from.
+    for (const event of fresh) {
+      if (event.kind !== "leave" || !event.uid) continue;
+      const source = document.querySelector<HTMLElement>(`[data-card-key="f:${event.uid}"]`);
+      if (source) flyCardToPile(source);
+    }
 
     const added: Notice[] = fresh.map((event) => ({
       key: `${event.seq}-${event.uid}`,

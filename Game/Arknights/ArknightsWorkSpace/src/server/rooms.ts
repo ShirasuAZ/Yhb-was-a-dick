@@ -23,6 +23,8 @@ const WIN_RATE = loadWinRate(winRateWeights as unknown as WinRateWeightsJson);
 export const LIFE_COUNT = 7;
 /** Starting hand size (rule manual, "Preparing to Play" step 3). */
 export const HAND_COUNT = 7;
+/** Seats in a room. The game starts by itself once all of them are taken and ready. */
+export const REQUIRED_PLAYERS = 2;
 type UaSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
 
 /** The server's own bookkeeping for a running game (the rules engine's state); the clients only get the public `UnionArenaGameState` derived from it. */
@@ -224,6 +226,22 @@ export class UnionArenaRoom {
     this.resetToLobby();
   }
 
+  /**
+   * Starts the game as soon as every seat is taken, every player is connected and ready, and every deck passed the structural check.
+   * Called by the room manager after each change that can complete the lobby, so nobody has to press a start button. `startGame` is
+   * synchronous and flips the phase to "playing" in the same tick, so two clients racing each other still only ever start one game.
+   */
+  autoStartIfReady(): boolean {
+    if (!this.isFull || !this.readyForStart) return false;
+    try { this.startGame(); } catch { return false; }
+    return true;
+  }
+
+  /** Every seat of the room is taken by a player. */
+  get isFull(): boolean {
+    return this.players.length === REQUIRED_PLAYERS;
+  }
+
   stateFor(player: Seat): UnionArenaRoomState {
     const players: UnionArenaPlayer[] = this.players.map((seat) => ({ id: seat.id, username: seat.username, avatarUrl: seat.avatarUrl, seat: seat.seat, connected: seat.connected, isHost: seat.isHost, ready: seat.ready }));
     const opponent = this.players.find((candidate) => candidate !== player);
@@ -236,7 +254,7 @@ export class UnionArenaRoom {
       game: this.game ? { ...gameStateView(this.game, player, opponent, this.ctx), winRate: this.winRateFor(player) } : null,
       hand: [...player.hand],
       playerCount: this.players.length,
-      requiredPlayers: 2,
+      requiredPlayers: 2 as const,
       startAllowed: this.readyForStart,
       spectators: [...this.spectators.values()].map(({ id, username, connected, avatarUrl }) => ({ id, username, connected, avatarUrl })),
       youAreSpectator: false
@@ -270,20 +288,22 @@ export class UnionArenaRoom {
     return state;
   }
 
+  /**
+   * A newly submitted deck. A deck that passes the structural check readies the player on the spot, so the room needs no extra
+   * "start" click once every seat has a legal deck; a broken one leaves them unready. Broadcasts nothing — the caller syncs the room.
+   */
   updateDeck(player: Seat, cardIds: string[], apCount: number): void {
     player.deck = cardIds;
     player.apCount = apCount;
     player.deckCheck = checkUnionArenaDeck(cardIds, apCount, this.catalog, this.availableIds);
-    // A changed deck has not been confirmed yet: the player has to press ready again.
-    player.ready = false;
-    this.broadcast();
+    player.ready = player.deckCheck.structuralOk;
   }
 
   getAccount(accountId: string): Seat | undefined { return this.players.find((player) => player.accountId === accountId); }
   getSocket(socketId: string): Seat | undefined { return this.players.find((player) => player.socketId === socketId); }
   findAccount(accountId: string): Seat | undefined { return this.players.find((player) => player.accountId === accountId); }
   get readyForStart(): boolean {
-    return this.phase === "lobby" && this.players.length === 2 && this.players.every((player) => player.connected && player.ready && player.deckCheck.structuralOk);
+    return this.phase === "lobby" && this.players.length === REQUIRED_PLAYERS && this.players.every((player) => player.connected && player.ready && player.deckCheck.structuralOk);
   }
 }
 
@@ -336,7 +356,8 @@ export class UnionArenaRoomManager {
 
   private handleConnection(socket: UaSocket): void {
     const account = this.account(socket);
-    this.resumeAccount(account.id, socket);
+    // No automatic re-attach here. A room comes back only when the client asks for it (`ua:resume_room`), which it does for a
+    // reconnecting tab that was at a table — never for a fresh visit to the pvp page or after "返回大厅".
     socket.on("ua:create_room", (_payload, ack) => this.respond(ack, () => {
       const current = this.activeByAccount.get(account.id);
       if (current) throw new Error("ALREADY_IN_ROOM");
@@ -355,10 +376,10 @@ export class UnionArenaRoomManager {
       const room = this.rooms.get(code);
       if (!room) throw new Error("ROOM_NOT_FOUND");
       if (room.phase !== "lobby") throw new Error("GAME_IN_PROGRESS");
-      if (room.players.length >= 2) throw new Error("ROOM_FULL");
+      if (room.isFull) throw new Error("ROOM_FULL");
       const player = room.add(this.auth.findAccount(account.id)!, socket);
       this.activeByAccount.set(account.id, code);
-      room.broadcast();
+      this.sync(room);
       return { roomCode: code, you: room.stateFor(player).you };
     }));
     socket.on("ua:spectate_room", (payload, ack) => this.respond(ack, () => {
@@ -377,7 +398,7 @@ export class UnionArenaRoomManager {
       const player = room?.getAccount(account.id);
       if (!room || !player) throw new Error("NO_ACTIVE_ROOM");
       room.attach(player, socket);
-      room.broadcast();
+      this.sync(room);
       return { roomCode: code! };
     }));
     socket.on("ua:submit_deck", (payload, ack) => this.respond(ack, () => {
@@ -386,6 +407,8 @@ export class UnionArenaRoomManager {
       if (!Array.isArray(payload?.cardIds) || payload.cardIds.length > 50 || !payload.cardIds.every((id) => typeof id === "string")) throw new Error("INVALID_DECK");
       if (!Number.isInteger(payload?.apCount) || payload.apCount < 0 || payload.apCount > 3) throw new Error("INVALID_AP_COUNT");
       room.updateDeck(player, payload.cardIds, payload.apCount);
+      // A legal deck readies the player; when the room is full and ready on both sides, this broadcast also starts the game.
+      this.sync(room);
       return { structuralOk: player.deckCheck.structuralOk, issues: player.deckCheck.issues };
     }));
     socket.on("ua:ready", (payload, ack) => this.respond(ack, () => {
@@ -394,14 +417,15 @@ export class UnionArenaRoomManager {
       if (typeof payload?.ready !== "boolean") throw new Error("INVALID_READY");
       if (payload.ready && !player.deckCheck.structuralOk) throw new Error("DECK_INCOMPLETE");
       player.ready = payload.ready;
-      room.broadcast();
+      this.sync(room);
       return undefined;
     }));
+    // Still accepted (and still host-only) so an older client, or a client that kept its start button, cannot break the flow.
     socket.on("ua:start_game", (_payload, ack) => this.respond(ack, () => {
       const { room, player } = this.current(socket);
       if (!player.isHost) throw new Error("HOST_ONLY");
       if (room.phase !== "lobby") throw new Error("GAME_ALREADY_STARTED");
-      if (room.players.length !== 2 || room.players.some((entry) => !entry.connected)) throw new Error("NOT_ENOUGH_PLAYERS");
+      if (room.players.length !== REQUIRED_PLAYERS || room.players.some((entry) => !entry.connected)) throw new Error("NOT_ENOUGH_PLAYERS");
       if (!room.players.every((entry) => entry.ready && entry.deckCheck.structuralOk)) throw new Error("DECKS_NOT_READY");
       room.startGame();
       room.broadcast();
@@ -431,7 +455,14 @@ export class UnionArenaRoomManager {
       room.remove(player);
       this.activeByAccount.delete(account.id);
       if (!room.players.length) this.rooms.delete(room.code);
-      else room.broadcast();
+      else this.sync(room);
+      return undefined;
+    }));
+    /** Host only: close the room for everyone in it. */
+    socket.on("ua:dissolve_room", (_payload, ack) => this.respond(ack, () => {
+      const { room, player } = this.current(socket);
+      if (!player.isHost) throw new Error("HOST_ONLY");
+      this.closeRoom(room, "房主解散了房间");
       return undefined;
     }));
     socket.on("disconnect", () => {
@@ -445,9 +476,36 @@ export class UnionArenaRoomManager {
         room.remove(player);
         this.activeByAccount.delete(player.accountId);
         if (!room.players.length) this.rooms.delete(room.code);
-        else room.broadcast();
+        else this.sync(room);
       }, RECONNECT_GRACE_MS);
     });
+  }
+
+  /**
+   * Every change that can complete a lobby goes through here: broadcast the new state, let the room start itself when all seats are
+   * taken, ready and legal, then broadcast the game. A room that just started is not started twice, because `startGame` flips the phase
+   * inside the same synchronous call.
+   */
+  private sync(room: UnionArenaRoom): void {
+    room.broadcast();
+    if (room.autoStartIfReady()) room.broadcast();
+  }
+
+  /** Deletes a room and tells everyone in it (players, spectators) why it is gone. */
+  private closeRoom(room: UnionArenaRoom, message: string): void {
+    const sockets = [...room.players.map((player) => player.socketId), ...[...room.spectators.values()].map((person) => person.socketId)]
+      .filter((id): id is string => typeof id === "string");
+    for (const accountId of room.players.map((player) => player.accountId)) this.activeByAccount.delete(accountId);
+    for (const accountId of room.spectators.keys()) this.activeByAccount.delete(accountId);
+    this.rooms.delete(room.code);
+    for (const socketId of sockets) {
+      const socket = this.namespace.sockets.get(socketId) as UaSocket | undefined;
+      if (!socket) continue;
+      socket.emit("ua:room_closed", { message });
+      socket.leave(room.code);
+      socket.data.uaRoomCode = undefined;
+      socket.data.uaSpectatingRoom = undefined;
+    }
   }
 
   private current(socket: UaSocket): { room: UnionArenaRoom; player: Seat } {
@@ -484,6 +542,23 @@ export class UnionArenaRoomManager {
       player.avatarUrl = account.avatarUrl;
       room!.broadcast();
     }
+  }
+
+  /** Called with the accounts whose seats in a room were added or removed (the friends list's "playing" line follows it). */
+  onSeatChange: ((accountIds: string[]) => void) | null = null;
+
+  /**
+   * Where an account is in Union Arena: the room it plays in, or the one it watches (used by the friends list, so a friend
+   * can be joined from there).
+   */
+  locate(accountId: string): { game: "arknights"; roomCode: string; watching: boolean } | null {
+    const code = this.activeByAccount.get(accountId);
+    const room = code ? this.rooms.get(code) : undefined;
+    if (room?.getAccount(accountId)) return { game: "arknights", roomCode: room.code, watching: false };
+    for (const candidate of this.rooms.values()) {
+      if (candidate.spectators.get(accountId)?.connected) return { game: "arknights", roomCode: candidate.code, watching: true };
+    }
+    return null;
   }
 
   close(): void {

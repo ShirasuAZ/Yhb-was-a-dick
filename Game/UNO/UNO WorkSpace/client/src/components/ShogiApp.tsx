@@ -9,7 +9,6 @@ import {
   type Side,
   pieceLabel
 } from "@shogi/engine";
-import { ThemeControl } from "./ThemeControl.tsx";
 import { InviteDialog } from "./InviteDialog.tsx";
 import { SpectatorSeats } from "./SpectatorSeats.tsx";
 import type { RoomRole } from "@shared/social.ts";
@@ -438,7 +437,6 @@ export function ShogiApp() {
     <header className="shogi-topbar">
       <button className="secondary shogi-back" onClick={() => location.assign("/")}>返回大厅</button>
       <div className="shogi-brand"><p className="eyebrow">LayUDown · 在线对局</p><h1>日本将棋</h1></div>
-      <ThemeControl />
     </header>
 
     {authState !== "ready" ? <section className="panel shogi-login-panel">

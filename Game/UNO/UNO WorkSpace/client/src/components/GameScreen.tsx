@@ -13,7 +13,6 @@ import { HandDock } from "./HandDock.tsx";
 import { PublicTable } from "./PublicTable.tsx";
 import { TableSeat } from "./TableSeat.tsx";
 import { VersionBadge } from "./VersionBadge.tsx";
-import { ThemeControl } from "./ThemeControl.tsx";
 import { seatedOpponents } from "./seatLayout.ts";
 import { InviteDialog } from "./InviteDialog.tsx";
 import { SpectatorSeats } from "./SpectatorSeats.tsx";
@@ -619,7 +618,6 @@ export function GameScreen({
             退出
           </button>
           <VersionBadge />
-          <ThemeControl />
         </div>
       </header>
 

@@ -12,8 +12,8 @@ import { HalfBoard, Seat } from "./board.tsx";
 import { ERROR_TEXT, useCatalog, type Account } from "./cards.ts";
 import { useGameController } from "./game.tsx";
 import { DECK_SIZE, MAX_COPIES, useDeck } from "./deck.ts";
+import { ACCOUNT_SETTINGS, settingsUrl } from "./ArknightsApp.tsx";
 import "./arknights.css";
-import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 type Level = "easy" | "normal" | "hard" | "master";
 const LEVELS: ReadonlyArray<{ id: Level; name: string; text: string }> = [
@@ -45,6 +45,8 @@ export function ArknightsVsAI({ account }: { account: Account }) {
   const [winRateModel, setWinRateModel] = useState<WinRateModel | null>(null);
   const matchRef = useRef<Match | null>(null);
   const [version, setVersion] = useState(0);
+  /** The table bar folds away during play (and while the setup panel is open); this re-opens it on demand. */
+  const [barExpanded, setBarExpanded] = useState(false);
   const bump = (): void => setVersion((value) => value + 1);
   const rngRef = useRef(makeRng(Date.now() >>> 0));
 
@@ -132,7 +134,7 @@ export function ArknightsVsAI({ account }: { account: Account }) {
       <header className="ua-lobby-header">
         <button type="button" className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
         <h1>人机对战</h1>
-        <ThemeControl />
+        <a className="ua-room-page-settings" href={ACCOUNT_SETTINGS}>账号设置</a>
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </header>
       <main className="ua-ai-setup">
@@ -202,18 +204,11 @@ export function ArknightsVsAI({ account }: { account: Account }) {
     </div>;
   }
 
-  return <div className="ua-app" data-compact={compact} data-in-game="true">
-    <header className="ua-header" inert={controller.lightboxOpen}>
-      <button className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
-      <div className="ua-roominfo"><span className="ua-roominfo-main">人机对战 · {cpu.username}{game.step === "turn" ? ` · 第 ${game.turn} 回合 · ${game.turnPlayerId === account.id ? "你的回合" : "电脑的回合"}` : ""}</span></div>
-      <div className="ua-header-end">
-        <button type="button" className="ua-toggle" onClick={() => { matchRef.current = null; bump(); }}>重新选择</button>
-        <ThemeControl />
-        <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
-      </div>
-    </header>
+  // The same shape as the player-vs-player table: no top bar, and the navigation lives in the board's top-right corner.
+  const status = game.step === "turn" ? `第 ${game.turn} 回合 · ${game.turnPlayerId === account.id ? "你的回合" : "电脑的回合"}` : "";
+  return <div className="ua-app" data-compact={compact} data-bare="true" data-in-game="true">
     {controller.actionBar ? <div className="ua-actionbar-row" inert={controller.lightboxOpen}>{controller.actionBar}</div> : null}
-    <main className="ua-main" inert={controller.lightboxOpen}>
+    <main className="ua-main" inert={controller.lightboxOpen || controller.revealOpen}>
       <div className="ua-stage">
         <div className="ua-table-wrapper">
           <section className="ua-table" aria-label="明日方舟 UNION ARENA 人机对战牌桌">
@@ -225,6 +220,22 @@ export function ArknightsVsAI({ account }: { account: Account }) {
           </section>
         </div>
       </div>
+      {/* During play the bar folds to one small key, exactly like the PvP table, so the board keeps the space. */}
+      {barExpanded ? <div className="ua-tablebar" inert={controller.lightboxOpen}>
+        <span className="ua-roomchip" title={`人机对战 · ${cpu.username}`}>
+          <span className="ua-roomchip-label">人机</span>
+          <strong>{LEVELS.find((entry) => entry.id === level)!.name}</strong>
+          {status ? <span className="ua-roomchip-status">{status}</span> : null}
+        </span>
+        <button type="button" className="ua-toggle" onClick={() => { setBarExpanded(false); matchRef.current = null; bump(); }}>重新选择</button>
+        <a className="ua-room-page-settings" href={settingsUrl("arknights-ai")}>账号设置</a>
+        <button type="button" className="ua-hamburger" aria-label="收起房间栏" title="收起房间栏" onClick={() => setBarExpanded(false)}>
+          <span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" />
+        </button>
+      </div> : <div className="ua-minibar" inert={controller.lightboxOpen}>
+        <button type="button" className="ua-hamburger ua-hamburger-mini" aria-label="展开房间栏" title="对局信息与设置"
+          onClick={() => setBarExpanded(true)}><span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" /></button>
+      </div>}
     </main>
     {controller.lightbox}
   </div>;

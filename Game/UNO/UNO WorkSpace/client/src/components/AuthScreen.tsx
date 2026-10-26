@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ConnectionBadge } from "./ConnectionBadge.tsx";
 import { VersionBadge } from "./VersionBadge.tsx";
-import { ThemeControl } from "./ThemeControl.tsx";
 import type { ConnectionStatus } from "../types.ts";
 import { AboutPage } from "./AboutPage.tsx";
 
@@ -76,7 +75,6 @@ export function AuthScreen({
         </div>
         <div className="header-status">
           <ConnectionBadge status={connection} />
-          <ThemeControl />
           <VersionBadge />
         </div>
       </header>

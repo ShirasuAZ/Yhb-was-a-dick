@@ -317,20 +317,23 @@ test("Arknights in Edge: lobby, tutorial, vs computer and Players vs Players, ea
     await who.goto("/arknights-union-arena/pvp");
     await expect(who.locator(".ua-account")).toContainText(name);
   }
+  // The board has no top bar any more: its own controls (room number, tools panel, hamburger menu) float in the
+  // table's top-right corner, so the room number is read from there.
   await page.getByRole("button", { name: /打开工具面板|展开侧栏/ }).click();
   await page.getByRole("button", { name: "创建对战房间" }).click();
-  const code = (await page.locator(".ua-roominfo-main strong").innerText()).trim();
+  const code = (await page.locator(".ua-roomchip strong").innerText()).trim();
   await other.getByRole("button", { name: /打开工具面板|展开侧栏/ }).click();
   await other.locator("#ua-room-code").fill(code);
   await other.getByRole("button", { name: "加入房间" }).click();
+  // Submitting a legal deck readies that seat, so when both decks are in the room starts the game by itself — no
+  // "准备" and no "开始游戏" click, which is exactly the behaviour this flow is meant to prove.
   for (const who of [page, other]) {
     if (!(await who.getByRole("button", { name: "快速组牌" }).isVisible().catch(() => false))) await who.getByRole("button", { name: /打开工具面板|展开侧栏/ }).click();
     await who.getByRole("button", { name: "快速组牌" }).click();
     await who.getByRole("button", { name: "提交牌组" }).click();
     await expect(who.locator(".ua-deck-ok")).toBeVisible();
-    await who.getByRole("button", { name: "准备", exact: true }).click();
   }
-  await page.getByRole("button", { name: "开始游戏" }).click();
+  await expect(page.locator(".ua-actionbar-prompt")).toContainText(/换牌阶段|回合/, { timeout: 15_000 });
   for (const who of [page, other]) {
     const close = who.locator(".ua-panel").getByRole("button", { name: /^(关闭|关闭工具面板|收起侧栏)$/ });
     if (await close.first().isVisible().catch(() => false)) await close.first().click();
@@ -347,7 +350,7 @@ test("Arknights in Edge: lobby, tutorial, vs computer and Players vs Players, ea
   await shot(page, "06-pvp-over-a");
   await shot(other, "06-pvp-over-b");
   await page.getByRole("button", { name: "返回房间（保留牌组）" }).click();
-  await expect(page.locator(".ua-roominfo-main")).toContainText(code);
+  await expect(page.locator(".ua-roomchip strong")).toContainText(code);
 
   const problems = [...watched.problems, ...watchedB.problems.map((problem) => `B ${problem}`)];
   console.log(problems.length ? `problems:\n${problems.join("\n")}` : "no problems");

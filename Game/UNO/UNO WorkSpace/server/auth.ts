@@ -150,12 +150,29 @@ export class AuthService {
       (account.id.toLocaleLowerCase("en-US") === text || account.username.toLocaleLowerCase("en-US").includes(text))).slice(0, 20).map(publicAccount);
   }
 
-  socialState(accountId: string): FriendState {
+  /**
+   * The friend list. Presence (`online`, `game`) is optional and filled in by the caller that owns the live sockets —
+   * this service only knows the accounts and the friendships.
+   */
+  socialState(accountId: string, presence?: (id: string) => { online: boolean; game: string | null; roomCode?: string | null; watching?: boolean }): FriendState {
     const { friendships, friendRequests } = this.ensureSocialStore();
     const ids = (friendships[accountId] ?? []).map((id) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
     const incoming = Object.entries(friendRequests).filter(([, list]) => list.includes(accountId)).map(([id]) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
     const outgoing = (friendRequests[accountId] ?? []).map((id) => this.findAccount(id)).filter((a): a is PublicAccount => !!a);
-    const safe = (account: PublicAccount): FriendProfile => ({ id: account.id, username: account.username, avatarUrl: account.avatarUrl });
+    const safe = (account: PublicAccount): FriendProfile => {
+      const state = presence?.(account.id);
+      return {
+        id: account.id,
+        username: account.username,
+        avatarUrl: account.avatarUrl,
+        ...(state ? {
+          online: state.online,
+          game: (state.game ?? null) as FriendProfile["game"],
+          roomCode: state.roomCode ?? null,
+          watching: state.watching === true
+        } : {})
+      };
+    };
     return { friends: ids.map(safe), incoming: incoming.map(safe), outgoing: outgoing.map(safe) };
   }
 

@@ -404,6 +404,9 @@
 /* ---- Tutorial: the coach bar above the action bar, and an outline around what it talks about ---- */
 .ua-app:has(> .ua-coach) { grid-template-rows: auto auto minmax(0, 1fr); }
 .ua-app:has(> .ua-coach):has(> .ua-actionbar-row) { grid-template-rows: auto auto auto minmax(0, 1fr); }
+/* The player-vs-player table has no top bar: the action bar (when there is one) and the table share the window. */
+.ua-app[data-bare="true"] { grid-template-rows: minmax(0, 1fr); }
+.ua-app[data-bare="true"]:has(> .ua-actionbar-row) { grid-template-rows: auto minmax(0, 1fr); }
 .ua-coach { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 10px; padding: 7px 10px; border: 1px solid var(--ua-warn); border-radius: 6px; background: var(--ua-coach-bg); font-size: 14px; }
 .ua-coach-progress { padding: 2px 8px; border-radius: 999px; background: var(--ua-warn); color: var(--ua-surface); font-size: 12px; font-weight: 700; white-space: nowrap; }
 .ua-coach-text { margin: 0; line-height: 1.55; }
@@ -591,3 +594,124 @@ html[data-theme="dark"] .ua-move-bubble::after { background: var(--ua-surface); 
 html[data-theme="dark"] .ua-badge { background: rgba(10, 14, 16, .88); }
 html[data-theme="dark"] .ua-coach { background: var(--ua-surface-2); border-color: var(--ua-border); color: var(--ua-text); }
 html[data-theme="dark"] .ua-actionbar { background: var(--ua-surface); border-color: var(--ua-border); }
+
+/* ---- The table's own controls: a compact bar floating in the board's top-right corner ---- */
+.ua-tablebar { position: absolute; z-index: 12; top: 8px; right: 8px; display: flex; align-items: center; gap: 6px; max-width: calc(100% - 16px); padding: 4px 6px; border: 1px solid var(--ua-border); border-radius: 8px; background: var(--ua-panel-bg); backdrop-filter: blur(3px); box-shadow: 0 2px 10px var(--ua-shadow); font-size: 13px; }
+.ua-roomchip { display: flex; align-items: baseline; gap: 6px; min-width: 0; max-width: 46vw; overflow: hidden; white-space: nowrap; color: var(--ua-text-2); }
+.ua-roomchip-label { font-size: 12px; color: var(--ua-text-3); }
+.ua-roomchip strong { letter-spacing: .12em; color: var(--ua-text); }
+.ua-roomchip-people { font-size: 12px; }
+.ua-roomchip-status { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: 12px; color: var(--ua-text-3); }
+.ua-tablebar-error { max-width: 30vw; overflow: hidden; text-overflow: ellipsis; color: var(--ua-danger); font-size: 12px; }
+/* The hamburger: three lines, a plain square button so it reads as a menu, not as a card. */
+.ua-menu-anchor { position: relative; flex: none; }
+.ua-hamburger { display: grid; align-content: center; justify-items: center; gap: 3px; width: 34px; height: 28px; padding: 0; border: 1px solid var(--ua-border-2); border-radius: 5px; background: var(--ua-surface); color: inherit; cursor: pointer; }
+.ua-hamburger:hover { background: var(--ua-surface-3); }
+.ua-hamburger:focus-visible { outline: 3px solid var(--ua-info); outline-offset: 2px; }
+.ua-hamburger span { display: block; width: 16px; height: 2px; border-radius: 1px; background: var(--ua-text); }
+.ua-menu { position: absolute; z-index: 14; top: calc(100% + 5px); right: 0; min-width: 150px; display: grid; gap: 2px; padding: 5px; border: 1px solid var(--ua-border); border-radius: 8px; background: var(--ua-surface); box-shadow: 0 10px 26px rgba(20, 28, 32, .28); }
+.ua-menu-item { min-height: 36px; padding: 6px 12px; border: 0; border-radius: 5px; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; white-space: nowrap; }
+.ua-menu-item:hover:not(:disabled) { background: var(--ua-surface-3); }
+.ua-menu-item:disabled { opacity: .5; cursor: not-allowed; }
+.ua-menu-danger { color: var(--ua-danger); }
+.ua-room-page-settings { flex: none; padding: 5px 12px; border: 1px solid var(--ua-border-2); border-radius: 5px; color: inherit; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.ua-room-page-settings:hover { background: var(--ua-surface-3); }
+.ua-room-page-notice { color: var(--ua-warn); }
+.ua-room-card { display: grid; gap: 8px; padding: 10px; border: 1px solid var(--ua-border); border-radius: 8px; background: var(--ua-surface-2); }
+/* Phones: the bar shrinks to the room number and the two buttons, so it never covers a card. */
+.ua-app[data-compact="true"] .ua-tablebar { top: 4px; right: 4px; padding: 3px 4px; gap: 4px; font-size: 12px; }
+.ua-app[data-compact="true"] .ua-roomchip { max-width: 42vw; gap: 4px; }
+.ua-app[data-compact="true"] .ua-roomchip-status, .ua-app[data-compact="true"] .ua-roomchip-label { display: none; }
+.ua-app[data-compact="true"] .ua-hamburger { width: 30px; height: 26px; }
+html[data-theme="dark"] .ua-tablebar { background: rgba(30, 36, 40, .92); border-color: var(--ua-border); }
+html[data-theme="dark"] .ua-menu { background: var(--ua-surface-2); border-color: var(--ua-border-2); }
+html[data-theme="dark"] .ua-room-card { background: var(--ua-surface-2); }
+html[data-theme="dark"] .ua-hamburger { background: var(--ua-surface-2); }
+
+/* ---- Spotlight tour: a dimming layer with a hole over the step's target, and a floating tooltip ---- */
+.ua-spot { position: fixed; z-index: 45; pointer-events: none; }
+/* Four dimming panels around the target. They block clicks everywhere except the target itself. */
+.ua-spot-scrim { position: fixed; inset: 0; z-index: 44; pointer-events: none; }
+.ua-spot-scrim > i { position: absolute; display: block; background: rgba(12, 18, 22, .58); pointer-events: auto; }
+/* The ring around the target: no fill, so the target itself stays at full brightness and stays clickable. */
+.ua-spot-ring { position: fixed; z-index: 45; pointer-events: none; border: 2px solid var(--ua-warn); border-radius: 8px; box-shadow: 0 0 0 3px rgba(255, 255, 255, .35), 0 0 18px rgba(183, 121, 31, .55); transition: opacity .24s ease; }
+/* One column, top to bottom: head row, text, notice, buttons. Never side by side — the text needs the full width. */
+.ua-spot-tip { position: fixed; z-index: 46; width: min(440px, calc(100vw - 24px)); max-height: min(60vh, calc(100vh - 24px)); overflow-y: auto; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 10px; padding: 14px 16px; border: 1px solid var(--ua-warn); border-radius: 10px; background: var(--ua-surface); color: var(--ua-text); box-shadow: 0 12px 32px rgba(20, 28, 32, .3); font-size: 14px; text-align: left; opacity: 1; transition: opacity .24s ease; }
+@supports (height: 100dvh) { .ua-spot-tip { max-height: min(60dvh, calc(100dvh - 24px)); } }
+.ua-spot-tip[data-fading="true"] { opacity: 0; }
+.ua-spot-tip-head { display: flex; align-items: center; gap: 8px; }
+.ua-spot-progress { flex: none; padding: 1px 8px; border-radius: 999px; background: var(--ua-warn); color: var(--ua-surface); font-size: 12px; font-weight: 700; }
+.ua-spot-tip-title { flex: 1 1 auto; min-width: 0; font-size: 13px; color: var(--ua-text-3); }
+.ua-spot-close { flex: none; width: 30px; height: 30px; min-height: 30px; display: grid; place-items: center; padding: 0; border: 1px solid var(--ua-border); border-radius: 6px; background: var(--ua-surface-2); color: var(--ua-text-2); font: inherit; line-height: 1; cursor: pointer; }
+.ua-spot-close:hover { background: var(--ua-surface-3); color: var(--ua-text); }
+.ua-spot-close:focus-visible { outline: 3px solid var(--ua-info); outline-offset: 2px; }
+.ua-spot-tip p { margin: 0; line-height: 1.7; overflow-wrap: anywhere; }
+.ua-spot-tip .ua-spot-notice { color: var(--ua-danger); font-size: 12px; }
+/* The buttons get their own row under the text, right-aligned, never beside it. */
+.ua-spot-tip-buttons { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.ua-spot-tip-buttons button { min-height: 34px; padding: 4px 16px; }
+.ua-spot-tip-buttons:empty { display: none; }
+html[data-theme="dark"] .ua-spot-tip { background: var(--ua-surface-2); border-color: var(--ua-border-2); }
+@media (prefers-reduced-motion: reduce) {
+  .ua-spot-ring, .ua-spot-tip { transition-duration: 0s !important; }
+}
+
+/* The table bar folds away during a game: one small key in the corner instead of the whole row. */
+.ua-minibar { position: absolute; z-index: 12; top: 6px; right: 6px; display: flex; }
+/* Small and half-transparent, so it never competes with a card underneath; it darkens on hover or focus. */
+.ua-hamburger-mini { width: 26px; height: 22px; gap: 2px; padding: 0; border-color: transparent; background: rgba(255, 255, 255, .55); opacity: .55; transition: opacity .16s ease, background .16s ease, border-color .16s ease; }
+.ua-hamburger-mini span { width: 12px; height: 1.5px; }
+.ua-hamburger-mini:hover, .ua-hamburger-mini:focus-visible { opacity: 1; background: var(--ua-surface); border-color: var(--ua-border-2); }
+html[data-theme="dark"] .ua-hamburger-mini { background: rgba(30, 36, 40, .55); }
+html[data-theme="dark"] .ua-hamburger-mini:hover, html[data-theme="dark"] .ua-hamburger-mini:focus-visible { background: var(--ua-surface-2); }
+
+/* Who is watching: one line floating in the corner, under the folded bar, taking no layout space. */
+.ua-watchers { position: absolute; z-index: 11; top: 30px; right: 8px; max-width: min(46vw, 260px); margin: 0; padding: 2px 9px; border-radius: 999px; background: rgba(255, 255, 255, .8); color: var(--ua-text-2); font-size: 12px; line-height: 1.5; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; box-shadow: 0 1px 4px var(--ua-shadow); }
+html[data-theme="dark"] .ua-watchers { background: rgba(30, 36, 40, .82); }
+
+/*
+ * A revealed life card: the card lifts into the middle of the screen on its side (life cards lie sideways on the mat),
+ * and the event it triggered fades in underneath. It overlays the board instead of taking a row off the top.
+ */
+.ua-reveal { position: fixed; z-index: 47; inset: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; justify-items: center; align-content: center; gap: 14px; padding: max(18px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); box-sizing: border-box; background: rgba(10, 14, 16, .62); animation: ua-reveal-in .18s ease-out; }
+@keyframes ua-reveal-in { from { opacity: 0; } to { opacity: 1; } }
+/* The stage centres the card; container query units keep it as large as the space allows. */
+.ua-reveal-stage { position: relative; align-self: center; width: 100%; height: 100%; min-height: 0; container-type: size; display: grid; place-items: center; }
+/* Sideways: rotated a quarter turn, keeping the 600:838 card whole, and it grows in from its resting size. */
+.ua-reveal-card { display: block; width: auto; height: min(100cqw, calc(100cqh * 600 / 838)); aspect-ratio: 600 / 838; transform: rotate(90deg) scale(1); transform-origin: center; border-radius: 6px; box-shadow: 0 18px 48px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .7), 0 0 34px rgba(255, 208, 120, .55); animation: ua-reveal-card-in .26s cubic-bezier(.2, .8, .3, 1); user-select: none; -webkit-user-drag: none; }
+@keyframes ua-reveal-card-in { from { transform: rotate(90deg) scale(.82); opacity: .3; } to { transform: rotate(90deg) scale(1); opacity: 1; } }
+.ua-reveal-card.ua-reveal-missing { display: grid; place-items: center; background: var(--ua-surface); color: var(--ua-text-2); font-size: 16px; }
+/* The event text and its choices, under the card, fading in after it. */
+.ua-reveal-info { width: min(560px, 100%); display: grid; gap: 8px; padding: 12px 14px; border: 1px solid var(--ua-warn); border-radius: 10px; background: var(--ua-surface); color: var(--ua-text); box-shadow: 0 12px 32px rgba(0, 0, 0, .35); animation: ua-reveal-info-in .3s .1s ease-out backwards; }
+@keyframes ua-reveal-info-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.ua-reveal-name { margin: 0; font-size: 13px; color: var(--ua-text-3); }
+.ua-reveal-event { margin: 0; font-weight: 600; line-height: 1.6; }
+.ua-reveal-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.ua-reveal-tab { min-height: 30px; padding: 2px 10px; border: 1px solid var(--ua-border-2); border-radius: 6px; background: var(--ua-surface-2); color: inherit; font: inherit; font-size: 12px; cursor: pointer; }
+.ua-reveal-tab[aria-pressed="true"] { border-color: var(--ua-accent); background: var(--ua-accent); color: var(--ua-accent-text); }
+.ua-reveal-buttons { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.ua-reveal-buttons button { min-height: 38px; padding: 4px 18px; }
+html[data-theme="dark"] .ua-reveal-info { background: var(--ua-surface-2); border-color: var(--ua-border-2); }
+/* Short windows (phone landscape): the card shrinks and the text sits in the same column. */
+@media (max-height: 520px) {
+  .ua-reveal { gap: 8px; padding: 8px; }
+  .ua-reveal-info { gap: 6px; padding: 8px 10px; font-size: 12px; }
+  .ua-reveal-event { line-height: 1.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ua-reveal, .ua-reveal-card, .ua-reveal-info { animation-duration: 0s !important; }
+}
+
+/* A card on its way from the field to its pile (see flyCard.ts): drawn from its last on-screen box, then moved. */
+.ua-flycard { position: fixed; z-index: 48; pointer-events: none; overflow: hidden; border-radius: .35em; box-shadow: 0 8px 22px rgba(0, 0, 0, .35); will-change: transform, opacity; }
+.ua-flycard img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* The pile's new top card settles in as the flight lands, instead of snapping into place. */
+.ua-slot.is-landing { animation: ua-landing .28s cubic-bezier(.2, .8, .3, 1); }
+@keyframes ua-landing { from { transform: scale(.82); opacity: .35; } to { transform: scale(1); opacity: 1; } }
+/* Opponent's half is rotated, so the landing has to come back to its own orientation. */
+.ua-half[data-side="opponent"] .ua-slot.is-landing { animation-name: ua-landing-flipped; }
+@keyframes ua-landing-flipped { from { transform: rotate(180deg) scale(.82); opacity: .35; } to { transform: rotate(180deg) scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ua-slot.is-landing { animation: none; }
+  .ua-flycard { display: none; }
+}

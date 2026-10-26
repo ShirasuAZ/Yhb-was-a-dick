@@ -8,7 +8,6 @@ import { ShogiApp } from "./components/ShogiApp.tsx";
 import { AccountDeletionPage } from "./components/AccountDeletionPage.tsx";
 import { ArknightsRoot } from "@arknights/ArknightsRoot.tsx";
 import { LobbyProfile } from "./components/LobbyProfile.tsx";
-import { ThemeControl } from "./components/ThemeControl.tsx";
 import { VersionBadge } from "./components/VersionBadge.tsx";
 import { ConnectionBadge } from "./components/ConnectionBadge.tsx";
 import { socket } from "./socket.ts";
@@ -44,7 +43,7 @@ function PublicHome() {
       <nav className="lobby-account" aria-label="主导航">
         <a className="my-link" href="/about"><span className="my-avatar-placeholder" aria-hidden="true">?</span><strong>我的</strong></a>
         <ConnectionBadge status={connection} />
-        <ThemeControl /><VersionBadge />
+        <VersionBadge />
       </nav>
     </header>
     <main className="lobby-main"><LobbyProfile onEnterGame={() => window.location.assign("/uno")} /></main>

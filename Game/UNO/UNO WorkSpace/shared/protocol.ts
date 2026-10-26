@@ -303,6 +303,8 @@ export interface ClientToServerEvents {
   "ua:start_game": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
   "ua:mulligan": (payload: { redraw: boolean }, ack: (result: MutationAck) => void) => void;
   "ua:leave_room": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
+  /** Host only: close the room for everyone in it. */
+  "ua:dissolve_room": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;
   /** A move of the running game; the payload is checked by the Arknights rules engine (UnionArenaAction in the Arknights workspace). */
   "ua:action": (payload: unknown, ack: (result: MutationAck) => void) => void;
   "ua:return_to_lobby": (payload: Record<string, never>, ack: (result: MutationAck) => void) => void;

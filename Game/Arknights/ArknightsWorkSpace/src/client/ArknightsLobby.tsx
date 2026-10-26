@@ -1,6 +1,6 @@
 import type { Account } from "./cards.ts";
+import { ACCOUNT_SETTINGS } from "./ArknightsApp.tsx";
 import "./arknights.css";
-import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 const card = (file: string): string => `/assets/arknights/cards/${encodeURIComponent(file)}`;
 
@@ -17,7 +17,7 @@ export function ArknightsLobby({ account }: { account: Account }) {
     <header className="ua-lobby-header">
       <button type="button" className="ua-back" onClick={() => window.location.assign("/")}>返回首页</button>
       <h1>明日方舟 UNION ARENA</h1>
-      <ThemeControl />
+      <a className="ua-room-page-settings" href={ACCOUNT_SETTINGS}>账号设置</a>
       <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
     </header>
     <main className="ua-lobby-modes" aria-label="选择游戏模式">
