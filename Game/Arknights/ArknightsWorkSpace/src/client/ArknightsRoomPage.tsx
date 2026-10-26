@@ -1,6 +1,7 @@
 import type { Account } from "./cards.ts";
 import { ARKNIGHTS_HOME } from "./ArknightsApp.tsx";
 import "./arknights.css";
+import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 const card = (file: string): string => `/assets/arknights/cards/${encodeURIComponent(file)}`;
 
@@ -23,6 +24,7 @@ export function ArknightsRoomPage({ account, roomCode, busy, error, onRoomCode, 
     <header className="ua-room-page-header">
       <button type="button" className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
       <div className="ua-room-page-brand"><p className="eyebrow">LayUDown · 在线对局</p><h1>明日方舟 UNION ARENA</h1></div>
+      <ThemeControl />
       <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
     </header>
     <main className="ua-room-page-main">

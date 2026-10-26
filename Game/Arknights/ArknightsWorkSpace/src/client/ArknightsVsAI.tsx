@@ -13,6 +13,7 @@ import { ERROR_TEXT, useCatalog, type Account } from "./cards.ts";
 import { useGameController } from "./game.tsx";
 import { DECK_SIZE, MAX_COPIES, useDeck } from "./deck.ts";
 import "./arknights.css";
+import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 type Level = "easy" | "normal" | "hard" | "master";
 const LEVELS: ReadonlyArray<{ id: Level; name: string; text: string }> = [
@@ -131,6 +132,7 @@ export function ArknightsVsAI({ account }: { account: Account }) {
       <header className="ua-lobby-header">
         <button type="button" className="ua-back" onClick={() => window.location.assign(ARKNIGHTS_HOME)}>返回大厅</button>
         <h1>人机对战</h1>
+        <ThemeControl />
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </header>
       <main className="ua-ai-setup">
@@ -206,6 +208,7 @@ export function ArknightsVsAI({ account }: { account: Account }) {
       <div className="ua-roominfo"><span className="ua-roominfo-main">人机对战 · {cpu.username}{game.step === "turn" ? ` · 第 ${game.turn} 回合 · ${game.turnPlayerId === account.id ? "你的回合" : "电脑的回合"}` : ""}</span></div>
       <div className="ua-header-end">
         <button type="button" className="ua-toggle" onClick={() => { matchRef.current = null; bump(); }}>重新选择</button>
+        <ThemeControl />
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </div>
     </header>

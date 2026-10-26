@@ -20,6 +20,7 @@ import type { RoomRole } from "@shared/social.ts";
 import { AP_COUNT, DECK_SIZE, MAX_COPIES, useDeck } from "./deck.ts";
 import { PRESET_DECKS } from "../shared/ai/decks.ts";
 import "./arknights.css";
+import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 type UnionSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
@@ -277,6 +278,7 @@ export function ArknightsApp({ account, token }: { account: Account; token: stri
       <div className="ua-header-end">
         <button type="button" className="ua-toggle" onClick={() => setRoomWindowOpen(true)}>房间信息</button>
         <button ref={toggleRef} type="button" className="ua-toggle" aria-expanded={panelVisible} aria-controls="ua-panel" aria-label={compact ? "打开工具面板" : panelVisible ? "收起侧栏" : "展开侧栏"} onClick={togglePanel}>{compact ? "工具" : panelVisible ? "侧栏 ›" : "‹ 侧栏"}</button>
+        <ThemeControl />
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </div>
     </header>

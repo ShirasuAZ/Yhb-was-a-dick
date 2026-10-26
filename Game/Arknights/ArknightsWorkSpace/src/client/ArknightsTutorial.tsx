@@ -7,6 +7,7 @@ import { ERROR_TEXT, useCatalog, type Account } from "./cards.ts";
 import { useGameController } from "./game.tsx";
 import { createTutorial, finishMulligan, stepDone, testAction, TUTORIAL_OPPONENT, TUTORIAL_STEPS } from "./tutorial.ts";
 import "./arknights.css";
+import { ThemeControl } from "@uno-client/components/ThemeControl.tsx";
 
 /** How long test takes for each of its moves, so the player can follow them. */
 const TEST_DELAY_MS = 750;
@@ -93,6 +94,7 @@ export function ArknightsTutorial({ account }: { account: Account }) {
       <div className="ua-roominfo"><span className="ua-roominfo-main">新手教程 · 第 {game.turn || 0} 回合{error ? ` · ${error}` : ""}</span></div>
       <div className="ua-header-end">
         <button type="button" className="ua-toggle" onClick={restart}>重新开始</button>
+        <ThemeControl />
         <div className="ua-account" title={account.username}>{account.avatarUrl ? <img src={account.avatarUrl} alt="" /> : null}<span>{account.username}</span></div>
       </div>
     </header>
