@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { actingPlayerId, applyAction, type EngineContext } from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import { legalActions } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/legal.ts";
-import { chooseHeuristic, type HeuristicLevel } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/heuristic.ts";
-import { cloneMatch, createMatch, makeRng, wantsMulligan, type Match } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/decks.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
-import { checkUnionArenaDeck } from "../../../../Arknights/ArknightsWorkSpace/src/server/types.ts";
-import { chooseBySearch, determinize } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/search.ts";
-import { actionFeatures, ACTION_FEATURES, observe, OBSERVATION_SIZE } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/features.ts";
-import { chooseByPolicy, loadPolicy, type PolicyWeightsJson } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/policy.ts";
-import weights from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/policy-weights.json";
-import { cardContext, isAutomated } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/registry.ts";
+import { actingPlayerId, applyAction, type EngineContext } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import { legalActions } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/legal.ts";
+import { chooseHeuristic, type HeuristicLevel } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/heuristic.ts";
+import { cloneMatch, createMatch, makeRng, wantsMulligan, type Match } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/match.ts";
+import { deckCards, PRESET_DECKS } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/decks.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
+import { checkUnionArenaDeck } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/types.ts";
+import { chooseBySearch, determinize } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/search.ts";
+import { actionFeatures, ACTION_FEATURES, observe, OBSERVATION_SIZE } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/features.ts";
+import { chooseByPolicy, loadPolicy, type PolicyWeightsJson } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/policy.ts";
+import weights from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/policy-weights.json";
+import { cardContext, isAutomated } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/registry.ts";
 
 const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
 const ctx: EngineContext = cardContext((id) => byId.get(id));

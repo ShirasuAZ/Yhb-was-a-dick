@@ -17,7 +17,7 @@ export default defineConfig({
     alias: {
       "@shared": path.resolve(process.cwd(), "shared"),
       "@uno-client": path.resolve(process.cwd(), "client/src"),
-      "@arknights": path.resolve(process.cwd(), "../../Arknights/ArknightsWorkSpace/src/client"),
+      "@arknights": path.resolve(process.cwd(), "../../unionarena/UnionArenaWorkSpace/Arknights/src/client"),
       "react/jsx-runtime": path.resolve(process.cwd(), "node_modules/react/jsx-runtime.js"),
       "react/jsx-dev-runtime": path.resolve(process.cwd(), "node_modules/react/jsx-dev-runtime.js"),
       react: path.resolve(process.cwd(), "node_modules/react"),
@@ -36,6 +36,14 @@ export default defineConfig({
         target: "http://127.0.0.1:3000"
       },
       "/assets/arknights": {
+        target: "http://127.0.0.1:3000"
+      },
+      // Card art and translations for every title come from the room service. The home page's own cover images live in
+      // client/public/assets/union-arena and are served by Vite, so only these two sub-paths are proxied.
+      "/assets/union-arena/cards": {
+        target: "http://127.0.0.1:3000"
+      },
+      "/assets/union-arena/translations": {
         target: "http://127.0.0.1:3000"
       },
       "/shogi-socket.io": {

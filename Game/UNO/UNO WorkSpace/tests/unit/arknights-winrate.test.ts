@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
-import { actingPlayerId, applyAction, type EngineContext } from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import { chooseHeuristic } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/heuristic.ts";
-import { cloneMatch, createMatch, dealMatch, makeRng, shuffle, wantsMulligan } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/decks.ts";
-import { estimateWinRate, loadWinRate, type WinRateWeightsJson } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/winrate.ts";
-import weights from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/winrate-weights.json";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
-import { UnionArenaRoom } from "../../../../Arknights/ArknightsWorkSpace/src/server/rooms.ts";
-import type { UnionArenaAccount, UnionArenaAuthProvider } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { cardContext } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/registry.ts";
+import { actingPlayerId, applyAction, type EngineContext } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import { chooseHeuristic } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/heuristic.ts";
+import { cloneMatch, createMatch, dealMatch, makeRng, shuffle, wantsMulligan } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/match.ts";
+import { deckCards, PRESET_DECKS } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/decks.ts";
+import { estimateWinRate, loadWinRate, type WinRateWeightsJson } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/winrate.ts";
+import weights from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/winrate-weights.json";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
+import { UnionArenaRoom } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/rooms.ts";
+import type { UnionArenaAccount, UnionArenaAuthProvider } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { cardContext } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/registry.ts";
 
 const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
 const ctx: EngineContext = cardContext((id) => byId.get(id));

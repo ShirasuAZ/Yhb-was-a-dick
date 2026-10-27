@@ -8,7 +8,7 @@
     "paths": {
       "@shared/*": ["shared/*"],
       "@uno-client/*": ["client/src/*"],
-      "@arknights/*": ["../../Arknights/ArknightsWorkSpace/src/client/*"],
+      "@arknights/*": ["../../unionarena/UnionArenaWorkSpace/Arknights/src/client/*"],
       "react": ["node_modules/@types/react"],
       "react/*": ["node_modules/@types/react/*"],
       "socket.io-client": ["node_modules/socket.io-client"],
@@ -26,5 +26,5 @@
     "noEmit": true,
     "types": ["node", "vitest/globals"]
   },
-  "include": ["client/src", "server", "shared", "tests", "electron", "../../Arknights/ArknightsWorkSpace/src/client", "../../Arknights/ArknightsWorkSpace/src/server", "../../Arknights/ArknightsWorkSpace/src/shared", "../../Hon shugi/Hon shugi WorkSpace/src/engine.ts", "vite.config.ts", "vitest.config.ts", "playwright.config.ts"]
+  "include": ["client/src", "server", "shared", "tests", "electron", "../../unionarena/UnionArenaWorkSpace/Arknights/src/client", "../../unionarena/UnionArenaWorkSpace/Arknights/src/server", "../../unionarena/UnionArenaWorkSpace/Arknights/src/shared", "../../Hon shugi/Hon shugi WorkSpace/src/engine.ts", "vite.config.ts", "vitest.config.ts", "playwright.config.ts"]
 }

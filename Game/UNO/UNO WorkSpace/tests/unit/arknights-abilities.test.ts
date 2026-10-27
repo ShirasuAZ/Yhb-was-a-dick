@@ -10,13 +10,13 @@ import {
   type EngineContext,
   type EngineGame,
   type EnginePlayer
-} from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import type { UnionArenaAction, UnionArenaCardStats, UnionArenaChoice, UnionArenaFieldCard } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { cardContext } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/registry.ts";
-import { draw, may, onPlay, onSidelined, bp } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/dsl.ts";
-import type { Ability } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/types.ts";
-import { cloneMatch } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/match.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
+} from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import type { UnionArenaAction, UnionArenaCardStats, UnionArenaChoice, UnionArenaFieldCard } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { cardContext } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/registry.ts";
+import { draw, may, onPlay, onSidelined, bp } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/dsl.ts";
+import type { Ability } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/types.ts";
+import { cloneMatch } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/match.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
 
 const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
 const ctx = cardContext((id) => byId.get(id));

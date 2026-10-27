@@ -1,0 +1,5928 @@
+[
+ {
+  "number": "UE10BT/AOT-1-001",
+  "name": "Erwin Smith",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-002",
+  "name": "Erwin Smith",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top three cards of your deck. Reveal up to one <Levi> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.\n《Activate: Main》 《Pay 1 AP》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-003",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 You may choose one active [Inheritor of the Titan] or [Pure Titan] affinity card on your field or your opponent's field and switch it to resting. If you do, the player whose character was switched to resting with this ability draws a card.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-004",
+  "name": "Eld Gin",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have paid an AP cost during the attack phase this turn, this character gains 2000 BP.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-005",
+  "name": "Oruo Bozad",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-006",
+  "name": "Petra Rall",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-007",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-008",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Attacking"
+  ],
+  "abilityText": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 500 BP until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-009",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Attacking"
+  ],
+  "abilityText": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character with 3500 or less BP on your opponent's front line and return it to their hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-010",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "If on the Front Line",
+   "When Attacking"
+  ],
+  "abilityText": "《If on the Front Line》 At the start of your attack phase, if this character is active, choose up to one of your AP cards and switch it to active.\n《When Attacking》 You may pay 1 AP. If you do, choose up to one character on your field. It gains 1000 BP and \"This character cannot be chosen by your opponent's trigger abilities\" until the end of the turn.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-011",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": {
+   "targets": [
+    "Levi"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Levi> Switch to active. May move to the front line.\n《Once Per Turn》 At the end of this character's attack, you may pay 1 AP. If you do, switch this character to active.\n《When Played》 This character gains 1000 BP, 《Double Attack》 (When this character attacks for the first time this turn, switch it to active), and \"When this character attacks a third time this turn, it gains 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the attack\" until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-012",
+  "name": "Ymir",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-013",
+  "name": "Ymir",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Opponent's Turn》 If <Historia Reiss> is on your field, this character gains 1000 BP.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-014",
+  "name": "Ymir (Jaw Titan)",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Ymir"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Ymir> Switch to active. May move to the front line.\n《When Attacking》 《Once Per Turn》 Draw a card, then place one card from your hand into your sideline. Then, if you have six or more event cards in your sideline, you may switch this character to active.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-015",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-016",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a green or red card on your opponent's field, reduce this card's required energy by 《Blue×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-017",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-018",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Double Block"
+  ],
+  "abilityText": "《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-019",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-020",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top two cards of your deck. {Place them on the top of your deck in any order}. If a character with \"Ymir\" in its card name is on your field, {Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline} instead.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-021",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If a character with \"Ymir\" in its card name is on your field, this character gains 500 BP.\n《When Played》 If you have used an event card this turn, choose up to one of your AP cards and switch it to active. You can only activate this <Historia Reiss> ability one time each turn.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character with 3500 or less BP on your opponent's front line and return it to their hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-022",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": {
+   "targets": [
+    "Historia Reiss"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Historia Reiss> Switch to active. May move to the front line.\nThis character gains all abilities listed below if you have the required number of event cards in your sideline.\n・Two or more: 《When Attacking》 Choose up to one other [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn.\n・Four or more: 《Activate: Main》 《If on the Front Line》 《Once Per Turn》 If you have used an event card this turn, choose up to one of your AP cards and switch it to active.\n・Six or more: 《Impact (1)》",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-023",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-024",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This character gains all abilities listed below if you have the required number of event cards in your sideline.\n・Two or more: This character gains 《Blue》 energy generation.\n・Four or more: This character gains 1000 BP.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-025",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Your opponent cannot activate 《Active Trigger》 abilities during trigger checks resulting from damage dealt by this character.\n《When Played》 Choose up to one character with 4000 or less BP on your opponent's front line and return it to their hand.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-026",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Blue》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-027",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)\n《When Played》 Look at the top five cards of your deck. Reveal up to one blue event card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-028",
+  "name": "Former Headquarters of the Scout Regiment",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Reveal the top card of your deck. If the revealed card is a blue character card with 3 or less required energy, add it to your hand. If you do not add it to your hand, place it on the top of your deck.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-029",
+  "name": "Memory",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Draw a card, then place one card from your hand into your sideline. Choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-030",
+  "name": "You Call That Clean?! Do It All Again.",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-031",
+  "name": "Cleanup",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top two cards of your deck. Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline. Draw two cards.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-032",
+  "name": "Bombs",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to one character with 3500 or less BP on your opponent's front line and return it to their hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-033",
+  "name": "Historia's Resolve",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with {2000} or less BP on your opponent's front line and sideline it. If <Historia Reiss> is on your field, add 1000 to the BP range of the character you may choose with this ability for each event card in your sideline.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-034",
+  "name": "Levi's Barrage",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If <Levi> is on your field, {5000 or less BP} instead.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-035",
+  "name": "Kenny Ackermann",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a blue or red card on your opponent's field, reduce this card's required energy by 《Green×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-036",
+  "name": "Kenny Ackermann",
+  "type": "character",
+  "color": "green",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Once Per Turn》 You can only activate this ability on the turn this character is played. Choose one character on your opponent's front line with BP equal to or less than this character's BP and sideline it.\n《Activate: Main》 《Place 1 Card From Hand Into Sideline》 This character gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-037",
+  "name": "Rod Reiss",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-038",
+  "name": "Rod Reiss (Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "Rod Reiss"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Rod Reiss> Switch to active. May move to the front line.\n《During Your Turn》 This character gains 2000 BP. If there is an active character on your opponent's front line, this character also gains 《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)\n《When Sidelined》 Draw a card.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-039",
+  "name": "Cart Titan",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-040",
+  "name": "Pure Titan (Small Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-041",
+  "name": "Pure Titans (Zeke's Titans)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-042",
+  "name": "Pure Titan (Peering Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-043",
+  "name": "Pure Titan (Bearded Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-044",
+  "name": "Ymir",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-045",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-046",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Choose one [Pure Titan] affinity card on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-047",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have three or more [Pure Titan] affinity cards on your field, this character gains 1500 BP.\n《When Played》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-048",
+  "name": "Zeke Jaeger (Beast Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 7,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Zeke Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "For each card with [Pure Titan] affinity on your field, reduce this card's required energy by 《Green×1》 while anywhere other than on your field.\n《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.\n《When Played》 All [Pure Titan] affinity cards on your field gain 1000 BP until the end of the turn.\n《Activate: Main》 《Once Per Turn》 Choose up to one [Pure Titan] affinity card on your field. It gains 《Impact (1)》 until the end of the turn. If this character is on your front line, all [Pure Titan] affinity cards on your field gain 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-049",
+  "name": "Pure Titan (Relaxing Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan／Abnormal Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Sidelined"
+  ],
+  "abilityText": "《When Sidelined》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-050",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-051",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top three cards of your deck. Reveal up to one [Marleyan Warrior] or [Pure Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-052",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Green》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-053",
+  "name": "Annie Leonhart (Female Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Annie Leonhart"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Annie Leonhart> Switch to active. May move to the front line.\n《If on the Front Line》 When a [Marleyan Warrior] affinity card performs Raid from your hand, reduce its required energy by 《Green×1》.\n《When Played》 Play up to one green character card with 3 or less required energy and 1 AP cost from your hand set to resting onto your field.\n《When Sidelined》 Return up to one base card of this Raided character to your hand.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-054",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Green》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-055",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 If you have 6 or more energy generation, draw a card.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-056",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This character generates energy even if it is on the front line.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Play one green character card with 2 or less required energy and 1 AP cost from your hand set to active onto your field."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-057",
+  "name": "Bertholdt Hoover (Colossal Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 10,
+  "apCost": 1,
+  "bp": 6000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Bertholdt Hoover"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [
+   "If on the Front Line"
+  ],
+  "abilityText": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.\n《Raid》 <Bertholdt Hoover> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《Damage (3)》 (When this character attacks and deals direct damage, deal 3 damage instead.)\n《When Played》 Sideline all characters with 0 required energy on your opponent's front line. This character gains \"This character cannot be chosen by your opponent's character or trigger abilities\" until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-058",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-059",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have 6 or more energy generation, this character gains 1000 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-060",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 5,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 3,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-061",
+  "name": "Reiner Braun (Armored Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 7,
+  "apCost": 1,
+  "bp": 5000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Reiner Braun"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)\n《During Opponent's Turn》 Your opponent cannot choose this character with abilities on character or event cards unless they pay 1 AP as an additional cost.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-062",
+  "name": "Titan Forest",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 《Once Per Turn》 This site gains 《Green》 energy generation until the end of the turn.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-063",
+  "name": "Titan Injection",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top four cards of your deck. Reveal one card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the card you revealed has [Pure Titan] affinity or \"Rod Reiss\" or \"Zeke Jaeger\" in its card name, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Play one green character card with 2 or less required energy and 1 AP cost from your hand set to active onto your field."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-064",
+  "name": "We Fight Now!! We Decide This Right Here!!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "{Choose one} of the abilities listed below. If there is a character with \"Reiner Braun\" in its card name on your field, {Choose all} instead.\n・Look at the top seven cards of your deck. Reveal up to two green character cards among them and add them to your hand. Place the remaining cards on the bottom of your deck in any order.\n・Play up to two green character cards with 4 or more required energy and 1 AP cost from your hand set to active onto your front line or perform Raid with them on characters on your field.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-065",
+  "name": "Marleyan Warriors",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-066",
+  "name": "I'm Going For a Perfect Game.",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Zeke Jaeger\" in its card name on your field, {5000 or less BP} instead.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-067",
+  "name": "Are We Doing It?! Now...?! Here?!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "You can only use one <Are We Doing It?! Now...?! Here?!> card per turn.\nChoose one card on your field. It gains \"This card gains 《Green》《Green》 energy generation\" until the end of the turn. If there is a character with \"Bertholdt Hoover\" in its card name on your field, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-068",
+  "name": "Carla Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-069",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 If you have an [Inheritor of the Titan] affinity card on your field, draw a card.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-070",
+  "name": "Hannes",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-071",
+  "name": "Eren Kruger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Sideline This Card》 You can only activate this ability if <Grisha Jaeger> is on your field. Draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-072",
+  "name": "Grisha Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top five cards of your deck. Reveal up to one red character card with \"Eren Jaeger\" in its card name or up to one <Key to the Basement> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-073",
+  "name": "Levi",
+  "type": "character",
+  "color": "red",
+  "energyCost": 5,
+  "apCost": 2,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Double Attack"
+  ],
+  "abilityText": "Play this character set to active onto your field.\n《Double Attack》 (When this character attacks for the first time this turn, switch it to active.)",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-074",
+  "name": "Ymir",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a blue or green card on your opponent's field, reduce this card's required energy by 《Red×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-075",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-076",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 When this character is returned to your hand from your field, you may place one red <Armin Arlelt> card with 1 required energy from your hand into your sideline. If you do, draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-077",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose one of the following:\n・Choose up to one other character on your field. It gains 1000 BP until the end of the turn.\n・The next time you choose a character with an ability that specifies a BP range this turn, add 1000 to the specified BP range. (You can choose a character with 3000 or less BP with an ability that lets you choose a character with 2000 or less BP.)\n《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Activate this character's 《When Played》 ability.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-078",
+  "name": "Christa Lenz",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-079",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-080",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top seven cards of your deck. Reveal up to one [Food] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-081",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have used a [Food] affinity card this turn, this character gains 500 BP and 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-082",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn. If you have used a [Food] affinity card this turn, switch this character to active.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-083",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-084",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-085",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-086",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 1000 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-087",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Red》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-088",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If this character is returned from your field to your hand, you may place one card from your hand into your sideline instead.\n《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 500 BP.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character with 2500 or less BP on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-089",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": {
+   "targets": [
+    "Mikasa Ackermann"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Mikasa Ackermann> Switch to active. May move to the front line.\n《When Played》 If there is a character with \"Eren Jaeger\" in its card name on your field, choose up to one character with 3500 or less BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-090",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-091",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Step"
+  ],
+  "abilityText": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)\n《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-092",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《When Attacking》 Place up to one other [104th Cadet Corps] affinity card on your front line on the top of your deck. If your front line is not full, play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-093",
+  "name": "Eren Jaeger (Attack Titan)",
+  "type": "character",
+  "color": "red",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)\n《During Your Turn》 This character gains 1000 BP.\n《When Attacking》 Choose one of the following:\n・Draw a card.\n・If you have 3 or less life, you may place two cards from your hand into your sideline. If you do, choose up to one character with 2000 or less BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-094",
+  "name": "Eren Jaeger (Attack Titan)",
+  "type": "character",
+  "color": "red",
+  "energyCost": 8,
+  "apCost": 1,
+  "bp": 5000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)\n《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Choose up to one character with 2000 or less BP on your opponent's front line and sideline it.\n《When Attacking》 《Once Per Turn》 Choose one of the following:\n・This character gains 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent) until the end of the turn.\n・If you have 3 or less life, switch this character to active.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-095",
+  "name": "Basement",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 3,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have a <Key to the Basement> card in your sideline, reduce this card's required energy by 《Red×2》 while in your hand.\n《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-096",
+  "name": "Hardened Punch",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a character with \"Eren Jaeger\" in its card name on your field, reduce this card's AP cost by 1 while in your hand.\nChoose up to one character with 5000 or less BP on your opponent's front line and sideline it. Choose up to one Raided <Eren Jaeger (Attack Titan)> on your field. It gains \"If your opponent sidelines this character with a 《Special Trigger》 ability, they add the card with the 《Special Trigger》 ability to their hand instead\" until the end of the turn.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-097",
+  "name": "Dedicate Your Heart!!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-098",
+  "name": "Key to the Basement",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top five cards of your deck. Reveal up to one <Basement> or [Inheritor of the Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the revealed card has 6 or more base required energy, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character with 2500 or less BP on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-099",
+  "name": "Omni-Directional Mobility Gear",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Draw two cards. Play up to two red cards with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. Those characters gain \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10BT/AOT-1-100",
+  "name": "A Steamed Potato, Sir!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [
+   "Food"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Place up to three cards from your hand on the bottom of your deck in any order. Draw a number of cards equal to the number of cards placed on the bottom of your deck with this ability. Choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-068",
+  "name": "Carla Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-070",
+  "name": "Hannes",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-075",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-084",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-085",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-087",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Red》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-090",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-091",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Step"
+  ],
+  "abilityText": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)\n《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-097",
+  "name": "Dedicate Your Heart!!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-101",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-102",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-103",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [
+   "Step"
+  ],
+  "abilityText": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-104",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 《#If on the Energy Line#》 Choose one of the following:\n・Look at the top three cards of your deck. Reveal up to one [104th Cadet Corps] affinity card with 3 or less required energy among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order.\n・Play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-105",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Impact (1)"
+  ],
+  "abilityText": "If there is a character with \"Eren Jaeger\" in its card name on your field, play this character set to active onto your field.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-106",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have 3 or less life, this character gains 1000 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-107",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《When Played》 Draw a card.\n《Activate: Main》 《If on the Front Line》 Place one card from your life area into your sideline. If you do, choose up to one of your AP cards and switch it to active. You can only activate this <Eren Jaeger> ability one time each turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-108",
+  "name": "Cadet Corps Grounds",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have five or more [104th Cadet Corps] affinity cards on your field, play this site set to active onto your field.\n《Activate: Main》 《Switch to Resting》 《Sideline This Card》 All [104th Cadet Corps] affinity cards on your field gain 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-109",
+  "name": "104th Cadet Corps",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character on your opponent's front line with BP equal to or less than 1000 multiplied by the number of [104th Cadet Corps] affinity cards on your field and sideline it.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-110",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": {
+   "targets": [
+    "Levi"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Levi> Switch to active. May move to the front line.\n《When Played》 Choose up to one character with 2500 or more BP on your opponent's front line. It loses 2000 BP until the end of the turn.\n《When Attacking》 You may pay 1 AP. If you do, choose up to one character with 2000 or less BP on your opponent's front line and return it to their hand.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-111",
+  "name": "Erwin Smith",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "If on the Front Line",
+   "When Attacking"
+  ],
+  "abilityText": "《If on the Front Line》 At the start of your attack phase, if this character is active, choose up to one of your AP cards and switch it to active.\n《When Attacking》 You may pay 1 AP. If you do, this character gains 500 BP until the end of the turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-112",
+  "name": "Armored Titan",
+  "type": "character",
+  "color": "green",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Opponent's Turn》 Your opponent cannot choose this character with abilities on character or event cards unless they pay 1 AP as an additional cost.\n《When Played》 Choose up to one character with {2000 or less BP} on your opponent's front line and sideline it. If you have 8 or more energy generation, {4000 or less BP} instead.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UE10ST/AOT-1-113",
+  "name": "Colossal Titan",
+  "type": "character",
+  "color": "green",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 5000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "If on the Front Line"
+  ],
+  "abilityText": "This card cannot be played onto your energy line.\n《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.\n《When Played》 Choose up to one site on your opponent's field and sideline it.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-001",
+  "name": "Erwin Smith",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-003",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 You may choose one active [Inheritor of the Titan] or [Pure Titan] affinity card on your field or your opponent's field and switch it to resting. If you do, the player whose character was switched to resting with this ability draws a card.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-004",
+  "name": "Eld Gin",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have paid an AP cost during the attack phase this turn, this character gains 2000 BP.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-005",
+  "name": "Oruo Bozad",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-006",
+  "name": "Petra Rall",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-007",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-008",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Attacking"
+  ],
+  "abilityText": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 500 BP until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-012",
+  "name": "Ymir",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-013",
+  "name": "Ymir",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Opponent's Turn》 If <Historia Reiss> is on your field, this character gains 1000 BP.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-015",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-016",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a green or red card on your opponent's field, reduce this card's required energy by 《Blue×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-017",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-018",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [
+   "Double Block"
+  ],
+  "abilityText": "《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-019",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-020",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top two cards of your deck. {Place them on the top of your deck in any order}. If a character with \"Ymir\" in its card name is on your field, {Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline} instead.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-023",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-024",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This character gains all abilities listed below if you have the required number of event cards in your sideline.\n・Two or more: This character gains 《Blue》 energy generation.\n・Four or more: This character gains 1000 BP.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-026",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Blue》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-028",
+  "name": "Former Headquarters of the Scout Regiment",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Reveal the top card of your deck. If the revealed card is a blue character card with 3 or less required energy, add it to your hand. If you do not add it to your hand, place it on the top of your deck.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-029",
+  "name": "Memory",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Draw a card, then place one card from your hand into your sideline. Choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-030",
+  "name": "You Call That Clean?! Do It All Again.",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-031",
+  "name": "Cleanup",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top two cards of your deck. Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline. Draw two cards.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-032",
+  "name": "Bombs",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to one character with 3500 or less BP on your opponent's front line and return it to their hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-033",
+  "name": "Historia's Resolve",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with {2000} or less BP on your opponent's front line and sideline it. If <Historia Reiss> is on your field, add 1000 to the BP range of the character you may choose with this ability for each event card in your sideline.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-035",
+  "name": "Kenny Ackermann",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a blue or red card on your opponent's field, reduce this card's required energy by 《Green×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-037",
+  "name": "Rod Reiss",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-039",
+  "name": "Cart Titan",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-040",
+  "name": "Pure Titan (Small Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-041",
+  "name": "Pure Titans (Zeke's Titans)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-042",
+  "name": "Pure Titan (Peering Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-043",
+  "name": "Pure Titan (Bearded Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-044",
+  "name": "Ymir",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-045",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-046",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Choose one [Pure Titan] affinity card on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-049",
+  "name": "Pure Titan (Relaxing Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Pure Titan／Abnormal Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Sidelined"
+  ],
+  "abilityText": "《When Sidelined》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-050",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-051",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top three cards of your deck. Reveal up to one [Marleyan Warrior] or [Pure Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-052",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Green》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-054",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Green》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-055",
+  "name": "Bertholdt Hoover",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 If you have 6 or more energy generation, draw a card.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-058",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-059",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have 6 or more energy generation, this character gains 1000 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-062",
+  "name": "Titan Forest",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 《Once Per Turn》 This site gains 《Green》 energy generation until the end of the turn.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-063",
+  "name": "Titan Injection",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top four cards of your deck. Reveal one card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the card you revealed has [Pure Titan] affinity or \"Rod Reiss\" or \"Zeke Jaeger\" in its card name, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Play one green character card with 2 or less required energy and 1 AP cost from your hand set to active onto your field."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-065",
+  "name": "Marleyan Warriors",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-066",
+  "name": "I'm Going For a Perfect Game.",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Zeke Jaeger\" in its card name on your field, {5000 or less BP} instead.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-067",
+  "name": "Are We Doing It?! Now...?! Here?!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "You can only use one <Are We Doing It?! Now...?! Here?!> card per turn.\nChoose one card on your field. It gains \"This card gains 《Green》《Green》 energy generation\" until the end of the turn. If there is a character with \"Bertholdt Hoover\" in its card name on your field, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-068",
+  "name": "Carla Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-070",
+  "name": "Hannes",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-071",
+  "name": "Eren Kruger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Sideline This Card》 You can only activate this ability if <Grisha Jaeger> is on your field. Draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-072",
+  "name": "Grisha Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top five cards of your deck. Reveal up to one red character card with \"Eren Jaeger\" in its card name or up to one <Key to the Basement> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-074",
+  "name": "Ymir",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a blue or green card on your opponent's field, reduce this card's required energy by 《Red×1》 while in your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-075",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-076",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 When this character is returned to your hand from your field, you may place one red <Armin Arlelt> card with 1 required energy from your hand into your sideline. If you do, draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-078",
+  "name": "Christa Lenz",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-079",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-080",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top seven cards of your deck. Reveal up to one [Food] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-081",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have used a [Food] affinity card this turn, this character gains 500 BP and 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-083",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-084",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-085",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-086",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 1000 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-087",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Red》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-090",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-092",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《When Attacking》 Place up to one other [104th Cadet Corps] affinity card on your front line on the top of your deck. If your front line is not full, play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-093",
+  "name": "Eren Jaeger (Attack Titan)",
+  "type": "character",
+  "color": "red",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Levi Squad／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)\n《During Your Turn》 This character gains 1000 BP.\n《When Attacking》 Choose one of the following:\n・Draw a card.\n・If you have 3 or less life, you may place two cards from your hand into your sideline. If you do, choose up to one character with 2000 or less BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-095",
+  "name": "Basement",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 3,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have a <Key to the Basement> card in your sideline, reduce this card's required energy by 《Red×2》 while in your hand.\n《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-096",
+  "name": "Hardened Punch",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a character with \"Eren Jaeger\" in its card name on your field, reduce this card's AP cost by 1 while in your hand.\nChoose up to one character with 5000 or less BP on your opponent's front line and sideline it. Choose up to one Raided <Eren Jaeger (Attack Titan)> on your field. It gains \"If your opponent sidelines this character with a 《Special Trigger》 ability, they add the card with the 《Special Trigger》 ability to their hand instead\" until the end of the turn.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-097",
+  "name": "Dedicate Your Heart!!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-098",
+  "name": "Key to the Basement",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top five cards of your deck. Reveal up to one <Basement> or [Inheritor of the Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the revealed card has 6 or more base required energy, choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character with 2500 or less BP on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEPR/AOT-1-100",
+  "name": "A Steamed Potato, Sir!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [
+   "Food"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Place up to three cards from your hand on the bottom of your deck in any order. Draw a number of cards equal to the number of cards placed on the bottom of your deck with this ability. Choose up to one of your AP cards and switch it to active.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEPR/AOT-2-068",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "When <Armin Arlelt (Colossal Titan)> performs Raid on this character, reduce that card's required energy by 《Red×2》.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-001",
+  "name": "Yelena",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If this character is active, it gains 《Yellow》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-002",
+  "name": "Onyankopon",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Play up to one yellow character card with 3 or less required energy and 1 AP cost and without [Rumbling] affinity from your hand set to resting onto your field. You cannot play a card with a card name that is on your field with this ability.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-003",
+  "name": "Gabi Braun",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, choose up to one other character on your field. It gains 1500 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-004",
+  "name": "Kiyomi Azumabito",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-005",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1000 BP.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-006",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1500 BP.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-007",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Play this character set to active.\nAt the end of your opponent's attack phase, sideline this character.\n《Once Per Turn》 When this character attacks and wins a battle against a character with 5000 or more BP, switch it to active. It loses 《Snipe》 until the end of the turn.\n《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 2000 BP and 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-008",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This character cannot be blocked by a character with 5000 or more BP.\nIf your opponent has 1 life, this character gains 《Impact (1)》.\n《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field and your opponent has 5 or less life, switch this character to active. You can only activate this <Mikasa Ackermann> ability one time each turn.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character on your opponent's front line and switch it to resting. It will remain set to resting the next time it would be switched to active."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-009",
+  "name": "Levi",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《During Your Turn》 This character gains 1000 BP.\n《Activate: Main》 《Pay 1 AP》 You can only activate this ability if you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field. Choose {one} of the abilities listed below. You may place one card from your hand into your sideline. If you do, {two} instead. You can only activate this <Levi> ability one time each turn.\n・Switch this character to active.\n・This character gains 《Double Attack》 (When this character attacks for the first time this turn, switch it to active) until the end of the turn.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-010",
+  "name": "Annie Leonhart",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Yellow》 energy generation and \"At the end of the main phase, sideline this character\" until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-011",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-012",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 {Draw a card, then place one card from your hand into your sideline}. If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, {Draw a card} instead.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-013",
+  "name": "Armin Arlelt (Colossal Titan)",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 9,
+  "apCost": 1,
+  "bp": 6000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Armin Arlelt"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [
+   "If on the Front Line"
+  ],
+  "abilityText": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, reduce this card's required energy by 《Yellow×3》 while anywhere other than on your field.\n《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.\n《Raid》 <Armin Arlelt> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《When Played》 《If on the Front Line》 Choose up to one character with 6000 or less BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-014",
+  "name": "Pieck Finger",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 《#If on the Energy Line#》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, switch this character to active.\n《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-015",
+  "name": "Falco Grice",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-016",
+  "name": "Falco Grice",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top three cards of your deck. Reveal up to one character card without [Rumbling] affinity and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-017",
+  "name": "Falco Grice (Jaw Titan)",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Falco Grice"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Falco Grice> Switch to active. May move to the front line.\n《Step》 (During your movement phase, you may move this card from your front line to your energy line.)\n《When Played》 Choose up to three characters on your field or character cards in your sideline with 3 or less required energy and unique card names and without [Rumbling] affinity and place them face down under this character.\n《Activate: Main》 《Switch to Resting》 Look at the face-down cards under this character. Add up to one card among them to your hand.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-018",
+  "name": "Reiner Braun",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-019",
+  "name": "Reiner Braun (Armored Titan)",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Reiner Braun"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.\n《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)\n《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1000 BP, 《Impact (1)》, and \"Your opponent cannot choose this character with abilities on characters or event cards unless they pay 1 AP as an additional cost\" until the start of your next turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-020",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-021",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If <Ymir, Our Founder> is on your field or in your sideline, this character gains 《Yellow》 energy generation.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-022",
+  "name": "Eren Jaeger (Doomsday Titan)",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 13,
+  "apCost": 1,
+  "bp": 8000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "If a character with \"Zeke\" in its card name is on your field and <Eren Jaeger (Doomsday Titan)> is not on your field, reduce this card's required energy by 《Yellow×5》 while anywhere other than on your field.\nThis character cannot block a character with 《Impact》.\n《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《When Played》 Play up to one [Nine Titans] affinity card from your hand or sideline set to active onto your field.\n《Activate: Main》 《Pay 1 AP》 《Once Per Turn》 You cannot activate this ability on the turn this character is played. Activate this character's 《When Played》 ability.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-023",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-024",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose one of the following:\n・Look at the top three cards of your deck. Place up to one card into your sideline. Place the remaining cards on the bottom of your deck in any order.\n・If this character is played from your sideline, draw a card.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-025",
+  "name": "Zeke Jaeger (Beast Titan)",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Zeke Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.\n《When Played》 This character gains 《Impact (1)》 until the end of the turn. Choose up to one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Eren\" in its card name on your field and <Ymir, Our Founder> is on your field or in your sideline, {4000 or less BP} instead.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-026",
+  "name": "Jaw Titan",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Nine Titans"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains \"This character generates energy even on the front line.\"",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-027",
+  "name": "Beast Titan",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Nine Titans"
+  ],
+  "raid": null,
+  "keywords": [
+   "Step"
+  ],
+  "abilityText": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)\n《During Your Turn》 If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains 1500 BP.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-028",
+  "name": "War Hammer Titan",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Nine Titans"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains \"Your opponent's character abilities cannot sideline this character or reduce its BP\" and 《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-029",
+  "name": "Colossal Titan",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 9,
+  "apCost": 1,
+  "bp": 6000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Rumbling／Nine Titans"
+  ],
+  "raid": null,
+  "keywords": [
+   "If on the Front Line",
+   "Damage (2)"
+  ],
+  "abilityText": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, reduce this card's required energy by 《Yellow×2》 while in your hand.\nThis card cannot be played onto your energy line.\n《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.\n《Damage (2)》 (Direct damage dealt by this character's attacks deals 2 damage.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-030",
+  "name": "Tom Ksaver",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 《When Sidelined》 Reveal the top two cards of your deck. Add up to one card with \"Zeke\" in its card name among them to your hand. Place the remaining cards into your sideline. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-031",
+  "name": "Ymir, Our Founder",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This site can only be played if there is a character with \"Jaeger\" in its card name on your field.\n《When Played》 Look at the top four cards of your deck. Reveal up to one [Inheritor of the Titan] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.\n《Activate: Main》 《Switch to Resting》 《Place 2 Cards From Hand Into Sideline》 《Pay 1 AP》 Play one yellow character card with 2 or less required energy and \"Jaeger\" in its card name from your sideline set to resting onto your field.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Choose one character on your opponent's front line and switch it to resting. It will remain set to resting the next time it would be switched to active."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-032",
+  "name": "I Hope You're Watching, Mister Ksaver!!",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Sideline one yellow character with \"Zeke\" in its card name on your field. If you do, choose up to one character with 5000 or less BP on your opponent's front line and sideline it, then choose up to one of the following:\n・Look at the top seven cards of your deck. Reveal up to one <Ymir, Our Founder> card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.\n・If <Ymir, Our Founder> is on your field or in your sideline, play up to one yellow <Zeke Jaeger> card without 《Raid》 from your sideline set to resting onto your field.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-033",
+  "name": "I'm Sorry. I Can't Do That",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-034",
+  "name": "Rumbling",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "You can only use this card if there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field and you have two or more other cards in your hand.\nPlace all the cards in your hand into your sideline. Sideline all characters with 5000 or less BP on your opponent's front line. You gain \"You cannot attack with characters other than <Eren Jaeger (Doomsday Titan)>\" until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-035",
+  "name": "Freedom",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose up to two of your AP cards and switch them to active.",
+  "trigger": {
+   "label": "FINAL",
+   "text": "《FINAL》If you have 0 life, place the top card of your deck into your life area."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-036",
+  "name": "We're Going. Now. To Save the World",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top five cards of your deck. Reveal up to three character cards with unique card names and without [Rumbling] affinity and add them to your hand. Place the remaining cards on the bottom of your deck in any order.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-037",
+  "name": "I'll Do It. Everyone Cover Me",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, reduce this card's AP cost by 1 while in your hand.\nChoose one character with {5000 or less BP} on your opponent's front line and sideline it. If <Mikasa Ackermann> is on your field, {8000 or less BP} instead.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-038",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-039",
+  "name": "Hange Zoë",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one character with 2500 or more BP on your opponent's front line. It loses 2000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-040",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 Switch one active character on your front line to resting. If you do, this character gains 《Blue》 energy generation until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-041",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact",
+   "When Attacking"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)\n《When Attacking》 You may pay 1 AP. If you do, choose up to two characters on your field. They each gain 1500 BP until the end of the turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-042",
+  "name": "Levi",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "Levi"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Levi> Switch to active. May move to the front line.\n《When Played》 Draw a card. Then, you may place one card from your hand into your sideline. If you do, choose up to one of your AP cards and switch it to active.\n《When Attacking》 You may pay 1 AP. If you do, choose one of the following:\n・Draw a card. This character gains 1000 BP until the end of the turn.\n・This character gains 1000 BP and 《Impact (1)》 until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-043",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-044",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《Activate: Main》 《Switch to Resting》 You can only activate this ability if you have six or more event cards in your sideline. Choose one other [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-045",
+  "name": "Historia Reiss",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose one of the following:\n・Draw a card, then place one card from your hand into your sideline.\n・If you have two or more event cards in your sideline, draw a card.\n・If you have six or more event cards in your sideline, draw two cards, then place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-046",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This character gains all abilities listed below if you have the required number of event cards in your sideline.\n・Two or more: It gains 1000 BP.\n・Four or more: 《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-047",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top two cards of your deck. Place up to one event card into your sideline. Place the remaining cards on the top of your deck in any order.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-048",
+  "name": "Sweet Candy",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Look at the top four cards of your deck. Reveal up to one character card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. Then, play up to one blue character card with 3 or less required energy and 1 AP cost from your hand set to resting onto your field.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-049",
+  "name": "Thunder Spears",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one character with 2500 or less BP or 4500 or more BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-050",
+  "name": "Gabi Braun",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Attacking"
+  ],
+  "abilityText": "《When Attacking》 Choose up to one other [Marleyan Warrior] affinity card on your field. {It gains 1000 BP until the end of the turn}. If the chosen character is Raided, {That character and this character gain 2000 BP until the end of the turn} instead.",
+  "trigger": {
+   "label": "COLOR",
+   "text": "《COLOR》Play one green character card with 2 or less required energy and 1 AP cost from your hand set to active onto your field."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-051",
+  "name": "Falco Grice",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 《#If on the Energy Line#》 Switch this character to active.\n《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 Choose one other [Marleyan Warrior] affinity card on your field. It gains {1000 BP} until the end of the turn. If the chosen character is Raided, {2000 BP} instead.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-052",
+  "name": "Zeke Jaeger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top five cards of your deck. Reveal up to one [Pure Titan] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-053",
+  "name": "Zeke Jaeger (Beast Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Zeke Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.\n《When Played》 Choose up to one character with 3000 or less BP on your opponent's front line and sideline it. If you sideline a character with this ability, you may pay 1 AP. If you do, play up to one [Pure Titan] affinity card from your sideline set to resting onto your field.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-054",
+  "name": "Pieck Finger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-055",
+  "name": "Pieck Finger",
+  "type": "character",
+  "color": "green",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Choose up to one other [Marleyan Warrior] affinity card on your field. It gains {1000 BP} until the end of the turn. If the chosen character is Raided, {2000 BP} instead.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-056",
+  "name": "Pieck Finger (Cart Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Pieck Finger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Pieck Finger> Switch to active. May move to the front line.\n《If on the Front Line》 If this character was played this turn, it gains 《Impact (1)》.\n《When Played》 You may reduce this character's BP by 2000 until the end of the turn. If you do, it gains \"This character can attack from the energy line\" and 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the turn.\n《When Sidelined》 Return up to one base card of this Raided character to your hand.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-057",
+  "name": "Porco Galliard",
+  "type": "character",
+  "color": "green",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "-",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-058",
+  "name": "Porco Galliard (Jaw Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Porco Galliard"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Porco Galliard> Switch to active. May move to the front line.\n《When Played》 Look at the top four cards of your deck. Reveal up to one [Marleyan Warrior] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.\n《When Attacking》 If this character has 6000 or more BP, draw a card.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-059",
+  "name": "Reiner, Bertholdt, & Annie",
+  "type": "character",
+  "color": "green",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "This card is also treated as <Reiner Braun>, <Bertholdt Hoover>, and <Annie Leonhart>.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-060",
+  "name": "Reiner Braun (Armored Titan)",
+  "type": "character",
+  "color": "green",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "green",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Marleyan Warrior／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Reiner Braun"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.\n《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)\n《When Played》 You may place one card from your hand into your sideline. If you do, this character gains 2000 BP until the end of the turn.\n《When Attacking》 If this character has 6000 or more BP, draw a card and give this character 《Impact (1)》 until the end of the turn.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-061",
+  "name": "Sneak Attack",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Sideline up to one character with \"Pieck Finger\" in its card name on your field. Choose up to one character with {3000 or less BP} on your opponent's front line and sideline it. If you have a character card with \"Pieck Finger\" in its card name in your sideline, {5000 or less BP} instead. Then, if you sidelined a character on your field with this card's ability, add up to one character card with \"Pieck Finger\" in its card name from your sideline to your hand.",
+  "trigger": {
+   "label": "SPECIAL",
+   "text": "《SPECIAL》Choose one character on your opponent's front line and sideline it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-062",
+  "name": "Nicolo",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Reduce the AP cost of the next [Food] affinity card you use this turn by 1.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-063",
+  "name": "Conny Springer",
+  "type": "character",
+  "color": "red",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-064",
+  "name": "Jean Kirschtein",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [
+   "When Attacking"
+  ],
+  "abilityText": "《When Attacking》 Look at the top three cards of your deck, then place them on the top of your deck in any order.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-065",
+  "name": "Sasha Braus",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 If you have used a [Food] affinity card this turn, switch this character to active. You can only activate this <Sasha Braus> ability one time each turn.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-066",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "At the start of your end phase, if one of your red [104th Cadet Corps] affinity cards has returned from your field to your hand during the attack phase this turn, you may play this card from your hand set to resting onto your front line. You can only activate this <Mikasa Ackermann> ability one time each turn.",
+  "trigger": {
+   "label": null,
+   "text": "-"
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-067",
+  "name": "Mikasa Ackermann",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps"
+  ],
+  "raid": {
+   "targets": [
+    "Mikasa Ackermann"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "This card can only be played by one of your abilities or by performing Raid with it.\n《Raid》 <Mikasa Ackermann> Switch to active. May move to the front line.\n《When Played》 Choose one of the following:\n・Add up to one card with 3 or less required energy and [104th Cadet Corps] affinity and without 《Raid》 from your sideline to your hand.\n・Choose up to one character on your opponent's front line. If it has 5000 or more BP, you may place two cards from your hand into your sideline. If you do, sideline that character.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-068",
+  "name": "Armin Arlelt",
+  "type": "character",
+  "color": "red",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "When <Armin Arlelt (Colossal Titan)> performs Raid on this character, reduce that card's required energy by 《Red×2》.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-069",
+  "name": "Armin Arlelt (Colossal Titan)",
+  "type": "character",
+  "color": "red",
+  "energyCost": 9,
+  "apCost": 1,
+  "bp": 6000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Armin Arlelt"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [
+   "If on the Front Line"
+  ],
+  "abilityText": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.\n《Raid》 <Armin Arlelt> Switch to active. May move to the front line.\n《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)\n《If on the Front Line》 When you choose a character with an ability that specifies a BP range, add 1000 to the specified BP range. (Includes 《Color Trigger》 abilities.)\n《When Played》 《If on the Front Line》 Draw three cards.",
+  "trigger": {
+   "label": "Get",
+   "text": "《Get》Add this card to your hand."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-070",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "《When Played》 Look at the top three cards of your deck. Reveal up to one [104th Cadet Corps] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+  "trigger": {
+   "label": "Draw",
+   "text": "《Draw》Draw a card."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-071",
+  "name": "Eren Jaeger",
+  "type": "character",
+  "color": "red",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": null,
+  "keywords": [
+   "Nullify Impact",
+   "When Attacking"
+  ],
+  "abilityText": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)\n《Activate: Main》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 《Impact (1)》 until the end of the turn.\n《When Attacking》 {Look at the top card of your deck. If that card has 3 or less required energy and [104th Cadet Corps] affinity, you may reveal it and add it to your hand. Otherwise, place it on the top or bottom of your deck}. If you have 3 or less life, {Draw a card} instead.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-072",
+  "name": "Eren Jaeger (Attack Titan)",
+  "type": "character",
+  "color": "red",
+  "energyCost": 7,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "104th Cadet Corps／Inheritor of the Titan"
+  ],
+  "raid": {
+   "targets": [
+    "Eren Jaeger"
+   ],
+   "text": "Switch to active. May move to the front line."
+  },
+  "keywords": [],
+  "abilityText": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.\n《When Played》 This character gains 1000 BP until the start of your next turn. Choose one of the following:\n・Choose up to one character with 3000 or less BP on your opponent's front line and sideline it.\n・Add one card from your life area to your hand. Choose up to one character with 5000 or less BP on your opponent's front line and sideline it.\n・If you have 3 or less life, choose up to one character with 5000 or less BP on your opponent's front line and sideline it.",
+  "trigger": {
+   "label": "Raid",
+   "text": "《Raid》Add this card to your hand, or if you have the required energy, perform Raid with it."
+  }
+ },
+ {
+  "number": "UEX07BT/AOT-2-073",
+  "name": "Seafood",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [
+   "Food"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "Choose one of the following:\n・Choose up to one character on your field. It gains 1000 BP until the end of the turn. Draw two cards.\n・Choose up to two characters on your field. They each gain 1000 BP until the end of the turn. Draw a card.\n・Choose up to three characters on your field. They each gain 1000 BP until the end of the turn.",
+  "trigger": {
+   "label": "Active",
+   "text": "《Active》Choose one character on your field and switch it to active. It gains 3000 BP until the end of the turn."
+  }
+ }
+]

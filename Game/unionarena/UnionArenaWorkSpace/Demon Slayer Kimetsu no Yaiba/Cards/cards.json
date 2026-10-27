@@ -1,0 +1,4828 @@
+[
+ {
+  "number": "UA05BT/KMY-1-001",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将自己的1张手牌置于場外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147801UA05BT-KMY-1-001.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-002",
+  "name": "产屋敷 耀哉",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将1张手牌置于场外][将此卡牌退场]选择我方的最多1张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147804UA05BT-KMY-1-002.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-003",
+  "name": "鳞泷 左近次",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态]选择我方场上1张其他角色，本回合中BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147808UA05BT-KMY-1-003.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-004",
+  "name": "鎹鸦",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●黄●。主要阶段结束时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147810UA05BT-KMY-1-004.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-005",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147811UA05BT-KMY-1-005.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-006",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】从我方手牌中将最多1张所需能量不高于2且消费AP为1的〈灶门 祢豆子〉在我方前线中以休息状态登场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147811UA05BT-KMY-1-006.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-007",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】选择对方前线中最多1张BP不高于3000的角色退场。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择对方前线中的1张角色，转为休息状态。下一次转为活跃状态无效。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147811UA05BT-KMY-1-007.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-008",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 炭治郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [
+   "冲击1"
+  ],
+  "abilityText": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线。\n【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。\n【登场时】从我方场外将最多1张所需能量不高于3且消费AP为1的〈灶门 祢豆子〉加入手牌。从我方手牌中将最多1张所需能量不高于3且消费AP为1的〈灶门 祢豆子〉以休息状态登场。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147812UA05BT-KMY-1-008.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-009",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方场上存在〈灶门 炭治郎〉的场合，此角色的BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147813UA05BT-KMY-1-009.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-010",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】[前线中存在的场合]我方场上存在〈灶门 炭治郎〉的场合，选择对手前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147813UA05BT-KMY-1-010.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-011",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 祢豆子"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈灶门 祢豆子〉转为活跃状态，并可以移动至前线。\n【我方的回合中】我方场上存在〈灶门 炭治郎〉的场合，此角色的BP+500。\n【攻击时】选择我方前线中的〈灶门 炭治郎〉和我方能量线中的其他角色各1张，可以交换他们的位置。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147813UA05BT-KMY-1-011.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-012",
+  "name": "不死川 玄弥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击无效"
+  ],
+  "abilityText": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147814UA05BT-KMY-1-012.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-013",
+  "name": "不死川 玄弥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】[每回合1次]对方前线中的角色退场时，可以抽取1张卡牌。那样做的场合，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147814UA05BT-KMY-1-013.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-014",
+  "name": "栗花落 香奈乎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色处于活跃状态的场合，此角色产生能量+●黄●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147815UA05BT-KMY-1-014.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-015",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击1"
+  ],
+  "abilityText": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）\n[前线中存在的场合]我方的攻击阶段结束时，此角色处于活跃状态的场合，将此角色退场。\n当此角色在进行攻击的战斗中败北时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147816UA05BT-KMY-1-015.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-016",
+  "name": "村田",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147816UA05BT-KMY-1-016.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-017",
+  "name": "伊黑 小芭内",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147817UA05BT-KMY-1-017.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-018",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147817UA05BT-KMY-1-018.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-019",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147818UA05BT-KMY-1-019.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-020",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】[前线中存在的场合]我方场上存在合计3~5张的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，选择对方前线中的最多1张[BP不高于3000]的角色退场。我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，改为选择[BP不高于4000]。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择对方前线中的1张角色，转为休息状态。下一次转为活跃状态无效。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147818UA05BT-KMY-1-020.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-021",
+  "name": "蝴蝶 忍",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】从以下选择[1项]。我方我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，改为选择[全部]。\n·抽取1张卡牌。\n·选择对方前线中的最多1张BP3000以下的角色，转为休息状态。\n·选择我方场上的最多1张其他角色，本回合中，BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147818UA05BT-KMY-1-021.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-022",
+  "name": "不死川 实弥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "2次攻击"
+  ],
+  "abilityText": "【2次攻击】（当此角色在本回合中首次进行攻击时，转为活跃状态）。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147819UA05BT-KMY-1-022.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-023",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "对方场上存在紫色或红色卡牌的场合，手牌中的此卡牌所需能量减少●キ黄×1●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147819UA05BT-KMY-1-023.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-024",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】选择对方前线中的最多1张角色，转为休息状态，该角色的下1次转为活跃状态无效。\n【退场时】选择对方前线中的最多1张角色，转为休息状态。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147820UA05BT-KMY-1-024.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-025",
+  "name": "富冈 义勇",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【攻击时】抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147820UA05BT-KMY-1-025.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-026",
+  "name": "悲鸣屿 行冥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147821UA05BT-KMY-1-026.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-027",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色获得【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147821UA05BT-KMY-1-027.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-028",
+  "name": "蝴蝶屋",
+  "type": "site",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将此卡牌退场]从我方场外将最多2张所需能量不高于3的黄色角色卡牌加入手牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147821UA05BT-KMY-1-028.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-029",
+  "name": "全集中呼吸",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方的最多2张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "最终",
+   "text": "我方没有生命卡牌的场合，将我方卡组最上方的1张卡牌置于我方生命区中。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147822UA05BT-KMY-1-029.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-030",
+  "name": "柱合会议",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "确认我方卡组最上方的4张卡牌。公开其中1张卡牌并加入手牌。剩余的卡牌自选顺序置于卡组最下方。公开的卡牌为[特征:柱]的场合，选择我方的最多1张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147822UA05BT-KMY-1-030.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-031",
+  "name": "柱合审判",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张[BP不高于3000]的角色退场。我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和[特征:柱]的场合，改为选择[BP不高于5000]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147823UA05BT-KMY-1-031.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-032",
+  "name": "判断太慢了",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张角色，转为休息状态。选择我方场上最多1张〈鳞泷 左近次〉，转为活跃状态。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147824UA05BT-KMY-1-032.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-033",
+  "name": "水之呼吸 拾之型 生生流转",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈灶门 炭治郎〉的场合，改为选择[BP不高于5000]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147824UA05BT-KMY-1-033.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-034",
+  "name": "鬼舞辻 无惨",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张[特征：下弦之鬼]并加入手牌。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147825UA05BT-KMY-1-034.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-035",
+  "name": "鬼舞辻 无惨",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 5000,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击2",
+   "伤害2"
+  ],
+  "abilityText": "【冲击②】（当在进行攻击的战斗中胜利时，给与对方玩家2点伤害）。\n【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）。\n我放场外的卡牌张数不高于20张的场合，此角色不能在前线中登场，不能移动至前线。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147825UA05BT-KMY-1-035.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-036",
+  "name": "鬼舞辻 无惨(拟态“艺妓”)",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此卡牌也视为〈鬼舞辻 无惨〉。\n【启动主要】[每回合1次]将我方场上的其他1张角色退场，将我方卡组最上方的1张卡牌置于场外。那样做的场合，此角色在本回合中，BP+1000。",
+  "trigger": {
+   "label": "最终",
+   "text": "从我方场外将1张所需能量不高于2且消费AP1的紫色角色卡牌在我方前线中以活跃状态登场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147826UA05BT-KMY-1-036.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-037",
+  "name": "鬼舞辻 无惨(拟态“少年”)",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此卡牌也视为〈鬼舞辻 无惨〉。\n【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●紫●。主要阶段结束时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147826UA05BT-KMY-1-037.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-038",
+  "name": "鬼舞辻 无惨(拟态“月彦”)",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此卡牌也视为〈鬼舞辻 无惨〉。\n此角色处于活跃状态的场合，此角色产生能量+●紫●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147827UA05BT-KMY-1-038.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-039",
+  "name": "响凯",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "对方场上存在黄色或红色卡牌的场合，手牌中的此卡牌所需能量减少●キ紫×1●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147827UA05BT-KMY-1-039.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-040",
+  "name": "朱纱丸",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击无效"
+  ],
+  "abilityText": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147827UA05BT-KMY-1-040.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-041",
+  "name": "手鬼",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】从以下选择1项。\n·选择我方场上的最多1张角色，移动至其他线中。\n·选择我方前线中的角色和能量线中的角色各1张，可以交换他们的位置。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147827UA05BT-KMY-1-041.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-042",
+  "name": "鸣女",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147828UA05BT-KMY-1-042.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-043",
+  "name": "矢琶羽",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态]#将1张手牌置于场外#从以下选择1项。\n·选择我方场上的最多1张角色，移动至其他线中。\n·选择我方前线中的角色和能量线中的角色各1张，可以交换他们的位置。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147828UA05BT-KMY-1-043.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-044",
+  "name": "魇梦",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】本回合中有角色退场过的场合，抽取1张卡牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147828UA05BT-KMY-1-044.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-045",
+  "name": "魇梦",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": {
+   "targets": [
+    "魇梦"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。我放场外的卡牌张数为15张或更多的场合，此角色BP+500。【登场时】抽取2张卡牌，将我方的1张手牌置于场外。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈魇梦〉转为活跃状态，并可以移动至前线。我放场外的卡牌张数为15张或更多的场合，此角色BP+500。【登场时】抽取2张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1690968147829UA05BT-KMY-1-045.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-046",
+  "name": "下弦之叁",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147829UA05BT-KMY-1-046.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-047",
+  "name": "下弦之肆",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147829UA05BT-KMY-1-047.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-048",
+  "name": "下弦之贰",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】我方的回合中的场合，选择对方前线中的最多1张角色，本回合中，BP-2000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147830UA05BT-KMY-1-048.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-049",
+  "name": "下弦之陆",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147830UA05BT-KMY-1-049.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-050",
+  "name": "累",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "下弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】本回合中有角色退场果的场合，选择对方前线中的1最多1张角色，本回合中，BP-1500。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147830UA05BT-KMY-1-050.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-051",
+  "name": "猗窝座",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [
+   "冲击1"
+  ],
+  "abilityText": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147831UA05BT-KMY-1-051.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-052",
+  "name": "猗窝座",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 6,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色以活跃状态登场。\n【登场时】可以将我方的2张手牌置于场外。那样做的场合，此角色在本回合中获得【瞄准攻击】和【冲击①】。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147831UA05BT-KMY-1-052.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-053",
+  "name": "妓夫太郎",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[支付1AP][每回合1次]抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147832UA05BT-KMY-1-053.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-054",
+  "name": "妓夫太郎",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】我方场上存在〈堕姬〉的场合，抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147833UA05BT-KMY-1-054.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-055",
+  "name": "妓夫太郎",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": {
+   "targets": [
+    "妓夫太郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈妓夫太郎〉转为活跃状态，并可以移动至前线。\n[每回合1次]当此角色在进行攻击的战斗中胜利时，将此角色转为活跃状态。\n【攻击时】我方场上存在〈堕姬〉的场合，抽取1张卡牌。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147833UA05BT-KMY-1-055.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-056",
+  "name": "妓夫太郎",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】[前线中存在的场合]选择对方前线中的最多1张BP不高与3000的角色退场。\n【退场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈堕姬〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "最终",
+   "text": "从我方场外将1张所需能量不高于2且消费AP1的紫色角色卡牌在我方前线中以活跃状态登场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147834UA05BT-KMY-1-056.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-057",
+  "name": "堕姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】确认我方卡组最上方的6张卡牌。公开其中最多1张〈妓夫太郎〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147834UA05BT-KMY-1-057.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-058",
+  "name": "堕姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 2,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】【退场时】从我方场外将最多1张所需能量不高于3且消费AP为1的〈妓夫太郎〉在我方前线中以活跃状态登场。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147835UA05BT-KMY-1-058.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-059",
+  "name": "堕姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": {
+   "targets": [
+    "堕姬",
+    "妓夫太郎",
+    "妓夫太郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。【我方的回合中】我方场上存在〈妓夫太郎〉的场合，此角色BP+500。【退场时】我方场上存在〈妓夫太郎〉的场合，可以将我方的1张手牌置于场外。那样做的场合，此角色在我方前线中以休息状态登场。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈堕姬〉转为活跃状态，并可以移动至前线。【我方的回合中】我方场上存在〈妓夫太郎〉的场合，此角色BP+500。【退场时】我方场上存在〈妓夫太郎〉的场合，可以将我方的1张手牌置于场外。那样做的场合，此角色在我方前线中以休息状态登场。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1690968147835UA05BT-KMY-1-059.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-060",
+  "name": "蕨姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此卡牌也视为〈堕姬〉。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147836UA05BT-KMY-1-060.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-061",
+  "name": "京极屋",
+  "type": "site",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将此卡牌退场]从我方场外将最多1张〈妓夫太郎〉或〈堕姬〉加入手牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147836UA05BT-KMY-1-061.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-062",
+  "name": "鬼之力",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方场上的1张角色，本回合中，[BP+1000]。本回合中每有1张角色退场过，追加[BP+1000]。选择的角色BP为5000或更高的场合，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得冲击①）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147836UA05BT-KMY-1-062.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-063",
+  "name": "全部低下头 跪下行礼",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "将我方场上的1张角色退场。那样做的场合，选择对方前线中的1张角色退场。抽取1张卡牌。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147837UA05BT-KMY-1-063.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-064",
+  "name": "肃清",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "将我方场上的1张角色退场。那样做的场合，选择我方的1张AP卡牌转为活跃状态。抽取2张卡牌。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147837UA05BT-KMY-1-064.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-065",
+  "name": "永远在一起 绝不分离",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "确认我方卡组最上方的7张卡牌。公开其中〈妓夫太郎〉和〈堕姬〉最多各1张加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147838UA05BT-KMY-1-065.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-066",
+  "name": "飞血镰",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈妓夫太郎〉的场合，改为选择[BP不高于5000]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147838UA05BT-KMY-1-066.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-067",
+  "name": "无惨的血",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方的最多2张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "最终",
+   "text": "我方没有生命卡牌的场合，将我方卡组最上方的1张卡牌置于我方生命区中。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147838UA05BT-KMY-1-067.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-068",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147839UA05BT-KMY-1-068.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-069",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的7张卡牌，公开其中最多1张拥有【突进】的卡牌并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147840UA05BT-KMY-1-069.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-070",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": 3500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方移动阶段从前线移动至能量线）\n【登场时】从我方场外将最多1张〈我妻 善逸〉以外的角色卡牌加入手牌。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于2500的角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147840UA05BT-KMY-1-070.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-071",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "我妻 善逸"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈我妻 善逸〉转为活跃状态，并可以移动至前线。\n我方场上存在〈灶门 炭治郎〉的场合，此角色获得【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）。\n【登场时】我方场上存在〈嘴平 伊之助〉的场合，抽取2张卡牌，将我方的1张手牌置于场外。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147841UA05BT-KMY-1-071.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-072",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态]选择我方场上的1张其他角色，本回合中BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147842UA05BT-KMY-1-072.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-073",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方场上存在〈嘴平 伊之助〉的场合，此角色的BP+1000。\n【对方的回合中】我方场上存在〈我妻 善逸〉的场合，此角色的BP+1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147843UA05BT-KMY-1-073.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-074",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色处于活跃状态的场合，此角色产生能量+●红●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147843UA05BT-KMY-1-074.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-075",
+  "name": "啾太郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●红●。主要阶段结束时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147844UA05BT-KMY-1-075.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-076",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147844UA05BT-KMY-1-076.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-077",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "本回合中此角色移动过的场合，此角色在本回合中，BP+500。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147844UA05BT-KMY-1-077.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-078",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": 5000,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击1",
+   "伤害2"
+  ],
+  "abilityText": "此角色以活跃状态登场。\n【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。\n【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）\n我方的攻击阶段结束时，将此角色退场。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147845UA05BT-KMY-1-078.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-079",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "嘴平 伊之助"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈嘴平 伊之助〉转为活跃状态，并可以移动至前线。\n我方场上存在〈灶门 炭治郎〉的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。\n【登场时】我方场上存在〈我妻 善逸〉的场合，选择我方场上的最多1张其他角色，转为活跃状态。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147846UA05BT-KMY-1-079.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-080",
+  "name": "肌肉鼠",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "对方场上存在黄色或紫色卡牌的场合，手牌中的此卡牌所需能量减少●キ红×1●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147846UA05BT-KMY-1-080.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-081",
+  "name": "炼狱 千寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】选择我方场上的最多1张其他角色，本回合中，BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147846UA05BT-KMY-1-081.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-082",
+  "name": "须磨",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "天元的妻子"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147847UA05BT-KMY-1-082.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-083",
+  "name": "雏鹤",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "天元的妻子"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】从我方场外将最多1张〈宇髓 天元〉加入手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147847UA05BT-KMY-1-083.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-084",
+  "name": "槙於",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "天元的妻子"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方场上存在〈宇髓 天元〉的场合，此角色BP+500。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147848UA05BT-KMY-1-084.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-085",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147848UA05BT-KMY-1-085.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-086",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张［特征:天元的妻子］或［特征:变装］并加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于2500的角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147849UA05BT-KMY-1-086.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-087",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": {
+   "targets": [
+    "宇髓 天元",
+    "[每回合1次]",
+    "[特征:天元的妻子]",
+    "[特征:变装]"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。【登场时】此角色在本回合中，获得【2次攻击】（当此角色在本回合中首次进行攻击时，转为活跃状态）。【启动主要】[每回合1次]我方场上的所有［特征:天元的妻子］和［特征:变装］，本回合中，BP+500。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈宇髓 天元〉转为活跃状态，并可以移动至前线。【登场时】此角色在本回合中，获得【2次攻击】（当此角色在本回合中首次进行攻击时，转为活跃状态）。【启动主要】[每回合1次]我方场上的所有［特征:天元的妻子］和［特征:变装］，本回合中，BP+500。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1690968147849UA05BT-KMY-1-087.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-088",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147851UA05BT-KMY-1-088.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-089",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[前线中存在的场合]#将1张手牌置于场外#[每回合1次]我方场上的所有角色，本回合中，BP+500。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147851UA05BT-KMY-1-089.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-090",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色以活跃状态登场。【登场时】可以将我方的1张手牌置于场外。那样做的场合，选择对方前线中的最多1张BP不高于3000的角色退场。此角色在本回合中获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147852UA05BT-KMY-1-090.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-091",
+  "name": "猪子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "变装"
+  ],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "此卡牌也视为〈嘴平 伊之助〉。\n【撤步】（可以在我方移动阶段从前线移动至能量线）",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147853UA05BT-KMY-1-091.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-092",
+  "name": "炭子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "变装"
+  ],
+  "raid": null,
+  "keywords": [
+   "冲击无效"
+  ],
+  "abilityText": "此卡牌也视为〈灶门 炭治郎〉。\n【冲击无效】（与此角色进行战斗的角色在本次战斗中失去【冲击】）。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147854UA05BT-KMY-1-092.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-093",
+  "name": "善子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "变装"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此卡牌也视为〈我妻 善逸〉。\n【登场时】确认我方卡组最上方的1张卡牌。将那张卡牌置于我方卡组最上方或最下方。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147854UA05BT-KMY-1-093.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-094",
+  "name": "便当",
+  "type": "site",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此场地以活跃状态登场。\n【启动主要】[转为休息状态]选择我方场上的1张角色，本回合中，BP+1000。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147855UA05BT-KMY-1-094.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-095",
+  "name": "好吃！好吃！好吃！",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "抽取2张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147855UA05BT-KMY-1-095.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-096",
+  "name": "音之呼吸 伍之型 鸣弦奏奏",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张BP不高于我方场上的〈宇髓 天元〉、[特征:天元的妻子]、[特征:变装]合计张数×1000的角色退场。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147856UA05BT-KMY-1-096.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-097",
+  "name": "雷之呼吸 壹之型 霹雳一闪",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈我妻 善逸〉的场合，改为选择[BP不高于5000]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147857UA05BT-KMY-1-097.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-098",
+  "name": "兽之呼吸 伍之牙 狂乱撕扯",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方前线中的1张角色，本回合中，BP+2000。选择的角色为〈嘴平 伊之助〉的场合，追加在本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得冲击①）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147857UA05BT-KMY-1-098.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-99",
+  "name": "全集中呼吸",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方的最多2张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "最终",
+   "text": "我方没有生命卡牌的场合，将我方卡组最上方的1张卡牌置于我方生命区中。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/UAPc/Picture/1691026782547UA05BT-KMY-1-099.png"
+ },
+ {
+  "number": "UA05BT/KMY-1-100",
+  "name": "猪突猛进",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方前线中的1张角色，本回合中，BP+3000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 45,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147859UA05BT-KMY-1-100.png"
+ },
+ {
+  "number": "EX05BT/KMY-1-017",
+  "name": "伊黑 小芭内",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/UAPc/Picture/1716888448802EX05BT-KMY-1-017_p.png"
+ },
+ {
+  "number": "EX05BT/KMY-1-022",
+  "name": "不死川 实弥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "2次攻击"
+  ],
+  "abilityText": "【2次攻击】（当此角色在本回合中首次进行攻击时，转为活跃状态）",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/UAPc/Picture/1716888456469EX05BT-KMY-1-022_p.png"
+ },
+ {
+  "number": "EX05BT/KMY-1-026",
+  "name": "悲鸣屿 行冥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 6,
+  "apCost": 1,
+  "bp": 4500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的“特征:柱”的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/UAPc/Picture/1716888467230EX05BT-KMY-1-026_p.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-001",
+  "name": "产屋敷 耀哉",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将此角色退场]选择我方场上的一张“特征：柱”，转为活跃状态。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429949EX05BT-KMY-3-001.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-002",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】[前线中存在的场合]我方场上的〈灶门 祢豆子〉不会被对方角色的效果或触发的效果选择。\n【登场时】可以将我方前线中的1张活跃状态的〈灶门 祢豆子〉转为休息状态。这样做的场合，将此角色转为活跃状态。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择对方前线中的1张角色，转为休息状态。该角色下一次转为活跃状态无效。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429950EX05BT-KMY-3-002.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-003",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429950EX05BT-KMY-3-003.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-004",
+  "name": "神崎 葵",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】可以将我方的1张手牌置于场外。这样做的场合，从我方的场外将最多1张所需能量不高于3的黄色的角色卡牌加入手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429950EX05BT-KMY-3-004.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-005",
+  "name": "珠世",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态]对方将自己场外存在的『1张』卡牌置于移除区。对方的场外存在10张或更多的卡牌的场合，改为『2张』。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429950EX05BT-KMY-3-005.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-006",
+  "name": "愈史郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方的场上存在〈珠世〉的场合，此角色BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429951EX05BT-KMY-3-006.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-007",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[前线中存在的场合][将1张手牌置于场外][每回合1次]选择我方场上的一张消费AP为2的“特征：柱”，转为活跃状态。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429951EX05BT-KMY-3-007.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-008",
+  "name": "蝴蝶 忍",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）\n当此角色在进行攻击的战斗中败北时，抽取最多1张卡牌。\n【退场时】因BP变为0或更低或通过对方的效果，此角色退场的场合，抽取1张卡牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429951EX05BT-KMY-3-008.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-009",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[前线中存在的场合][每回合1次]选择我方场上的一张消费AP为2的“特征：柱”，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429952EX05BT-KMY-3-009.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-010",
+  "name": "富冈 义勇",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和“特征:柱”的场合，手牌中存在的此卡牌的消费AP-1。\n【攻击时】我方我方场上存在合计6张或更多的〈产屋敷 耀哉〉和“特征:柱”的场合，选择我方场上的最多1张其他的“特征：柱”，本回合中，BP+1500。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429952EX05BT-KMY-3-010.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-011",
+  "name": "看护",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "从我方的场外将1张角色卡牌加入手牌。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429952EX05BT-KMY-3-011.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-012",
+  "name": "隐",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】从下列选择1项。\n·选择我方场上的最多1张角色，移动至其他线中。\n·选择我方前线中的角色和我方能量线中的角色各1张，可以交换他们的位置。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429953EX05BT-KMY-3-012.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-013",
+  "name": "鎹鸦",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色的产生能量+[蓝]。当主要阶段结束时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429953EX05BT-KMY-3-013.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-014",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429953EX05BT-KMY-3-014.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-015",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，BP+500。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429953EX05BT-KMY-3-015.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-016",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，选择我方场上的最多1张〈灶门 祢豆子〉，本回合中，BP+1000。\n【启动主要】[前线中存在的场合][支付1AP][每回合1次]选择我方场上的1张〈灶门 祢豆子〉，本回合中，BP+1000。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于3500的角色，放回手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429954EX05BT-KMY-3-016.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-017",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 炭治郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线\n[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，获得【冲击①】。\n【登场时】可以将我方场上的1张〈灶门 祢豆子〉放回手牌。这样做的场合，将我方的1张手牌置于场外，选择对方前线中的最多1张BP不高于4000的角色，退场。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429954EX05BT-KMY-3-017.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-018",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的1张卡牌。将其置于我方卡组的最上方或最下方。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429954EX05BT-KMY-3-018.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-019",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于我方卡组的最上方或最下方。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429955EX05BT-KMY-3-019.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-020",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【攻击时】确认我方卡组最上方的1张卡牌。将其置于我方卡组的最上方。确认的卡牌为〈灶门 炭治郎〉或〈日轮刀(灶门 炭治郎)〉的场合，可以将其公开。这样做的场合，此角色在本回合中，BP+1000。将公开的卡牌置于我方卡组的最上方。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429955EX05BT-KMY-3-020.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-021",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 祢豆子"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈灶门 祢豆子〉转为活跃状态，并可以移动至前线\n此角色从我方的场上放回手牌的场合，改为将此角色和此角色的突进源放回手牌。\n【我方的回合中】我方的场上存在〈灶门 炭治郎〉的场合，此角色BP+500。\n【登场时】我方的场上存在〈灶门 炭治郎〉的场合，『抽取1张卡牌』。我方的场上同时存在〈灶门 炭治郎〉和〈日轮刀(灶门 炭治郎)〉的场合，可以改为『抽取2张卡牌，将我方的1张手牌置于我方卡组的最上方或最下方』。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429955EX05BT-KMY-3-021.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-022",
+  "name": "不死川 玄弥",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429956EX05BT-KMY-3-022.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-023",
+  "name": "不死川 玄弥",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击无效"
+  ],
+  "abilityText": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429957EX05BT-KMY-3-023.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-024",
+  "name": "不死川 玄弥",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色以活跃状态登场。\n【退场时】可以将此角色加入手牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429957EX05BT-KMY-3-024.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-025",
+  "name": "钢铁冢 萤",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】从下列选择1项。\n·确认我方卡组最上方的7张卡牌。公开其中最多1张“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。\n·我方的场上存在“特征：日轮刀”的场合，抽取1张卡牌。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429957EX05BT-KMY-3-025.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-026",
+  "name": "铁穴森 钢藏",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色处于活跃状态的场合，此角色的产生能量+[蓝]。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-026.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-027",
+  "name": "小铁",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-027.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-028",
+  "name": "铁地河源 铁珍",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张“特征：刀匠村”或“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-028.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-029",
+  "name": "缘壹零式",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】从下列选择1项。\n·确认我方卡组最上方的7张卡牌。公开其中最多1张“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。\n·从我方的场外将最多1张“特征：日轮刀”加入手牌。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-029.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-030",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "冲击无效"
+  ],
+  "abilityText": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-030.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-031",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】选择我方场上的最多1张角色，本回合中，BP+1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-031.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-032",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，获得【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429958EX05BT-KMY-3-032.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-033",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": true,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "2次阻挡"
+  ],
+  "abilityText": "【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）\n我方的场上存在〈日轮刀(甘露寺 蜜璃)〉的场合，此角色的产生能量+[蓝]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于3500的角色，放回手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429959EX05BT-KMY-3-033.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-034",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": {
+   "targets": [
+    "甘露寺 蜜璃",
+    "[每回合1次]"
+   ],
+   "text": "转为活跃状态，并可以移动至前线 【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】） [每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色直到我方的下一个回合开始时为止，BP+1000。 【登场时】对方将自己前线中的1张角色放回手牌。 【攻击时】选择我方场上的最多1张其他角色，本回合中，BP+1000。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈甘露寺 蜜璃〉转为活跃状态，并可以移动至前线 【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】） [每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色直到我方的下一个回合开始时为止，BP+1000。 【登场时】对方将自己前线中的1张角色放回手牌。 【攻击时】选择我方场上的最多1张其他角色，本回合中，BP+1000。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429959EX05BT-KMY-3-034.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-035",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429959EX05BT-KMY-3-035.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-036",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【攻击时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429959EX05BT-KMY-3-036.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-037",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[每回合1次]只有在本回合中此角色被我方的“特征：日轮刀”的效果选择的场合才能发动。将此角色移动至其他线中。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于3500的角色，放回手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429960EX05BT-KMY-3-037.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-038",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【攻击时】本回合中此角色被我方的“特征：日轮刀”的效果选择的场合，从下列选择1项。\n·选择对方前线中的最多1张BP2500或更高的角色，本回合中，BP-2000。\n·选择对方前线中的最多2张BP1500或更高的角色，本回合中，BP-1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429960EX05BT-KMY-3-038.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-039",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "blue",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": {
+   "targets": [
+    "时透 无一郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈时透 无一郎〉转为活跃状态，并可以移动至前线\n[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色直到我方的下一个回合开始时为止，获得”此角色不会被BP不高于3000的角色阻挡”和“不会被对方角色的效果选择，不会被【瞄准攻击】指定”。\n【登场时】选择对方前线中的最多1张BP2500或更高的角色，本回合中，BP-2000。\n【攻击时】抽取1张卡牌，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429960EX05BT-KMY-3-039.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-040",
+  "name": "刀匠村",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 2,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "刀匠村"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此场地以活跃状态登场。\n【启动主要】[转为休息状态]确认我方卡组最上方的2张卡牌。公开其中最多1张“特征：刀匠村”或“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429960EX05BT-KMY-3-040.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-041",
+  "name": "日轮刀(灶门 炭治郎)",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "日轮刀"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此场地以活跃状态登场。\n【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈灶门 炭治郎〉，本回合中，BP+1000。那之后，可以确认我方卡组最上方的1张卡牌。这样做的场合，将其置于我方卡组的最上方或最下方。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429960EX05BT-KMY-3-041.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-042",
+  "name": "日轮刀(甘露寺 蜜璃)",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "日轮刀"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此场地以活跃状态登场。\n【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈甘露寺 蜜璃〉，本回合中，『BP+1000』。可以将我方的1张手牌置于场外。这样做的场合，改为『BP+2000』。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-042.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-043",
+  "name": "日轮刀(时透 无一郎)",
+  "type": "site",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "blue",
+  "energyGenPlus": false,
+  "affinities": [
+   "日轮刀"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此场地以活跃状态登场。\n【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈时透 无一郎〉，本回合中，给予BP+1000和“此角色不会被BP不高于2000的角色阻挡”。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-043.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-044",
+  "name": "斑纹",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方的最多2张AP卡牌，转为活跃状态。",
+  "trigger": {
+   "label": "最终",
+   "text": "我方没有生命卡牌的场合，将我方卡组最上方的1张卡牌置于我方生命区中。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-044.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-045",
+  "name": "圆舞一闪",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张『BP不高于3000』的角色，退场。我方的场上存在〈灶门 炭治郎〉的场合，改为『BP不高于4000』。我方的场上同时存在〈灶门 炭治郎〉和〈日轮刀(灶门 炭治郎)〉的场合，改为『BP不高于5000』。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-045.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-046",
+  "name": "赫刀",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方场上的1张本回合中已被“特征：日轮刀”的效果选择过的角色，本回合中，给予BP+1000和と〔【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）或【伤害+1】（当通过此角色的攻击给与对方直接伤害时，追加给予1点伤害）〕，抽取1张卡牌。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-046.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-047",
+  "name": "霞之呼吸 伍之型 霞云之海",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方的场上存在〈时透 无一郎〉的场合，手牌中存在的此卡牌的消费AP-1。\n选择对方前线中的1张BP不高于5000的角色，置于对方卡组的最下方。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-047.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-048",
+  "name": "恋之呼吸 壹之型 初恋的战栗",
+  "type": "event",
+  "color": "blue",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张BP不高于5000的角色，放回手牌。我方的场上存在〈甘露寺 蜜璃〉的场合，抽取1张卡牌，选择我方场上的最多1张〈甘露寺 蜜璃〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429961EX05BT-KMY-3-048.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-049",
+  "name": "鬼舞辻 无惨",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方的场外存在15张或更多的卡牌的场合，此角色获得【冲击①】。\n【登场时】可以将我方场上的任意张数的其他角色退场。这样做的场合，抽取与通过此效果退场的角色张数相同数量的卡牌。\n【启动主要】[每回合1次]只有在本回合中通过此角色的【登场时】效果将角色退场的场合才能发动。从我方的手牌中将1张所需能量不高于3且消费AP为1的紫色角色卡牌在我方的场上以休息状态登场。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429962EX05BT-KMY-3-049.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-050",
+  "name": "妓夫太郎",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】我方的场上存在〈堕姬〉的场合，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429962EX05BT-KMY-3-050.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-051",
+  "name": "玉壶",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429962EX05BT-KMY-3-051.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-052",
+  "name": "玉壶",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": {
+   "targets": [
+    "玉壶"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈玉壶〉转为活跃状态，并可以移动至前线\n【登场时】选择对方前线中的最多1张角色，本回合中，『BP-1500』。本回合中有角色退场的场合，改为『BP-2500』。\n【攻击时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429963EX05BT-KMY-3-052.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-053",
+  "name": "堕姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】选择我方前线中的1张拥有【突进】且不是突进状态的〈堕姬〉，转为活跃状态，将此角色正面朝上置于该角色的下方。(变为突进状态)。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429963EX05BT-KMY-3-053.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-054",
+  "name": "堕姬",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】我方的场上存在〈妓夫太郎〉的场合，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。\n【启动主要】[前线中存在的场合][支付1AP][每回合1次]选择我方场上的1张〈妓夫太郎〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429963EX05BT-KMY-3-054.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-055",
+  "name": "半天狗",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】从我方的场外选择〈哀绝〉、〈空喜〉、〈可乐〉、〈积怒〉各1张，将其中最多2张在我方的场上以休息状态登场，剩余的卡牌加入手牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429963EX05BT-KMY-3-055.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-056",
+  "name": "哀绝",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼,半天狗的分身"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】通过我方的效果，此角色退场的场合，选择对方前线中的最多1张角色，本回合中，『BP-1000』。如果是通过我方的〈憎珀天〉的效果退场的话，改为『BP-2000』。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429963EX05BT-KMY-3-056.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-057",
+  "name": "空喜",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼,半天狗的分身"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】通过我方的效果，此角色退场的场合，抽取『1张』卡牌。如果是通过我方的〈憎珀天〉的效果退场的话，改为『2张』。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429964EX05BT-KMY-3-057.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-058",
+  "name": "可乐",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼,半天狗的分身"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【退场时】将我方卡组最上方的1张卡牌置于场外。通过我方的〈憎珀天〉的效果，此角色退场的场合，选择我方的最多1张AP卡牌，转为活跃状态。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429964EX05BT-KMY-3-058.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-059",
+  "name": "积怒",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼,半天狗的分身"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429966EX05BT-KMY-3-059.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-060",
+  "name": "憎珀天",
+  "type": "character",
+  "color": "purple",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "purple",
+  "energyGenPlus": false,
+  "affinities": [
+   "上弦之鬼,半天狗的分身"
+  ],
+  "raid": {
+   "targets": [
+    "积怒"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈积怒〉转为活跃状态，并可以移动至前线\n【登场时】将我方场上的〈哀绝〉、〈空喜〉、〈可乐〉最多各1张退场。这样做的场合，通过此效果退场的所有角色背面朝上置于此角色的下方。\n根据此角色下方的背面朝上的卡牌张数，此角色获得下列所有效果。\n·1张或更多：【退场时】可以将此卡牌在我方的场上以休息状态登场。\n·2张或更多：【伤害②】和【2次阻挡】\n·3张或更多：此角色BP+500和【2次攻击】",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429966EX05BT-KMY-3-060.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-061",
+  "name": "无惨的研究",
+  "type": "event",
+  "color": "purple",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张『BP不高于3000』的角色，退场。我方的场外存在5张或更多的卡牌的场合，改为『BP不高于5000』。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429966EX05BT-KMY-3-061.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-062",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方的场上存在突进状态的〔〈灶门 炭治郎〉或〈嘴平 伊之助〉〕的场合，此角色BP+1000。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429967EX05BT-KMY-3-062.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-063",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将此卡牌退场]选择我方场上的1张突进状态的〈我妻 善逸〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。\n【启动主要】[转为休息状态][将此卡牌退场]选择我方场上的1张突进状态的〈嘴平 伊之助〉，本回合中，给予【伤害+1】（当通过此角色的攻击给与对方直接伤害时，追加给予1点伤害）。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于2500的角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429967EX05BT-KMY-3-063.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-064",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 炭治郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线\n【登场时】确认我方卡组最上方的5张卡牌。公开其中〈我妻 善逸〉和〈嘴平 伊之助〉最多各1张并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。通过此效果将2张卡牌加入手牌的场合，将我方的1张手牌置于场外。\n【启动主要】[前线中存在的场合][转为休息状态]选择我方场上的〈我妻 善逸〉和〈嘴平 伊之助〉最多各1张，本回合中，BP+2000。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429967EX05BT-KMY-3-064.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-065",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】我方的场上存在突进状态的〔〈灶门 炭治郎〉或〈我妻 善逸〉〕的场合，此角色转为活跃状态。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429967EX05BT-KMY-3-065.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-066",
+  "name": "炼狱 槙寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【攻击时】本回合中通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将我方的手牌置于场外的场合，从下列选择1项。\n·此角色在本回合中，BP+1000。\n·抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429967EX05BT-KMY-3-066.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-067",
+  "name": "炼狱 瑠火",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "当通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将此卡牌从手牌中置于场外时，抽取1张卡牌。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429968EX05BT-KMY-3-067.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-068",
+  "name": "须磨&槙於&雏鹤",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "天元的妻子"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方的场上存在〈宇髓 天元〉的场合，此角色BP+500。\n【我方的回合中】当此角色在攻击阶段中进行移动时，选择我方场上的最多1张〈宇髓 天元〉或“特征：变装”，本回合中，BP+1000。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429968EX05BT-KMY-3-068.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-069",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）\n【我方的回合中】我方的场上存在合计3张或更多的“特征：天元的妻子”和“特征：变装”的场合，此角色BP+1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色，转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429968EX05BT-KMY-3-069.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-070",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429968EX05BT-KMY-3-070.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-071",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[将1张手牌置于场外][每回合1次]本回合中，下一次我方通过“指定BP范围的效果”选择角色时，可指定的BP范围+1000。(选择BP不高于3000的角色的效果可以选择BP不高于4000。)",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张BP不高于2500的角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429969EX05BT-KMY-3-071.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-072",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4500,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": {
+   "targets": [
+    "炼狱 杏寿郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈炼狱 杏寿郎〉转为活跃状态，并可以移动至前线\n【我方的回合中】本回合中通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将我方的手牌置于场外的场合，此角色获得BP+500和【冲击①】。\n【登场时】将我方任意张数的手牌置于场外，选择对方前线中的最多1张『BP不高于3000』的角色，退场。通过此效果从手牌中置于场外的卡牌每有1张，此效果可选择的角色的BP范围+500。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429969EX05BT-KMY-3-072.png"
+ },
+ {
+  "number": "EX05BT/KMY-3-073",
+  "name": "炎之呼吸 壹之型 不知火",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中的1张『BP不高于3000』的角色，退场。抽取1张卡牌，将我方的1张手牌置于场外。我方的场上存在〈炼狱 杏寿郎〉的场合，改为『BP不高于5000』。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 91,
+  "_image": "https://source.windoent.com/OnePiecePc/Picture/1716888429969EX05BT-KMY-3-073.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-001",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147859UA05ST-KMY-1-001.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-003",
+  "name": "鳞泷 左近次",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态]选择我方场上的其他1张角色，本回合中，BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147859UA05ST-KMY-1-003.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-004",
+  "name": "鎹鸦",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色的产生能量+●黄●。当主要阶段结束时，退场此角色。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147860UA05ST-KMY-1-004.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-005",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147860UA05ST-KMY-1-005.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-009",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方场上存在〈灶门 炭治郎〉的场合，此角色的BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147860UA05ST-KMY-1-009.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-014",
+  "name": "栗花落 香奈乎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色处于活跃状态的场合，此角色的产生能量+●黄●。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147861UA05ST-KMY-1-014.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-015",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "冲击1"
+  ],
+  "abilityText": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）\n[前线中存在的场合]当我方的攻击阶段结束时，此角色处于活跃状态的场合，将此角色退场。\n当此角色在进行攻击的战斗中败北时，将此角色退场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147861UA05ST-KMY-1-015.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-029",
+  "name": "全集中呼吸",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择我方的最多2张AP卡牌转为活跃状态。",
+  "trigger": {
+   "label": "最终",
+   "text": "我方没有生命卡牌的场合，将我方卡组最上方的1张卡牌置于我方生命区中。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147862UA05ST-KMY-1-029.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-033",
+  "name": "水之呼吸 拾之型 生生流转",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "选择对方前线中1张[BP不高于3000]的角色退场。我方场上存在<灶门炭治郎>的场合，改为选择[BP不高于5000]。",
+  "trigger": {
+   "label": "特殊",
+   "text": "选择对方前线中的1张角色退场。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147862UA05ST-KMY-1-033.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-101",
+  "name": "我妻 善逸",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147862UA05ST-KMY-1-101.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-102",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [
+   "撤步"
+  ],
+  "abilityText": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147863UA05ST-KMY-1-102.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-103",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": {
+   "targets": [
+    "灶门 炭治郎"
+   ],
+   "text": "转为活跃状态，并可以移动至前线。"
+  },
+  "keywords": [],
+  "abilityText": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线。\n【登场时】我方场上存在〈灶门 祢豆子〉的场合，直到下个我方的回合开始时为止，此角色获得BP+500和【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。\n■■■■■",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌，或在满足所需能量的场合进行突进。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147863UA05ST-KMY-1-103.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-104",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 2,
+  "bp": 3000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】选择对手前线中最多1张所需能量不高于3的角色退场。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147863UA05ST-KMY-1-104.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-105",
+  "name": "锖兔",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】选择我方场上最多1张其他的角色，本回合中，BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147864UA05ST-KMY-1-105.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-106",
+  "name": "嘴平 伊之助",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147864UA05ST-KMY-1-106.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-107",
+  "name": "富冈 义勇",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [
+   "冲击1"
+  ],
+  "abilityText": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）\n【登场时】选择对方前线中的最多1张角色转为休息状态。抽取1张卡牌。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147864UA05ST-KMY-1-107.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-108",
+  "name": "巨大的岩石",
+  "type": "site",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[转为休息状态][将此卡牌退场]本回合中，我方场上的所有角色BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147865UA05ST-KMY-1-108.png"
+ },
+ {
+  "number": "UA05ST/KMY-1-109",
+  "name": "伙伴",
+  "type": "event",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": null,
+  "energyGen": 0,
+  "energyGenColor": null,
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "确认我方卡组最上方的5张卡牌。公开其中的最多2张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈我妻 善逸〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 34,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1690968147865UA05ST-KMY-1-109.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-001",
+  "name": "灶门 炭治郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3000,
+  "energyGen": 2,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】[每回合1次]攻击阶段中当我方场上的角色移动时，选择我方场上最多1张角色，本回合中BP+1000。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349208UA01NC-KMY-2-001.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-002",
+  "name": "灶门 祢豆子",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 1,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "[能量线中存在的场合]当我方的攻击阶段开始时，选择我方前线中的1张角色，可以与此角色交换位置。",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349212UA01NC-KMY-2-002.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-003",
+  "name": "伊黑 小芭内",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 2000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "",
+  "trigger": {
+   "label": "抽卡",
+   "text": "抽取1张卡牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349213UA01NC-KMY-2-003.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-004",
+  "name": "甘露寺 蜜璃",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 1500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[支付1AP][每回合1次]此角色在本回合中，BP+2500。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349214UA01NC-KMY-2-004.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-005",
+  "name": "蝴蝶 忍",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【启动主要】[前线中存在的场合][每回合1次]选择对方前线中最多1张BP1500或更高的角色，本回合中BP-1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349215UA01NC-KMY-2-005.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-006",
+  "name": "不死川 实弥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 3,
+  "apCost": 1,
+  "bp": 3500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【我方的回合中】我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色BP+500。\n【登场时】我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色转为活跃状态。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349215UA01NC-KMY-2-006.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-007",
+  "name": "时透 无一郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 2,
+  "apCost": 1,
+  "bp": 2500,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": true,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色的产生能量+[黄]。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349216UA01NC-KMY-2-007.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-008",
+  "name": "富冈 义勇",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 4,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【冲击无效】与此角色进行战斗的角色在本次战斗中，失去冲击。\n【登场时】直到我方的下一个回合开始时为止，此角色获得[不会通过对方的角色或事件卡牌的效果退场]。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349217UA01NC-KMY-2-008.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-009",
+  "name": "悲鸣屿 行冥",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 5,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "yellow",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【登场时】可以将我方的1张手牌置于场外。这样做的场合，从我方的手牌中将最多1张〈悲鸣屿 行冥〉以外的满足所需能量且消费AP为1的拥有特征[柱]的角色以休息状态登场。",
+  "trigger": null,
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349217UA01NC-KMY-2-009.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-010",
+  "name": "宇髓 天元",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 2,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "此角色以活跃状态登场。\n【攻击时】选择我方前线中的[特征：天元的妻子]和我方能量线中的〈宇髓 天元〉或[特征：天元的妻子]各1张，可以交换他们的为止。",
+  "trigger": {
+   "label": "获得",
+   "text": "此卡牌加入手牌。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349217UA01NC-KMY-2-010.png"
+ },
+ {
+  "number": "UA01NC/KMY-2-011",
+  "name": "炼狱 杏寿郎",
+  "type": "character",
+  "color": "yellow",
+  "energyCost": 0,
+  "apCost": 1,
+  "bp": 4000,
+  "energyGen": 1,
+  "energyGenColor": "red",
+  "energyGenPlus": false,
+  "affinities": [
+   "柱"
+  ],
+  "raid": null,
+  "keywords": [],
+  "abilityText": "【冲击无效】与此角色进行战斗的角色在本次战斗中，失去冲击。\n[前线中存在的场合]我方场上的〈炼狱 杏寿郎〉以外的角色不会被【瞄准攻击】所指定。\n【退场时】选择我方场上最多1张〈炼狱 杏寿郎〉以外的角色，本回合中BP+1000。",
+  "trigger": {
+   "label": "激活",
+   "text": "选择我方场上的1张角色转为活跃状态，本回合中，BP+3000。"
+  },
+  "works": "鬼灭之刃",
+  "_goodsId": 70,
+  "_image": "https://yugioh-1258002530.file.myqcloud.com/OnePiecePc/Picture/1698389349218UA01NC-KMY-2-011.png"
+ }
+]

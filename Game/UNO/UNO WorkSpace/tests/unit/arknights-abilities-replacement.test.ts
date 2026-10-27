@@ -3,11 +3,11 @@
  * the character leaves, and 博士 (UCEX01BT/ARK-2-053), whose ability activates whenever it is put into the sideline from anywhere.
  */
 import { describe, expect, it } from "vitest";
-import { applyAction, beginFirstTurn, hasKeyword, newEngineGame, type EngineGame, type EnginePlayer } from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import type { UnionArenaAction, UnionArenaChoice, UnionArenaFieldCard } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { cardContext, isAutomated } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/registry.ts";
-import { legalActions } from "../../../../Arknights/ArknightsWorkSpace/src/shared/ai/legal.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
+import { applyAction, beginFirstTurn, hasKeyword, newEngineGame, type EngineGame, type EnginePlayer } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import type { UnionArenaAction, UnionArenaChoice, UnionArenaFieldCard } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { cardContext, isAutomated } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/registry.ts";
+import { legalActions } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ai/legal.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
 
 const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
 const ctx = cardContext((cardId) => byId.get(cardId));

@@ -14,10 +14,10 @@ import {
   newEngineGame,
   type EngineGame,
   type EnginePlayer
-} from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import type { UnionArenaAction, UnionArenaChoice, UnionArenaFieldCard } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { cardContext } from "../../../../Arknights/ArknightsWorkSpace/src/shared/abilities/registry.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
+} from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import type { UnionArenaAction, UnionArenaChoice, UnionArenaFieldCard } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { cardContext } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/abilities/registry.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
 
 const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
 const ctx = cardContext((cardId) => byId.get(cardId));

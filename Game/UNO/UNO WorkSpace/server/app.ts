@@ -16,11 +16,13 @@ import { clientAddress } from "./requestAddress.ts";
 import { installSocialApi } from "./social.ts";
 import { PresenceService } from "./presence.ts";
 import {
-  UNION_ARENA_ASSET_ROOT,
   UNION_ARENA_BATTLE_MAP,
   UNION_ARENA_CATALOG,
+  UNION_ARENA_TITLE_ASSET_ROOTS,
+  UNION_ARENA_TITLE_TRANSLATIONS,
   UnionArenaRoomManager
-} from "../../../Arknights/ArknightsWorkSpace/src/server/index.ts";
+} from "../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/index.ts";
+import { IPS } from "../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/ips.ts";
 
 const LAN_CLOSED_HTML = `<!doctype html>
 <html lang="zh-CN">
@@ -271,10 +273,11 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
   app.get("/api/arknights/catalog", (_request, response) => {
     response.setHeader("Cache-Control", "public, max-age=300");
     response.json({
+      ips: IPS,
       cards: UNION_ARENA_CATALOG.map((card) => ({
         ...card,
         imageUrl: card.imageAvailable
-          ? `/assets/arknights/cards/${encodeURIComponent(card.file)}`
+          ? `/assets/union-arena/cards/${encodeURIComponent(card.file)}`
           : null
       }))
     });
@@ -287,15 +290,53 @@ export function createAppServer(options: AppServerOptions = {}): AppServer {
     });
   });
 
-  app.get("/assets/arknights/cards/:file", (request, response, next) => {
+  /**
+   * Card art, for every title. The file name alone identifies a card (card ids and file names are unique across the
+   * five titles), so the catalogue is the only thing consulted: a name that is not one of its images is a 404, and the
+   * path never reaches the file system except as a bare name inside a title's own folder.
+   */
+  const sendCardFile = (request: express.Request, response: express.Response, next: express.NextFunction): void => {
     const file = request.params.file;
-    if (typeof file !== "string" || !UNION_ARENA_CATALOG.some((card) => card.file === file && card.imageAvailable)) {
+    if (typeof file !== "string" || path.basename(file) !== file) {
+      response.sendStatus(404);
+      return;
+    }
+    const card = UNION_ARENA_CATALOG.find((entry) => entry.file === file && entry.imageAvailable);
+    const root = card?.ipId ? UNION_ARENA_TITLE_ASSET_ROOTS.get(card.ipId) : undefined;
+    if (!card || !root) {
       response.sendStatus(404);
       return;
     }
     response.setHeader("Cache-Control", "public, max-age=86400");
-    response.sendFile(path.join(UNION_ARENA_ASSET_ROOT, file), (error) => {
+    response.sendFile(path.join(root, file), (error) => {
       if (error && !response.headersSent) next(error);
+    });
+  };
+  app.get("/assets/union-arena/cards/:file", sendCardFile);
+  /** The path the game used before the other titles arrived; kept so existing pages and cached HTML keep working. */
+  app.get("/assets/arknights/cards/:file", sendCardFile);
+
+  /**
+   * A title's card translations (Cards/translations.json). Served per title so the detail view asks once for a title, not
+   * once per card, and so a title without translations answers with an empty list rather than a 404 the page must handle.
+   */
+  app.get("/assets/union-arena/translations/:file", (request, response) => {
+    const file = request.params.file;
+    if (typeof file !== "string" || !/^[a-z]{3}\.json$/.test(file)) {
+      response.sendStatus(404);
+      return;
+    }
+    const code = file.slice(0, 3).toUpperCase();
+    const title = IPS.find((entry) => entry.code === code);
+    const path_ = title ? UNION_ARENA_TITLE_TRANSLATIONS.get(title.id) : undefined;
+    if (!path_ || !fs.existsSync(path_)) {
+      response.setHeader("Cache-Control", "public, max-age=300");
+      response.json({ title: title?.name ?? "", cards: [] });
+      return;
+    }
+    response.setHeader("Cache-Control", "public, max-age=300");
+    response.sendFile(path_, (error) => {
+      if (error && !response.headersSent) response.json({ title: title?.name ?? "", cards: [] });
     });
   });
 

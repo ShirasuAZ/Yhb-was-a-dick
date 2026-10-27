@@ -1,0 +1,3613 @@
+{
+ "title": "Jujutsu Kaisen",
+ "originalLang": "ja",
+ "translationLang": "zh-Hans",
+ "note": "译文取自官方简体中文卡牌文本（unionarena-tcg.cn）。原文与译文按同一张卡的行序逐段对应；两侧行数不一致的卡不做对应，段落保留原文并标为未校验。",
+ "cards": [
+  {
+   "number": "UA02BT/JJK-1-001",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《黄》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]此角色产生能量+●黄●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-002",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-003",
+   "name": "狗巻 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-004",
+   "name": "狗巻 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》相手のフロントLのキャラを1枚まで選び、レストにする。",
+     "translation": "【退场时】选择对方前线中最多1张角色，转为休息状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-005",
+   "name": "狗巻 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《APを1支払う》 《ターン1》自分のフロントLのキャラ全ては、このターン中、BP+1000。",
+     "translation": "【启动主要】[支付1AP][每回合1次]我方前线所有角色本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-007",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《レストにする》相手のフロントLのキャラを1枚選び、レストにする。",
+     "translation": "【启动主要】[前线中存在的场合][转为休息状态]选择对方前线中最多1张角色，转为休息状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-008",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《APを1支払う》 《ターン1》このキャラはこのターン中、《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": "【启动主要】[支付1AP][每回合1次]此角色本回合中获得【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《レイド》〈釘崎 野薔薇〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈钉崎 野蔷薇〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、レストにする。それは次の1回アクティブにならない。",
+     "translation": "【登场时】选择对方前线中最多1张角色，转为休息状态。该角色的下1次转为活跃状态无效。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-009",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に青か紫のカードがある場合、手札にあるこのカードの必要エナジーを《黄×1》減らす。",
+     "translation": "对方场上存在蓝色或紫色的卡牌的场合，手牌中的此卡牌所需能量减少●キ黄×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-010",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手の場のフィールドを1枚まで選び、相手の山札の下に置く。",
+     "translation": "【登场时】选择对方场上最多1张场地，将其置于对方卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-011",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《2回ブロック》（このキャラがこのターン初めてブロックした時、アクティブにする）",
+     "translation": "【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《相手のターン中》相手はキャラの効果やイベントカードの効果でこのキャラを選ぶ際に、追加でAPを1支払わないと選べない。",
+     "translation": "【对方的回合中】当对方角色的效果或事件卡牌的效果选择此角色时，不追加支付1AP则无法选择此角色。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-012",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》カードを1枚引く。このターン中、次に手札から使用する〈五条 悟〉以外のカードの消費APを-1する。",
+     "translation": "【登场时】抽取1张卡牌。本回合中，下一张从手牌中使用的〈五条 悟〉以外的卡牌的消费AP-1。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-014",
+   "name": "禅院 真希",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《黄》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●黄●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-015",
+   "name": "熊猫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-016",
+   "name": "熊猫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-017",
+   "name": "熊猫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《レイド》〈パンダ〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈熊猫〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《2回ブロック》（このキャラがこのターン初めてブロックした時、アクティブにする）",
+     "translation": "【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "このキャラはBP+1000。",
+     "translation": "此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-018",
+   "name": "伏黑 津美纪",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【登场时】选择我方场上最多1张其他角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-020",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から［特徴：式神］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张［特徴：式神］并加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-021",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札か自分の場外から必要エナジーが3以下で消費APが1の特徴に「式神」を持つキャラカードを1枚まで自分の場にアクティブで登場させる。",
+     "translation": "【登场时】从我方手牌或场外将最多1张1张所需能量不高于3且消费AP为1并拥有「式神」特征的卡牌以活跃状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-022",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈伏黒 恵〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈伏黑 惠〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から［特徴：式神］か〈嵌合暗翳庭〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。自分の手札から必要エナジーを満たし消費APが1の特徴に「式神」を持つキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张［特征：式神］或〈嵌合暗翳庭〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。从我方手牌将最多1张满足所需能量且消费AP为1并拥有「式神」特征的卡牌以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-024",
+   "name": "玉犬:黑&白",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》自分の場の他のキャラを1枚まで選び、このターン中、BP+500。",
+     "translation": "【攻击时】选择我方场上最多1张其他角色，本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-025",
+   "name": "玉犬:浑",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外に〈玉犬：黒＆白〉がある場合、このキャラは《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": "我方场外有〈玉犬：黑＆白〉的场合，此角色获得【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-026",
+   "name": "鵺",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【攻击时】抽取1张卡牌，将我方1的张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-027",
+   "name": "嵌合暗翳庭",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《APを1支払う》 《ターン1》自分の場の［特徴：式神］全ては、このターン中、BP+1000。",
+     "translation": "【启动主要】[支付1AP][每回合1次]我方场上的所有［特征：式神］本回合中BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ターン1》自分の場の〈伏黒 恵〉がアタックした時、自分のフロントLの［特徴：式神］を1枚まで選び、アクティブにする。",
+     "translation": "[每回合1次]我方场上的〈伏黑 恵〉攻击时，选择我方前线中最多1张［特征：式神］转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-028",
+   "name": "无量空处",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、レストにする。自分の場に〈無量空処〉があるかぎり、そのキャラはスタートフェイズとエンドフェイズにアクティブにならない。",
+     "translation": "【登场时】选择对方前线中最多1张角色，转为休息状态。只要我方场上存在此场地，那个角色在起始阶段和结束阶段中不会转为活跃状态。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "各アタックフェイズの終了時、自分のフロントLに〈五条 悟〉がない場合、このフィールドを退場させる。",
+     "translation": "每个攻击阶段结束时，我方前线中不存在〈五条 悟〉的场合，此场地退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-029",
+   "name": "虚式「茈」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈五条 悟〉がある場合、手札にあるこのカードの消費APを-1する。",
+     "translation": "我方场上存在〈五条 悟〉的场合，手牌中此卡牌的消费AP-1。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "相手のフロントLのキャラを1枚選び、リムーブエリアに置く。",
+     "translation": "选择对方前线中的1张角色，将其置于移除区。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-030",
+   "name": "术式反转「赫」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP4000以下の相手のフロントLのキャラを1枚選び、エナジーLに移動させる。（移動させる時にそのラインに空きがない場合、そのカードがある場のプレイヤーはカードを1枚選んでリムーブエリアに置いてから移動させる）",
+     "translation": "选择对方前线中的1张BP不高于4000的角色，将其移动至能量线。（移动时能量线中没有空位的场合，那个玩家选择1张卡牌置于除外区后再进行移动）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-031",
+   "name": "刍灵咒法「簪」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手のフロントLのレストのキャラを1枚選び、退場させる。",
+     "translation": "选择对方前线中的1张休息状态的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-032",
+   "name": "刍灵咒法「共鸣」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLのアクティブのキャラと相手のフロントLのキャラをそれぞれ1枚ずつ選び、レストにする。自分の場に〈釘崎 野薔薇〉がある場合、自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "选择我方前线中的处于活跃状态的角色和对方前线中的角色各1张，转为休息状态。我方场上存在〈钉崎 野蔷薇〉的场合，选择我方的最多1张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-033",
+   "name": "十种影法术",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "カードを1枚引く。自分の手札か自分の場外から必要エナジーが3以下で消費APが1の特徴に「式神」を持つキャラカードを1枚まで自分のフロントLに『レストで登場させる』。自分の場に〈伏黒 恵〉がある場合、『アクティブで登場させる』に代わる。",
+     "translation": "抽取1张卡牌。从我方手牌或场外将最多1张所需能量不高于3且消费AP为1并拥有「式神」特征的卡牌在我方前线中『以休息状态登场』。我方场上存在〈伏黑 恵〉的场合，改为『以活跃状态登场』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-034",
+   "name": "领域展开",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-035",
+   "name": "家入 硝子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に黄か紫のカードがある場合、手札にあるこのカードの必要エナジーを《青×1》減らす。",
+     "translation": "对方场上有黄色或紫色的卡牌的场合，手牌中的此卡牌所需能量减少●キ蓝×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-036",
+   "name": "伊地知 洁高",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《青》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]此角色产生能量+●蓝●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-038",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から〈宿儺の指〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚自分の山札の下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张〈宿傩的手指〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-039",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》BP3500以下の相手のフロントLのキャラを1枚まで選ぶ。自分の場外に〈宿儺の指〉が1～2枚ある場合、選んだキャラを手札に戻す。自分の場外に〈宿儺の指〉が3枚以上ある場合、選んだキャラを退場させる。",
+     "translation": "【登场时】选择对方前线中最多1张BP不高于3500的角色。我方场外存在1~2张〈宿傩的手指〉的场合，将选择的角色放回手牌。我方场外存在3张或更多〈宿傩的手指〉的场合，将选择的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-040",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈虎杖 悠仁〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈虎杖 悠仁〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》BP4000以下の相手のフロントLのキャラを1枚まで選び、手札に戻す。",
+     "translation": "【登场时】选择对方前线中最多1张BP不高于4000的角色，放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-041",
+   "name": "狗卷 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》BP1000以上の相手の場のキャラを1枚まで選び、このターン中、BP-500。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]选择对方场上最多1张BP1000或更高的角色，本回合中BP-500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-043",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方1的张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-044",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-045",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《青》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●蓝●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-046",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》カードを1枚引く。",
+     "translation": "【攻击时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-047",
+   "name": "宿傩",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈虎杖 悠仁〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、レストにする。それは次の1回アクティブにならない。自分の山札の上から5枚見る。その中から〈宿儺の指〉か〈伏魔御廚子〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-048",
+   "name": "宿傩",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》《フロントLにある場合》相手は自身のフロントLのキャラを『1枚』手札に戻す。自分の場外に〈宿儺の指〉が2～3枚ある場合、『2枚』に代わる。自分の場外に〈宿儺の指〉が4枚以上ある場合、『3枚』に代わる。",
+     "translation": "【登场时】[前线中存在的场合]对方选择对方前线中的『1张』角色放回手牌。我方场外存在2~3张〈宿傩的手指〉的场合，改为选择『2张』。我方场外存在4张或更多〈宿傩的手指〉的场合，改为选择『3张』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-049",
+   "name": "禅院 真希",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外に［特徴：呪具］が1枚以上かイベントカードが4枚以上ある場合、このキャラはBP+1000。",
+     "translation": "我方场外存在1张或更多［特征：呪具］或者4张或更多事件卡牌的场合，此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-050",
+   "name": "禅院 真希",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《相手のターン中》自分の場外に［特徴：呪具］が1枚以上かイベントカードが4枚以上ある場合、このキャラはBP+1500。",
+     "translation": "【对方的回合中】我方场外存在1张或更多［特征：呪具］或者4张或更多事件卡牌的场合，此角色BP+1500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から2枚見る。その中からカードを1枚手札に加え、残りを場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的2张卡牌。将其中1张卡牌并加入手牌。剩余的卡牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-052",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》自分の山札の上から1枚を場外に置いてもよい。そうした場合、BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【攻击时】可以将我方卡组最上方1张卡牌置于场外。那样做的场合，选择对方场上最多1张BP1500或更高的角色，本回合中BP-1500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-053",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の山札が15枚以下の場合、このキャラは《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": "我方卡组不多于15张的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場外にあるカードを7枚リムーブエリアに置いてもよい。そうした場合、カードを3枚引く。",
+     "translation": "【登场时】可以将我方场外存在的7张卡牌置于除外区，那样做的场合，抽取3张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-054",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈七海 建人〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈七海 建人〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の山札が15枚以下の場合、このキャラはBP+1000と《インパクト（1）》と《ダメージ（2）》を得る。",
+     "translation": "我方卡组不多于15张的场合，此角色BP+1000并获得【冲击①】和【伤害②】",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《退場時》自分の山札の上から2枚を場外に置いてもよい。そうした場合、相手のフロントLのキャラを1枚まで選び、レストにする。",
+     "translation": "【退场时】可以将我方卡组最上方2张卡牌置于场外。那样做的场合，选择对方前线中最多1张角色，转为休息状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-055",
+   "name": "熊猫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-056",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】选择对方场上最多1张BP1500或更高的角色，本回合中BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-057",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手の場のフィールドを1枚まで選び、相手の山札の下に置く。",
+     "translation": "【登场时】选择对方场上最多1张场地，将其置于对方卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-058",
+   "name": "夜蛾 正道",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の場の他のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的1张其他角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-059",
+   "name": "吉野 顺平",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》カードを1枚引く。",
+     "translation": "【退场时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-060",
+   "name": "东堂 葵",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》自分のフロントLの他のキャラと、自分のエナジーLの他のキャラを1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": "【攻击时】可以选择我方前线中和能量线中的角色各1张，交换他们的位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-061",
+   "name": "伏魔御厨子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》自分の場の〈宿儺〉を1枚選び、このターン中、自分の場外にある〈宿儺の指〉の枚数により以下の効果を全て得る。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的1张〈宿傩〉，本回合中，根据我方场外存在的〈宿傩的手指〉的数量，此角色获得下列全部效果。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・2枚以上：《ダメージ（2）》",
+     "translation": "・2张或更多：【伤害②】",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・3枚以上：《狙い撃ち》",
+     "translation": "・3张或更多：▼瞄准攻击▼",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・4枚以上：《インパクト（+1）》",
+     "translation": "・4张或更多：▼冲击（+1）▼",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "（《狙い撃ち》：相手のフロントLのキャラを指定してアタックでき、指定した場合、相手はブロックできない）",
+     "translation": "（▼瞄准攻击▼：可以指定攻击对方前线中的角色，指定的场合，对方不能阻挡）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-062",
+   "name": "迳庭拳",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、『手札に戻す』。自分の場に〈虎杖 悠仁〉がある場合、『退場させる』に代わる。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，『放回手牌』。我方场上存在〈虎杖 悠仁〉的场合，改为『将此角色退场』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-063",
+   "name": "宿傩的手指",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードを使用する際に、自分のライフを1枚場外に置くか自分の場のアクティブの〈虎杖 悠仁〉を1枚レストにしないとこのカードは使用できない。",
+     "translation": "使用此卡牌时，只有将我方的1张生命值置于场外或将我方场上的1张活跃状态的〈虎杖 悠仁〉转为休息状态才能使用。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "カードを1枚引く。自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "抽取1张卡牌。选择我方的最多1张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-064",
+   "name": "十画咒法「瓦落瓦落」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、相手の山札の上か下の『相手が選んだ方』に置く。自分の場に〈七海 建人〉がある場合、『自分が選んだ方』に代わる。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，『对方选择』将其置于卡组最上方或最下方。我方场上存在〈七海 建人〉的场合，改为『我方选择』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-065",
+   "name": "屠坐魔",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLのキャラを1枚まで選び、このターン中、BP+2000。カードを1枚引く。",
+     "translation": "选择我方前线中的1张角色本回合中BP+2000。抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-066",
+   "name": "游云",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP2500以下の相手のフロントLのキャラを1枚選び、退場させる。",
+     "translation": "选择对方前线中的1张BP不高于2500的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-067",
+   "name": "领域展开",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-068",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他のキャラを1枚退場させてもよい。そうした場合、自分の山札の上から6枚見る。その中から［特徴：呪霊］を2枚まで公開し手札に加える。残りを場外に置く。",
+     "translation": "【登场时】可以将我方场上的1张其他角色退场，那样做的场合，确认我方卡组最上方的6张卡牌。公开其中最多2张［特征：咒灵］并加入手牌。剩余的卡牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-069",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場の他のキャラを1枚退場させてもよい。",
+     "translation": "【登场时】可以将我方场上的1张其他角色退场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》このターン中に自分の場のキャラが退場している場合のみ発動できる。相手は自身の場のキャラを1枚退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]只有在本回合中我方角色退场过的场合才能发动。对方退场对方场上的1张角色。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-070",
+   "name": "高田",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。若没有其他角色放回手牌，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-071",
+   "name": "吉野 顺平",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《紫》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]此角色产生能量+●紫●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-072",
+   "name": "被改造的人类",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》相手のフロントLのキャラを1枚選び、このターン中、BP-1000。",
+     "translation": "【启动主要】[转为休息状态]#此卡牌退场#选择对方前线1张角色，本回合中BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-074",
+   "name": "究极 机械丸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《紫》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●紫●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-075",
+   "name": "庵 歌姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から3枚見る。その中から［特徴：京都校］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的3张卡牌。公开其中最多1张［特征：京都校］并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将自己的1张手牌置于場外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-077",
+   "name": "加茂 宪纪",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》相手のフロントLのキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【攻击时】选择对方前线中最多1张其他角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-078",
+   "name": "禅院 真依",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【登场时】选择我方场上最多1张其他角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-080",
+   "name": "东堂 葵",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈高田ちゃん〉がある場合、このキャラはBP+500。",
+     "translation": "我方场上存在〈高田〉的场合，此角色BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《手札を1枚場外に置く》 《ターン1》このキャラはこのターン中、《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": "【启动主要】#将1张手牌置于场外#[每回合1次]本回合中此角色获得【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-081",
+   "name": "东堂 葵",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈東堂 葵〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈东堂 葵〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）",
+     "translation": "【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》このキャラはこのターン中、BP+2000。相手のフロントLのキャラと、相手のエナジーLのキャラを1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": "【登场时】此角色本回合中BP+2000。可以选择对方前线中和对方能量线中的角色各1张，交换他们的位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-082",
+   "name": "西宫 桃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札から必要エナジーが2以下で消費APが1の特徴に「京都校」を持つキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】从我方手牌中将1张所需能量不高于2且消费AP为1并拥有「京都校」特征的卡牌以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-083",
+   "name": "三轮 霞",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引く。",
+     "translation": "【登场时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-084",
+   "name": "三轮 霞",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《2回アタック》（このキャラがこのターン初めてアタックした時、アクティブにする）",
+     "translation": "【2次攻击】（当此角色本回合中首次进行攻击时，转为活跃状态）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "このキャラは、相手のアタックを可能ならブロックしなければならない。",
+     "translation": "此角色必须尽可能阻挡对方的攻击",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、このキャラと同じラインにある他の［特徴：京都校］1枚につき、このターン中、BP-1000。",
+     "translation": "【登场时】选择对方前线中最多1张角色，与此角色同线的其他［特征：京都校］每有1张，本回合中，选择的角色BP-1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《ブロック時》アタックしている相手のキャラを1枚選び、このキャラと同じラインにある他の［特徴：京都校］1枚につき、このターン中、BP-1000。",
+     "translation": "【阻挡时】选择对方正在攻击的1张角色，与此角色同线的其他［特征：京都校］每有1张，本回合中，选择的角色BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-085",
+   "name": "吉野 顺平&淀月",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場に〈真人〉がある場合、自分の山札の上から3枚を場外に置いてもよい。",
+     "translation": "【登场时】我方场上存在〈真人〉的场合，可以将我方卡组最上方3张卡牌置于场外。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《退場時》自分の場に〈真人〉がある場合、自分の手札か自分の場外から〈吉野 順平：異形〉を1枚まで自分の場にレストで登場させる。",
+     "translation": "【退场时】我方场上存在〈真人〉的场合，从我方手牌或场外将最多1张〈吉野 顺平：异形〉以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-086",
+   "name": "漏瑚",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】选择对方前线中最多1张角色，本回合中BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-087",
+   "name": "漏瑚",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈漏瑚〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈漏瑚〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》BP3000以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】选择对方前线中最多1张BP不高于3000的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-088",
+   "name": "陀艮",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》カードを1枚引く。",
+     "translation": "【退场时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-089",
+   "name": "花御",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に黄か青のカードがある場合、手札にあるこのカードの必要エナジーを《紫×1》減らす。",
+     "translation": "对方场上有黄色或蓝色的卡牌的场合，手牌中的此卡牌所需能量减少●キ紫×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-090",
+   "name": "花御",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-092",
+   "name": "真人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の場の〈真人〉以外のキャラを1枚退場させる。そうした場合、自分の山札の上から3枚を場外に置いてもよい。自分の手札か自分の場外から特徴に「改造人間」を持つキャラカードを1枚まで自分の場にアクティブで登場させる。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]我方场上的1张〈真人〉以外的角色退场，那样做的场合，可以将我方卡组最上方3张卡牌置于场外。从我方手牌或我方场外将最多1张拥有「改造人类」特征的角色卡牌以活跃状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-093",
+   "name": "真人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈真人〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈真人〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、このターン中、BP-2500。自分の場外から［特徴：改造人間］か〈自閉円頓裹〉を1枚まで手札に加える。",
+     "translation": "【登场时】选择对方前线中最多1张角色，本回合中BP-2500。将我方场外最多1张［特征：改造人类］或〈自闭圆顿里〉加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-094",
+   "name": "自闭圆顿里",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ターン1》自分の場の〈真人〉がアタックした時、自分の場の〈真人〉以外のキャラを1枚退場させてもよい。そうした場合、自分の手札か自分の場外から特徴に「改造人間」を持つキャラカードを1枚まで自分の場にアクティブで登場させる。",
+     "translation": "[每回合1次]当我方场上的〈真人〉进行攻击时，可以将我方场上的1张〈真人〉以外的角色退场。那样做的场合，从我方手牌或我方场外将最多1张拥有「改造人类」特征的角色卡牌以活跃状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-095",
+   "name": "火砾虫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP2500以下の相手のフロントLのキャラを1枚まで選び、退場させる。自分の場に〈漏瑚〉がある場合、カードを1枚引く。",
+     "translation": "选择对方前线中的1张BP不高于2500的角色退场。我方场上存在〈漏瑚〉的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-096",
+   "name": "交流战",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外から特徴に「京都校」を持つキャラカードを1枚まで手札に加える。自分の手札から必要エナジーを満たし消費APが1の特徴に「京都校」を持つキャラカードを1枚まで自分の場にレストで登場させるかレイドさせる。",
+     "translation": "选择我方场外最多1张拥有「京都校」特征的角色卡牌加入手牌。从我方手牌将最多1张满足能量需求且消费AP为1拥有「京都校」特征的角色卡牌以休息状态登场或发动突进。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-097",
+   "name": "不存在的记忆",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場の〈東堂 葵〉と自分の場の〈東堂 葵〉以外のキャラをそれぞれ1枚まで選び、このターン中、BP+1000。2枚選んだ場合、この効果で選んだ〈東堂 葵〉に、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "选择我方场上的最多各1张〈东堂 葵〉和〈东堂 葵〉以外的角色，本回合中BP+1000。选择2张的场合，此效果选中的〈东堂 葵〉本回合中获得▼冲击（+1）▼（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-098",
+   "name": "不义游戏",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、相手の山札の下に置く。相手は自身の手札から必要エナジーが3以下のキャラカードを1枚まで自身のフロントLにレストで登場させる。この効果で登場したキャラの《登場時》は発動しない。自分の場に〈東堂 葵〉がある場合、カードを1枚引く。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，置于对方卡组最下方。对方从手牌中将最多1张所需能量不高于3的角色卡牌在对方前线中以休息状态登场。通过此效果登场的角色不发动【登场时】效果。我方场上存在〈东堂 葵〉的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-099",
+   "name": "无为转变",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP3000以下の相手のフロントLのキャラを1枚選び、退場させる。自分の山札の上から3枚を場外に置いてもよい。この効果で相手のキャラを退場させ、自分の場に〈真人〉がある場合、自分の手札か自分の場外から特徴に「改造人間」を持つキャラカードを1枚まで自分の場にアクティブで登場させる。",
+     "translation": "选择对方前线中的1张BP不高于3000的角色退场。可以从我方卡组最上方将3张卡牌置于场外。此效果将对方的角色退场且我方场上存在〈真人〉的场合，从我方手牌或我方场外将最多1张拥有「改造人类」特征的角色卡牌以活跃状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02BT/JJK-1-100",
+   "name": "领域展开",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-001",
+   "name": "天内 理子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《エナジーLにある場合》自分と相手のアタックフェイズ終了時、自分のフロントLに〈五条 悟〉と〈夏油 傑〉がどちらもない場合、このキャラをフロントLに移動させる。",
+     "translation": "[能量线中存在的场合]当我方和对方的攻击阶段结束时，我方的前线中〈五条 悟〉和〈夏油 杰〉都不存在的场合，此角色移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《エナジーLにある場合》 《レストにする》 《手札を1枚場外に置く》 《ターン1》必要エナジーが5以下の自分の場の〔〈五条 悟〉か〈夏油 傑〉〕を1枚選び、アクティブにする。",
+     "translation": "【启动主要】[能量线中存在的场合][转为休息状态][将1张手牌置于场外][每回合1次]选择我方场上的1张所需能量不高于5的〔〈五条 悟〉或〈夏油 杰〉〕，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-002",
+   "name": "家入 硝子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-003",
+   "name": "庵 歌姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》自分の山札の上から1枚見る。そのカードを自分の山札の上か下に置く。",
+     "translation": "【攻击时】确认我方卡组最上方的1张卡牌。将其置于我方卡组的最上方或最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-004",
+   "name": "黑井 美里",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から〈天内 理子〉か〈沖縄旅行〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张〈天内 理子〉或〈冲绳旅行〉并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-005",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》同じラインに〈五条 悟〉があるか、自分の場か場外に〈天内 理子〉がある場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】[前线中存在的场合]同线中存在〈五条 悟〉，或我方的场外存在〈天内 理子〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》APを1支払ってもよい。そうした場合、自分の場外から必要エナジーが3以下で消費APが1の特徴に「呪霊」を持つ黄のキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】可以支付1AP。这样做的场合，从我方的场外将1张所需能量不高于3且消费AP1的拥有特征“咒灵”的黄色角色卡牌在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-006",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》同じラインに〈夏油 傑〉があるか、自分の場か場外に〈天内 理子〉がある場合、このキャラはBP+1000と《インパクト（1）》を得る。",
+     "translation": "【我方的回合中】[前线中存在的场合]同线中存在〈夏油 杰〉，或我方的场外存在〈天内 理子〉的场合，此角色获得BP+1000和【冲击①】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から3枚見る。その中から〈術式順転「蒼」〉か〈術式反転「赫」〉か〈虚式「茈」〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈术式顺转「苍」〉或〈术式反转「赫」〉或〈虚式「茈」〉并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-007",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ターン1》自分の場の〈嵌合暗翳庭〉の《起動メイン》が発動した時、自分の場の〈伏黒 恵〉全ては、このターン中、BP+1000。",
+     "translation": "[每回合1次]当我方场上的〈嵌合暗翳庭〉的【启动主要】效果发动时，我方场上的所有〈伏黑 惠〉在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場の［特徴：式神］と〈嵌合暗翳庭〉の合計枚数×1000以下のBPの相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】选择对方前线中的最多1张BP不高于我方场上的“特征：式神”和〈嵌合暗翳庭〉的合计张数×1000的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-008",
+   "name": "脱兔",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラが自分の場から手札に戻った時、自分の場の［特徴：式神］を1枚まで選び、アクティブにする。",
+     "translation": "当此角色从我方的场上放回手牌时，选择我方场上的最多1张“特征：式神”，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-009",
+   "name": "满象",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはフロントLにある場合もエナジーを発生させる。",
+     "translation": "此角色在前线中存在的场合也会产生能量。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場の他の［特徴：式神］を1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张其他的“特征：式神”放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-010",
+   "name": "虹龙",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《相手のターン中》自分の場に〈夏油 傑〉がある場合、このキャラはBP+1000。",
+     "translation": "【对方的回合中】我方的场上存在〈夏油 杰〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-011",
+   "name": "冲绳旅行",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の山札の上から5枚見る。その中から〈五条 悟〉か〈夏油 傑〉か〈天内 理子〉か〈黒井 美里〉を2枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "确认我方卡组最上方的5张卡牌。公开其中最多2张〈五条 悟〉或〈夏油 杰〉或〈天内 理子〉并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-012",
+   "name": "术式顺转「苍」",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "〈術式順転「蒼」〉は1ターンに1枚のみ使用できる。",
+     "translation": "1回合只能使用1张〈〈术式顺转「苍」〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "発生エナジーが1以下の相手のエナジーLのキャラを1枚選び、フロントLに移動させる。その後、この移動によって相手のキャラがリムーブエリアに置かれていない場合、カードを1枚引く。（移動させる時にフロントLに空きがない場合、相手はフロントLのカードを1枚選んでリムーブエリアに置いてから移動させる）",
+     "translation": "选择对方能量线中的1张产生能量不高于1的角色，移动至前。那之后，对方没有角色因这次移动置于移除区的场合，抽取1张卡牌。（进行移动时前线中没有空位的场合，对方选择前线中的1张卡牌置于移除区后再进行移动）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-013",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》自分の場外に〈宿儺の指〉が1枚以上ある場合、自分の手札にある〈宿儺〉全ての必要エナジーを『《青×1》減らす』。自分の場外に〈宿儺の指〉が4枚以上ある場合、『《青×2》減らす』に代わる。",
+     "translation": "【我方的回合中】[前线中存在的场合]我方的场外存在1张或更多〈宿傩的手指〉的场合，我方手牌中存在的所有〈宿傩〉的所需能量『减少[蓝×1]』。我方的场外存在4张或更多〈宿傩的手指〉的场合，改为『减少[蓝×2]』。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-014",
+   "name": "狗巻 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-015",
+   "name": "宿傩",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈虎杖 悠仁〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈虎杖 悠仁〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给予对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》以下から『1つ』選ぶ。自分の場外に〈宿儺の指〉が3枚ある場合、『2つ』に代わる。自分の場外に〈宿儺の指〉が4枚以上ある場合、『全て』に代わる。",
+     "translation": "【登场时】从下列选择『1项』。我方的场外存在3张或更多〈宿傩的手指〉的场合，改为选择『2项』。我方的场外存在4张或更多〈宿傩的手指〉的场合，改为选择『所有』。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・自分はカードを1枚引き、相手は自身の手札を1枚場外に置く。",
+     "translation": "·抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・BP2500以上の相手のフロントLのキャラ全ては、このターン中、BP-2000。",
+     "translation": "·对方前线中的所有BP2500或更高的角色，本回合中，BP-2000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "・BP3500以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "·选择对方前线中的最多1张BP不高于3500的角色，退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-016",
+   "name": "禅院 直毘人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から2枚見る。その中から望む枚数を望む順で自分の山札の上に置き、残りを望む順で下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的2张卡牌。将其中任意张数自选顺序置于我方卡组的最上方，剩余的卡牌自选顺序置于我方卡组的最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-017",
+   "name": "禅院 真希",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場外から《スペシャルトリガー》と《ファイナルトリガー》をどちらも持たないイベントカードを1枚まで手札に加える。",
+     "translation": "【登场时】从我方的场外将最多1张没有【特殊触发】和【最终触发】的事件卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-018",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《相手のターン中》自分の山札が15枚以下の場合、このキャラはBP+1000と《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）を得る。",
+     "translation": "【对方的回合中】我方的卡组不多于15张的场合，此角色获得BP+1000和【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から1枚まで場外に置く。",
+     "translation": "【登场时】将我方卡组最上方的最多1张卡牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-019",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈七海 建人〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈七海 建人〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、次の自分のターン開始時まで、「このキャラはアタックできない。」を与える。",
+     "translation": "【登场时】选择对方前线中的最多1张角色，直到我方的下一个回合开始时为止，给予“此角色无法攻击”。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《アタック時》自分の山札の上から1枚まで場外に置く。その後、自分の山札が15枚以下の場合、カードを1枚まで引き、BP1500以上の相手のフロントLのキャラ全ては、このターン中、BP-1000。",
+     "translation": "【攻击时】将我方卡组最上方的最多1张卡牌置于场外。那之后，我方的卡组不多于15张的场合，抽取最多1张卡牌，对方前线中的所有BP1500或更高的角色在本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-021",
+   "name": "灰原 雄",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の場に〈七海 建人〉がある場合、カードを1枚まで引く。",
+     "translation": "【退场时】我方的场上存在〈七海 建人〉的场合，抽取最多1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-022",
+   "name": "灰原 雄",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場外から〈七海 建人〉を1枚まで手札に加える。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]从我方的场外将最多1张〈七海 建人〉加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-023",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》このターン中に自分の効果で自分の手札か山札のカードが場外に置かれている場合、このキャラはBP+500。",
+     "translation": "【我方的回合中】本回合中有我方的手牌或卡组中的卡牌通过我方的效果置于过场外的场合，此角色的BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-024",
+   "name": "骄傲吧 你很强",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLに〈宿儺〉がある場合、手札にあるこのカードの必要エナジーを《青×2》減らす。",
+     "translation": "我方的前线中存在〈宿傩〉的场合，手牌中存在的此卡牌的所需能量减少[蓝×2]。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "元々のBPが4000以上の相手のフロントLのキャラを1枚選び、退場させる。カードを2枚引く。",
+     "translation": "选择对方前线中的1张原本BP为4000或更高的角色退场。抽取2张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-025",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札から必要エナジーが2以下で消費APが1の特徴に「呪霊」を持つ紫のキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】从我方的手牌中将1张所需能量不高于2且消费AP为1的拥有特征“咒灵”的子色角色卡牌在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-026",
+   "name": "伏黑 甚尔",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分と相手のライフの合計が4以下の場合、手札にあるこのカードの必要エナジーを《紫×2》減らす。",
+     "translation": "我方和对方的生命合计不多于4张的场合，手牌中存在的此卡牌的所需能量减少[紫×2]。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《自分のターン中》このキャラはBP+1000。",
+     "translation": "【我方的回合中】此角色的BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《登場時》このキャラはこのターン中、《インパクト（1）》と《狙い撃ち》（相手のフロントLのキャラを指定してアタックでき、指定した場合、相手はブロックできない）を得る。",
+     "translation": "【登场时】此角色在本回合中，获得【冲击①】和【瞄准攻击】（可以指定攻击对方前线中的角色，指定的场合，对方不能阻挡）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-027",
+   "name": "究极 机械丸 绝对形态",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈究極 メカ丸〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈究极 机械丸〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の場に他の［特徴：京都校］が5枚以上か〈三輪 霞〉がある場合、このキャラは《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": "我方的场上存在5张或更多其他的“特征：京都校”或〈三轮 霞〉的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给予对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》以下から1つ選ぶ。",
+     "translation": "【登场时】从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・BP3500以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "·选择对方前线中的最多1张BP不高于3500的角色退场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・相手の場のフィールドを1枚まで選び、退場させる。",
+     "translation": "·选择对方场上的最多1张场地退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-028",
+   "name": "三轮 霞",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-029",
+   "name": "与 幸吉",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈究極 メカ丸〉としても扱う。",
+     "translation": "此卡牌也视为〈究极 机械丸〉。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-030",
+   "name": "与 幸吉",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈究極 メカ丸〉としても扱う。",
+     "translation": "此卡牌也视为〈究极 机械丸〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場に他の［特徴：京都校］が5枚以上か〈三輪 霞〉がある場合、相手のフロントLのキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】我方的场上存在5张或更多其他的“特征：京都校”或〈三轮 霞〉的场合，选择对方前线中的最多1张角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-031",
+   "name": "漏瑚",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》このターン中にBPが0以下になることか効果によって、キャラが退場している場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】本回合中有角色因BP变为0或因效果退场的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-032",
+   "name": "陀艮",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の山札の上から2枚を場外に置く。",
+     "translation": "【退场时】将我方卡组最上方的2张卡牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-033",
+   "name": "陀艮",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈陀艮〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈陀艮〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《アタック時》自分の手札を1枚場外に置いてもよい。そうした場合、自分の場外から必要エナジーが2以下の紫のキャラカードを1枚まで自分の場にレストで登場させる。この効果で登場したキャラの《登場時》は発動しない。",
+     "translation": "【攻击时】可以将我方的1张手牌置于场外。这样做的场合，从我方的场外将1张所需能量不高于2且消费AP1的紫色角色卡牌在我方的场上以休息状态登场。通过此效果登场的角色的【登场时】效果不发动。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-034",
+   "name": "花御",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-035",
+   "name": "真人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈真人〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈真人〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》〈真人〉以外の自分の場のキャラを2枚退場させてもよい。この効果で同じカード名を持つキャラを退場させることはできない。この効果で2枚退場させた場合、カードを2枚引き、相手のフロントLのキャラを1枚まで選び、このターン中、BP-4000。",
+     "translation": "【登场时】可以将我方场上的2张〈真人〉以外的角色退场。此效果无法将拥有相同卡牌名称的角色退场。通过此效果将2张退场的场合，抽取2张卡牌，选择对方前线中的最多1张角色，本回合中，BP-4000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-036",
+   "name": "大祓炮",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈究極 メカ丸〉か〈究極 メカ丸 絶対形態〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张『BP不高于3000』的角色退场。我方的场上存在〈究极 机械丸〉或〈究极 机械丸 绝对形态〉的场合，改为选择『BP不高于5000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-037",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から2枚見る。その中から［特徴：呪霊］か［特徴：呪胎九相図］を望む枚数場外に置く。残りを望む順で自分の山札の上に置く。",
+     "translation": "【登场时】确认我方卡组最上方的2张卡牌。将其中任意张数的“特征：咒灵”或“特征：咒胎九相图”置于场外。剩余的卡牌自选顺序置于我方卡组的最上方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-038",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から3枚を公開する。その中から［特徴：呪霊］か［特徴：呪胎九相図］を1枚まで手札に加える。残りを場外に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的3张卡牌。公开其中最多1张“特征：咒灵”或“特征：咒胎九相图”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-039",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《ターン1》自分の場外にある、《レイド》を持たない異なるカード名の赤の［特徴：呪霊］を2枚までリムーブエリアに置く。このキャラはこのターン中、この効果によってリムーブエリアに置いたカードの《起動メイン》を全て得る。",
+     "translation": "【启动主要】[每回合1次]将我方场外存在的最多2张没有【突进】且卡牌名不同的红色的“特征：咒灵”置于移除区。此角色在本回合中，获得所有通过此效果至于移除区的卡牌的【启动主要】效果。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-041",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-042",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》相手のフロントLのBPが4000以上のキャラの数により、このキャラはこのターン中、以下の効果を全て得る。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]根据对方的前线中存在的BP4000或更高的角色的张数，此角色在本回合中，获得下列所有效果。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・2枚以上：このキャラはBP+1000。",
+     "translation": "·2张或更多：此角色的BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・4枚以上：《インパクト（1）》",
+     "translation": "·4张或更多：【冲击①】",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-043",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈虎杖 悠仁〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈虎杖 悠仁〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《アタック時》《ターン1》自分の場に他の［特徴：呪術師］が3枚以上ある場合、以下から1つ選ぶ。",
+     "translation": "【攻击时】[每回合1次]我方的场上存在3张或更多其他的“特征：咒术师”的场合，从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・このキャラはこのターン中、《インパクト（1）》を得る。",
+     "translation": "·此角色在本回合中，获得【冲击①】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・このキャラをこのターン中、BP-2000してもよい。そうした場合、このキャラをアクティブにする。",
+     "translation": "·此角色在本回合中，可以BP-2000。这样做的场合，此角色转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-044",
+   "name": "狗巻 棘",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《赤》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+[红]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-046",
+   "name": "忧忧",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-048",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他の［特徴：呪術師］を1枚まで選び、このターン中、『BP+500』。相手のフロントLにBPが4000以上のキャラが2枚以上ある場合、『BP+1500』に代わる。",
+     "translation": "【登场时】选择我方场上的最多1张其他的“特征：咒术师”，本回合中，『BP+500』。对方的前线中存在2张或更多BP4000或更高的角色的场合，改为『BP+1500』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-049",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈釘崎 野薔薇〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈钉崎 野蔷薇〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。この効果で［特徴：呪術師］を場外に置いた場合、そのカードと必要エナジーの数か元々のBPが同じ相手のフロントLのキャラを1枚まで選び、このターン中、BP-3000。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。通过此效果将“特征：咒术师”置于场外的场合，选择对方前线中的最多1张所需能量或原本的BP与该卡牌相同的角色，本回合中，BP-3000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《手札を1枚場外に置く》 《ターン1》自分の場の［特徴：呪術師］を1枚選び、このターン中、BP+500。",
+     "translation": "【启动主要】[将1张手牌置于场外][每回合1次]选择我方场上的1张“特征：咒术师”，本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-050",
+   "name": "日下部 笃也",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはBP4000以上の相手のキャラの効果で選ばれない。",
+     "translation": "此角色不会被BP4000或更高的对方角色的效果选择。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-051",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）",
+     "translation": "【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "相手のアタックフェイズ終了時、このキャラをリムーブエリアに置く。",
+     "translation": "当对方的攻击阶段结束时，此角色置于移除区。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-052",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给予对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "相手のアタックフェイズ終了時、相手のフロントLに〔BP4000以上のキャラが2枚以上か〈夏油 傑〉〕がある場合、このキャラをリムーブエリアに置き、自分の山札の上から4枚見る。その中から〈五条 悟〉以外の［特徴：呪術師］を2枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "当对方的攻击阶段结束时，对方的前线中〔存在2张或更多BP4000或更高的角色或存在〈夏油 杰〉〕的场合，将此角色置于移除区，确认我方卡组最上方的4张卡牌。公开其中最多2张〈五条 悟〉以外的“特征：咒术师”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-053",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の山札の上から4枚見る。その中から〈虎杖 悠仁〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【退场时】确认我方卡组最上方的4张卡牌。公开其中最多1张〈虎杖 悠仁〉并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-054",
+   "name": "熊猫",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-055",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-056",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の場の他の［特徴：呪術師］を1枚選び、このターン中、『BP+500』。相手のフロントLにBPが4000以上のキャラが2枚以上ある場合、『BP+1500』に代わる。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]选择我方场上的1张“特征：咒术师”，此角色在本回合中，『BP+500』。对方对方的前线中存在2张或更多BP4000或更高的角色的场合，改为『BP+1500』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-057",
+   "name": "冥冥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）",
+     "translation": "【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》このキャラはBP+1000。",
+     "translation": "【我方的回合中】此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-058",
+   "name": "坏相",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》同じラインに〈脹相〉と〈血塗〉がある場合、カードを1枚引き、自分の手札を1枚場外に置き、このキャラはこのターン中、BP+500。",
+     "translation": "【攻击时】同线中存在〈胀相〉和〈血涂〉的场合，抽取1张卡牌，将我方的1张手牌置于场外，此角色在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-059",
+   "name": "血涂",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》同じラインに〈脹相〉と〈壊相〉がある場合、カードを1枚引き、自分の手札を1枚場外に置き、このキャラはこのターン中、BP+500。",
+     "translation": "【攻击时】同线中存在〈胀相〉和〈坏相〉的场合，抽取1张卡牌，将我方的1张手牌置于场外，此角色在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-061",
+   "name": "胀相",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から2枚まで場外に置く。自分の場外から〈壊相〉か〈血塗〉を1枚手札に加えてもよい。そうした場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】将我方卡组最上方的最多2张卡牌置于场外。可以从我方的场外将1张〈坏相〉或〈血涂〉加入手牌。这样做的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-062",
+   "name": "胀相",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈脹相〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈胀相〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》カードを1枚引く。自分の手札から〈壊相〉か〈血塗〉を1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】抽取1张卡牌。从我方的手牌中将最多1张〈坏相〉或〈血涂〉在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》同じラインに〈壊相〉と〈血塗〉がある場合、自分の場の〈壊相〉と〈血塗〉全ては、このターン中、BP+500。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]同线中存在〈坏相〉和〈血涂〉的场合，我方场上所有的〈坏相〉和〈血涂〉在本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-063",
+   "name": "蝗GUY",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《赤》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色的产生能量+[红]。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-064",
+   "name": "漏瑚",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の発生エナジーが5以上ある場合のみ発動できる。以下から1つ選ぶ。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]只有在我方的产生能量为5或更高的场合才能发动。从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・このキャラはこのターン中、《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": "·此角色在本回合中，获得【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・このキャラはこのターン中、「《アタック時》自分の手札を2枚場外に置いてもよい。そうした場合、BP2000以下の相手のフロントLのキャラを1枚まで選び、退場させる」を得る。",
+     "translation": "·此角色在本回合中，获得“【攻击时】可以将我方的2张手牌置于场外。这样做的场合，选择对方前线中的最多1张BP不高于2000的角色退场”。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-065",
+   "name": "陀艮",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の発生エナジーが5以上ある場合のみ発動できる。自分の手札を1枚場外に置いてもよい。そうした場合、このキャラをアクティブにする。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]只有在我方的产生能量为5或更高的场合才能发动。可以将我方的1张手牌置于场外。这样做的场合，此角色转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-066",
+   "name": "花御",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の発生エナジーが5以上ある場合のみ発動できる。以下から1つ選ぶ。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]只有在我方的产生能量为5或更高的场合才能发动。从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・このキャラはこのターン中、BP+1000。",
+     "translation": "·此角色在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・このキャラは次の相手のターン中、BP+1000。",
+     "translation": "·此角色在下一个对方的回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-067",
+   "name": "真人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の発生エナジーが5以上ある場合のみ発動できる。以下から1つ選ぶ。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]只有在我方的产生能量为5或更高的场合才能发动。从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・このキャラはこのターン中、《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": "·此角色在本回合中，获得【冲击①】（当在进行攻击的战斗中胜利时，给予对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・〈真人〉以外の自分の場のキャラを1枚退場させてもよい。そうした場合、カードを2枚引き、自分の手札を1枚場外に置く。",
+     "translation": "·可以将我方场上的1张〈真人〉以外的角色退场。这样做的场合，抽取2张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-068",
+   "name": "地下铁路的站台",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の山札の上から1枚を場外に置く。",
+     "translation": "【启动主要】[转为休息状态]将我方卡组最上方的1张卡牌置于场外。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場外から〈夏油 傑〉か［特徴：呪霊］か［特徴：呪胎九相図］を1枚自分の山札の上に置く。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]从我方的场外将1张〈夏油 杰〉或“特征：咒灵”或“特征：咒胎九相图”置于我方卡组的最上方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-069",
+   "name": "黑闪",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈虎杖 悠仁〉がある場合、手札にあるこのカードの消費APを-1する。",
+     "translation": "我方的场上存在〈虎杖 悠仁〉的场合，手牌中存在的此卡牌的消费AP-1。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚まで選び、退場させる。その後、相手のフロントLにBPが4000以上のキャラが2枚以上ある場合、BP4000以上の自分の場の［特徴：呪術師］を1枚まで選び、このターン中、BP+2000。",
+     "translation": "选择对方前线中的最多1张BP不高于5000的角色退场。那之后，对方的前线中存在2张或更多BP4000或更高的角色的场合，选择我方场上的最多2张BP4000或更高的“特征：咒术师”，本回合中，BP+2000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-070",
+   "name": "狱门疆",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLに〔［特徴：呪霊］と［特徴：呪胎九相図］が合計2枚以上か〈夏油 傑〉〕がある場合、手札にあるこのカードの消費APを-1する。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、リムーブエリアに置く。この効果でBPが5000のキャラをリムーブエリアに置いた場合、カードを1枚まで引く。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-071",
+   "name": "不存在的记忆",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLの〈脹相〉、〈壊相〉、〈血塗〉、〈虎杖 悠仁〉をそれぞれ1枚まで選び、このターン中、BP+1000。〈脹相〉を含め合計2枚以上選んだ場合、この効果で選んだ〈脹相〉に、さらにこのターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。〈脹相〉を含め合計3枚以上選んだ場合、カードを1枚引く。",
+     "translation": "选择我方前线中的〈胀相〉、〈坏相〉、〈血涂〉、〈虎杖 悠仁〉最多各1张，本回合中，BP+1000。选择了包含〈胀相〉在内的合计2张或更多的场合，通过此效果选择的〈胀相〉追加在本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。选择了包含〈胀相〉在内的合计3张或更多的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-072",
+   "name": "迷你机械丸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "※このカードはデッキに3枚までしか入れられない。",
+     "translation": "※此卡牌只能在卡组中最多投入3张。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分のリムーブエリアに〈五条 悟〉がある場合、手札にあるこのカードの必要エナジーを《赤×3》減らす。",
+     "translation": "我方的移除区中存在〈五条 悟〉的场合，手牌中存在的此卡牌的所需能量减少[红×3]。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "カードを1枚引く。自分の手札から必要エナジーが3以下で消費APが1の赤の［特徴：呪術師］を2枚まで自分の場にレストで登場させる。",
+     "translation": "抽取1张卡牌。从我方的手牌中将最多2张所需能量不高于3且消费AP为1的红色的“特征：咒术师”在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX04BT/JJK-3-073",
+   "name": "领域展开",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-036",
+   "name": "伊地知 洁高",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《青》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]此角色产生能量+●蓝●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-044",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-045",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《青》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●蓝●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-056",
+   "name": "伏黑",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】选择最对方场上最多1张BP1500或更高的角色，本回合中BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-058",
+   "name": "夜蛾 正道",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の場の他のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的1张其他角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-062",
+   "name": "迳庭拳",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、『手札に戻す』。自分の場に〈虎杖 悠仁〉がある場合、『退場させる』に代わる。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，『放回手牌』。我方场上存在〈虎杖 悠仁〉的场合，改为『将此角色退场』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-063",
+   "name": "宿傩的手指",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードを使用する際に、自分のライフを1枚場外に置くか自分の場のアクティブの〈虎杖 悠仁〉を1枚レストにしないとこのカードは使用できない。",
+     "translation": "使用此卡牌时，只有将我方的1张生命值置于场外或将我方场上的1张活跃状态的〈虎杖 悠仁〉转为休息状态才能使用。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "カードを1枚引く。自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "抽取1张卡牌。选择我方的最多1张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-067",
+   "name": "领域展开",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-101",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《相手のターン中》自分の場外に〈宿儺の指〉がある場合、このキャラはBP+1000。",
+     "translation": "【对方的回合中】我方场外存在〈宿傩的手指〉的场合，此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-103",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》《フロントLにある場合》相手は自身のフロントLにあるキャラを1枚手札に戻す。",
+     "translation": "【登场时】[前线中存在的场合]对方将对方前线中的1张角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-104",
+   "name": "佐佐木&井口",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【攻击时】抽取1张卡牌，将我方1的张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-105",
+   "name": "宿傩",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈虎杖 悠仁〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈虎杖 悠仁〉转为活跃状态，并可以移动至前线。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》自分の場外に〈宿儺の指〉が1枚以上ある場合、このキャラはBP+1000。2枚以上ある場合、このキャラは《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": "【我方的回合中】我方场外存在1张或更多〈宿傩的手指〉的场合，此角色BP+1000。存在2张或更多〈宿傩的手指〉的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》カードを2枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取2张卡牌，将我方1的张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-107",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》BP3000以下の相手の場のキャラを1枚まで選び、手札に戻す。",
+     "translation": "【登场时】选择对方场上最多1张BP不高于3000的角色，放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-108",
+   "name": "东京都立咒术高等专门学校",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中に自分がイベントカードを使用している場合のみ発動できる。自分の場のキャラ全ては、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]只有本回合中我方使用过事件卡牌的场合才能发动。我方场上的所有角色本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02ST/JJK-1-109",
+   "name": "咒术高专1年",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "カードを3枚引き、自分の手札を2枚場外に置く。",
+     "translation": "抽取3张卡牌。将我方2张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-001",
+   "name": "家入 硝子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から4枚見る。その中から〈五条 悟〉か〈夏油 傑〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张〈五条 悟〉或〈夏油 杰〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合， 将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-002",
+   "name": "钉崎 野蔷薇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手の場にレストのキャラがある場合、自分の場外から必要エナジーが2以下の黄のイベントカードを1枚まで手札に加える。",
+     "translation": "【登场时】对方场上存在休息状态的角色的场合，从我方场外将最多1张所需能量不高于2的黄色事件卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-003",
+   "name": "夏油 杰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》同じラインに〈五条 悟〉がある場合、このキャラと自分のフロントLにある〈五条 悟〉全ては、BP+500。",
+     "translation": "【我方的回合中】[前线中存在的场合]同线中存在〈五条 悟〉的场合，此角色与我方前线中存在的所有〈五条 悟〉BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《手札を1枚場外に置く》 《ターン1》このキャラはこのターン中、「このキャラはフロントLにある場合もエナジーを発生させる。」を得る。",
+     "translation": "【启动主要】[将1张手牌置于场外][每回合1次]此角色在本回合中，获得[此角色存在于前线的场合也会产生能量。]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-004",
+   "name": "五条 悟",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》同じラインに〈夏油 傑〉がある場合、このキャラは《ダメージ（2）》を得る。",
+     "translation": "我方的回合中】[前线中存在的场合]同线中存在〈夏油 杰〉的场合，此角色获得【伤害②】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《退場時》自分の山札の上から3枚見る。その中から〈五条 悟〉か〈家入 硝子〉か〈夏油 傑〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【退场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈五条 悟〉或〈家入 硝子〉或〈夏油 杰〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合， 将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-005",
+   "name": "伏黑 惠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から3枚見る。その中から〈嵌合暗翳庭〉か特徴に「式神」を持つキャラカードを1枚まで公開し自分の山札の上か場外に置く。残りを望む順で自分の山札の下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张〈嵌合暗翳庭〉或拥有特征[式神]的角色置于卡组最上方或场外。剩余的卡牌自选顺序置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-006",
+   "name": "虎杖 悠仁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外に〈宿儺の指〉がある場合、このキャラの発生エナジー+《青》。",
+     "translation": "我方场外存在〈宿傩的手指〉的场合，此角色的产生能量+[蓝]",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-007",
+   "name": "宿傩",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《2回ブロック》",
+     "translation": "【2次阻挡】",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《自分のターン中》このキャラはBP+500。",
+     "translation": "【我放的回合中】此角色的BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《アタック時》BP1500以上の相手の場のキャラを『1枚』まで選び、このターン中、BP-1000。自分の場外にある〈宿儺の指〉1枚につき、『+1枚』される。",
+     "translation": "【攻击时】选择对方场上最多[1张]BP1500或更高的角色，本回合中BP-1000。我方场外每存在1张〈宿傩的手指〉，可选择的角色[+1张]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-008",
+   "name": "七海 建人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の山札の上から1枚を場外に置いてもよい。そうした場合、自分の場のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【退场时】可以将我方卡组最上方的1张卡牌置于场外。这样做的场合，选择我方场上最多1张角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-010",
+   "name": "东堂 葵",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《ターン1》このキャラと別のラインにある特徴に「京都校」を持つ自分のキャラを1枚選び、このキャラと位置を入れ替える。",
+     "translation": "【启动主要】[每回合1次]此选择1张与此角色不同线中存在的拥有特征[京都校]的角色，与此角色交换位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA02NC/JJK-2-011",
+   "name": "真人",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》このターン中に自分の場のキャラが退場している場合、このキャラの発生エナジー+《紫》。",
+     "translation": "【我方的回合中】本回合中我方场上的角色退场过的场合，此角色的产生能量+[紫]。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《ターン1》自分の場の〈真人〉以外のキャラを1枚退場させる。そうした場合、自分の場の特徴に「呪霊」か「改造人間」を持つキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[每回合1次]将我方场上的1张〈真人〉以外的角色退场。这样做的场合，选择我方场上最多1张拥有特征[咒灵]或[改造人类]的角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  }
+ ]
+}

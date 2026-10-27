@@ -1,0 +1,3730 @@
+{
+ "title": "Demon Slayer Kimetsu no Yaiba",
+ "originalLang": "ja",
+ "translationLang": "zh-Hans",
+ "note": "译文取自官方简体中文卡牌文本（unionarena-tcg.cn）。原文与译文按同一张卡的行序逐段对应；两侧行数不一致的卡不做对应，段落保留原文并标为未校验。",
+ "cards": [
+  {
+   "number": "UA05BT/KMY-1-001",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から4枚見る。その中から〈竈門 炭治郎〉か〈竈門 禰󠄀豆子〉か〈嘴平 伊之助〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将自己的1张手牌置于場外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-002",
+   "name": "产屋敷 耀哉",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《手札を1枚場外に置く》 《このカードを退場させる》自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "【启动主要】[转为休息状态][将1张手牌置于场外][将此卡牌退场]选择我方的最多1张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-003",
+   "name": "鳞泷 左近次",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の場の他のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上1张其他角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-004",
+   "name": "鎹鸦",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《黄》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●黄●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-006",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札から、必要エナジーが2以下で消費APが1の〈竈門 禰󠄀豆子〉を1枚まで自分のフロントLにレストで登場させる。",
+     "translation": "【登场时】从我方手牌中将最多1张所需能量不高于2且消费AP为1的〈灶门 祢豆子〉在我方前线中以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-007",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》BP3000以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】选择对方前线中最多1张BP不高于3000的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-008",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 炭治郎〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》自分の場外から必要エナジーが3以下で消費APが1の〈竈門 禰󠄀豆子〉を1枚まで手札に加える。自分の手札から必要エナジーが3以下で消費APが1の〈竈門 禰󠄀豆子〉を1枚まで自分の場にレストで登場させる。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-009",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈竈門 炭治郎〉がある場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】我方场上存在〈灶门 炭治郎〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-010",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》《フロントLにある場合》自分の場に〈竈門 炭治郎〉がある場合、BP1500以上の相手のフロントLのキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】[前线中存在的场合]我方场上存在〈灶门 炭治郎〉的场合，选择对手前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-011",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 襧豆子〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》自分の場に〈竈門 炭治郎〉がある場合、このキャラはBP+500。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《アタック時》自分のフロントLの〈竈門 炭治郎〉と自分のエナジーLの他のキャラを1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-012",
+   "name": "不死川 玄弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-013",
+   "name": "不死川 玄弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《ターン1》相手のフロントLのキャラが退場した時、カードを1枚引いてもよい。そうした場合、自分の手札を1枚場外に置く。",
+     "translation": "【我方的回合中】[每回合1次]对方前线中的角色退场时，可以抽取1张卡牌。那样做的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-014",
+   "name": "栗花落 香奈乎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《黄》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●黄●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-015",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《フロントLにある場合》自分のアタックフェイズ終了時、このキャラがアクティブの場合、このキャラを退場させる。",
+     "translation": "[前线中存在的场合]我方的攻击阶段结束时，此角色处于活跃状态的场合，将此角色退场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "このキャラがアタックしてバトルに敗北した時、このキャラを退場させる。",
+     "translation": "当此角色在进行攻击的战斗中败北时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-016",
+   "name": "村田",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-017",
+   "name": "伊黑 小芭内",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-018",
+   "name": "宇髓 天元",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-019",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-020",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》《フロントLにある場合》自分の場の〈産屋敷 耀哉〉、他の［特徴：柱］が合計3～5枚ある場合、『BP3000以下』の相手のフロントLのキャラを1枚まで選び、退場させる。自分の場の〈産屋敷 耀哉〉、他の［特徴：柱］が合計6枚以上ある場合、『BP4000以下』に代わる。",
+     "translation": "【登场时】[前线中存在的场合]我方场上存在合计3~5张的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，选择对方前线中的最多1张[BP不高于3000]的角色退场。我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，改为选择[BP不高于4000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-021",
+   "name": "蝴蝶 忍",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》以下から『1つ選ぶ』。自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計6枚以上ある場合、『全て選ぶ』に代わる。",
+     "translation": "【登场时】从以下选择[1项]。我方我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，改为选择[全部]。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・カードを1枚引く。",
+     "translation": "·抽取1张卡牌。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・BP3000以下の相手のフロントLのキャラを1枚まで選び、レストにする。",
+     "translation": "·选择对方前线中的最多1张BP3000以下的角色，转为休息状态。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "·选择我方场上的最多1张其他角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-022",
+   "name": "不死川 实弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《2回アタック》（このキャラがこのターン初めてアタックした時、アクティブにする）",
+     "translation": "【2次攻击】（当此角色在本回合中首次进行攻击时，转为活跃状态）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-023",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に紫か赤のカードがある場合、手札にあるこのカードの必要エナジーを《黄×1》減らす。",
+     "translation": "对方场上存在紫色或红色卡牌的场合，手牌中的此卡牌所需能量减少●キ黄×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-024",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、レストにする。それは次の1回アクティブにならない。",
+     "translation": "【登场时】选择对方前线中的最多1张角色，转为休息状态，该角色的下1次转为活跃状态无效。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《退場時》相手のフロントLのキャラを1枚まで選び、レストにする。",
+     "translation": "【退场时】选择对方前线中的最多1张角色，转为休息状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-025",
+   "name": "富冈 义勇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》カードを1枚引く。",
+     "translation": "【攻击时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-026",
+   "name": "悲鸣屿 行冥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計3枚以上ある場合、このキャラは《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色获得【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-027",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計3枚以上ある場合、このキャラは《2回ブロック》（このキャラがこのターン初めてブロックした時、アクティブにする）を得る。",
+     "translation": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色获得【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-028",
+   "name": "蝴蝶屋",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場外から必要エナジーが3以下の黄のキャラカードを2枚まで手札に加える。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]从我方场外将最多2张所需能量不高于3的黄色角色卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-029",
+   "name": "全集中呼吸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-030",
+   "name": "柱合会议",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の山札の上から4枚見る。その中からカードを1枚公開し手札に加える。残りを望む順で自分の山札の下に置く。公開したカードが［特徴：柱］の場合、自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "确认我方卡组最上方的4张卡牌。公开其中1张卡牌并加入手牌。剩余的卡牌自选顺序置于卡组最下方。公开的卡牌为[特征:柱]的场合，选择我方的最多1张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-031",
+   "name": "柱合审判",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈産屋敷 耀哉〉、［特徴：柱］が合計3枚以上ある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张[BP不高于3000]的角色退场。我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和[特征:柱]的场合，改为选择[BP不高于5000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-032",
+   "name": "判断太慢了",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手のフロントLのキャラを1枚選び、レストにする。自分の場の〈鱗滝 左近次〉を1枚まで選び、アクティブにする。",
+     "translation": "选择对方前线中的1张角色，转为休息状态。选择我方场上最多1张〈鳞泷 左近次〉，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-033",
+   "name": "水之呼吸 拾之型 生生流转",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈竈門 炭治郎〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈灶门 炭治郎〉的场合，改为选择[BP不高于5000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-034",
+   "name": "鬼舞辻 无惨",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から［特徴：下弦の鬼］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中最多1张[特征：下弦之鬼]并加入手牌。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-035",
+   "name": "鬼舞辻 无惨",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（2）》（アタックしてバトルに勝利した時、相手プレイヤーに2ダメージ）",
+     "translation": "【冲击②】（当在进行攻击的战斗中胜利时，给与对方玩家2点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）",
+     "translation": "【伤害②】（此角色攻击并给予对手直接伤害时，改为给予2点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "自分の場外にカードが20枚以上ない場合、このキャラは、フロントLに登場できず、フロントLに移動できない。",
+     "translation": "我放场外的卡牌张数不高于20张的场合，此角色不能在前线中登场，不能移动至前线。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-036",
+   "name": "鬼舞辻 无惨(拟态“艺妓”)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈鬼舞辻󠄀 無惨〉としても扱う。",
+     "translation": "此卡牌也视为〈鬼舞辻 无惨〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《ターン1》自分の場の他のキャラを1枚退場させ、自分の山札の上から1枚を場外に置く。そうした場合、このキャラはこのターン中、BP+1000。",
+     "translation": "【启动主要】[每回合1次]将我方场上的其他1张角色退场，将我方卡组最上方的1张卡牌置于场外。那样做的场合，此角色在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-037",
+   "name": "鬼舞辻 无惨(拟态“少年”)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈鬼舞辻󠄀 無惨〉としても扱う。",
+     "translation": "此卡牌也视为〈鬼舞辻 无惨〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《紫》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●紫●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-038",
+   "name": "鬼舞辻 无惨(拟态“月彦”)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈鬼舞辻󠄀 無惨〉としても扱う。",
+     "translation": "此卡牌也视为〈鬼舞辻 无惨〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《紫》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●紫●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-039",
+   "name": "响凯",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に黄か赤のカードがある場合、手札にあるこのカードの必要エナジーを《紫×1》減らす。",
+     "translation": "对方场上存在黄色或红色卡牌的场合，手牌中的此卡牌所需能量减少●キ紫×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-040",
+   "name": "朱纱丸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-041",
+   "name": "手鬼",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》以下から1つ選ぶ。",
+     "translation": "【退场时】从以下选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・自分の場のキャラを1枚まで選び、別のラインに移動させる。",
+     "translation": "·选择我方场上的最多1张角色，移动至其他线中。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・自分の場のフロントLのキャラと自分のエナジーLのキャラを1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": "·选择我方前线中的角色和能量线中的角色各1张，可以交换他们的位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-042",
+   "name": "鸣女",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-043",
+   "name": "矢琶羽",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《手札を1枚場外に置く》以下から1つ選ぶ。",
+     "translation": "【启动主要】[转为休息状态]#将1张手牌置于场外#从以下选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・自分の場のキャラを1枚選び、別のラインに移動させる。",
+     "translation": "·选择我方场上的最多1张角色，移动至其他线中。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・自分の場のフロントLのキャラと自分のエナジーLのキャラを1枚ずつ選び、それらの位置を入れ替える。",
+     "translation": "·选择我方前线中的角色和能量线中的角色各1张，可以交换他们的位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-044",
+   "name": "魇梦",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》このターン中にキャラが退場していた場合、カードを1枚引く。",
+     "translation": "【登场时】本回合中有角色退场过的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-045",
+   "name": "魇梦",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈魘夢〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の場外にカードが15枚以上ある場合、このキャラはBP+500。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》カードを2枚引き、自分の手札を1枚場外に置く。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-046",
+   "name": "下弦之叁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》カードを1枚引く。",
+     "translation": "【退场时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-047",
+   "name": "下弦之肆",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》カードを1枚引く。",
+     "translation": "【退场时】抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-048",
+   "name": "下弦之贰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分のターン中の場合、相手のフロントLのキャラを1枚まで選び、このターン中、BP-2000。",
+     "translation": "【退场时】我方的回合中的场合，选择对方前线中的最多1张角色，本回合中，BP-2000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-049",
+   "name": "下弦之陆",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【退场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-050",
+   "name": "累",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》このターン中にキャラが退場していた場合、相手のフロントLのキャラを1枚まで選び、このターン中、BP-1500。",
+     "translation": "【登场时】本回合中有角色退场果的场合，选择对方前线中的1最多1张角色，本回合中，BP-1500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-051",
+   "name": "猗窝座",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-052",
+   "name": "猗窝座",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の手札を2枚場外に置いてもよい。そうした場合、このキャラはこのターン中、《狙い撃ち》と《インパクト（1）》を得る。",
+     "translation": "【登场时】可以将我方的2张手牌置于场外。那样做的场合，此角色在本回合中获得【瞄准攻击】和【冲击①】。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-053",
+   "name": "妓夫太郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《APを1支払う》 《ターン1》カードを1枚引く。",
+     "translation": "【启动主要】[支付1AP][每回合1次]抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-054",
+   "name": "妓夫太郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場に〈堕姫〉がある場合、カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】我方场上存在〈堕姬〉的场合，抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-055",
+   "name": "妓夫太郎",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈妓夫太郎〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ターン1》このキャラがアタックしてバトルに勝利した時、このキャラをアクティブにする。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《アタック時》自分の場に〈堕姫〉がある場合、カードを1枚引く。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-056",
+   "name": "妓夫太郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》《フロントLにある場合》BP3000以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】[前线中存在的场合]选择对方前线中的最多1张BP不高与3000的角色退场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《退場時》自分の山札の上から3枚見る。その中から〈堕姫〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【退场时】确认我方卡组最上方的3张卡牌。公开其中最多1张〈堕姬〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-057",
+   "name": "堕姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の山札の上から6枚見る。その中から〈妓夫太郎〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【退场时】确认我方卡组最上方的6张卡牌。公开其中最多1张〈妓夫太郎〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-058",
+   "name": "堕姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》《退場時》自分の場外から必要エナジーが3以下で消費APが1の〈妓夫太郎〉を1枚まで自分のフロントLにアクティブで登場させる。",
+     "translation": "【登场时】【退场时】从我方场外将最多1张所需能量不高于3且消费AP为1的〈妓夫太郎〉在我方前线中以活跃状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-059",
+   "name": "堕姬",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈堕姫〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》自分の場に〈妓夫太郎〉がある場合、このキャラはBP+500。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《退場時》自分の場に〈妓夫太郎〉がある場合、自分の手札を1枚場外に置いてもよい。そうした場合、このカードを自分のフロントLにレストで登場させる。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-060",
+   "name": "蕨姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈堕姫〉としても扱う。",
+     "translation": "此卡牌也视为〈堕姬〉。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-061",
+   "name": "京极屋",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場外から〈妓夫太郎〉か〈堕姫〉を1枚まで手札に加える。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]从我方场外将最多1张〈妓夫太郎〉或〈堕姬〉加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-062",
+   "name": "鬼之力",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場のキャラを1枚選び、このターン中、『BP+1000』。このターン中に退場したキャラ1枚につき、さらに『BP+1000』される。選んだキャラのBPが5000以上になった場合、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "选择我方场上的1张角色，本回合中，[BP+1000]。本回合中每有1张角色退场过，追加[BP+1000]。选择的角色BP为5000或更高的场合，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得冲击①）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-063",
+   "name": "全部低下头 跪下行礼",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場のキャラを1枚退場させる。そうした場合、相手のフロントLのキャラを1枚まで選び、退場させる。カードを1枚引く。",
+     "translation": "将我方场上的1张角色退场。那样做的场合，选择对方前线中的1张角色退场。抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-064",
+   "name": "肃清",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場のキャラを1枚退場させる。そうした場合、自分のAPカードを1枚まで選び、アクティブにする。カードを2枚引く。",
+     "translation": "将我方场上的1张角色退场。那样做的场合，选择我方的1张AP卡牌转为活跃状态。抽取2张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-065",
+   "name": "永远在一起 绝不分离",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の山札の上から7枚見る。その中から〈妓夫太郎〉と〈堕姫〉をそれぞれ1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "确认我方卡组最上方的7张卡牌。公开其中〈妓夫太郎〉和〈堕姬〉最多各1张加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-066",
+   "name": "飞血镰",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈妓夫太郎〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈妓夫太郎〉的场合，改为选择[BP不高于5000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-067",
+   "name": "无惨的血",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-069",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から7枚見る。その中から《レイド》を持つカードを1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的7张卡牌，公开其中最多1张拥有【突进】的卡牌并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-070",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場外から〈我妻 善逸〉以外のキャラカードを1枚まで手札に加える。",
+     "translation": "【登场时】从我方场外将最多1张〈我妻 善逸〉以外的角色卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-071",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈我妻 善逸〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の場に〈竈門 炭治郎〉がある場合、このキャラは《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》自分の場に〈嘴平 伊之助〉がある場合、カードを2枚引き、自分の手札を1枚場外に置く。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-072",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の場の他のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的1张其他角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-073",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈嘴平 伊之助〉がある場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】我方场上存在〈嘴平 伊之助〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《相手のターン中》自分の場に〈我妻 善逸〉がある場合、このキャラはBP+1000。",
+     "translation": "【对方的回合中】我方场上存在〈我妻 善逸〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-074",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《赤》。",
+     "translation": "此角色处于活跃状态的场合，此角色产生能量+●红●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-075",
+   "name": "啾太郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《赤》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色产生能量+●红●。主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-077",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このターン中にこのキャラが移動している場合、このキャラはこのターン中、BP+500。",
+     "translation": "本回合中此角色移动过的场合，此角色在本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-078",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）",
+     "translation": "【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "自分のアタックフェイズ終了時、このキャラを退場させる。",
+     "translation": "我方的攻击阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-079",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈嘴平 伊之助〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の場に〈竈門 炭治郎〉がある場合、このキャラは《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》自分の場に〈我妻 善逸〉がある場合、自分の場の他のキャラを1枚まで選び、アクティブにする。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-080",
+   "name": "肌肉鼠",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "相手の場に黄か紫のカードがある場合、手札にあるこのカードの必要エナジーを《赤×1》減らす。",
+     "translation": "对方场上存在黄色或紫色卡牌的场合，手牌中的此卡牌所需能量减少●キ红×1●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-081",
+   "name": "炼狱 千寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【登场时】选择我方场上的最多1张其他角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-083",
+   "name": "雏鹤",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の場外から〈宇髄 天元〉を1枚まで手札に加える。",
+     "translation": "【退场时】从我方场外将最多1张〈宇髓 天元〉加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-084",
+   "name": "槙於",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈宇髄 天元〉がある場合、このキャラはBP+500。",
+     "translation": "【我方的回合中】我方场上存在〈宇髓 天元〉的场合，此角色BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-086",
+   "name": "宇髓 天元",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から4枚見る。その中から［特徴：天元の嫁］か［特徴：変装］を1枚まで公開して手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张［特征:天元的妻子］或［特征:变装］并加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-087",
+   "name": "宇髓 天元",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈宇髄 天元〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》このキャラはこのターン中、《2回アタック》（このキャラがこのターン初めてアタックした時、アクティブにする）を得る。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《ターン1》自分の場の［特徴：天元の嫁］と［特徴：変装］全ては、このターン中、BP+500。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-088",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-089",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《手札を1枚場外に置く》 《ターン1》自分の場のキャラ全ては、このターン中、BP+500。",
+     "translation": "【启动主要】[前线中存在的场合]#将1张手牌置于场外#[每回合1次]我方场上的所有角色，本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-090",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の手札を1枚場外に置いてもよい。そうした場合、BP3000以下の相手のフロントLのキャラを1枚まで選び、退場させる。このキャラはこのターン中、《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-091",
+   "name": "猪子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈嘴平 伊之助〉としても扱う。",
+     "translation": "此卡牌也视为〈嘴平 伊之助〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方移动阶段从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-092",
+   "name": "炭子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈竈門 炭治郎〉としても扱う。",
+     "translation": "此卡牌也视为〈灶门 炭治郎〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中失去【冲击】）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-093",
+   "name": "善子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このカードは〈我妻 善逸〉としても扱う。",
+     "translation": "此卡牌也视为〈我妻 善逸〉。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から1枚見る。そのカードを自分の山札の上か下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的1张卡牌。将那张卡牌置于我方卡组最上方或最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-094",
+   "name": "便当",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》自分の場のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的1张角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-095",
+   "name": "好吃！好吃！好吃！",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "カードを2枚引き、自分の手札を1枚場外に置く。",
+     "translation": "抽取2张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-096",
+   "name": "音之呼吸 伍之型 鸣弦奏奏",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場の〈宇髄 天元〉、［特徴：天元の嫁］、［特徴：変装］の合計枚数×1000以下のBPの相手のフロントLのキャラを1枚選び、退場させる。",
+     "translation": "选择对方前线中的1张BP不高于我方场上的〈宇髓 天元〉、[特征:天元的妻子]、[特征:变装]合计张数×1000的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-097",
+   "name": "雷之呼吸 壹之型 霹雳一闪",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈我妻 善逸〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张[BP不高于3000]的角色退场。我方场上存在〈我妻 善逸〉的场合，改为选择[BP不高于5000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-098",
+   "name": "兽之呼吸 伍之牙 狂乱撕扯",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLのキャラを1枚選び、このターン中、BP+2000。選んだキャラが〈嘴平 伊之助〉の場合、さらにこのターン中、《ダメージ（+1）》（このキャラがアタックで直接ダメージを与える時、追加で1ダメージ）を与える。",
+     "translation": "选择我方前线中的1张角色，本回合中，BP+2000。选择的角色为〈嘴平 伊之助〉的场合，追加在本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得冲击①）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05BT/KMY-1-100",
+   "name": "猪突猛进",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のフロントLのキャラを1枚選び、このターン中、BP+3000。",
+     "translation": "选择我方前线中的1张角色，本回合中，BP+3000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-001",
+   "name": "产屋敷 耀哉",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場の［特徴：柱］を1枚選び、アクティブにする。",
+     "translation": "【启动主要】[转为休息状态][将此角色退场]选择我方场上的一张“特征：柱”，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-002",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《フロントLにある場合》自分の場の〈竈門 禰󠄀豆子〉は、相手のキャラの効果やトリガーの効果で選ばれない。",
+     "translation": "【我方的回合中】[前线中存在的场合]我方场上的〈灶门 祢豆子〉不会被对方角色的效果或触发的效果选择。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分のフロントLのアクティブの〈竈門 禰󠄀豆子〉を1枚レストにしてもよい。そうした場合、このキャラをアクティブにする。",
+     "translation": "【登场时】可以将我方前线中的1张活跃状态的〈灶门 祢豆子〉转为休息状态。这样做的场合，将此角色转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-003",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-004",
+   "name": "神崎 葵",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札を1枚場外に置いてもよい。そうした場合、自分の場外から必要エナジーが3以下の黄のキャラカードを1枚まで手札に加える。",
+     "translation": "【登场时】可以将我方的1张手牌置于场外。这样做的场合，从我方的场外将最多1张所需能量不高于3的黄色的角色卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-005",
+   "name": "珠世",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》相手は自身の場外にあるカードを『1枚』リムーブエリアに置く。相手の場外にカードが10枚以上ある場合、『2枚』に代わる。",
+     "translation": "【启动主要】[转为休息状态]对方将自己场外存在的『1张』卡牌置于移除区。对方的场外存在10张或更多的卡牌的场合，改为『2张』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-006",
+   "name": "愈史郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈珠世〉がある場合、このキャラはBP+1000。",
+     "translation": "我方的场上存在〈珠世〉的场合，此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-007",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《手札を1枚場外に置く》 《ターン1》自分の場の消費APが2の［特徴：柱］を1枚選び、アクティブにする。",
+     "translation": "【启动主要】[前线中存在的场合][将1张手牌置于场外][每回合1次]选择我方场上的一张消费AP为2的“特征：柱”，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-008",
+   "name": "蝴蝶 忍",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "このキャラがアタックしてバトルに敗北した時、カードを1枚まで引く。",
+     "translation": "当此角色在进行攻击的战斗中败北时，抽取最多1张卡牌。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《退場時》BPが0以下になることか効果によって、このキャラが退場している場合、カードを1枚引く。",
+     "translation": "【退场时】因BP变为0或更低或通过对方的效果，此角色退场的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-009",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》自分の場の消費APが2の［特徴：柱］を1枚選び、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]选择我方场上的一张消费AP为2的“特征：柱”，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-010",
+   "name": "富冈 义勇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈産屋敷 耀哉〉、［特徴：柱］が合計3枚以上ある場合、手札にあるこのカードの消費APを-1する。",
+     "translation": "我方我方场上存在合计3张或更多的〈产屋敷 耀哉〉和“特征:柱”的场合，手牌中存在的此卡牌的消费AP-1。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《アタック時》自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計6枚以上ある場合、自分の場の他の［特徴：柱］を1枚まで選び、このターン中、BP+1500。",
+     "translation": "【攻击时】我方我方场上存在合计6张或更多的〈产屋敷 耀哉〉和“特征:柱”的场合，选择我方场上的最多1张其他的“特征：柱”，本回合中，BP+1500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-011",
+   "name": "看护",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外からキャラカードを1枚手札に加える。",
+     "translation": "从我方的场外将1张角色卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-012",
+   "name": "隐",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》以下から1つ選ぶ。",
+     "translation": "【登场时】从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・自分の場のキャラを1枚まで選び、別のラインに移動させる。",
+     "translation": "·选择我方场上的最多1张角色，移动至其他线中。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・自分のフロントLのキャラと自分のエナジーLのキャラを1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": "·选择我方前线中的角色和我方能量线中的角色各1张，可以交换他们的位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-013",
+   "name": "鎹鸦",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《青》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色的产生能量+[蓝]。当主要阶段结束时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-015",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、このキャラはこのターン中、BP+500。",
+     "translation": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，BP+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-016",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、自分の場の〈竈門 禰󠄀豆子〉を1枚まで選び、このターン中、BP+1000。",
+     "translation": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，选择我方场上的最多1张〈灶门 祢豆子〉，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《フロントLにある場合》 《APを1支払う》 《ターン1》自分の場の〈竈門 禰󠄀豆子〉を1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[前线中存在的场合][支付1AP][每回合1次]选择我方场上的1张〈灶门 祢豆子〉，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-017",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 炭治郎〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、このキャラはこのターン中、《インパクト（1）》を得る。",
+     "translation": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，获得【冲击①】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》自分の場の〈竈門 禰󠄀豆子〉を1枚手札に戻してもよい。そうした場合、自分の手札を1枚場外に置き、BP4000以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】可以将我方场上的1张〈灶门 祢豆子〉放回手牌。这样做的场合，将我方的1张手牌置于场外，选择对方前线中的最多1张BP不高于4000的角色，退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-018",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から1枚見る。そのカードを自分の山札の上か下に置く。",
+     "translation": "【登场时】确认我方卡组最上方的1张卡牌。将其置于我方卡组的最上方或最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-019",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚自分の山札の上か下に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于我方卡组的最上方或最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-020",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》自分の山札の上から1枚見る。そのカードを自分の山札の上に置く。見たカードが〈竈門 炭治郎〉か〈日輪刀（竈門 炭治郎）〉の場合、公開してもよい。そうした場合、このキャラはこのターン中、BP+1000。公開したカードを自分の山札の上に置く。",
+     "translation": "【攻击时】确认我方卡组最上方的1张卡牌。将其置于我方卡组的最上方。确认的卡牌为〈灶门 炭治郎〉或〈日轮刀(灶门 炭治郎)〉的场合，可以将其公开。这样做的场合，此角色在本回合中，BP+1000。将公开的卡牌置于我方卡组的最上方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-021",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 禰󠄀豆子〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈灶门 祢豆子〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "このキャラが自分の場から手札に戻る場合、代わりにこのキャラとこのキャラのレイド元のカードを手札に戻す。",
+     "translation": "此角色从我方的场上放回手牌的场合，改为将此角色和此角色的突进源放回手牌。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《自分のターン中》自分の場に〈竈門 炭治郎〉がある場合、このキャラはBP+500。",
+     "translation": "【我方的回合中】我方的场上存在〈灶门 炭治郎〉的场合，此角色BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《登場時》自分の場に〈竈門 炭治郎〉がある場合、『カードを1枚引く』。自分の場に〈竈門 炭治郎〉と〈日輪刀（竈門 炭治郎）〉がどちらもある場合、『カードを2枚引き、自分の手札を1枚自分の山札の上か下に置く』に代えてもよい。",
+     "translation": "【登场时】我方的场上存在〈灶门 炭治郎〉的场合，『抽取1张卡牌』。我方的场上同时存在〈灶门 炭治郎〉和〈日轮刀(灶门 炭治郎)〉的场合，可以改为『抽取2张卡牌，将我方的1张手牌置于我方卡组的最上方或最下方』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-023",
+   "name": "不死川 玄弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-024",
+   "name": "不死川 玄弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《退場時》このカードを自分の手札に加えてもよい。",
+     "translation": "【退场时】可以将此角色加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-025",
+   "name": "钢铁冢 萤",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》以下から1つ選ぶ。",
+     "translation": "【登场时】从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・自分の山札の上から7枚見る。その中から［特徴：日輪刀］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "·确认我方卡组最上方的7张卡牌。公开其中最多1张“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・自分の場に［特徴：日輪刀］がある場合、カードを1枚引く。",
+     "translation": "·我方的场上存在“特征：日轮刀”的场合，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-026",
+   "name": "铁穴森 钢藏",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《青》。",
+     "translation": "此角色处于活跃状态的场合，此角色的产生能量+[蓝]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-027",
+   "name": "小铁",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが1以下の自分の場の他のキャラを1枚手札に戻す。戻せない場合、このキャラを手札に戻す。",
+     "translation": "【登场时】将我方场上的1张所需能量不高于1的其他角色放回手牌。没有其他角色放回手牌的场合，此角色放回手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-028",
+   "name": "铁地河源 铁珍",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から4枚見る。その中から［特徴：刀鍛冶の里］か［特徴：日輪刀］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张“特征：刀匠村”或“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-029",
+   "name": "缘壹零式",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》以下から1つ選ぶ。",
+     "translation": "【退场时】从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・自分の山札の上から7枚見る。その中から［特徴：日輪刀］を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "·确认我方卡组最上方的7张卡牌。公开其中最多1张“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・自分の場外から［特徴：日輪刀］を1枚まで手札に加える。",
+     "translation": "·从我方的场外将最多1张“特征：日轮刀”加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-030",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】（与此角色进行战斗的角色在本次战斗中，失去【冲击】）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-031",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の場のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【退场时】选择我方场上的最多1张角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-032",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、このキャラはこのターン中、《ダメージ（2）》（このキャラがアタックで直接ダメージを与える時、代わりに2ダメージ）を得る。",
+     "translation": "【我方的回合中】[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色在本回合中，获得【伤害②】（当通过此角色的攻击给予对方直接伤害时，改为给予2点伤害）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-033",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《2回ブロック》（このキャラがこのターン初めてブロックした時、アクティブにする）",
+     "translation": "【2次阻挡】（当此角色在本回合中首次进行阻挡时，转为活跃状态）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "自分の場に〈日輪刀（甘露寺 蜜璃）〉がある場合、このキャラの発生エナジー+《青》。",
+     "translation": "我方的场上存在〈日轮刀(甘露寺 蜜璃)〉的场合，此角色的产生能量+[蓝]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-034",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈甘露寺 蜜璃〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、このキャラは次の自分のターン開始時まで、BP+1000。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《登場時》相手は自身のフロントLのキャラを1枚手札に戻す。",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "《アタック時》自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-036",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【攻击时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-037",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《ターン1》このターン中にこのキャラが自分の［特徴：日輪刀］の効果で選ばれている場合のみ発動できる。このキャラを別のラインに移動させる。",
+     "translation": "【启动主要】[每回合1次]只有在本回合中此角色被我方的“特征：日轮刀”的效果选择的场合才能发动。将此角色移动至其他线中。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-038",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》このターン中にこのキャラが自分の［特徴：日輪刀］の効果で選ばれている場合、以下から1つ選ぶ。",
+     "translation": "【攻击时】本回合中此角色被我方的“特征：日轮刀”的效果选择的场合，从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・BP2500以上の相手のフロントLのキャラを1枚まで選び、このターン中、BP-2000。",
+     "translation": "·选择对方前线中的最多1张BP2500或更高的角色，本回合中，BP-2000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・BP1500以上の相手のフロントLのキャラを2枚まで選び、このターン中、BP-1000。",
+     "translation": "·选择对方前线中的最多2张BP1500或更高的角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-039",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈時透 無一郎〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈时透 无一郎〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《ターン1》このキャラが自分の［特徴：日輪刀］の効果で選ばれた時、このキャラは次の自分のターン開始時まで、「このキャラはBP3000以下のキャラにブロックされない。」と「相手のキャラの効果で選ばれず、《狙い撃ち》で指定されない。」を得る。",
+     "translation": "[每回合1次]当此角色被我方的“特征：日轮刀”的效果选择时，此角色直到我方的下一个回合开始时为止，获得”此角色不会被BP不高于3000的角色阻挡”和“不会被对方角色的效果选择，不会被【瞄准攻击】指定”。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》BP2500以上の相手のフロントLのキャラを1枚まで選び、このターン中、BP-2000。",
+     "translation": "【登场时】选择对方前线中的最多1张BP2500或更高的角色，本回合中，BP-2000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《アタック時》カードを1枚引く。BP1500以上の相手のフロントLのキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【攻击时】抽取1张卡牌，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-040",
+   "name": "刀匠村",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》自分の山札の上から2枚見る。その中から［特徴：刀鍛冶の里］か［特徴：日輪刀］を1枚まで公開し手札に加える。残りを望む順で自分の山札の上に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【启动主要】[转为休息状态]确认我方卡组最上方的2张卡牌。公开其中最多1张“特征：刀匠村”或“特征：日轮刀”并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-041",
+   "name": "日轮刀(灶门 炭治郎)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》このターン中に［特徴：日輪刀］の効果で選ばれているキャラは、この効果で選べない。自分の場の〈竈門 炭治郎〉を1枚選び、このターン中、BP+1000。その後、自分の山札の上から1枚見てもよい。そうした場合、そのカードを自分の山札の上か下に置く。",
+     "translation": "【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈灶门 炭治郎〉，本回合中，BP+1000。那之后，可以确认我方卡组最上方的1张卡牌。这样做的场合，将其置于我方卡组的最上方或最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-042",
+   "name": "日轮刀(甘露寺 蜜璃)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》このターン中に［特徴：日輪刀］の効果で選ばれているキャラは、この効果で選べない。自分の場の〈甘露寺 蜜璃〉を1枚選び、このターン中、『BP+1000』。自分の手札を1枚場外に置いてもよい。そうした場合、『BP+2000』に代わる。",
+     "translation": "【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈甘露寺 蜜璃〉，本回合中，『BP+1000』。可以将我方的1张手牌置于场外。这样做的场合，改为『BP+2000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-043",
+   "name": "日轮刀(时透 无一郎)",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このフィールドはアクティブで場に登場させる。",
+     "translation": "此场地以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》このターン中に［特徴：日輪刀］の効果で選ばれているキャラは、この効果で選べない。自分の場の〈時透 無一郎〉を1枚選び、このターン中、BP+1000と「このキャラはBP2000以下のキャラにブロックされない。」を与える。",
+     "translation": "【启动主要】[转为休息状态]无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色。选择我方场上的1张〈时透 无一郎〉，本回合中，给予BP+1000和“此角色不会被BP不高于2000的角色阻挡”。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-044",
+   "name": "斑纹",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-045",
+   "name": "圆舞一闪",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈竈門 炭治郎〉がある場合、『BP4000以下』に代わる。自分の場に〈竈門 炭治郎〉と〈日輪刀（竈門 炭治郎）〉がどちらもある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张『BP不高于3000』的角色，退场。我方的场上存在〈灶门 炭治郎〉的场合，改为『BP不高于4000』。我方的场上同时存在〈灶门 炭治郎〉和〈日轮刀(灶门 炭治郎)〉的场合，改为『BP不高于5000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-046",
+   "name": "赫刀",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このターン中に自分の［特徴：日輪刀］の効果で選ばれている自分の場のキャラを1枚選び、このターン中、BP+1000と〔《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）か《ダメージ（+1）》（このキャラがアタックで直接ダメージを与える時、追加で1ダメージ）〕を与え、カードを1枚引く。",
+     "translation": "选择我方场上的1张本回合中已被“特征：日轮刀”的效果选择过的角色，本回合中，给予BP+1000和と〔【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）或【伤害+1】（当通过此角色的攻击给与对方直接伤害时，追加给予1点伤害）〕，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-047",
+   "name": "霞之呼吸 伍之型 霞云之海",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈時透 無一郎〉がある場合、手札にあるこのカードの消費APを-1する。",
+     "translation": "我方的场上存在〈时透 无一郎〉的场合，手牌中存在的此卡牌的消费AP-1。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚選び、相手の山札の下に置く。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，置于对方卡组的最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-048",
+   "name": "恋之呼吸 壹之型 初恋的战栗",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "BP5000以下の相手のフロントLのキャラを1枚まで選び、手札に戻す。自分の場に〈甘露寺 蜜璃〉がある場合、カードを1枚引き、自分の場の〈甘露寺 蜜璃〉を1枚まで選び、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "选择对方前线中的1张BP不高于5000的角色，放回手牌。我方的场上存在〈甘露寺 蜜璃〉的场合，抽取1张卡牌，选择我方场上的最多1张〈甘露寺 蜜璃〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-049",
+   "name": "鬼舞辻 无惨",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場外にカードが15枚以上ある場合、このキャラは《インパクト（1）》を得る。",
+     "translation": "我方的场外存在15张或更多的卡牌的场合，此角色获得【冲击①】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場の他のキャラを望む枚数退場させてもよい。そうした場合、この効果で退場させたキャラの枚数分カードを引く。",
+     "translation": "【登场时】可以将我方场上的任意张数的其他角色退场。这样做的场合，抽取与通过此效果退场的角色张数相同数量的卡牌。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《ターン1》このターン中にこのキャラの《登場時》によってキャラが退場している場合のみ発動できる。自分の手札から必要エナジーが3以下で消費APが1の紫のキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【启动主要】[每回合1次]只有在本回合中通过此角色的【登场时】效果将角色退场的场合才能发动。从我方的手牌中将1张所需能量不高于3且消费AP为1的紫色角色卡牌在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-050",
+   "name": "妓夫太郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場に〈堕姫〉がある場合、BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】我方的场上存在〈堕姬〉的场合，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-051",
+   "name": "玉壶",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-052",
+   "name": "玉壶",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈玉壺〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈玉壶〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、このターン中、『BP-1500』。このターン中にキャラが退場していた場合、『BP-2500』に代わる。",
+     "translation": "【登场时】选择对方前线中的最多1张角色，本回合中，『BP-1500』。本回合中有角色退场的场合，改为『BP-2500』。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《アタック時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【攻击时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-053",
+   "name": "堕姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》自分のフロントLの《レイド》を持ち、レイド状態でない〈堕姫〉を1枚選び、アクティブにし、そのキャラの下にこのキャラを表向きで置く。（レイド状態になる）",
+     "translation": "【启动主要】选择我方前线中的1张拥有【突进】且不是突进状态的〈堕姬〉，转为活跃状态，将此角色正面朝上置于该角色的下方。(变为突进状态)。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-054",
+   "name": "堕姬",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場に〈妓夫太郎〉がある場合、BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【登场时】我方的场上存在〈妓夫太郎〉的场合，选择对方前线中的最多1张BP1500或更高的角色，本回合中，BP-1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《フロントLにある場合》 《APを1支払う》 《ターン1》自分の場の〈妓夫太郎〉を1枚選び、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "【启动主要】[前线中存在的场合][支付1AP][每回合1次]选择我方场上的1张〈妓夫太郎〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-055",
+   "name": "半天狗",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の場外から〈哀絶〉、〈空喜〉、〈可楽〉、〈積怒〉をそれぞれ1枚まで選び、その中から2枚までを自分の場にレストで登場させ、残りを手札に加える。",
+     "translation": "【退场时】从我方的场外选择〈哀绝〉、〈空喜〉、〈可乐〉、〈积怒〉各1张，将其中最多2张在我方的场上以休息状态登场，剩余的卡牌加入手牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-056",
+   "name": "哀绝",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の効果によって、このキャラが退場している場合、相手のフロントLのキャラを1枚まで選び、このターン中、『BP-1000』。自分の〈憎珀天〉の効果で退場したなら、『BP-2000』に代わる。",
+     "translation": "【退场时】通过我方的效果，此角色退场的场合，选择对方前线中的最多1张角色，本回合中，『BP-1000』。如果是通过我方的〈憎珀天〉的效果退场的话，改为『BP-2000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-057",
+   "name": "空喜",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の効果によって、このキャラが退場している場合、カードを『1枚』引く。自分の〈憎珀天〉の効果で退場したなら、『2枚』に代わる。",
+     "translation": "【退场时】通过我方的效果，此角色退场的场合，抽取『1张』卡牌。如果是通过我方的〈憎珀天〉的效果退场的话，改为『2张』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-058",
+   "name": "可乐",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《退場時》自分の山札の上から1枚を場外に置く。自分の〈憎珀天〉の効果によって、このキャラが退場している場合、自分のAPカードを1枚まで選び、アクティブにする。",
+     "translation": "【退场时】将我方卡组最上方的1张卡牌置于场外。通过我方的〈憎珀天〉的效果，此角色退场的场合，选择我方的最多1张AP卡牌，转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-060",
+   "name": "憎珀天",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈積怒〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈积怒〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場の〈哀絶〉、〈空喜〉、〈可楽〉をそれぞれ1枚まで退場させる。そうした場合、この効果で退場させたキャラを全てこのキャラの下に裏向きで置く。",
+     "translation": "【登场时】将我方场上的〈哀绝〉、〈空喜〉、〈可乐〉最多各1张退场。这样做的场合，通过此效果退场的所有角色背面朝上置于此角色的下方。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "このキャラの下の裏向きのカードの枚数により、このキャラは以下の効果を全て得る。",
+     "translation": "根据此角色下方的背面朝上的卡牌张数，此角色获得下列所有效果。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・1枚以上：《退場時》このカードを自分の場にレストで登場させてもよい。",
+     "translation": "·1张或更多：【退场时】可以将此卡牌在我方的场上以休息状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・2枚以上：《ダメージ（2）》と《2回ブロック》　・3枚以上：このキャラはBP+500と《2回アタック》",
+     "translation": "·2张或更多：【伤害②】和【2次阻挡】",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-061",
+   "name": "无惨的研究",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場外にカードが5枚以上ある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张『BP不高于3000』的角色，退场。我方的场外存在5张或更多的卡牌的场合，改为『BP不高于5000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-062",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場にレイド状態の〔〈竈門 炭治郎〉か〈嘴平 伊之助〉〕がある場合、このキャラはBP+1000。",
+     "translation": "我方的场上存在突进状态的〔〈灶门 炭治郎〉或〈嘴平 伊之助〉〕的场合，此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-063",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場のレイド状態の〈我妻 善逸〉を1枚選び、このターン中、《インパクト（+1）》（インパクトの与えるダメージが+1され、インパクトを持たない場合、《インパクト（1）》を得る）を与える。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]选择我方场上的1张突进状态的〈我妻 善逸〉，本回合中，给予【冲击+1】（冲击给予的伤害+1，没有冲击的场合，获得【冲击①】）。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場のレイド状態の〈嘴平 伊之助〉を1枚選び、このターン中、《ダメージ（+1）》（このキャラがアタックで直接ダメージを与える時、追加で1ダメージ）を与える。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]选择我方场上的1张突进状态的〈嘴平 伊之助〉，本回合中，给予【伤害+1】（当通过此角色的攻击给与对方直接伤害时，追加给予1点伤害）。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-064",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 炭治郎〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈灶门 炭治郎〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の山札の上から5枚見る。その中から〈我妻 善逸〉と〈嘴平 伊之助〉をそれぞれ1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。この効果によってカードを2枚手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的5张卡牌。公开其中〈我妻 善逸〉和〈嘴平 伊之助〉最多各1张并加入手牌。剩余的卡牌自选顺序置于我方卡组的最下方。通过此效果将2张卡牌加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《起動メイン》《フロントLにある場合》 《レストにする》自分の場の〈我妻 善逸〉と〈嘴平 伊之助〉をそれぞれ1枚まで選び、このターン中、BP+2000。",
+     "translation": "【启动主要】[前线中存在的场合][转为休息状态]选择我方场上的〈我妻 善逸〉和〈嘴平 伊之助〉最多各1张，本回合中，BP+2000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-065",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場にレイド状態の〔〈竈門 炭治郎〉か〈我妻 善逸〉〕がある場合、このキャラをアクティブにする。",
+     "translation": "【登场时】我方的场上存在突进状态的〔〈灶门 炭治郎〉或〈我妻 善逸〉〕的场合，此角色转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-066",
+   "name": "炼狱 槙寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《アタック時》このターン中に自分のイベントカードか〈煉󠄁獄 杏寿郎〉の効果で自分の手札を場外に置いている場合、以下から1つ選ぶ。",
+     "translation": "【攻击时】本回合中通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将我方的手牌置于场外的场合，从下列选择1项。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・このキャラはこのターン中、BP+1000。",
+     "translation": "·此角色在本回合中，BP+1000。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・カードを1枚引く。",
+     "translation": "·抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-067",
+   "name": "炼狱 瑠火",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のイベントカードか〈煉󠄁獄 杏寿郎〉の効果でこのカードが手札から場外に置かれた時、カードを1枚引く。",
+     "translation": "当通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将此卡牌从手牌中置于场外时，抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-068",
+   "name": "须磨&槙於&雏鹤",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈宇髄 天元〉がある場合、このキャラはBP+500。",
+     "translation": "【我方的回合中】我方的场上存在〈宇髓 天元〉的场合，此角色BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》アタックフェイズ中にこのキャラが移動した時、自分の場の〈宇髄 天元〉か［特徴：変装］を1枚まで選び、このターン中、BP+1000。",
+     "translation": "【我方的回合中】当此角色在攻击阶段中进行移动时，选择我方场上的最多1张〈宇髓 天元〉或“特征：变装”，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-069",
+   "name": "宇髓 天元",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》自分の場に［特徴：天元の嫁］と［特徴：変装］が合計3枚以上ある場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】我方的场上存在合计3张或更多的“特征：天元的妻子”和“特征：变装”的场合，此角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-070",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》カードを1枚引き、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】抽取1张卡牌，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-071",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《手札を1枚場外に置く》 《ターン1》このターン中、次に自分が「BPの範囲に指定がある効果」でキャラを選ぶ際、指定できるBPの範囲+1000。（BP3000以下のキャラを選べる効果でBP4000以下を選べるようになる）",
+     "translation": "【启动主要】[将1张手牌置于场外][每回合1次]本回合中，下一次我方通过“指定BP范围的效果”选择角色时，可指定的BP范围+1000。(选择BP不高于3000的角色的效果可以选择BP不高于4000。)",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-072",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈煉󠄁獄 杏寿郎〉アクティブにし、フロントLに移動できる",
+     "translation": "【突进】〈炼狱 杏寿郎〉转为活跃状态，并可以移动至前线",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《自分のターン中》このターン中に自分のイベントカードか〈煉󠄁獄 杏寿郎〉の効果で自分の手札を場外に置いている場合、このキャラはBP+500と《インパクト（1）》を得る。",
+     "translation": "【我方的回合中】本回合中通过我方的事件卡牌或〈炼狱 杏寿郎〉的效果将我方的手牌置于场外的场合，此角色获得BP+500和【冲击①】。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《登場時》自分の手札を望む枚数場外に置き、『BP3000』以下の相手のフロントLのキャラを1枚まで選び、退場させる。この効果で手札から場外に置いたカード1枚につき、この効果で選べるキャラのBPの範囲+500。",
+     "translation": "【登场时】将我方任意张数的手牌置于场外，选择对方前线中的最多1张『BP不高于3000』的角色，退场。通过此效果从手牌中置于场外的卡牌每有1张，此效果可选择的角色的BP范围+500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "EX05BT/KMY-3-073",
+   "name": "炎之呼吸 壹之型 不知火",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。カードを1枚引き、自分の手札を1枚場外に置く。自分の場に〈煉󠄁獄 杏寿郎〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中的1张『BP不高于3000』的角色，退场。抽取1张卡牌，将我方的1张手牌置于场外。我方的场上存在〈炼狱 杏寿郎〉的场合，改为『BP不高于5000』。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-001",
+   "name": "我妻 善逸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の山札の上から4枚見る。その中から〈竈門 炭治郎〉か〈竈門 禰󠄀豆子〉か〈嘴平 伊之助〉を1枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。手札に加えた場合、自分の手札を1枚場外に置く。",
+     "translation": "【登场时】确认我方卡组最上方的4张卡牌。公开其中最多1张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。加入手牌的场合，将我方的1张手牌置于场外。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-003",
+   "name": "鳞泷 左近次",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》自分の場の他のキャラを1枚選び、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态]选择我方场上的其他1张角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-004",
+   "name": "鎹鸦",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《ターン1》このターン中、このキャラの発生エナジー+《黄》。メインフェイズ終了時、このキャラを退場させる。",
+     "translation": "【启动主要】[转为休息状态][每回合1次]本回合中，此角色的产生能量+●黄●。当主要阶段结束时，退场此角色。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-009",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈竈門 炭治郎〉がある場合、このキャラはBP+1000。",
+     "translation": "【我方的回合中】我方场上存在〈灶门 炭治郎〉的场合，此角色的BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-014",
+   "name": "栗花落 香奈乎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラがアクティブの場合、このキャラの発生エナジー+《黄》。",
+     "translation": "此角色处于活跃状态的场合，此角色的产生能量+●黄●。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-015",
+   "name": "嘴平 伊之助",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《フロントLにある場合》自分のアタックフェイズ終了時、このキャラがアクティブの場合、このキャラを退場させる。",
+     "translation": "[前线中存在的场合]当我方的攻击阶段结束时，此角色处于活跃状态的场合，将此角色退场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "このキャラがアタックしてバトルに敗北した時、このキャラを退場させる。",
+     "translation": "当此角色在进行攻击的战斗中败北时，将此角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-029",
+   "name": "全集中呼吸",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分のAPカードを2枚まで選び、アクティブにする。",
+     "translation": "选择我方的最多2张AP卡牌转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-033",
+   "name": "水之呼吸 拾之型 生生流转",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "『BP3000以下』の相手のフロントLのキャラを1枚選び、退場させる。自分の場に〈竈門 炭治郎〉がある場合、『BP5000以下』に代わる。",
+     "translation": "选择对方前线中1张[BP不高于3000]的角色退场。我方场上存在<灶门炭治郎>的场合，改为选择[BP不高于5000]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-102",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《ステップ》（自分の移動フェイズにフロントLからエナジーLへ移動できる）",
+     "translation": "【撤步】（可以在我方的移动阶段中从前线移动至能量线）",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-103",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《レイド》〈竈門 炭治郎〉アクティブにし、フロントLに移動できる",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場に〈竈門 禰󠄀豆子〉がある場合、このキャラは次の自分のターン開始時まで、BP+500と《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）を得る。",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-104",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》必要エナジーが3以下の相手のフロントLのキャラを1枚まで選び、退場させる。",
+     "translation": "【登场时】选择对手前线中最多1张所需能量不高于3的角色退场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-105",
+   "name": "锖兔",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の場の他のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【登场时】选择我方场上最多1张其他的角色，本回合中，BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-107",
+   "name": "富冈 义勇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト（1）》（アタックしてバトルに勝利した時、相手プレイヤーに1ダメージ）",
+     "translation": "【冲击①】（当在进行攻击的战斗中胜利时，给与对方玩家1点伤害）",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》相手のフロントLのキャラを1枚まで選び、レストにする。カードを1枚引く。",
+     "translation": "【登场时】选择对方前线中的最多1张角色转为休息状态。抽取1张卡牌。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-108",
+   "name": "巨大的岩石",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《レストにする》 《このカードを退場させる》自分の場のキャラ全ては、このターン中、BP+1000。",
+     "translation": "【启动主要】[转为休息状态][将此卡牌退场]本回合中，我方场上的所有角色BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA05ST/KMY-1-109",
+   "name": "伙伴",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の山札の上から5枚見る。その中から〈竈門 炭治郎〉か〈竈門 禰󠄀豆子〉か〈我妻 善逸〉か〈嘴平 伊之助〉を2枚まで公開し手札に加える。残りを望む順で自分の山札の下に置く。",
+     "translation": "确认我方卡组最上方的5张卡牌。公开其中的最多2张〈灶门 炭治郎〉或〈灶门 祢豆子〉或〈我妻 善逸〉或〈嘴平 伊之助〉并加入手牌。剩余的卡牌自选顺序置于卡组最下方。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-001",
+   "name": "灶门 炭治郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》《ターン1》アタックフェイズ中に自分の場のキャラが移動した時、自分の場のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【我方的回合中】[每回合1次]攻击阶段中当我方场上的角色移动时，选择我方场上最多1张角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-002",
+   "name": "灶门 祢豆子",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《エナジーLにある場合》自分のアタックフェイズ開始時、自分のフロントLのキャラを1枚選び、このキャラと位置を入れ替えてもよい。",
+     "translation": "[能量线中存在的场合]当我方的攻击阶段开始时，选择我方前线中的1张角色，可以与此角色交换位置。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-004",
+   "name": "甘露寺 蜜璃",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《APを1支払う》 《ターン1》このキャラはこのターン中、BP+2500。",
+     "translation": "【启动主要】[支付1AP][每回合1次]此角色在本回合中，BP+2500。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-005",
+   "name": "蝴蝶 忍",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《起動メイン》《フロントLにある場合》 《ターン1》BP1500以上の相手の場のキャラを1枚まで選び、このターン中、BP-1000。",
+     "translation": "【启动主要】[前线中存在的场合][每回合1次]选择对方前线中最多1张BP1500或更高的角色，本回合中BP-1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-006",
+   "name": "不死川 实弥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《自分のターン中》自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計3枚以上ある場合、このキャラはBP+500。",
+     "translation": "【我方的回合中】我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色BP+500。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計6枚以上ある場合、このキャラをアクティブにする。",
+     "translation": "【登场时】我方场上存在合计6张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色转为活跃状态。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-007",
+   "name": "时透 无一郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "自分の場に〈産屋敷 耀哉〉、他の［特徴：柱］が合計3枚以上ある場合、このキャラの発生エナジー+《黄》。",
+     "translation": "我方场上存在合计3张或更多的〈产屋敷 耀哉〉和其他的[特征:柱]的场合，此角色的产生能量+[黄]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-008",
+   "name": "富冈 义勇",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】与此角色进行战斗的角色在本次战斗中，失去冲击。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《登場時》このキャラは、次の自分のターン開始時まで、「相手のキャラの効果やイベントカードの効果で退場しない。」を得る。",
+     "translation": "【登场时】直到我方的下一个回合开始时为止，此角色获得[不会通过对方的角色或事件卡牌的效果退场]。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-009",
+   "name": "悲鸣屿 行冥",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《登場時》自分の手札を1枚場外に置いてもよい。そうした場合、自分の手札から〈悲鳴嶼 行冥〉以外の必要エナジーを満たし消費APが1の特徴に「柱」を持つキャラカードを1枚まで自分の場にレストで登場させる。",
+     "translation": "【登场时】可以将我方的1张手牌置于场外。这样做的场合，从我方的手牌中将最多1张〈悲鸣屿 行冥〉以外的满足所需能量且消费AP为1的拥有特征[柱]的角色以休息状态登场。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-010",
+   "name": "宇髓 天元",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "このキャラはアクティブで場に登場させる。",
+     "translation": "此角色以活跃状态登场。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《アタック時》自分のフロントLの［特徴：天元の嫁］と自分のエナジーLの〔〈宇髄 天元〉か［特徴：変装］〕を1枚ずつ選び、それらの位置を入れ替えてもよい。",
+     "translation": "【攻击时】选择我方前线中的[特征：天元的妻子]和我方能量线中的〈宇髓 天元〉或[特征：天元的妻子]各1张，可以交换他们的为止。",
+     "status": "machine-unverified"
+    }
+   ]
+  },
+  {
+   "number": "UA01NC/KMY-2-011",
+   "name": "炼狱 杏寿郎",
+   "originalLang": "ja",
+   "translationSource": "official-cn-card-text",
+   "matchStatus": "complete",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《インパクト無効》（このキャラとバトルをしたキャラはこのバトル中、《インパクト》を失う）",
+     "translation": "【冲击无效】与此角色进行战斗的角色在本次战斗中，失去冲击。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《フロントLにある場合》自分の場の〈煉󠄁獄 杏寿郎〉以外のキャラは、《狙い撃ち》で指定されない。",
+     "translation": "[前线中存在的场合]我方场上的〈炼狱 杏寿郎〉以外的角色不会被【瞄准攻击】所指定。",
+     "status": "machine-unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《退場時》自分の場の〈煉󠄁獄 杏寿郎〉以外のキャラを1枚まで選び、このターン中、BP+1000。",
+     "translation": "【退场时】选择我方场上最多1张〈炼狱 杏寿郎〉以外的角色，本回合中BP+1000。",
+     "status": "machine-unverified"
+    }
+   ]
+  }
+ ]
+}

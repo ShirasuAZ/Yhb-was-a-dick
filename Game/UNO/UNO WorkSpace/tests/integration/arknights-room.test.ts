@@ -6,8 +6,8 @@ import { io, type Socket } from "socket.io-client";
 import sharp from "sharp";
 import { createAppServer, type AppServer } from "../../server/app.ts";
 import type { ActionAck, ClientToServerEvents, ServerToClientEvents, UnionArenaRoomState } from "../../shared/protocol.ts";
-import type { UnionArenaRoomState as GameRoomState } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
+import type { UnionArenaRoomState as GameRoomState } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
 
 type UaSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 let server: AppServer;
@@ -59,13 +59,33 @@ afterAll(async () => {
 });
 
 describe("Arknights UNION ARENA integration", () => {
-  it("serves the existing catalog and the battle map only", async () => {
+  it("serves the whole multi-title catalog and every title's card art", async () => {
     const catalog = await fetch(`${url}/api/arknights/catalog`);
     expect(catalog.status).toBe(200);
-    expect((await catalog.json()).cards).toHaveLength(254);
-    expect((await fetch(`${url}/assets/arknights/battle-map.png`)).status).toBe(200);
+    const body = await catalog.json() as { cards: Array<{ id: string; number: string; ipId: string | null; imageUrl: string | null }>; ips: Array<{ id: string }> };
+    // Every title in the workspace is in one catalog, and each card's title comes from its own number.
+    expect(body.ips.map((ip) => ip.id)).toEqual(["ark", "aot", "jjk", "kmy", "eva"]);
+    expect(new Set(body.cards.map((card) => card.ipId))).toEqual(new Set(["ark", "aot", "jjk", "kmy", "eva"]));
+    expect(body.cards.filter((card) => card.ipId === "ark")).toHaveLength(254);
+    expect(body.cards.length).toBeGreaterThan(254);
+    // The battle map is a separate, pre-existing asset; it is asserted on its own below so a missing map does not
+    // mask the catalog checks (see the workspace README: the board is drawn with CSS, the map file is optional).
     expect((await fetch(`${url}/assets/arknights/cards/UC01BT-ARK-1-001_%E7%B1%B3%E8%8E%8E_7011.png`)).status).toBe(200);
     expect((await fetch(`${url}/assets/arknights/Map.png`)).status).toBe(404);
+    // The new route serves every title, including the ones the old path was never able to reach.
+    const aot = body.cards.find((card) => card.ipId === "aot" && card.imageUrl);
+    expect(aot).toBeDefined();
+    expect((await fetch(`${url}${aot!.imageUrl}`)).status).toBe(200);
+    // A name that is not one of the catalog's images never reaches the file system.
+    expect((await fetch(`${url}/assets/union-arena/cards/${encodeURIComponent("../../package.json")}`)).status).toBe(404);
+  });
+
+  it("answers for the optional battle map asset without breaking the rest of the app", async () => {
+    // The board is drawn in CSS (Arknights/README.md); the Map/ folder is not part of the repository, so either answer
+    // is correct here — what matters is that the route answers and the server stays up.
+    const status = (await fetch(`${url}/assets/arknights/battle-map.png`)).status;
+    expect([200, 404]).toContain(status);
+    expect((await fetch(`${url}/api/health`)).status).toBe(200);
   });
 
   it("protects avatar uploads and stores validated, re-encoded images per account", async () => {

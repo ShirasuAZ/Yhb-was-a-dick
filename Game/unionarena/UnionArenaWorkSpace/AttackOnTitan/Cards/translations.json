@@ -1,0 +1,4839 @@
+{
+ "title": "AttackOnTitan",
+ "originalLang": "en",
+ "translationLang": "zh-Hans",
+ "note": "这个作品没有可核实的中文译文来源。原文（英文，取自官方英文站）已逐段保留，译文留空并标为未校验，详情页会显示「暂无中文译文」。官方简体中文站没有收录该作品，官方日文站用的是另一套卡号（UA23BT / EX10BT），与本站使用的英文卡号（UE10BT / UEX07BT / UEPR / UE10ST）无法对应，因此没有可靠的中日文对照可以引用。",
+ "cards": [
+  {
+   "number": "UE10BT/AOT-1-002",
+   "name": "Erwin Smith",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top three cards of your deck. Reveal up to one <Levi> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Pay 1 AP》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-003",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 You may choose one active [Inheritor of the Titan] or [Pure Titan] affinity card on your field or your opponent's field and switch it to resting. If you do, the player whose character was switched to resting with this ability draws a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-004",
+   "name": "Eld Gin",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have paid an AP cost during the attack phase this turn, this character gains 2000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-005",
+   "name": "Oruo Bozad",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-006",
+   "name": "Petra Rall",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-008",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 500 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-009",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-010",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《If on the Front Line》 At the start of your attack phase, if this character is active, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, choose up to one character on your field. It gains 1000 BP and \"This character cannot be chosen by your opponent's trigger abilities\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-011",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Levi> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Once Per Turn》 At the end of this character's attack, you may pay 1 AP. If you do, switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 This character gains 1000 BP, 《Double Attack》 (When this character attacks for the first time this turn, switch it to active), and \"When this character attacks a third time this turn, it gains 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the attack\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-013",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Opponent's Turn》 If <Historia Reiss> is on your field, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-014",
+   "name": "Ymir (Jaw Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Ymir> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Attacking》 《Once Per Turn》 Draw a card, then place one card from your hand into your sideline. Then, if you have six or more event cards in your sideline, you may switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-015",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-016",
+   "name": "Conny Springer",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a green or red card on your opponent's field, reduce this card's required energy by 《Blue×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-017",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-018",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-020",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top two cards of your deck. {Place them on the top of your deck in any order}. If a character with \"Ymir\" in its card name is on your field, {Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-021",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If a character with \"Ymir\" in its card name is on your field, this character gains 500 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 If you have used an event card this turn, choose up to one of your AP cards and switch it to active. You can only activate this <Historia Reiss> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-022",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Historia Reiss> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "This character gains all abilities listed below if you have the required number of event cards in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Two or more: 《When Attacking》 Choose up to one other [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・Four or more: 《Activate: Main》 《If on the Front Line》 《Once Per Turn》 If you have used an event card this turn, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・Six or more: 《Impact (1)》",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-023",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-024",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This character gains all abilities listed below if you have the required number of event cards in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Two or more: This character gains 《Blue》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Four or more: This character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-025",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Your opponent cannot activate 《Active Trigger》 abilities during trigger checks resulting from damage dealt by this character.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Choose up to one character with 4000 or less BP on your opponent's front line and return it to their hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-026",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Blue》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-027",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Look at the top five cards of your deck. Reveal up to one blue event card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-028",
+   "name": "Former Headquarters of the Scout Regiment",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Reveal the top card of your deck. If the revealed card is a blue character card with 3 or less required energy, add it to your hand. If you do not add it to your hand, place it on the top of your deck.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-029",
+   "name": "Memory",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Draw a card, then place one card from your hand into your sideline. Choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-030",
+   "name": "You Call That Clean?! Do It All Again.",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-031",
+   "name": "Cleanup",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top two cards of your deck. Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline. Draw two cards.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-032",
+   "name": "Bombs",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to one character with 3500 or less BP on your opponent's front line and return it to their hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-033",
+   "name": "Historia's Resolve",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with {2000} or less BP on your opponent's front line and sideline it. If <Historia Reiss> is on your field, add 1000 to the BP range of the character you may choose with this ability for each event card in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-034",
+   "name": "Levi's Barrage",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If <Levi> is on your field, {5000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-035",
+   "name": "Kenny Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a blue or red card on your opponent's field, reduce this card's required energy by 《Green×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-036",
+   "name": "Kenny Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Once Per Turn》 You can only activate this ability on the turn this character is played. Choose one character on your opponent's front line with BP equal to or less than this character's BP and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Place 1 Card From Hand Into Sideline》 This character gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-037",
+   "name": "Rod Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-038",
+   "name": "Rod Reiss (Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Rod Reiss> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《During Your Turn》 This character gains 2000 BP. If there is an active character on your opponent's front line, this character also gains 《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Sidelined》 Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-039",
+   "name": "Cart Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-040",
+   "name": "Pure Titan (Small Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-041",
+   "name": "Pure Titans (Zeke's Titans)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-044",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-046",
+   "name": "Zeke Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one [Pure Titan] affinity card on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-047",
+   "name": "Zeke Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have three or more [Pure Titan] affinity cards on your field, this character gains 1500 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-048",
+   "name": "Zeke Jaeger (Beast Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "For each card with [Pure Titan] affinity on your field, reduce this card's required energy by 《Green×1》 while anywhere other than on your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 All [Pure Titan] affinity cards on your field gain 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Activate: Main》 《Once Per Turn》 Choose up to one [Pure Titan] affinity card on your field. It gains 《Impact (1)》 until the end of the turn. If this character is on your front line, all [Pure Titan] affinity cards on your field gain 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-049",
+   "name": "Pure Titan (Relaxing Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Sidelined》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-050",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-051",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top three cards of your deck. Reveal up to one [Marleyan Warrior] or [Pure Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-052",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Green》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-053",
+   "name": "Annie Leonhart (Female Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Annie Leonhart> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《If on the Front Line》 When a [Marleyan Warrior] affinity card performs Raid from your hand, reduce its required energy by 《Green×1》.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 Play up to one green character card with 3 or less required energy and 1 AP cost from your hand set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Sidelined》 Return up to one base card of this Raided character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-054",
+   "name": "Bertholdt Hoover",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Green》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-055",
+   "name": "Bertholdt Hoover",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 If you have 6 or more energy generation, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-056",
+   "name": "Bertholdt Hoover",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This character generates energy even if it is on the front line.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-057",
+   "name": "Bertholdt Hoover (Colossal Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Raid》 <Bertholdt Hoover> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Damage (3)》 (When this character attacks and deals direct damage, deal 3 damage instead.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "《When Played》 Sideline all characters with 0 required energy on your opponent's front line. This character gains \"This character cannot be chosen by your opponent's character or trigger abilities\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-059",
+   "name": "Reiner Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have 6 or more energy generation, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-060",
+   "name": "Reiner Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-061",
+   "name": "Reiner Braun (Armored Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《During Opponent's Turn》 Your opponent cannot choose this character with abilities on character or event cards unless they pay 1 AP as an additional cost.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-062",
+   "name": "Titan Forest",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 《Once Per Turn》 This site gains 《Green》 energy generation until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-063",
+   "name": "Titan Injection",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top four cards of your deck. Reveal one card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the card you revealed has [Pure Titan] affinity or \"Rod Reiss\" or \"Zeke Jaeger\" in its card name, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-064",
+   "name": "We Fight Now!! We Decide This Right Here!!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "{Choose one} of the abilities listed below. If there is a character with \"Reiner Braun\" in its card name on your field, {Choose all} instead.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Look at the top seven cards of your deck. Reveal up to two green character cards among them and add them to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Play up to two green character cards with 4 or more required energy and 1 AP cost from your hand set to active onto your front line or perform Raid with them on characters on your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-065",
+   "name": "Marleyan Warriors",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-066",
+   "name": "I'm Going For a Perfect Game.",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Zeke Jaeger\" in its card name on your field, {5000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-067",
+   "name": "Are We Doing It?! Now...?! Here?!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "You can only use one <Are We Doing It?! Now...?! Here?!> card per turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Choose one card on your field. It gains \"This card gains 《Green》《Green》 energy generation\" until the end of the turn. If there is a character with \"Bertholdt Hoover\" in its card name on your field, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-068",
+   "name": "Carla Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-069",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 If you have an [Inheritor of the Titan] affinity card on your field, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-070",
+   "name": "Hannes",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-071",
+   "name": "Eren Kruger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Sideline This Card》 You can only activate this ability if <Grisha Jaeger> is on your field. Draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-072",
+   "name": "Grisha Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top five cards of your deck. Reveal up to one red character card with \"Eren Jaeger\" in its card name or up to one <Key to the Basement> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-073",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Play this character set to active onto your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Double Attack》 (When this character attacks for the first time this turn, switch it to active.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-074",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a blue or green card on your opponent's field, reduce this card's required energy by 《Red×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-075",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-076",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 When this character is returned to your hand from your field, you may place one red <Armin Arlelt> card with 1 required energy from your hand into your sideline. If you do, draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-077",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・The next time you choose a character with an ability that specifies a BP range this turn, add 1000 to the specified BP range. (You can choose a character with 3000 or less BP with an ability that lets you choose a character with 2000 or less BP.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Activate this character's 《When Played》 ability.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-078",
+   "name": "Christa Lenz",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-080",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top seven cards of your deck. Reveal up to one [Food] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-081",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have used a [Food] affinity card this turn, this character gains 500 BP and 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-082",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn. If you have used a [Food] affinity card this turn, switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-084",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-086",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-087",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Red》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-088",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If this character is returned from your field to your hand, you may place one card from your hand into your sideline instead.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 500 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-089",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Mikasa Ackermann> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 If there is a character with \"Eren Jaeger\" in its card name on your field, choose up to one character with 3500 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-091",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-092",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 Place up to one other [104th Cadet Corps] affinity card on your front line on the top of your deck. If your front line is not full, play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-093",
+   "name": "Eren Jaeger (Attack Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《During Your Turn》 This character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Attacking》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "・If you have 3 or less life, you may place two cards from your hand into your sideline. If you do, choose up to one character with 2000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-094",
+   "name": "Eren Jaeger (Attack Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Choose up to one character with 2000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Attacking》 《Once Per Turn》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・This character gains 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent) until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "・If you have 3 or less life, switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-095",
+   "name": "Basement",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have a <Key to the Basement> card in your sideline, reduce this card's required energy by 《Red×2》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-096",
+   "name": "Hardened Punch",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren Jaeger\" in its card name on your field, reduce this card's AP cost by 1 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Choose up to one character with 5000 or less BP on your opponent's front line and sideline it. Choose up to one Raided <Eren Jaeger (Attack Titan)> on your field. It gains \"If your opponent sidelines this character with a 《Special Trigger》 ability, they add the card with the 《Special Trigger》 ability to their hand instead\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-097",
+   "name": "Dedicate Your Heart!!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-098",
+   "name": "Key to the Basement",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top five cards of your deck. Reveal up to one <Basement> or [Inheritor of the Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the revealed card has 6 or more base required energy, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-099",
+   "name": "Omni-Directional Mobility Gear",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Draw two cards. Play up to two red cards with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. Those characters gain \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10BT/AOT-1-100",
+   "name": "A Steamed Potato, Sir!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Place up to three cards from your hand on the bottom of your deck in any order. Draw a number of cards equal to the number of cards placed on the bottom of your deck with this ability. Choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-068",
+   "name": "Carla Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-070",
+   "name": "Hannes",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-075",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-084",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-087",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Red》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-091",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《If on the Front Line》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-097",
+   "name": "Dedicate Your Heart!!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-103",
+   "name": "Reiner Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-104",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 《#If on the Energy Line#》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Look at the top three cards of your deck. Reveal up to one [104th Cadet Corps] affinity card with 3 or less required energy among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-105",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren Jaeger\" in its card name on your field, play this character set to active onto your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-106",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have 3 or less life, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-107",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Activate: Main》 《If on the Front Line》 Place one card from your life area into your sideline. If you do, choose up to one of your AP cards and switch it to active. You can only activate this <Eren Jaeger> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-108",
+   "name": "Cadet Corps Grounds",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have five or more [104th Cadet Corps] affinity cards on your field, play this site set to active onto your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Switch to Resting》 《Sideline This Card》 All [104th Cadet Corps] affinity cards on your field gain 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-109",
+   "name": "104th Cadet Corps",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character on your opponent's front line with BP equal to or less than 1000 multiplied by the number of [104th Cadet Corps] affinity cards on your field and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-110",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Levi> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Choose up to one character with 2500 or more BP on your opponent's front line. It loses 2000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, choose up to one character with 2000 or less BP on your opponent's front line and return it to their hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-111",
+   "name": "Erwin Smith",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《If on the Front Line》 At the start of your attack phase, if this character is active, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, this character gains 500 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-112",
+   "name": "Armored Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Opponent's Turn》 Your opponent cannot choose this character with abilities on character or event cards unless they pay 1 AP as an additional cost.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Choose up to one character with {2000 or less BP} on your opponent's front line and sideline it. If you have 8 or more energy generation, {4000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UE10ST/AOT-1-113",
+   "name": "Colossal Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This card cannot be played onto your energy line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 Choose up to one site on your opponent's field and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-003",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 You may choose one active [Inheritor of the Titan] or [Pure Titan] affinity card on your field or your opponent's field and switch it to resting. If you do, the player whose character was switched to resting with this ability draws a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-004",
+   "name": "Eld Gin",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have paid an AP cost during the attack phase this turn, this character gains 2000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-005",
+   "name": "Oruo Bozad",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Blue》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-006",
+   "name": "Petra Rall",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 At the start of the attack phase this turn, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-008",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, draw a card and give this character 500 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-013",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Opponent's Turn》 If <Historia Reiss> is on your field, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-015",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-016",
+   "name": "Conny Springer",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a green or red card on your opponent's field, reduce this card's required energy by 《Blue×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-017",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-018",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-020",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top two cards of your deck. {Place them on the top of your deck in any order}. If a character with \"Ymir\" in its card name is on your field, {Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-023",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-024",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This character gains all abilities listed below if you have the required number of event cards in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Two or more: This character gains 《Blue》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Four or more: This character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-026",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Blue》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-028",
+   "name": "Former Headquarters of the Scout Regiment",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Reveal the top card of your deck. If the revealed card is a blue character card with 3 or less required energy, add it to your hand. If you do not add it to your hand, place it on the top of your deck.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-029",
+   "name": "Memory",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Draw a card, then place one card from your hand into your sideline. Choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-030",
+   "name": "You Call That Clean?! Do It All Again.",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-031",
+   "name": "Cleanup",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top two cards of your deck. Place any number of them on the top of your deck in any order, then place any remaining cards into your sideline. Draw two cards.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-032",
+   "name": "Bombs",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to one character with 3500 or less BP on your opponent's front line and return it to their hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-033",
+   "name": "Historia's Resolve",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with {2000} or less BP on your opponent's front line and sideline it. If <Historia Reiss> is on your field, add 1000 to the BP range of the character you may choose with this ability for each event card in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-035",
+   "name": "Kenny Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a blue or red card on your opponent's field, reduce this card's required energy by 《Green×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-037",
+   "name": "Rod Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-039",
+   "name": "Cart Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-040",
+   "name": "Pure Titan (Small Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-041",
+   "name": "Pure Titans (Zeke's Titans)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-044",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses 《Impact》 for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-046",
+   "name": "Zeke Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one [Pure Titan] affinity card on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-049",
+   "name": "Pure Titan (Relaxing Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Sidelined》 Play up to one card with 2 or less required energy, 1 AP cost, and [Pure Titan] affinity from your hand set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-050",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-051",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top three cards of your deck. Reveal up to one [Marleyan Warrior] or [Pure Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-052",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Green》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-054",
+   "name": "Bertholdt Hoover",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Green》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-055",
+   "name": "Bertholdt Hoover",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 If you have 6 or more energy generation, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-059",
+   "name": "Reiner Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have 6 or more energy generation, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-062",
+   "name": "Titan Forest",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 《Once Per Turn》 This site gains 《Green》 energy generation until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-063",
+   "name": "Titan Injection",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top four cards of your deck. Reveal one card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the card you revealed has [Pure Titan] affinity or \"Rod Reiss\" or \"Zeke Jaeger\" in its card name, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-065",
+   "name": "Marleyan Warriors",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-066",
+   "name": "I'm Going For a Perfect Game.",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Zeke Jaeger\" in its card name on your field, {5000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-067",
+   "name": "Are We Doing It?! Now...?! Here?!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "You can only use one <Are We Doing It?! Now...?! Here?!> card per turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Choose one card on your field. It gains \"This card gains 《Green》《Green》 energy generation\" until the end of the turn. If there is a character with \"Bertholdt Hoover\" in its card name on your field, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-068",
+   "name": "Carla Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Red》 energy generation until the end of the turn. At the end of the main phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-070",
+   "name": "Hannes",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-071",
+   "name": "Eren Kruger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Sideline This Card》 You can only activate this ability if <Grisha Jaeger> is on your field. Draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-072",
+   "name": "Grisha Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top five cards of your deck. Reveal up to one red character card with \"Eren Jaeger\" in its card name or up to one <Key to the Basement> card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-074",
+   "name": "Ymir",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a blue or green card on your opponent's field, reduce this card's required energy by 《Red×1》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-075",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-076",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 When this character is returned to your hand from your field, you may place one red <Armin Arlelt> card with 1 required energy from your hand into your sideline. If you do, draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-078",
+   "name": "Christa Lenz",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-080",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top seven cards of your deck. Reveal up to one [Food] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-081",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have used a [Food] affinity card this turn, this character gains 500 BP and 《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-084",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-086",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have five or more other [104th Cadet Corps] affinity cards on your field, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-087",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Red》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-092",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 Place up to one other [104th Cadet Corps] affinity card on your front line on the top of your deck. If your front line is not full, play up to one red card with 3 or less required energy, 1 AP cost, and [104th Cadet Corps] affinity from your hand set to active onto your front line. That character gains \"At the end of the attack phase, return this character to your hand\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-093",
+   "name": "Eren Jaeger (Attack Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Damage (2)》 (When this character attacks and deals direct damage, deal 2 damage instead.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《During Your Turn》 This character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Attacking》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "・If you have 3 or less life, you may place two cards from your hand into your sideline. If you do, choose up to one character with 2000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-095",
+   "name": "Basement",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have a <Key to the Basement> card in your sideline, reduce this card's required energy by 《Red×2》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-096",
+   "name": "Hardened Punch",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren Jaeger\" in its card name on your field, reduce this card's AP cost by 1 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Choose up to one character with 5000 or less BP on your opponent's front line and sideline it. Choose up to one Raided <Eren Jaeger (Attack Titan)> on your field. It gains \"If your opponent sidelines this character with a 《Special Trigger》 ability, they add the card with the 《Special Trigger》 ability to their hand instead\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-097",
+   "name": "Dedicate Your Heart!!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-098",
+   "name": "Key to the Basement",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top five cards of your deck. Reveal up to one <Basement> or [Inheritor of the Titan] affinity card among them and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If the revealed card has 6 or more base required energy, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-1-100",
+   "name": "A Steamed Potato, Sir!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Place up to three cards from your hand on the bottom of your deck in any order. Draw a number of cards equal to the number of cards placed on the bottom of your deck with this ability. Choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEPR/AOT-2-068",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "When <Armin Arlelt (Colossal Titan)> performs Raid on this character, reduce that card's required energy by 《Red×2》.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-001",
+   "name": "Yelena",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If this character is active, it gains 《Yellow》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-002",
+   "name": "Onyankopon",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Play up to one yellow character card with 3 or less required energy and 1 AP cost and without [Rumbling] affinity from your hand set to resting onto your field. You cannot play a card with a card name that is on your field with this ability.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-003",
+   "name": "Gabi Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, choose up to one other character on your field. It gains 1500 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-004",
+   "name": "Kiyomi Azumabito",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Return one other character on your field with 1 or less required energy to your hand. If you cannot, return this character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-005",
+   "name": "Conny Springer",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-006",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1500 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-007",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Play this character set to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "At the end of your opponent's attack phase, sideline this character.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Once Per Turn》 When this character attacks and wins a battle against a character with 5000 or more BP, switch it to active. It loses 《Snipe》 until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 2000 BP and 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-008",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This character cannot be blocked by a character with 5000 or more BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "If your opponent has 1 life, this character gains 《Impact (1)》.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field and your opponent has 5 or less life, switch this character to active. You can only activate this <Mikasa Ackermann> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-009",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《During Your Turn》 This character gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Pay 1 AP》 You can only activate this ability if you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field. Choose {one} of the abilities listed below. You may place one card from your hand into your sideline. If you do, {two} instead. You can only activate this <Levi> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・This character gains 《Double Attack》 (When this character attacks for the first time this turn, switch it to active) until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-010",
+   "name": "Annie Leonhart",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 This character gains 《Yellow》 energy generation and \"At the end of the main phase, sideline this character\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-011",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-012",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 {Draw a card, then place one card from your hand into your sideline}. If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, {Draw a card} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-013",
+   "name": "Armin Arlelt (Colossal Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, reduce this card's required energy by 《Yellow×3》 while anywhere other than on your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Raid》 <Armin Arlelt> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "《When Played》 《If on the Front Line》 Choose up to one character with 6000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-014",
+   "name": "Pieck Finger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 《#If on the Energy Line#》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Switch to Resting》 Choose one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-015",
+   "name": "Falco Grice",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-016",
+   "name": "Falco Grice",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top three cards of your deck. Reveal up to one character card without [Rumbling] affinity and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-017",
+   "name": "Falco Grice (Jaw Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Falco Grice> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 Choose up to three characters on your field or character cards in your sideline with 3 or less required energy and unique card names and without [Rumbling] affinity and place them face down under this character.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Activate: Main》 《Switch to Resting》 Look at the face-down cards under this character. Add up to one card among them to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-018",
+   "name": "Reiner Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-019",
+   "name": "Reiner Braun (Armored Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, this character gains 1000 BP, 《Impact (1)》, and \"Your opponent cannot choose this character with abilities on characters or event cards unless they pay 1 AP as an additional cost\" until the start of your next turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-021",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If <Ymir, Our Founder> is on your field or in your sideline, this character gains 《Yellow》 energy generation.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-022",
+   "name": "Eren Jaeger (Doomsday Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If a character with \"Zeke\" in its card name is on your field and <Eren Jaeger (Doomsday Titan)> is not on your field, reduce this card's required energy by 《Yellow×5》 while anywhere other than on your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "This character cannot block a character with 《Impact》.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "《When Played》 Play up to one [Nine Titans] affinity card from your hand or sideline set to active onto your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 6,
+     "marker": "⑥",
+     "original": "《Activate: Main》 《Pay 1 AP》 《Once Per Turn》 You cannot activate this ability on the turn this character is played. Activate this character's 《When Played》 ability.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-024",
+   "name": "Zeke Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Look at the top three cards of your deck. Place up to one card into your sideline. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・If this character is played from your sideline, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-025",
+   "name": "Zeke Jaeger (Beast Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 This character gains 《Impact (1)》 until the end of the turn. Choose up to one character with {3000 or less BP} on your opponent's front line and sideline it. If there is a character with \"Eren\" in its card name on your field and <Ymir, Our Founder> is on your field or in your sideline, {4000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-026",
+   "name": "Jaw Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains \"This character generates energy even on the front line.\"",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-027",
+   "name": "Beast Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Step》 (During your movement phase, you may move this card from your front line to your energy line.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《During Your Turn》 If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains 1500 BP.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-028",
+   "name": "War Hammer Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, this character gains \"Your opponent's character abilities cannot sideline this character or reduce its BP\" and 《Double Block》 (When this character blocks for the first time this turn, switch it to active.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-029",
+   "name": "Colossal Titan",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field, reduce this card's required energy by 《Yellow×2》 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "This card cannot be played onto your energy line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《Damage (2)》 (Direct damage dealt by this character's attacks deals 2 damage.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-030",
+   "name": "Tom Ksaver",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 《When Sidelined》 Reveal the top two cards of your deck. Add up to one card with \"Zeke\" in its card name among them to your hand. Place the remaining cards into your sideline. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-031",
+   "name": "Ymir, Our Founder",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This site can only be played if there is a character with \"Jaeger\" in its card name on your field.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Look at the top four cards of your deck. Reveal up to one [Inheritor of the Titan] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Activate: Main》 《Switch to Resting》 《Place 2 Cards From Hand Into Sideline》 《Pay 1 AP》 Play one yellow character card with 2 or less required energy and \"Jaeger\" in its card name from your sideline set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-032",
+   "name": "I Hope You're Watching, Mister Ksaver!!",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Sideline one yellow character with \"Zeke\" in its card name on your field. If you do, choose up to one character with 5000 or less BP on your opponent's front line and sideline it, then choose up to one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Look at the top seven cards of your deck. Reveal up to one <Ymir, Our Founder> card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・If <Ymir, Our Founder> is on your field or in your sideline, play up to one yellow <Zeke Jaeger> card without 《Raid》 from your sideline set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-033",
+   "name": "I'm Sorry. I Can't Do That",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-034",
+   "name": "Rumbling",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "You can only use this card if there is a character with \"Eren\" in its card name and a character with \"Zeke\" in its card name on your field and you have two or more other cards in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Place all the cards in your hand into your sideline. Sideline all characters with 5000 or less BP on your opponent's front line. You gain \"You cannot attack with characters other than <Eren Jaeger (Doomsday Titan)>\" until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-035",
+   "name": "Freedom",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose up to two of your AP cards and switch them to active.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-036",
+   "name": "We're Going. Now. To Save the World",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top five cards of your deck. Reveal up to three character cards with unique card names and without [Rumbling] affinity and add them to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-037",
+   "name": "I'll Do It. Everyone Cover Me",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "If you have four or more yellow characters without [Rumbling] affinity whose card names are unique on your field, reduce this card's AP cost by 1 while in your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "Choose one character with {5000 or less BP} on your opponent's front line and sideline it. If <Mikasa Ackermann> is on your field, {8000 or less BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-038",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other character on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-039",
+   "name": "Hange Zoë",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one character with 2500 or more BP on your opponent's front line. It loses 2000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-040",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 《Once Per Turn》 Switch one active character on your front line to resting. If you do, this character gains 《Blue》 energy generation until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-041",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, choose up to two characters on your field. They each gain 1500 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-042",
+   "name": "Levi",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Levi> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Draw a card. Then, you may place one card from your hand into your sideline. If you do, choose up to one of your AP cards and switch it to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 You may pay 1 AP. If you do, choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・Draw a card. This character gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・This character gains 1000 BP and 《Impact (1)》 until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-043",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-044",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Activate: Main》 《Switch to Resting》 You can only activate this ability if you have six or more event cards in your sideline. Choose one other [104th Cadet Corps] affinity card on your field. It gains 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-045",
+   "name": "Historia Reiss",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Draw a card, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・If you have two or more event cards in your sideline, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・If you have six or more event cards in your sideline, draw two cards, then place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-046",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This character gains all abilities listed below if you have the required number of event cards in your sideline.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Two or more: It gains 1000 BP.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Four or more: 《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-047",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top two cards of your deck. Place up to one event card into your sideline. Place the remaining cards on the top of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-048",
+   "name": "Sweet Candy",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Look at the top four cards of your deck. Reveal up to one character card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. Then, play up to one blue character card with 3 or less required energy and 1 AP cost from your hand set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-049",
+   "name": "Thunder Spears",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one character with 2500 or less BP or 4500 or more BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-050",
+   "name": "Gabi Braun",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Attacking》 Choose up to one other [Marleyan Warrior] affinity card on your field. {It gains 1000 BP until the end of the turn}. If the chosen character is Raided, {That character and this character gain 2000 BP until the end of the turn} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-051",
+   "name": "Falco Grice",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 《#If on the Energy Line#》 Switch this character to active.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Switch to Resting》 《Place 1 Card From Hand Into Sideline》 Choose one other [Marleyan Warrior] affinity card on your field. It gains {1000 BP} until the end of the turn. If the chosen character is Raided, {2000 BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-052",
+   "name": "Zeke Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top five cards of your deck. Reveal up to one [Pure Titan] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-053",
+   "name": "Zeke Jaeger (Beast Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Zeke Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Choose up to one character with 3000 or less BP on your opponent's front line and sideline it. If you sideline a character with this ability, you may pay 1 AP. If you do, play up to one [Pure Titan] affinity card from your sideline set to resting onto your field.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-055",
+   "name": "Pieck Finger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Choose up to one other [Marleyan Warrior] affinity card on your field. It gains {1000 BP} until the end of the turn. If the chosen character is Raided, {2000 BP} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-056",
+   "name": "Pieck Finger (Cart Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Pieck Finger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《If on the Front Line》 If this character was played this turn, it gains 《Impact (1)》.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 You may reduce this character's BP by 2000 until the end of the turn. If you do, it gains \"This character can attack from the energy line\" and 《Snipe》 (You may target a character on your opponent's front line and attack it with this character. If you do, your opponent cannot block) until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Sidelined》 Return up to one base card of this Raided character to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-058",
+   "name": "Porco Galliard (Jaw Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Porco Galliard> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 Look at the top four cards of your deck. Reveal up to one [Marleyan Warrior] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 If this character has 6000 or more BP, draw a card.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-059",
+   "name": "Reiner, Bertholdt, & Annie",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This card is also treated as <Reiner Braun>, <Bertholdt Hoover>, and <Annie Leonhart>.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-060",
+   "name": "Reiner Braun (Armored Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Reiner Braun> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 You may place one card from your hand into your sideline. If you do, this character gains 2000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《When Attacking》 If this character has 6000 or more BP, draw a card and give this character 《Impact (1)》 until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-061",
+   "name": "Sneak Attack",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Sideline up to one character with \"Pieck Finger\" in its card name on your field. Choose up to one character with {3000 or less BP} on your opponent's front line and sideline it. If you have a character card with \"Pieck Finger\" in its card name in your sideline, {5000 or less BP} instead. Then, if you sidelined a character on your field with this card's ability, add up to one character card with \"Pieck Finger\" in its card name from your sideline to your hand.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-062",
+   "name": "Nicolo",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Reduce the AP cost of the next [Food] affinity card you use this turn by 1.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-063",
+   "name": "Conny Springer",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-064",
+   "name": "Jean Kirschtein",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Attacking》 Look at the top three cards of your deck, then place them on the top of your deck in any order.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-065",
+   "name": "Sasha Braus",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 If you have used a [Food] affinity card this turn, switch this character to active. You can only activate this <Sasha Braus> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-066",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "At the start of your end phase, if one of your red [104th Cadet Corps] affinity cards has returned from your field to your hand during the attack phase this turn, you may play this card from your hand set to resting onto your front line. You can only activate this <Mikasa Ackermann> ability one time each turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-067",
+   "name": "Mikasa Ackermann",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "This card can only be played by one of your abilities or by performing Raid with it.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Raid》 <Mikasa Ackermann> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Played》 Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・Add up to one card with 3 or less required energy and [104th Cadet Corps] affinity and without 《Raid》 from your sideline to your hand.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・Choose up to one character on your opponent's front line. If it has 5000 or more BP, you may place two cards from your hand into your sideline. If you do, sideline that character.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-068",
+   "name": "Armin Arlelt",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "When <Armin Arlelt (Colossal Titan)> performs Raid on this character, reduce that card's required energy by 《Red×2》.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-069",
+   "name": "Armin Arlelt (Colossal Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《If on the Front Line》 The number of cards you can place onto your front line is reduced by one.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Raid》 <Armin Arlelt> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《Impact (1)》 (When this character attacks and wins a battle, deal 1 damage to your opponent.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "《If on the Front Line》 When you choose a character with an ability that specifies a BP range, add 1000 to the specified BP range. (Includes 《Color Trigger》 abilities.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "《When Played》 《If on the Front Line》 Draw three cards.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-070",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《When Played》 Look at the top three cards of your deck. Reveal up to one [104th Cadet Corps] affinity card and add it to your hand. Place the remaining cards on the bottom of your deck in any order. If you added a card to your hand, place one card from your hand into your sideline.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-071",
+   "name": "Eren Jaeger",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Nullify Impact》 (The character battling this character loses Impact for the duration of this battle.)",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《Activate: Main》 《Once Per Turn》 Add one card from your life area to your hand. If you do, this character gains 《Impact (1)》 until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "《When Attacking》 {Look at the top card of your deck. If that card has 3 or less required energy and [104th Cadet Corps] affinity, you may reveal it and add it to your hand. Otherwise, place it on the top or bottom of your deck}. If you have 3 or less life, {Draw a card} instead.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-072",
+   "name": "Eren Jaeger (Attack Titan)",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "《Raid》 <Eren Jaeger> Switch to active. May move to the front line.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "《When Played》 This character gains 1000 BP until the start of your next turn. Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Choose up to one character with 3000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・Add one card from your life area to your hand. Choose up to one character with 5000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 5,
+     "marker": "⑤",
+     "original": "・If you have 3 or less life, choose up to one character with 5000 or less BP on your opponent's front line and sideline it.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  },
+  {
+   "number": "UEX07BT/AOT-2-073",
+   "name": "Seafood",
+   "originalLang": "en",
+   "translationSource": "none",
+   "matchStatus": "missing",
+   "paragraphs": [
+    {
+     "index": 1,
+     "marker": "①",
+     "original": "Choose one of the following:",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 2,
+     "marker": "②",
+     "original": "・Choose up to one character on your field. It gains 1000 BP until the end of the turn. Draw two cards.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 3,
+     "marker": "③",
+     "original": "・Choose up to two characters on your field. They each gain 1000 BP until the end of the turn. Draw a card.",
+     "translation": null,
+     "status": "unverified"
+    },
+    {
+     "index": 4,
+     "marker": "④",
+     "original": "・Choose up to three characters on your field. They each gain 1000 BP until the end of the turn.",
+     "translation": null,
+     "status": "unverified"
+    }
+   ]
+  }
+ ]
+}

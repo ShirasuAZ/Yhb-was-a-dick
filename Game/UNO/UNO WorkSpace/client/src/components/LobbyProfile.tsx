@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
-
-// Left, centre (front), right. Served from the local Arknights catalog whitelist.
-const arknightsCoverCards = [
-  "UCEX01BT-ARK-2-014_阿米娅_9031.png",
-  "UCEX01BT-ARK-2-051_阿米娅_9084.png",
-  "UC01BT-ARK-1-042_阿米娅_7065.png"
-];
+import { UnionArenaCover } from "./UnionArenaCover.tsx";
 
 const UPDATE_HISTORY = [{
+  version: "2.4.0",
+  content: "UNION ARENA 现在是五个作品共用的集换式卡牌游戏入口（明日方舟、进击的巨人、咒术回战、鬼灭之刃、新世纪福音战士）。卡牌目录可以按 IP 筛选，牌组各自属于一个作品，玩家对战时双方可以用不同作品的牌组。"
+}, {
   version: "2.3.0",
-  content: "明日方舟 UNION ARENA 可以联机开局：侧栏新增牌组构建与提交，两名玩家准备后房主开始游戏，按规则书依次完成起手 7 张牌、换牌与 7 张盖着的生命卡；卡牌目录预览图可点击放大查看；牌桌中间新增一条淡细的分隔线；关键字说明去掉了多余的标记。"
+  content: "可联机开局：侧栏新增牌组构建与提交，两名玩家准备后房主开始游戏，按规则书依次完成起手 7 张牌、换牌与 7 张盖着的生命卡；卡牌目录预览图可点击放大查看；牌桌中间新增一条淡细的分隔线；关键字说明去掉了多余的标记。"
 }, {
   version: "2.2.0",
-  content: "明日方舟 UNION ARENA 牌桌更新：生命区改为按实际数量叠放的无边框展示；房间状态新增生命卡数据；牌桌顶部栏压缩，房间号与人数合并显示。"
-}, {
-  version: "2.1.0",
-  content: "主页与游戏入口整合更新：新增明日方舟 UNION ARENA 游戏入口；接入网站游戏路由；优化主页多设备布局；新增游戏分类、主题预览图和更新日志区域。"
+  content: "牌桌更新：生命区改为按实际数量叠放的无边框展示；房间状态新增生命卡数据；牌桌顶部栏压缩，房间号与人数合并显示。"
 }].slice(0, 3);
 
 /** How long each update stays on screen before the log advances on its own. */
@@ -78,16 +72,12 @@ export function LobbyProfile({ onEnterGame }: { onEnterGame: () => void }) {
         </div>
       </section>
 
-      <section className="game-feature panel" aria-labelledby="arknights-feature-title">
-        <div className="arknights-cover" aria-hidden="true">
-          {arknightsCoverCards.map((file, index) => (
-            <img key={file} className="arknights-cover-card" src={`/assets/arknights/cards/${encodeURIComponent(file)}`} alt="" draggable={false} data-slot={index} />
-          ))}
-        </div>
+      <section className="game-feature panel" aria-labelledby="union-arena-feature-title">
+        <UnionArenaCover />
         <div className="uno-feature-details">
           <div>
             <p className="eyebrow">卡牌</p>
-            <h2 id="arknights-feature-title">明日方舟 UNION ARENA</h2>
+            <h2 id="union-arena-feature-title">UNION ARENA</h2>
           </div>
           <button className="primary" onClick={() => window.location.assign("/arknights-union-arena/")}>进入游戏</button>
         </div>

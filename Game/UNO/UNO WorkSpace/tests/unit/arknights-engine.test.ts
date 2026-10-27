@@ -7,10 +7,10 @@ import {
   type EngineContext,
   type EngineGame,
   type EnginePlayer
-} from "../../../../Arknights/ArknightsWorkSpace/src/shared/engine.ts";
-import type { UnionArenaAction, UnionArenaCardStats, UnionArenaFieldCard } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
-import { UNION_ARENA_CATALOG } from "../../../../Arknights/ArknightsWorkSpace/src/server/catalog.ts";
-import { checkUnionArenaDeck } from "../../../../Arknights/ArknightsWorkSpace/src/server/types.ts";
+} from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/engine.ts";
+import type { UnionArenaAction, UnionArenaCardStats, UnionArenaFieldCard } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
+import { UNION_ARENA_CATALOG } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/catalog.ts";
+import { checkUnionArenaDeck } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/types.ts";
 
 // Card ids are made-up names; each one maps to printed data built for the rule being tested.
 const base: UnionArenaCardStats = { type: "character", color: "yellow", energyCost: 0, apCost: 1, bp: 1000, energyGen: 1, energyGenColor: "yellow", energyGenPlus: false, affinities: [], raid: null, keywords: [], abilityText: "", trigger: null };
@@ -205,6 +205,68 @@ describe("Arknights rules engine: using cards", () => {
     a.hand.push("raider");
     a.ap[0]!.rested = false;
     expect(() => act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid })).toThrow("RAID_TARGET_INVALID");
+  });
+
+  it("raids onto the front line without any extra confirmation when there is room", () => {
+    // A Raid from the energy line to a front line with room needs nothing beyond the one action: the client sends
+    // `toFront` in the same message and the engine takes it (this is the path `raidOnto` uses).
+    const { game, a, players } = setup();
+    const target = field(a, "energy", "gen1", true);
+    a.hand.push("raider");
+    toPhase(game, players, "a", "main");
+    act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true });
+    // One action, one resulting board: the Raid card is on the front line, on top of the target.
+    expect(a.energy).toHaveLength(0);
+    expect(a.front).toHaveLength(1);
+    expect(a.front[0]).toMatchObject({ cardId: "raider", under: ["gen1"] });
+  });
+
+  it("needs one card to the removal area first when the front line is full", () => {
+    const { game, a, players } = setup();
+    const target = field(a, "energy", "gen1", true);
+    // Fill the front line.
+    for (let index = 0; index < 4; index += 1) field(a, "front", "gen1");
+    a.hand.push("raider");
+    toPhase(game, players, "a", "main");
+    // Without saying which card leaves, the Raid is refused: the line cannot take a fifth card.
+    expect(() => act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true })).toThrow("LINE_FULL");
+    // Naming a card clears the space, and the Raid then completes in the same action.
+    const leaving = a.front[0]!.uid;
+    act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true, remove: leaving });
+    expect(a.front).toHaveLength(4);
+    expect(a.front.some((card) => card.cardId === "raider")).toBe(true);
+    expect(a.removal).toContain("gen1");
+  });
+
+  it("changes nothing when the front line's card is not named and the Raid is abandoned", () => {
+    const { game, a, players } = setup();
+    const target = field(a, "energy", "gen1", true);
+    for (let index = 0; index < 4; index += 1) field(a, "front", "gen1");
+    a.hand.push("raider");
+    toPhase(game, players, "a", "main");
+    const handBefore = [...a.hand];
+    const energyBefore = a.energy.map((card) => card.uid);
+    const frontBefore = a.front.map((card) => card.uid);
+    expect(() => act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true })).toThrow("LINE_FULL");
+    // A refused Raid is not a half-done one: the hand, the energy line and the front line are untouched.
+    expect(a.hand).toEqual(handBefore);
+    expect(a.energy.map((card) => card.uid)).toEqual(energyBefore);
+    expect(a.front.map((card) => card.uid)).toEqual(frontBefore);
+    expect(a.removal).toHaveLength(0);
+  });
+
+  it("refuses an illegal Raid target and a repeated Raid of the same card", () => {
+    const { game, a, b, players } = setup();
+    const target = field(a, "energy", "gen1", true);
+    const enemy = field(b, "energy", "gen1", true);
+    a.hand.push("raider");
+    toPhase(game, players, "a", "main");
+    // The opponent's card is not a legal target for the actor.
+    expect(() => act(game, players, "a", { type: "raid", handIndex: 0, targetUid: enemy.uid })).toThrow("RAID_TARGET_INVALID");
+    act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true });
+    // The card has left the hand, so the same index no longer names it: no second Raid comes of a repeated message.
+    expect(() => act(game, players, "a", { type: "raid", handIndex: 0, targetUid: target.uid, toFront: true })).toThrow("INVALID_CARD");
+    expect(a.front.filter((card) => card.cardId === "raider")).toHaveLength(1);
   });
 });
 
@@ -423,12 +485,27 @@ describe("Arknights rules engine: end phase", () => {
 
 describe("Arknights card data", () => {
   it("has printed data for every card with an image", () => {
-    const usable = UNION_ARENA_CATALOG.filter((card) => card.imageAvailable);
+    // Arknights' own prints, which is what this suite's decks are built from.
+    const usable = UNION_ARENA_CATALOG.filter((card) => card.ipId === "ark" && card.imageAvailable);
     expect(usable).toHaveLength(252);
     expect(usable.filter((card) => !card.stats)).toEqual([]);
     for (const card of usable) {
       expect(["character", "site", "event"]).toContain(card.stats!.type);
       if (card.stats!.type === "character") expect(card.stats!.bp).toBeGreaterThan(0);
+    }
+  });
+
+  it("has printed data for every other title's cards too, apart from AP cards", () => {
+    // The other four titles share the same data shape, so a card of theirs can be put in a deck and read by the engine.
+    // AP cards are not part of the main deck and carry no printed stats, which is why they are excluded here.
+    for (const ipId of ["aot", "jjk", "kmy", "eva"]) {
+      const usable = UNION_ARENA_CATALOG.filter((card) => card.ipId === ipId && card.imageAvailable && !card.number.includes("-AP"));
+      expect(usable.length, ipId).toBeGreaterThan(0);
+      expect(usable.filter((card) => !card.stats), ipId).toEqual([]);
+      for (const card of usable) {
+        expect(["character", "site", "event"]).toContain(card.stats!.type);
+        if (card.stats!.type === "character") expect(card.stats!.bp).toBeGreaterThan(0);
+      }
     }
   });
 

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { HAND_COUNT, LIFE_COUNT, UnionArenaRoom } from "../../../../Arknights/ArknightsWorkSpace/src/server/rooms.ts";
-import { buildUnionArenaCatalog, checkUnionArenaDeck } from "../../../../Arknights/ArknightsWorkSpace/src/server/types.ts";
-import type { UnionArenaAccount, UnionArenaAuthProvider } from "../../../../Arknights/ArknightsWorkSpace/src/shared/protocol.ts";
+import { HAND_COUNT, LIFE_COUNT, UnionArenaRoom } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/rooms.ts";
+import { buildUnionArenaCatalog, checkUnionArenaDeck } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/server/types.ts";
+import type { UnionArenaAccount, UnionArenaAuthProvider } from "../../../../unionarena/UnionArenaWorkSpace/Arknights/src/shared/protocol.ts";
 
 // 100 distinct cards, four per card number, so every card id is unique and a card's whereabouts can be told from its id.
 const catalog = buildUnionArenaCatalog(

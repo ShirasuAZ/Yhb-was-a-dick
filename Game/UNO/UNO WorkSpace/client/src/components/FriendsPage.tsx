@@ -12,7 +12,7 @@ function emit<T>(event: string, payload: unknown): Promise<{ ok: boolean; data?:
 const GAME_LABEL: Record<GameKind, string> = {
   uno: "UNO",
   shogi: "日本将棋",
-  arknights: "明日方舟 UNION ARENA"
+  arknights: "UNION ARENA"
 };
 
 /** The page a spectator opens to watch a room of each game. */

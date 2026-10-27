@@ -67,6 +67,17 @@ __pycache__/
 
 # Card artwork and audio libraries: large binary media, shipped separately from the repository
 Game/Arknights/ArknightsWorkSpace/Cards/images/
+Game/unionarena/UnionArenaWorkSpace/*/Cards/images/
 Game/Arknights/ArknightsWorkSpace/Map/
 Game/UNO/音效库/
 老牧师音效/
+
+# UNION ARENA reference cover art: the originals the site's home-page covers were cropped from.
+# The covers the site actually serves are the optimised copies in Game/UNO/UNO WorkSpace/client/public/assets/union-arena.
+Game/unionarena/images/
+
+# Large binary media kept out of git (artwork, archives, packaged builds, model weights)
+Game/unionarena/**/*.png
+Game/unionarena/**/*.jpg
+Game/unionarena/**/*.psd
+Game/unionarena/**/*.pdf
