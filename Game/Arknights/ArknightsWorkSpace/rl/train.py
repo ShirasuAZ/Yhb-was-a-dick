@@ -5,6 +5,9 @@ scores each legal action from the observation and the action's own features (see
 of legal actions. The trained weights are written as JSON that src/shared/ai/policy.ts runs in the browser.
 
 Opponents: heuristic "easy" and "normal" at first; once the policy beats "normal" often enough, frozen snapshots of itself join the mix.
+With --net v2 the network also learns a vector per card number (PolicyNetV2), and --init-v1 starts it as an exact copy of a version 1
+model. --pool keeps several past snapshots as opponents (plus any --pool-extra models), --random-decks gives that share of games random
+legal decks, --shaping 0 rewards only the result, and --eval-opponent policy:<weights.json> picks the best model by head-to-head games.
 
 The PPO update runs on the GPU (MPS) when there is one: it scores every legal action of every sample, which is most of the learner's work.
 Evaluation runs in its own Node process while training goes on; its result is applied when it arrives.
@@ -99,21 +102,77 @@ class PolicyNet(nn.Module):
         return logits, value
 
     def export(self, path: str) -> None:
-        def layer(module: nn.Linear) -> dict:
-            weight = module.weight.detach().float().cpu().contiguous().numpy()
-            bias = module.bias.detach().float().cpu().contiguous().numpy()
-            return {"in": weight.shape[1], "out": weight.shape[0], "w": base64.b64encode(weight.tobytes()).decode(), "b": base64.b64encode(bias.tobytes()).decode()}
-
         data = {
             "version": 1,
             "observationSize": self.state1.in_features,
             "actionFeatures": self.action1.in_features,
-            "layers": {name: layer(getattr(self, name)) for name in ["state1", "state2", "action1", "action2", "head1", "head2"]},
+            "layers": {name: export_layer(getattr(self, name)) for name in ["state1", "state2", "action1", "action2", "head1", "head2"]},
         }
-        tmp = f"{path}.tmp"
-        with open(tmp, "w") as file:
-            json.dump(data, file)
-        os.replace(tmp, path)
+        write_json(path, data)
+
+
+def b64(array: np.ndarray) -> str:
+    return base64.b64encode(np.ascontiguousarray(array, dtype=np.float32).tobytes()).decode()
+
+
+def export_layer(module: nn.Linear) -> dict:
+    weight = module.weight.detach().float().cpu().numpy()
+    return {"in": weight.shape[1], "out": weight.shape[0], "w": b64(weight), "b": b64(module.bias.detach().float().cpu().numpy())}
+
+
+def write_json(path: str, data: dict) -> None:
+    tmp = f"{path}.tmp"
+    with open(tmp, "w") as file:
+        json.dump(data, file)
+    os.replace(tmp, path)
+
+
+class PolicyNetV2(PolicyNet):
+    """PolicyNet plus a learned vector per card number. The inputs carry the card ids after the plain values (as floats): observation rows
+    are obs_size values then obs_cards ids, action rows act_size values then act_cards ids. Matches policy.ts version 2."""
+
+    def __init__(self, obs_size: int, act_size: int, obs_cards: int = 28, act_cards: int = 3, rows: int = 195, dim: int = 16) -> None:
+        super().__init__(obs_size + obs_cards * dim, act_size + act_cards * dim)
+        self.obs_size, self.act_size, self.obs_cards, self.act_cards = obs_size, act_size, obs_cards, act_cards
+        self.cards = nn.Embedding(rows, dim, padding_idx=0)
+        nn.init.normal_(self.cards.weight, std=0.1)
+        with torch.no_grad():
+            self.cards.weight[0].zero_()
+
+    def expand(self, rows: torch.Tensor, size: int) -> torch.Tensor:
+        ids = rows[..., size:].round().long()
+        return torch.cat([rows[..., :size], self.cards(ids).flatten(-2)], dim=-1)
+
+    def forward(self, obs: torch.Tensor, feats: torch.Tensor, mask: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        return super().forward(self.expand(obs, self.obs_size), self.expand(feats, self.act_size), mask)
+
+    def load_v1(self, path: str) -> None:
+        """Copies a version 1 model (its weights JSON); the card columns start at zero, so the scores are exactly the old model's."""
+        with open(path) as file:
+            data = json.load(file)
+        with torch.no_grad():
+            for name, entry in data["layers"].items():
+                module: nn.Linear = getattr(self, name)
+                weight = torch.from_numpy(np.frombuffer(base64.b64decode(entry["w"]), dtype=np.float32).reshape(entry["out"], entry["in"]).copy())
+                module.weight.zero_()
+                module.weight[:, :entry["in"]] = weight
+                module.bias.copy_(torch.from_numpy(np.frombuffer(base64.b64decode(entry["b"]), dtype=np.float32).copy()))
+
+    def export(self, path: str) -> None:
+        data = {
+            "version": 2,
+            "observationSize": self.obs_size,
+            "actionFeatures": self.act_size,
+            "layers": {name: export_layer(getattr(self, name)) for name in ["state1", "state2", "action1", "action2", "head1", "head2"]},
+            "embedding": {"rows": self.cards.num_embeddings, "dim": self.cards.embedding_dim, "w": b64(self.cards.weight.detach().float().cpu().numpy())},
+        }
+        write_json(path, data)
+
+
+def make_net(kind: str, sizes: dict) -> PolicyNet:
+    if kind == "v2":
+        return PolicyNetV2(sizes["observation"], sizes["action"], sizes["observationCards"], sizes["actionCards"])
+    return PolicyNet(sizes["observation"], sizes["action"])
 
 
 @dataclass
@@ -129,13 +188,15 @@ class Batch:
 class Envs:
     """All workers together, stepped in parallel (requests go out first, then the replies are read)."""
 
-    def __init__(self, workers: int, envs_per_worker: int, seed: int, mix: dict) -> None:
+    def __init__(self, workers: int, envs_per_worker: int, seed: int, mix: dict, cards: bool = False, random_decks: float = 0.0, shaping: float = 0.05) -> None:
         self.workers = [Worker() for _ in range(workers)]
-        sizes = self.workers[0].ask({"cmd": "sizes"})
-        self.obs_size, self.act_size = sizes["observation"], sizes["action"]
+        self.sizes = self.workers[0].ask({"cmd": "sizes"})
+        # Row widths as sent (with the card ids appended when `cards`).
+        self.obs_size = self.sizes["observation"] + (self.sizes["observationCards"] if cards else 0)
+        self.act_size = self.sizes["action"] + (self.sizes["actionCards"] if cards else 0)
         self.per = envs_per_worker
         for index, worker in enumerate(self.workers):
-            worker.send({"cmd": "init", "envs": envs_per_worker, "seed": seed * 1000 + index, "mix": mix})
+            worker.send({"cmd": "init", "envs": envs_per_worker, "seed": seed * 1000 + index, "mix": mix, "cards": cards, "randomDecks": random_decks, "shaping": shaping})
         self.last = self._collect([worker.receive() for worker in self.workers])
 
     def _collect(self, replies: list[dict]) -> Batch:
@@ -170,6 +231,19 @@ class Envs:
             worker.close()
 
 
+def load_v2_json(path: str, net: PolicyNet) -> dict:
+    """The state dict of a version 2 weights JSON (the value head is not exported, so it keeps its current weights)."""
+    with open(path) as file:
+        data = json.load(file)
+    state = {}
+    for name, entry in data["layers"].items():
+        state[f"{name}.weight"] = torch.from_numpy(np.frombuffer(base64.b64decode(entry["w"]), dtype=np.float32).reshape(entry["out"], entry["in"]).copy())
+        state[f"{name}.bias"] = torch.from_numpy(np.frombuffer(base64.b64decode(entry["b"]), dtype=np.float32).copy())
+    embedding = data["embedding"]
+    state["cards.weight"] = torch.from_numpy(np.frombuffer(base64.b64decode(embedding["w"]), dtype=np.float32).reshape(embedding["rows"], embedding["dim"]).copy())
+    return state
+
+
 def pad(feats: list[np.ndarray], act_size: int) -> tuple[np.ndarray, np.ndarray]:
     width = max(1, max(len(entry) for entry in feats))
     out = np.zeros((len(feats), width, act_size), np.float32)
@@ -199,11 +273,26 @@ def main() -> None:
     parser.add_argument("--device", default="auto", help="auto: mps when available, else cpu")
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--resume", default="")
+    parser.add_argument("--net", choices=["v1", "v2"], default="v1")
+    parser.add_argument("--init-v1", default="", help="v2 only: start from this version 1 weights JSON")
+    parser.add_argument("--init-json", default="", help="v2 only: start from this version 2 weights JSON (e.g. a behaviour-cloned model)")
+    parser.add_argument("--shaping", type=float, default=0.05, help="reward per life card of difference (0: only the result)")
+    parser.add_argument("--random-decks", type=float, default=0.0, help="share of games with random legal decks")
+    parser.add_argument("--mix", default="", help='starting opponent mix as JSON, e.g. {"normal":0.2,"policy":0.8}')
+    parser.add_argument("--pool", type=int, default=1, help="past snapshots kept as opponents (1: only the latest)")
+    parser.add_argument("--pool-extra", nargs="*", default=[], help="fixed opponent models (weights JSON) always in the pool")
+    parser.add_argument("--eval-opponent", default="normal", help='"normal", "hard" or "policy:<weights.json>"')
+    parser.add_argument("--out", default="checkpoints", help="checkpoint directory under rl/")
+    parser.add_argument("--no-ship", action="store_true", help="leave src/shared/ai/policy-weights.json alone (the best model stays in checkpoints/)")
     args = parser.parse_args()
+    # The workers run in the site directory, so model paths go to them absolute.
+    args.pool_extra = [os.path.abspath(path) for path in args.pool_extra]
+    if args.eval_opponent.startswith("policy:"):
+        args.eval_opponent = "policy:" + os.path.abspath(args.eval_opponent[len("policy:"):])
 
     torch.manual_seed(args.seed)
     np.random.seed(args.seed)
-    out_dir = os.path.join(HERE, "checkpoints")
+    out_dir = os.path.join(HERE, args.out)
     log_dir = os.path.join(HERE, "logs")
     os.makedirs(out_dir, exist_ok=True)
     os.makedirs(log_dir, exist_ok=True)
@@ -215,13 +304,26 @@ def main() -> None:
         log_file.write(line + "\n")
         log_file.flush()
 
-    mix = {"easy": 0.5, "normal": 0.5, "policy": 0.0}
-    envs = Envs(args.workers, args.envs, args.seed, mix)
+    mix = json.loads(args.mix) if args.mix else {"easy": 0.5, "normal": 0.5, "policy": 0.0}
+    envs = Envs(args.workers, args.envs, args.seed, mix, cards=args.net == "v2", random_decks=args.random_decks, shaping=args.shaping)
     evaluator = Worker()
     device = torch.device(("mps" if torch.backends.mps.is_available() else "cpu") if args.device == "auto" else args.device)
-    net = PolicyNet(envs.obs_size, envs.act_size).to(device)
+    net = make_net(args.net, envs.sizes)
+    if args.init_v1:
+        net.load_v1(args.init_v1)
+    if args.init_json:
+        net.load_state_dict(load_v2_json(args.init_json, net), strict=False)
+    net = net.to(device)
     if args.resume:
         net.load_state_dict(torch.load(args.resume, map_location=device))
+    # Opponent snapshots (newest last); the fixed extras stay in the pool.
+    snapshots: list[str] = []
+
+    def send_pool() -> None:
+        envs.broadcast({"cmd": "pool", "paths": args.pool_extra + snapshots})
+
+    if args.pool_extra:
+        send_pool()
     optimizer = torch.optim.Adam(net.parameters(), lr=args.lr)
     n = len(envs.last.feats)
     log(f"start: {args.workers} workers x {args.envs} games = {n} games, obs {envs.obs_size}, action {envs.act_size}, device {device}")
@@ -241,7 +343,7 @@ def main() -> None:
         pending_eval = None
         result = evaluator.receive()
         rate = result["winRate"]
-        log(f"eval vs normal (update {evaluated}): win rate {rate:.3f} ({result['wins']}/{result['games']}), as Player One {result['firstWinRate']:.3f}")
+        log(f"eval vs {args.eval_opponent} (update {evaluated}): win rate {rate:.3f} ({result['wins']}/{result['games']}), as Player One {result['firstWinRate']:.3f}")
         # Ties go to the newer model: once the policy beats "normal" nearly every time, later models are still stronger.
         if rate >= best_rate:
             best_rate = rate
@@ -249,10 +351,13 @@ def main() -> None:
             torch.save(state, os.path.join(out_dir, "best.pt"))
             log(f"new best {rate:.3f}")
         if rate >= args.self_play_at:
-            snapshot = os.path.join(out_dir, "opponent.json")
+            snapshot = os.path.join(out_dir, f"opponent-{evaluated}.json")
             shutil.copyfile(path, snapshot)
-            envs.broadcast({"cmd": "policy", "path": snapshot})
-            if not self_play:
+            snapshots.append(snapshot)
+            while len(snapshots) > args.pool:
+                os.remove(snapshots.pop(0))
+            send_pool()
+            if not self_play and not args.mix:
                 self_play = True
                 mix = {"easy": 0.15, "normal": 0.45, "policy": 0.4}
                 envs.broadcast({"cmd": "mix", "mix": mix})
@@ -345,7 +450,7 @@ def main() -> None:
             if pending_eval is None:
                 path = os.path.join(out_dir, f"eval-{update}.json")
                 shutil.copyfile(latest, path)
-                evaluator.send({"cmd": "eval", "games": args.eval_games, "path": path, "opponent": "normal", "seed": update})
+                evaluator.send({"cmd": "eval", "games": args.eval_games, "path": path, "opponent": args.eval_opponent, "seed": update})
                 pending_eval = (update, path, state)
             else:
                 log(f"eval of update {update} skipped: update {pending_eval[0]} is still being evaluated")
@@ -353,9 +458,9 @@ def main() -> None:
     if pending_eval is not None:
         finish_eval()
     best = os.path.join(out_dir, "best.json")
-    if os.path.exists(best):
+    if os.path.exists(best) and not args.no_ship:
         shutil.copyfile(best, SHIPPED)
-        log(f"best model (win rate vs normal {best_rate:.3f}) copied to {SHIPPED}")
+        log(f"best model (win rate vs {args.eval_opponent} {best_rate:.3f}) copied to {SHIPPED}")
     envs.close()
     evaluator.close()
 

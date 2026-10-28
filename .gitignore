@@ -50,4 +50,5 @@ Game/UNO/UNOGame/
 # Reinforcement-learning checkpoints and logs (the shipped model is src/shared/ai/policy-weights.json)
 Game/Arknights/ArknightsWorkSpace/rl/checkpoints*/
 Game/Arknights/ArknightsWorkSpace/rl/logs/
+Game/Arknights/ArknightsWorkSpace/rl/data/
 __pycache__/

@@ -111,6 +111,8 @@ export interface EngineGame {
   winnerId: string | null;
   endReason: string | null;
   log: string[];
+  /** Entries ever written to `log`, which itself keeps only the latest LOG_LIMIT (so a reader can tell what it has not seen yet). */
+  logTotal?: number;
   /** Counter for field card ids and queued abilities. */
   seq: number;
   /** Card abilities waiting to resolve, in the order they activated. */
@@ -183,6 +185,7 @@ const PHASE_NAME: Readonly<Record<UnionArenaTurnPhase, string>> = { start: "èµ·å
 function fail(code: string): never { throw new Error(code); }
 
 function log(game: EngineGame, text: string): void {
+  game.logTotal = (game.logTotal ?? game.log.length) + 1;
   game.log.push(text);
   if (game.log.length > LOG_LIMIT) game.log.splice(0, game.log.length - LOG_LIMIT);
 }
