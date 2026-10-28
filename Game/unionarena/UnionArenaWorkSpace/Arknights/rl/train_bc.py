@@ -22,9 +22,18 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from train import HERE, PolicyNetV2, pad
+from train import HERE, PolicyNetV2, Worker, load_v2_json, pad
 
-OBS, ACT, OBS_CARDS, ACT_CARDS = 978, 92, 28, 3
+def _sizes() -> dict:
+    worker = Worker()
+    try:
+        return worker.ask({"cmd": "sizes"})
+    finally:
+        worker.close()
+
+
+_SIZES = _sizes()
+OBS, ACT, OBS_CARDS, ACT_CARDS, ROWS = _SIZES["observation"], _SIZES["action"], _SIZES["observationCards"], _SIZES["actionCards"], _SIZES["cardRows"]
 
 
 def load(prefix: str) -> tuple[np.ndarray, list[np.ndarray], list[dict]]:
@@ -45,6 +54,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", default=os.path.join(HERE, "data"))
     parser.add_argument("--init-v1", default=os.path.join(HERE, "checkpoints", "master-v1.json"))
+    parser.add_argument("--init-v2", default="", help="start from this version 2 weights JSON instead (widened to the current feature vectors and card rows, so it computes the same as before)")
     parser.add_argument("--epochs", type=int, default=6)
     parser.add_argument("--lr", type=float, default=2e-4)
     parser.add_argument("--minibatch", type=int, default=1024)
@@ -81,8 +91,11 @@ def main() -> None:
           f"train {len(train_idx)}, validation {len(val_idx)}", flush=True)
 
     device = torch.device(("mps" if torch.backends.mps.is_available() else "cpu") if args.device == "auto" else args.device)
-    net = PolicyNetV2(OBS, ACT, OBS_CARDS, ACT_CARDS)
-    net.load_v1(args.init_v1)
+    net = PolicyNetV2(OBS, ACT, OBS_CARDS, ACT_CARDS, ROWS)
+    if args.init_v2:
+        net.load_state_dict(load_v2_json(args.init_v2, net), strict=False)
+    else:
+        net.load_v1(args.init_v1)
     net = net.to(device)
     # Mixing weight of the teacher's choice per decision; the old network's distribution makes up the rest of the target.
     gap = np.array([row["values"][row["chosen"]] - row["values"][row["prior"]] for row in rows], np.float32)

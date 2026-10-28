@@ -171,7 +171,7 @@ class PolicyNetV2(PolicyNet):
 
 def make_net(kind: str, sizes: dict) -> PolicyNet:
     if kind == "v2":
-        return PolicyNetV2(sizes["observation"], sizes["action"], sizes["observationCards"], sizes["actionCards"])
+        return PolicyNetV2(sizes["observation"], sizes["action"], sizes["observationCards"], sizes["actionCards"], sizes.get("cardRows", 195))
     return PolicyNet(sizes["observation"], sizes["action"])
 
 
@@ -232,15 +232,32 @@ class Envs:
 
 
 def load_v2_json(path: str, net: PolicyNet) -> dict:
-    """The state dict of a version 2 weights JSON (the value head is not exported, so it keeps its current weights)."""
+    """The state dict of a version 2 weights JSON (the value head is not exported, so it keeps its current weights).
+
+    A model made for shorter feature vectors / fewer card rows (before green and the other titles were added) is widened without changing
+    what it computes: the new plain inputs (appended at the end of the observation / action vectors) get zero weights, the card-vector
+    columns keep their place after them, and the new card rows start at zero."""
     with open(path) as file:
         data = json.load(file)
+    dim = data["embedding"]["dim"]
     state = {}
     for name, entry in data["layers"].items():
-        state[f"{name}.weight"] = torch.from_numpy(np.frombuffer(base64.b64decode(entry["w"]), dtype=np.float32).reshape(entry["out"], entry["in"]).copy())
+        weight = torch.from_numpy(np.frombuffer(base64.b64decode(entry["w"]), dtype=np.float32).reshape(entry["out"], entry["in"]).copy())
+        for layer, old_plain, new_plain, cards in (("state1", data["observationSize"], getattr(net, "obs_size", None), getattr(net, "obs_cards", None)),
+                                                   ("action1", data["actionFeatures"], getattr(net, "act_size", None), getattr(net, "act_cards", None))):
+            if name == layer and new_plain is not None and (old_plain != new_plain):
+                widened = torch.zeros(weight.shape[0], new_plain + cards * dim)
+                widened[:, :old_plain] = weight[:, :old_plain]
+                widened[:, new_plain:] = weight[:, old_plain:]
+                weight = widened
+        state[f"{name}.weight"] = weight
         state[f"{name}.bias"] = torch.from_numpy(np.frombuffer(base64.b64decode(entry["b"]), dtype=np.float32).copy())
     embedding = data["embedding"]
-    state["cards.weight"] = torch.from_numpy(np.frombuffer(base64.b64decode(embedding["w"]), dtype=np.float32).reshape(embedding["rows"], embedding["dim"]).copy())
+    table = torch.from_numpy(np.frombuffer(base64.b64decode(embedding["w"]), dtype=np.float32).reshape(embedding["rows"], embedding["dim"]).copy())
+    rows = net.cards.num_embeddings if hasattr(net, "cards") else table.shape[0]
+    if rows > table.shape[0]:
+        table = torch.cat([table, torch.zeros(rows - table.shape[0], dim)], dim=0)
+    state["cards.weight"] = table
     return state
 
 

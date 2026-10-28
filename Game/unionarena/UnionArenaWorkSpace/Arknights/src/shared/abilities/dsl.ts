@@ -4,7 +4,7 @@
  * is "【登场时】选择我方场上的最多1张所需能量不高于2的角色，本回合中，BP+2000。"
  */
 import type { UnionArenaFieldCard } from "../protocol.ts";
-import { bpOf, type EnginePlayer } from "../engine.ts";
+import { bpOf, flagsOf as katanaFlagsOf, queueCardEvent as katanaQueueCardEvent, type EnginePlayer } from "../engine.ts";
 import type { AbilityEnv, AbilityEvent, ActivatedAbility, Condition, Cost, CostAbility, Duration, StaticAbility, Step, Target, TriggeredAbility } from "./types.ts";
 
 // ---- Triggered and activated abilities ----
@@ -94,7 +94,7 @@ export const notSelf = (env: AbilityEnv, _cardId: string, card: UnionArenaFieldC
 /** BP不高于N (N may depend on the game). */
 export const bpAtMost = (limit: number | ((env: AbilityEnv) => number)) => (env: AbilityEnv, _cardId: string, card: UnionArenaFieldCard | null): boolean => {
   if (!card) return false;
-  return bpOf(env.ctx, card) <= (typeof limit === "function" ? limit(env) : limit);
+  return bpOf(env.ctx, card) <= (typeof limit === "function" ? limit(env) : limit) + bpRangeBonus(env);
 };
 
 // ---- Looking at the deck, putting cards onto the field, moving, marks ----
@@ -157,3 +157,84 @@ export const withAffinity = (affinity: string): CardFilter => (env, cardId) => s
 export const withKeyword = (keyword: string): CardFilter => (env, cardId, card) => (card ? hasKeywordNow(env, card, keyword) : statsOf(env, cardId)?.keywords.includes(keyword) ?? false);
 export const either = (...filters: CardFilter[]): CardFilter => (env, cardId, card) => filters.some((filter) => filter(env, cardId, card));
 export const activeCard: CardFilter = (_env, _cardId, card) => !!card && !card.rested;
+
+// ---- Paying AP as an effect, and "this turn" facts (AOT) ----
+
+/** Our AP area holds at least `count` active AP cards. */
+export const hasActiveApCount = (count = 1): Condition => (env) => env.owner.ap.filter((card) => !card.rested).length >= count;
+/** 支付N AP (as part of an effect): switches active AP cards to resting. In the attack phase it is remembered (see `apPaidInAttackPhaseThisTurn`). */
+export const payApEffect = (count = 1): Step => run(`支付 ${count} AP`, (env) => {
+  for (const card of env.owner.ap.filter((entry) => !entry.rested).slice(0, count)) card.rested = true;
+  if (env.game.phase === "attack") env.game.turnMarks = [...(env.game.turnMarks ?? []), `${env.game.turn}:${env.owner.accountId}:apPaidInAttack`];
+});
+/** "可以支付N AP。这样做的场合，……": offered only while the AP can be paid; the steps run after the payment. */
+export const mayPayApEffect = (prompt: string, count: number, ...steps: Step[]): Step => ifThen(hasActiveApCount(count), [may(prompt, payApEffect(count), ...steps)]);
+/** 我方在本回合的攻击阶段中支付过AP费用 (only AP paid by effects that use `payApEffect` is counted). */
+export const apPaidInAttackPhaseThisTurn: Condition = (env) => (env.game.turnMarks ?? []).includes(`${env.game.turn}:${env.owner.accountId}:apPaidInAttack`);
+/** 我方在本回合中使用过事件卡牌 (the engine records every event used from the hand). */
+export const usedEventThisTurn: Condition = (env) => (env.game.turnMarks ?? []).includes(`${env.game.turn}:${env.owner.accountId}:eventUsed`);
+
+// ---- "The next BP range you choose this turn is raised" (AOT Armin Arlelt 077) and "used a [X] affinity card this turn" ----
+
+/** Mark kept in `game.turnMarks` by an effect "the next time you choose a character with an ability that specifies a BP range this turn, add N to the range". */
+export const bpRangePlusMark = (env: AbilityEnv): string => `${env.game.turn}:${env.owner.accountId}:bpRangePlus`;
+/** What `bpAtMost` adds to the limit now: 1000 for every pending mark. The first choose step to look at it uses it up (engine: `choose` step, `__bpRange`). */
+export const bpRangeBonus = (env: AbilityEnv): number => {
+  const pending = (env.game.turnMarks ?? []).filter((mark) => mark === bpRangePlusMark(env)).length;
+  if (pending) env.vars.__bpRange = ["1"];
+  return pending * 1000;
+};
+/** 本回合中，下一次选择“指定BP范围”的角色时，指定的BP范围+1000 (works with every choose step that filters with `bpAtMost`). */
+export const raiseNextBpRange: Step = run("本回合中，下一次选择指定BP范围的角色时，BP范围+1000", (env) => { env.game.turnMarks = [...(env.game.turnMarks ?? []), bpRangePlusMark(env)]; });
+/** 我方在本回合中使用过[affinity]的卡牌 (a card played, Raided or used as an event from the hand; the engine records each as a turn mark). */
+export const usedAffinityThisTurn = (affinity: string): Condition => (env) => {
+  const prefix = `${env.game.turn}:${env.owner.accountId}:cardUsed:`;
+  return (env.game.turnMarks ?? []).some((mark) => mark.startsWith(prefix) && (env.ctx.card(mark.slice(prefix.length))?.affinities ?? []).includes(affinity));
+};
+
+// ---- AOT batch 7: "the next [Food] card you use", cards that returned to the hand in the attack phase ----
+
+/** 本回合中，下一张将要从手牌中使用的 [affinity] 卡牌的消费AP-N (played, Raided or used as an event; the engine spends the entry on that use). */
+export const nextUseAffinityApCut = (affinity: string, ap = 1): Step =>
+  run(`本回合中，下一张使用的 [${affinity}] 卡牌消费 AP-${ap}`, (env) => {
+    env.game.nextUseAffinity = [...(env.game.nextUseAffinity ?? []), { turn: env.game.turn, ownerId: env.owner.accountId, affinity, ap, spent: false }];
+  });
+/** 本回合的攻击阶段中，我方场上符合条件的卡牌放回过手牌 (the engine records every card number returned from the field to the hand during an attack phase as a turn mark). */
+export const returnedToHandInAttackPhase = (filter: (env: AbilityEnv, cardId: string) => boolean): Condition => (env) => {
+  const prefix = `${env.game.turn}:${env.owner.accountId}:returnedInAttack:`;
+  return (env.game.turnMarks ?? []).some((mark) => mark.startsWith(prefix) && filter(env, mark.slice(prefix.length)));
+};
+
+// ---- KMY: “特征：日轮刀”的效果选择 (a character chosen by an effect of a 日轮刀 card) ----
+
+/** Turn flag (cleared at the end of the turn) on a character that a “特征：日轮刀” effect chose this turn. */
+export const KATANA_CHOSEN_FLAG = "katanaChosen";
+/**
+ * 被我方的“特征：日轮刀”的效果选择: marks the cards chosen under `name` (own field cards) with `KATANA_CHOSEN_FLAG` for the rest of the turn and
+ * queues their "onChosenByKatana" abilities (一回合1次 reactions of the chosen card; use `oncePerTurn(when(["onChosenByKatana"], ...))`).
+ */
+export const markChosenByKatana = (name: string): Step => run("被“特征：日轮刀”的效果选择", (env) => {
+  for (const uid of env.vars[name] ?? []) {
+    const card = [...env.owner.front, ...env.owner.energy].find((entry) => entry.uid === uid);
+    if (!card) continue;
+    if (!katanaFlagsOf(card).includes(KATANA_CHOSEN_FLAG)) card.flags = [...(card.flags ?? []), KATANA_CHOSEN_FLAG];
+    katanaQueueCardEvent(env.game, env.ctx, "onChosenByKatana", env.owner, card);
+  }
+});
+/** 本回合中此角色被我方的“特征：日轮刀”的效果选择的场合 (`env.self`). */
+export const selfChosenByKatanaThisTurn: Condition = (env) => !!env.self && katanaFlagsOf(env.self).includes(KATANA_CHOSEN_FLAG);
+/** 无法通过此效果选择本回合中已被“特征：日轮刀”的效果选择过的角色 (a choose filter). */
+export const notChosenByKatanaThisTurn = (_env: AbilityEnv, _cardId: string, card: UnionArenaFieldCard | null): boolean => !card || !katanaFlagsOf(card).includes(KATANA_CHOSEN_FLAG);
+/** 本回合中已被“特征：日轮刀”的效果选择过的角色 (a choose filter). */
+export const chosenByKatanaThisTurn = (_env: AbilityEnv, _cardId: string, card: UnionArenaFieldCard | null): boolean => !!card && katanaFlagsOf(card).includes(KATANA_CHOSEN_FLAG);
+
+// ---- EVA batch 3: "the next 〈name〉 / character whose name contains … you use this turn costs less" ----
+
+/**
+ * 本回合中，下一张将要从手牌中使用的〈names〉或卡牌名包含“nameParts”的角色卡牌的所需能量减少[colour×energy]，消费AP-ap
+ * (played or Raided; the engine spends the entry on that use, see `game.nextUseNamed`). The energy cut only applies to a card of `color`.
+ */
+export const nextUseNamedCut = (options: { names: string[]; nameParts: string[]; color: string; energy: number; ap: number }): Step =>
+  run(`本回合中，下一张使用的${options.names.map((name) => `〈${name}〉`).join("或")}或卡牌名包含“${options.nameParts.join("”“")}”的角色卡牌所需能量-${options.energy}，消费 AP-${options.ap}`, (env) => {
+    env.game.nextUseNamed = [...(env.game.nextUseNamed ?? []), { turn: env.game.turn, ownerId: env.owner.accountId, ...options, spent: false }];
+  });

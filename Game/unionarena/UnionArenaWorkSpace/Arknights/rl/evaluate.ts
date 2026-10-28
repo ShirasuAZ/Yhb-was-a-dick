@@ -10,17 +10,14 @@ import type { UnionArenaAction } from "../src/shared/protocol.ts";
 import { actingPlayerId, applyAction, type EngineContext } from "../src/shared/engine.ts";
 import { chooseHeuristic } from "../src/shared/ai/heuristic.ts";
 import { createMatch, makeRng, randomInt, wantsMulligan, type Match } from "../src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../src/shared/ai/decks.ts";
 import { chooseByPolicy, loadPolicy, type PolicyWeightsJson } from "../src/shared/ai/policy.ts";
 import { chooseBySearch } from "../src/shared/ai/search.ts";
 import { teacherOptions } from "../src/shared/ai/teacher.ts";
 import { loadWinRate, type WinRateWeightsJson } from "../src/shared/ai/winrate.ts";
-import { randomDeck } from "./random_deck.ts";
-import { UNION_ARENA_CATALOG } from "../src/server/catalog.ts";
-import { cardContext } from "../src/shared/abilities/registry.ts";
+import { PRESET_NUMBER_DECKS, randomTitleDeck } from "./train_decks.ts";
+import { titleContext } from "./title-catalog.ts";
 
-const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
-const ctx: EngineContext = cardContext((id) => byId.get(id));
+const ctx: EngineContext = titleContext;
 
 const json = process.argv.includes("--json");
 const [first = "normal", second = "easy", gamesText = "100", seedText = "1", deckMode = "presets"] = process.argv.slice(2).filter((arg) => arg !== "--json");
@@ -48,7 +45,7 @@ let wins = 0;
 const started = Date.now();
 for (let game = 0; game < games; game += 1) {
   // Presets: every pairing of the four decks, each with both seats going first.
-  const decks = deckMode === "random" ? [randomDeck(rng), randomDeck(rng)] : [deckCards(PRESET_DECKS[Math.floor(game / 2) % 4]!), deckCards(PRESET_DECKS[Math.floor(game / 8) % 4]!)];
+  const decks = deckMode === "random" ? [randomTitleDeck(rng), randomTitleDeck(rng)] : [PRESET_NUMBER_DECKS[Math.floor(game / 2) % PRESET_NUMBER_DECKS.length]!, PRESET_NUMBER_DECKS[Math.floor(game / 8) % PRESET_NUMBER_DECKS.length]!];
   const match = createMatch([{ id: "A", name: first, deck: decks[0]! }, { id: "B", name: second, deck: decks[1]! }], Number(seedText) * 100003 + game, { first: (game % 2) as 0 | 1, mulligan: (entry) => wantsMulligan(ctx, entry.hand) });
   let steps = 0;
   while (match.game.step === "turn" && steps < 3000) {

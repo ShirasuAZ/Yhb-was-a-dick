@@ -4,7 +4,7 @@
  * their own estimate gives away nothing. The layer layout must match rl/train_winrate.py's `WinNet`.
  */
 import type { EngineContext, EngineGame, EnginePlayer } from "../engine.ts";
-import { observe, OBSERVATION_SIZE } from "./features.ts";
+import { LEGACY_OBSERVATION_SIZE, observe, OBSERVATION_SIZE } from "./features.ts";
 import { decode, dense, type Layer } from "./policy.ts";
 
 interface LayerJson { in: number; out: number; w: string; b: string; }
@@ -16,7 +16,8 @@ export interface WinRateWeightsJson {
 export interface WinRateModel { layers: Record<keyof WinRateWeightsJson["layers"], Layer>; }
 
 export function loadWinRate(json: WinRateWeightsJson): WinRateModel {
-  if (json.observationSize !== OBSERVATION_SIZE) throw new Error("win-rate model was trained with different features");
+  // A model trained before green was added reads the first part of the (longer) vector.
+  if (json.observationSize !== OBSERVATION_SIZE && json.observationSize !== LEGACY_OBSERVATION_SIZE) throw new Error("win-rate model was trained with different features");
   const layers = Object.fromEntries(Object.entries(json.layers).map(([name, layer]) => [name, { in: layer.in, out: layer.out, w: decode(layer.w), b: decode(layer.b) }])) as WinRateModel["layers"];
   return { layers };
 }

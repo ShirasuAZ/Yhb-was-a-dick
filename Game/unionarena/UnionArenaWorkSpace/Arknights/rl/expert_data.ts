@@ -19,23 +19,20 @@ import type { UnionArenaAction } from "../src/shared/protocol.ts";
 import { actingPlayerId, applyAction, type EngineContext } from "../src/shared/engine.ts";
 import { legalActions } from "../src/shared/ai/legal.ts";
 import { createMatch, makeRng, nextRandom, randomInt, wantsMulligan } from "../src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../src/shared/ai/decks.ts";
 import { actionCardIds, actionFeatures, observe, observeCardIds } from "../src/shared/ai/features.ts";
 import { loadPolicy, policyScores, type PolicyWeightsJson } from "../src/shared/ai/policy.ts";
 import { searchDecision } from "../src/shared/ai/search.ts";
 import { teacherOptions } from "../src/shared/ai/teacher.ts";
 import { loadWinRate, type WinRateWeightsJson } from "../src/shared/ai/winrate.ts";
-import { UNION_ARENA_CATALOG } from "../src/server/catalog.ts";
-import { cardContext } from "../src/shared/abilities/registry.ts";
-import { randomDeck } from "./random_deck.ts";
+import { pickDeck } from "./train_decks.ts";
+import { titleContext } from "./title-catalog.ts";
 
 const ACTION_LIMIT = 3000;
 /** The training environment's limit on actions per decision (rl/env_worker.ts). */
 const MAX_ACTIONS = 96;
 const KEEP_AGREEING = 0.3;
 
-const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
-const ctx: EngineContext = cardContext((id) => byId.get(id));
+const ctx: EngineContext = titleContext;
 const read = (file: string): unknown => JSON.parse(readFileSync(new URL(file, import.meta.url), "utf8"));
 const policy = loadPolicy((process.env.POLICY ? JSON.parse(readFileSync(process.env.POLICY, "utf8")) : read("../src/shared/ai/policy-weights.json")) as PolicyWeightsJson);
 const winRate = loadWinRate(read("../src/shared/ai/winrate-weights.json") as WinRateWeightsJson);
@@ -48,7 +45,7 @@ const sameAction = (a: UnionArenaAction, b: UnionArenaAction): boolean => JSON.s
 const bytes = (values: Float32Array | Int32Array): Buffer => Buffer.from(values.buffer, values.byteOffset, values.byteLength);
 
 for (let game = 0; game < Number(gamesText); game += 1) {
-  const deck = (): string[] => nextRandom(rng) < Number(randomText) ? randomDeck(rng) : deckCards(PRESET_DECKS[randomInt(rng, PRESET_DECKS.length)]!);
+  const deck = (): string[] => pickDeck(rng, Number(randomText));
   const match = createMatch([{ id: "A", name: "A", deck: deck() }, { id: "B", name: "B", deck: deck() }], randomInt(rng, 2 ** 31), { first: randomInt(rng, 2) as 0 | 1, mulligan: (player) => wantsMulligan(ctx, player.hand) });
   const obs: Buffer[] = [], obsIds: Buffer[] = [], feats: Buffer[] = [], actIds: Buffer[] = [];
   const rows: Array<{ count: number; chosen: number; prior: number; values: number[]; weight: number; seat: string }> = [];

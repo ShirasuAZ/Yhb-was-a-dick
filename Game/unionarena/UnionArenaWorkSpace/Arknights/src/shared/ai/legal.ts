@@ -8,8 +8,10 @@
  */
 import type { UnionArenaAction, UnionArenaFieldCard } from "../protocol.ts";
 import { abilitiesOf, actingPlayerId, activationIssue, canBlock, choiceAllowed, costOf, flagsOf, energyOf, hasKeyword, HAND_LIMIT, LINE_LIMIT, raidTargetMatches, triggerNeeds, type EngineContext, type EngineGame, type EnginePlayer } from "../engine.ts";
-import { energyLineOnly, mustStillAttack } from "../engine.ts";
+import { energyLineOnly, mustStillAttack, playOnlyByAbility } from "../engine.ts";
+import { mustBeBlocked } from "../engine.ts";
 import { eventUsable } from "../engine.ts";
+import { playConditionHolds } from "../engine.ts";
 
 const MOVE_LIMIT = 48;
 const DISCARD_LIMIT = 48;
@@ -69,7 +71,7 @@ export function legalActions(game: EngineGame, players: readonly EnginePlayer[],
       }
       case "block":
         const attacker = opponent.front.find((card) => card.uid === pending.attackerUid);
-        return [{ type: "block", blockerUid: null }, ...me.front.filter((card) => attacker && canBlock(ctx, attacker, card)).map((card): UnionArenaAction => ({ type: "block", blockerUid: card.uid }))];
+        return [...(attacker && mustBeBlocked(ctx, attacker, me) ? [] : [{ type: "block", blockerUid: null } as UnionArenaAction]), ...me.front.filter((card) => attacker && canBlock(ctx, attacker, card)).map((card): UnionArenaAction => ({ type: "block", blockerUid: card.uid }))];
       case "damage": {
         // Face-down life cards cannot be told apart, so which ones are picked makes no difference to the attacker.
         const defender = find(players, pending.defenderId);
@@ -82,13 +84,15 @@ export function legalActions(game: EngineGame, players: readonly EnginePlayer[],
           actions.push({ type: "trigger", lifeId: slot.id, activate: false });
           const stats = ctx.card(slot.cardId);
           if (!stats?.trigger) continue;
-          const needs = triggerNeeds(ctx, me, attacker, slot.cardId);
+          const needs = triggerNeeds(ctx, me, attacker, slot.cardId, me.hand);
           if (stats.trigger.label === "突进") {
             actions.push({ type: "trigger", lifeId: slot.id, activate: true });
             for (const uid of needs.raidTargets) {
               actions.push({ type: "trigger", lifeId: slot.id, activate: true, raid: { targetUid: uid } });
               if (me.energy.some((card) => card.uid === uid) && me.front.length < LINE_LIMIT) actions.push({ type: "trigger", lifeId: slot.id, activate: true, raid: { targetUid: uid, toFront: true } });
             }
+          } else if (needs.hand.length) {
+            for (const index of needs.hand) actions.push(...withRoom(me.front, (remove): UnionArenaAction => ({ type: "trigger", lifeId: slot.id, activate: true, handIndex: index, remove })));
           } else if (needs.sideline.length) {
             for (const index of needs.sideline) actions.push(...withRoom(me.front, (remove): UnionArenaAction => ({ type: "trigger", lifeId: slot.id, activate: true, sidelineIndex: index, remove })));
           } else if (needs.targets.length) {
@@ -142,8 +146,11 @@ export function legalActions(game: EngineGame, players: readonly EnginePlayer[],
         const cost = costOf(game, players, ctx, playerId, cardId);
         if (activeAp < cost.ap || energyOf(ctx, me, stats.color) < cost.energy) return;
         if (stats.type === "event") { if (eventUsable(game, players, ctx, playerId, cardId)) actions.push({ type: "event", handIndex }); return; }
-        if (stats.type === "character" && !energyLineOnly(ctx, cardId)) actions.push(...withRoom(me.front, (remove): UnionArenaAction => ({ type: "play", handIndex, line: "front", remove })));
-        actions.push(...withRoom(me.energy, (remove): UnionArenaAction => ({ type: "play", handIndex, line: "energy", remove })));
+        // 此卡牌只能通过我方的能力登场或进行突进: no plain play (only the Raid below).
+        if (!playOnlyByAbility(ctx, cardId) && playConditionHolds(game, players, ctx, playerId, cardId)) {
+          if (stats.type === "character" && !energyLineOnly(ctx, cardId, me)) actions.push(...withRoom(me.front, (remove): UnionArenaAction => ({ type: "play", handIndex, line: "front", remove })));
+          actions.push(...withRoom(me.energy, (remove): UnionArenaAction => ({ type: "play", handIndex, line: "energy", remove })));
+        }
         if (stats.raid) {
           for (const target of [...me.front, ...me.energy].filter((card) => raidTargetMatches(ctx, stats, card))) {
             actions.push({ type: "raid", handIndex, targetUid: target.uid });
@@ -160,10 +167,11 @@ export function legalActions(game: EngineGame, players: readonly EnginePlayer[],
     }
     case "attack": {
       const actions: UnionArenaAction[] = mustStillAttack(ctx, me) ? [] : [{ type: "end_turn" }];
-      for (const card of me.front) {
+      // An energy-line character with the "attackFromEnergyLine" mark can attack too.
+      for (const card of [...me.front, ...me.energy.filter((entry) => flagsOf(entry).includes("attackFromEnergyLine"))]) {
         if (card.rested || !isCharacter(ctx, card) || flagsOf(card).includes("cannotAttack")) continue;
         actions.push({ type: "attack", attackerUid: card.uid });
-        if (hasKeyword(ctx, card, "瞄准攻击")) for (const target of opponent.front) actions.push({ type: "attack", attackerUid: card.uid, targetUid: target.uid });
+        if (hasKeyword(ctx, card, "瞄准攻击")) for (const target of opponent.front) if (!flagsOf(target).includes("unsnipeable")) actions.push({ type: "attack", attackerUid: card.uid, targetUid: target.uid });
       }
       return actions;
     }

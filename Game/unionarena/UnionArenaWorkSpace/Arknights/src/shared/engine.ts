@@ -29,7 +29,7 @@ import type {
   UnionArenaPending,
   UnionArenaTurnPhase
 } from "./protocol.ts";
-import type { Ability, AbilityEnv, AbilityEvent, ActivatedAbility, Condition, ReplaceSidelineAbility, SidelineCause, Step, Target, TriggeredAbility } from "./abilities/types.ts";
+import type { Ability, AbilityEnv, AbilityEvent, ActivatedAbility, Condition, ReplaceSidelineAbility, ReplaceTriggerAbility, SidelineCause, Step, Target, TriggeredAbility } from "./abilities/types.ts";
 
 /** Cards per line (front line, energy line). */
 export const LINE_LIMIT = 4;
@@ -70,7 +70,7 @@ export interface EnginePlayer {
 export type EnginePending =
   | { kind: "block"; playerId: string; attackerUid: string }
   | { kind: "damage"; playerId: string; defenderId: string; amount: number; attackerUid: string }
-  | { kind: "triggers"; playerId: string; attackerId: string; revealed: LifeSlot[] }
+  | { kind: "triggers"; playerId: string; attackerId: string; revealed: LifeSlot[]; /** The damage came from a character with the "noActiveTrigger" mark: the 激活 trigger cannot be activated. */ activeBlocked?: boolean }
   | { kind: "discard"; playerId: string }
   | UnionArenaChoice;
 
@@ -102,6 +102,7 @@ export type Continuation =
   | { kind: "resumeTriggers"; pending: Extract<EnginePending, { kind: "triggers" }> }
   | { kind: "endSteps" }
   | { kind: "endTurnNow" }
+  | { kind: "attackPhaseStart" }
   | { kind: "beginEndPhase" };
 
 export interface EngineGame {
@@ -137,11 +138,15 @@ export interface EngineGame {
   /** A replacement effect's limit on the damage about to be dealt (改为受到1点伤害). */
   damageCap?: number | null;
   /** Characters about to be sidelined while a replacement effect ("可以改为……") may apply: asked about in order, offer by offer. */
-  replacing?: Array<{ ownerId: string; uid: string; cause: SidelineCause; declined: string[]; asking: string | null }>;
+  replacing?: Array<{ ownerId: string; uid: string; cause: SidelineCause; declined: string[]; asking: string | null; /** Waiting on a replacement of being returned to the hand (a `replaces: "toHand"` ability), not of sidelining. */ toHand?: boolean }>;
   /** How many copies of each card with a "当此卡牌置于场外时" ability are in each player's sideline (to notice new arrivals). */
   sidelineSeen?: Record<string, Record<string, number>>;
+  /** Owners of front-line characters sidelined since `drain` last looked (for "对方前线中的角色退场时" abilities, event onOpponentFrontSidelined). */
+  frontSidelinedOwners?: string[];
   /** Marks card abilities leave for the rest of a turn, as "<turn>:<text>" (e.g. a name's 1回合只能发动1次 effect has been used). */
   turnMarks?: string[];
+  /** The character the last attacker beat in a battle: its BP then (the loser is sidelined before the winner's abilities run; AOT Hange Zoë "against a character with 5000 or more BP"). */
+  lastBattleWon?: { attackerUid: string; foeBp: number } | null;
   /**
    * "本回合中，下一张将要从手牌使用的…": a change to the next card of this name and colour its owner plays from the hand this turn
    * (AP cost reduced, put onto the field active). Spent by that play; only the entries of the current `turn` count.
@@ -149,6 +154,57 @@ export interface EngineGame {
   nextPlay?: Array<{ turn: number; ownerId: string; name: string; color: string; ap: number; active: boolean; spent: boolean }>;
   /** "本回合中，下一张将要从手牌中使用的BP不高于N的角色卡牌的消费AP-1": like `nextPlay`, for the next character with printed BP `maxBp` or less. */
   nextPlayLowBp?: Array<{ turn: number; ownerId: string; maxBp: number; ap: number; spent: boolean }>;
+  /** "本回合中，下一张将要从手牌中使用的〈name〉以外的卡牌的消费AP-N" (any card type, played, Raided or used as an event): spent by that use. */
+  nextUseExcept?: Array<{ turn: number; ownerId: string; exceptName: string; ap: number; spent: boolean }>;
+  /** "本回合中，下一张将要从手牌中使用的 [affinity] 卡牌的消费AP-N" (AOT Nicolo 062: [Food]; any card type, played, Raided or used as an event): spent by that use. */
+  nextUseAffinity?: Array<{ turn: number; ownerId: string; affinity: string; ap: number; spent: boolean }>;
+  /** "本回合中，下一张将要从手牌中使用的所需能量不高于N的X色角色卡牌的消费AP-1" (EVA 式波 013): spent by that play. */
+  nextPlayCheap?: Array<{ turn: number; ownerId: string; maxEnergy: number; color: string; ap: number; spent: boolean }>;
+  /**
+   * "本回合中，下一张将要从手牌中使用的〈碇 真嗣〉或卡牌名包含“初号机”的角色卡牌的所需能量减少[红×1]，消费AP-1" (EVA 零号机 080): the next character from the hand
+   * (played or Raided) whose name is one of `names` or contains one of `nameParts`; its required energy drops by `energy` if it is of `color`, its AP cost by `ap`.
+   */
+  nextUseNamed?: Array<{ turn: number; ownerId: string; names: string[]; nameParts: string[]; color: string; energy: number; ap: number; spent: boolean }>;
+  /** Characters that came onto a field this turn (played, Raided or put by an effect), for "本回合中我方的场上登场了……" conditions. Only the current `turn` counts. */
+  entered?: Array<{ turn: number; ownerId: string; cardId: string; /** The field card it became (for "只有在此角色登场的回合中"). */ uid?: string }>;
+  /** A revealed life card's trigger waiting on its owner's answer to a trigger-replacing offer (see ReplaceTriggerAbility). */
+  triggerSwap?: { ownerId: string; attackerId: string; lifeId: string; action: Extract<UnionArenaAction, { type: "trigger" }>; revealed: LifeSlot[]; declined: string[]; asking: string | null };
+}
+
+/** The not yet spent entry of `game.nextPlayCheap` that applies to this card. */
+export function nextPlayCheapFor(game: EngineGame, ctx: EngineContext, ownerId: string, cardId: string): NonNullable<EngineGame["nextPlayCheap"]>[number] | undefined {
+  const stats = ctx.card(cardId);
+  if (stats?.type !== "character") return undefined;
+  return (game.nextPlayCheap ?? []).find((entry) => !entry.spent && entry.turn === game.turn && entry.ownerId === ownerId && stats.energyCost <= entry.maxEnergy && stats.color === entry.color);
+}
+
+/** The not yet spent entry of `game.nextUseExcept` that applies to this card (the first card used that is not of the excepted name). */
+export function nextUseExceptFor(game: EngineGame, ctx: EngineContext, ownerId: string, cardId: string): NonNullable<EngineGame["nextUseExcept"]>[number] | undefined {
+  const name = ctx.card(cardId)?.name;
+  return (game.nextUseExcept ?? []).find((entry) => !entry.spent && entry.turn === game.turn && entry.ownerId === ownerId && entry.exceptName !== name);
+}
+
+/** The not yet spent entry of `game.nextUseAffinity` that applies to this card (the first card used that has the affinity; the data joins affinities with "／"). */
+export function nextUseAffinityFor(game: EngineGame, ctx: EngineContext, ownerId: string, cardId: string): NonNullable<EngineGame["nextUseAffinity"]>[number] | undefined {
+  const parts = (ctx.card(cardId)?.affinities ?? []).flatMap((entry) => entry.split("／").map((part) => part.trim()));
+  return (game.nextUseAffinity ?? []).find((entry) => !entry.spent && entry.turn === game.turn && entry.ownerId === ownerId && parts.includes(entry.affinity));
+}
+
+/** The not yet spent entry of `game.nextUseNamed` that applies to this card (a character whose name matches). */
+export function nextUseNamedFor(game: EngineGame, ctx: EngineContext, ownerId: string, cardId: string): NonNullable<EngineGame["nextUseNamed"]>[number] | undefined {
+  const stats = ctx.card(cardId);
+  if (stats?.type !== "character") return undefined;
+  return (game.nextUseNamed ?? []).find((entry) => !entry.spent && entry.turn === game.turn && entry.ownerId === ownerId && (entry.names.includes(stats.name) || entry.nameParts.some((part) => stats.name.includes(part))));
+}
+
+/** The card is being used from the hand: spends the `nextUseExcept` entry (and the `nextUseAffinity` entry) that applied to it. */
+function spendNextUseExcept(game: EngineGame, ctx: EngineContext, ownerId: string, cardId: string): void {
+  const named = nextUseNamedFor(game, ctx, ownerId, cardId);
+  if (named) named.spent = true;
+  const entry = nextUseExceptFor(game, ctx, ownerId, cardId);
+  if (entry) entry.spent = true;
+  const byAffinity = nextUseAffinityFor(game, ctx, ownerId, cardId);
+  if (byAffinity) byAffinity.spent = true;
 }
 
 /** 本回合中，下一张将要从手牌中使用的BP不高于N的角色卡牌的消费AP-1: the not yet spent entry of `game.nextPlayLowBp` that applies to this card. */
@@ -247,6 +303,8 @@ export function flagsOf(card: UnionArenaFieldCard): string[] {
 /** Whether `blocker` may block `attacker` (an attacker can be unblockable by characters with low BP). */
 export function canBlock(ctx: EngineContext, attacker: UnionArenaFieldCard, blocker: UnionArenaFieldCard): boolean {
   if (blocker.rested || ctx.card(blocker.cardId)?.type !== "character") return false;
+  // 无法阻挡拥有《冲击》的角色 ("cannotBlockImpact", AOT Eren Jaeger (Doomsday Titan))
+  if (flagsOf(blocker).includes("cannotBlockImpact") && impactOf(ctx, attacker) > 0) return false;
   return flagsOf(attacker).every((flag) => {
     const limit = flag.match(/^unblockableBpAtMost:(\d+)$/);
     // 不会被BPN或更高的角色阻挡 ("unblockableBpAtLeast:<n>")
@@ -254,6 +312,11 @@ export function canBlock(ctx: EngineContext, attacker: UnionArenaFieldCard, bloc
     if (floor) return bpOf(ctx, blocker) < Number(floor[1]);
     return !limit || bpOf(ctx, blocker) > Number(limit[1]);
   });
+}
+
+/** 对方必须尽可能的阻挡此角色的攻击 ("mustBeBlocked"): the attacker has the mark and the defender has a character that could block it. */
+export function mustBeBlocked(ctx: EngineContext, attacker: UnionArenaFieldCard, defender: Pick<EnginePlayer, "front">): boolean {
+  return flagsOf(attacker).includes("mustBeBlocked") && defender.front.some((card) => canBlock(ctx, attacker, card));
 }
 
 /**
@@ -281,8 +344,25 @@ export function hasKeyword(ctx: EngineContext, card: UnionArenaFieldCard, keywor
 }
 
 /** 此卡牌无法在前线中登场: the card's continuous abilities carry the "energyLineOnly" mark (it can only be put onto the energy line). */
-export function energyLineOnly(ctx: EngineContext, cardId: string): boolean {
-  return abilitiesOf(ctx, cardId).some((ability) => ability.kind === "static" && (ability.flags ?? []).includes("energyLineOnly"));
+export function energyLineOnly(ctx: EngineContext, cardId: string, player?: Pick<EnginePlayer, "sideline">): boolean {
+  return abilitiesOf(ctx, cardId).some((ability) => ability.kind === "static" && (ability.flags ?? []).some((mark) => {
+    if (mark === "energyLineOnly") return true;
+    // "energyLineOnlyIfSidelineAtMost:<N>" (我方场外的卡牌张数不高于N张的场合，此角色不能在前线中登场): needs the player whose card it is.
+    return mark.startsWith("energyLineOnlyIfSidelineAtMost:") && !!player && player.sideline.length <= Number(mark.slice("energyLineOnlyIfSidelineAtMost:".length));
+  }));
+}
+
+/** 此卡牌只能通过我方的能力登场或进行突进 (the card's continuous abilities carry the "playOnlyByAbility" mark: it cannot be played from the hand with the normal play action). */
+export function playOnlyByAbility(ctx: EngineContext, cardId: string): boolean {
+  return abilitiesOf(ctx, cardId).some((ability) => ability.kind === "static" && (ability.flags ?? []).includes("playOnlyByAbility"));
+}
+
+/** 此卡牌只有在……的场合才能登场 (AOT Ymir, Our Founder): whether the `playCondition` of the card's continuous abilities allows `ownerId` to play it from the hand now. */
+export function playConditionHolds(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, ownerId: string, cardId: string): boolean {
+  const conditions = abilitiesOf(ctx, cardId).flatMap((ability) => (ability.kind === "static" && ability.playCondition ? [ability.playCondition] : []));
+  if (!conditions.length) return true;
+  const env = abilityEnv(game, players, ctx, ownerId, null, cardId);
+  return conditions.every((condition) => condition(env));
 }
 
 /** 必须尽可能的进行攻击: an active front-line character with the "mustAttack" mark that could still attack (the attack phase cannot end yet). */
@@ -326,7 +406,9 @@ export function energyOf(ctx: EngineContext, player: Pick<EnginePlayer, "energy"
   return producing.reduce((sum, card) => {
     const stats = ctx.card(card.cardId);
     const generated = stats?.energyGenColor ?? stats?.color;
-    return generated === color ? sum + Math.max(0, (stats?.energyGen ?? 0) + card.energyMod + (card.staticEnergy ?? 0) + (card.energyTurn ?? 0)) : sum;
+    // "extraEnergy:<colour>:<n>": energy of a given colour added by an effect (gains 《Green》《Green》 on a card of another colour).
+    const extra = flagsOf(card).reduce((total, flag) => { const match = flag.match(/^extraEnergy:(\w+):(\d+)$/); return match && match[1] === color ? total + Number(match[2]) : total; }, 0);
+    return (generated === color ? sum + Math.max(0, (stats?.energyGen ?? 0) + card.energyMod + (card.staticEnergy ?? 0) + (card.energyTurn ?? 0)) : sum) + extra;
   }, 0);
 }
 
@@ -337,8 +419,14 @@ export function apTarget(game: EngineGame, playerId: string): number {
   return nth === 2 ? 2 : 3;
 }
 
+/** Remembers that `cardId` came onto `ownerId`'s field this turn (`game.entered`; older turns' entries are dropped). */
+function recordEntered(game: EngineGame, ownerId: string, cardId: string, uid?: string): void {
+  game.entered = [...(game.entered ?? []).filter((entry) => entry.turn === game.turn), { turn: game.turn, ownerId, cardId, ...(uid ? { uid } : {}) }];
+}
+
 function newFieldCard(game: EngineGame, owner: EnginePlayer, cardId: string, rested: boolean): UnionArenaFieldCard {
   game.seq += 1;
+  recordEntered(game, owner.accountId, cardId, `${owner.accountId}:f${game.seq}`);
   return { uid: `${owner.accountId}:f${game.seq}`, cardId, under: [], rested, bpMod: 0, energyMod: 0, grants: [], attacks: 0, blocks: 0, skipNextActivate: false, staticBp: 0, staticKeywords: [], staticEnergy: 0, lasting: [], used: [], flags: [], staticFlags: [], energyTurn: 0, grantedAbilities: [] };
 }
 
@@ -372,7 +460,9 @@ function makeActive(card: UnionArenaFieldCard): void {
 function leaveField(player: EnginePlayer, uid: string, destination: "sideline" | "removal" | "hand" | "deckBottom"): UnionArenaFieldCard {
   const found = locate(player, uid) ?? fail("CARD_NOT_ON_FIELD");
   player[found.line] = player[found.line].filter((card) => card.uid !== uid);
-  player.sideline.push(...found.card.under);
+  // "underToHand" (KMY 灶门 祢豆子 021: 放回手牌的场合，改为将此角色和此角色的突进源放回手牌): the Raid source goes to the hand with it.
+  if (destination === "hand" && flagsOf(found.card).includes("underToHand")) player.hand.push(...found.card.under);
+  else player.sideline.push(...found.card.under);
   player.sideline.push(...(found.card.faceDown ?? []));
   if (destination === "sideline") player.sideline.push(found.card.cardId);
   else if (destination === "removal") player.removal.push(found.card.cardId);
@@ -389,8 +479,13 @@ function sidelineCard(game: EngineGame, ctx: EngineContext, owner: EnginePlayer,
     log(game, `「${nameOf(ctx, staying.cardId)}」不会退场`);
     return staying;
   }
+  // 不会通过对方的角色或事件卡牌的效果退场 ("noSidelineByOppEffect", KMY 富冈 义勇 UA01NC/KMY-2-008): an effect of the opponent (not a cost) cannot sideline it.
+  if (staying && cause.kind === "effect" && !cause.cost && cause.byPlayerId && cause.byPlayerId !== owner.accountId && flagsOf(staying).includes("noSidelineByOppEffect")) {
+    log(game, `「${nameOf(ctx, staying.cardId)}」不会通过对方的效果退场`);
+    return staying;
+  }
   // A replacement effect on the owner's field may apply: the owner is asked first (see `offerReplacement`); the card stays until then.
-  if (staying && replaceable(cause) && [...owner.front, ...owner.energy].some((card) => abilitiesOf(ctx, card.cardId).some((ability) => ability.kind === "replaceSideline"))) {
+  if (staying && replaceable(cause) && [...owner.front, ...owner.energy].some((card) => abilitiesOf(ctx, card.cardId).some((ability) => ability.kind === "replaceSideline" && !ability.replaces))) {
     (game.replacing ??= []).push({ ownerId: owner.accountId, uid, cause, declined: [], asking: null });
     return staying;
   }
@@ -402,7 +497,14 @@ const replaceable = (cause: SidelineCause): boolean => (cause.kind === "battle" 
 
 /** The card leaves the field for the sideline; its 【退场时】 abilities activate. */
 function completeSideline(game: EngineGame, ctx: EngineContext, owner: EnginePlayer, uid: string, cause: SidelineCause): UnionArenaFieldCard {
+  // Remember a front-line character leaving, so `drain` can tell the other player's cards (onOpponentFrontSidelined).
+  const wasOnFront = owner.front.some((entry) => entry.uid === uid) && ctx.card(owner.front.find((entry) => entry.uid === uid)!.cardId)?.type === "character";
   const card = leaveField(owner, uid, "sideline");
+  if (wasOnFront) (game.frontSidelinedOwners ??= []).push(owner.accountId);
+  // 本回合中我方角色退场过 (see characterSidelinedThisTurn)
+  if (ctx.card(card.cardId)?.type === "character") { const mark = characterSidelinedMark(game, owner.accountId); if (!(game.turnMarks ??= []).includes(mark)) game.turnMarks.push(mark); game.turnMarks.push(`${game.turn}:${owner.accountId}:characterSidelinedN`); }
+  // 本回合中有角色因BP变为0或因效果退场 (either player's character; a cost does not count): see `characterSidelinedByBpOrEffectThisTurn`
+  if (ctx.card(card.cardId)?.type === "character" && (cause.kind === "bpZero" || cause.kind === "effect") && !cause.cost) { const mark = bpOrEffectSidelinedMark(game); if (!(game.turnMarks ??= []).includes(mark)) game.turnMarks.push(mark); }
   const withUnderCards: SidelineCause = card.under.length ? { ...cause, under: [...card.under] } : cause;
   // 【退场时】 abilities may need the face-down cards that were under it (they are in the sideline now).
   const withUnder: SidelineCause = card.faceDown?.length ? { ...withUnderCards, faceDown: [...card.faceDown] } : withUnderCards;
@@ -411,12 +513,29 @@ function completeSideline(game: EngineGame, ctx: EngineContext, owner: EnginePla
   return card;
 }
 
+/**
+ * A character is about to be returned to its owner's hand by an effect or a trigger. If a `replaces: "toHand"` ability on its owner's field offers
+ * to replace that, the character stays and the owner is asked (see `offerReplacement`); true then. Otherwise false: the caller returns it.
+ */
+function holdReturnForReplacement(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, target: UnionArenaFieldCard, cause: SidelineCause): boolean {
+  if (!replacementOffers(game, players, ctx, owner, target, cause, true).length) return false;
+  (game.replacing ??= []).push({ ownerId: owner.accountId, uid: target.uid, cause, declined: [], asking: null, toHand: true });
+  return true;
+}
+
+/** The card leaves the field for its owner's hand; its 放回手牌 / 离开场上 abilities activate. */
+function completeReturn(game: EngineGame, ctx: EngineContext, owner: EnginePlayer, uid: string, cause: SidelineCause): void {
+  const card = leaveField(owner, uid, "hand");
+  queueAbilities(game, ctx, "onReturnToHand", owner, null, card.cardId);
+  queueAbilities(game, ctx, "onLeaveField", owner, null, card.cardId, cause);
+}
+
 /** The replacement effects that can replace sidelining `target` now: "<source uid>#<ability index>". */
-function replacementOffers(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, target: UnionArenaFieldCard, cause: SidelineCause): string[] {
+function replacementOffers(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, target: UnionArenaFieldCard, cause: SidelineCause, toHand = false): string[] {
   const offers: string[] = [];
   for (const source of [...owner.front, ...owner.energy]) {
     abilitiesOf(ctx, source.cardId).forEach((ability, index) => {
-      if (ability.kind !== "replaceSideline" || (ability.oncePerTurn && source.used?.includes(index))) return;
+      if (ability.kind !== "replaceSideline" || (ability.oncePerTurn && source.used?.includes(index)) || (ability.replaces === "toHand") !== toHand) return;
       if (ability.condition(abilityEnv(game, players, ctx, owner.accountId, source.uid, source.cardId, {}, cause), target, cause)) offers.push(`${source.uid}#${index}`);
     });
   }
@@ -429,9 +548,10 @@ function offerReplacement(game: EngineGame, players: readonly EnginePlayer[], ct
   const owner = find(players, item.ownerId);
   const target = locate(owner, item.uid)?.card;
   if (!target) { game.replacing!.shift(); return; }
-  const offer = replacementOffers(game, players, ctx, owner, target, item.cause).find((key) => !item.declined.includes(key));
+  const offer = replacementOffers(game, players, ctx, owner, target, item.cause, item.toHand).find((key) => !item.declined.includes(key));
   if (!offer) {
     game.replacing!.shift();
+    if (item.toHand) { completeReturn(game, ctx, owner, item.uid, item.cause); logEvent(game, `「${nameOf(ctx, target.cardId)}」放回手牌`, item.uid, "leave"); return; }
     completeSideline(game, ctx, owner, item.uid, item.cause);
     logEvent(game, `「${nameOf(ctx, target.cardId)}」退场`, item.uid, "leave");
     return;
@@ -439,7 +559,7 @@ function offerReplacement(game: EngineGame, players: readonly EnginePlayer[], ct
   const source = locate(owner, offer.split("#")[0]!)!.card;
   const ability = abilitiesOf(ctx, source.cardId)[Number(offer.split("#")[1])] as ReplaceSidelineAbility;
   item.asking = offer;
-  game.pending = { kind: "choose", playerId: owner.accountId, purpose: "confirm", prompt: `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, target.cardId)}」将要退场。${ability.prompt}`, options: ["yes", "no"], cards: [null, null], min: 1, max: 1, sourceCardId: source.cardId };
+  game.pending = { kind: "choose", playerId: owner.accountId, purpose: "confirm", prompt: `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, target.cardId)}」将要${item.toHand ? "放回手牌" : "退场"}。${ability.prompt}`, options: ["yes", "no"], cards: [null, null], min: 1, max: 1, sourceCardId: source.cardId };
 }
 
 /** The owner's answer about a replacement offer: "yes" applies it (the character stays), "no" moves on to the next offer. */
@@ -456,7 +576,7 @@ function answerReplacement(game: EngineGame, players: readonly EnginePlayer[], c
   const index = Number(offer.split("#")[1]);
   const ability = abilitiesOf(ctx, source.cardId)[index] as ReplaceSidelineAbility;
   if (ability.oncePerTurn) source.used = [...(source.used ?? []), index];
-  log(game, `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, target.cardId)}」没有退场，改为由「${nameOf(ctx, source.cardId)}」的效果处理`);
+  log(game, `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, target.cardId)}」没有${item.toHand ? "放回手牌" : "退场"}，改为由「${nameOf(ctx, source.cardId)}」的效果处理`);
   ability.apply(abilityEnv(game, players, ctx, owner.accountId, source.uid, source.cardId, {}, item.cause), target);
 }
 
@@ -531,7 +651,7 @@ export function eventUsable(game: EngineGame, players: readonly EnginePlayer[], 
 }
 
 /** What a card in `ownerId`'s hand costs right now: its printed required energy and AP cost, changed by its own cost abilities. */
-export function costOf(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, ownerId: string, cardId: string): { energy: number; ap: number } {
+export function costOf(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, ownerId: string, cardId: string, raiding = false): { energy: number; ap: number } {
   const stats = statsOf(ctx, cardId);
   let energy = stats.energyCost;
   let ap = stats.apCost;
@@ -539,19 +659,35 @@ export function costOf(game: EngineGame, players: readonly EnginePlayer[], ctx: 
   if (abilities.some((ability) => ability.kind === "cost")) {
     const env = abilityEnv(game, players, ctx, ownerId, null, cardId);
     for (const ability of abilities) {
-      if (ability.kind !== "cost" || !holds(ability.condition, env)) continue;
+      if (ability.kind !== "cost" || ability.fromField || !holds(ability.condition, env)) continue;
+      energy -= typeof ability.energy === "function" ? ability.energy(env) : ability.energy ?? 0;
+      ap -= ability.ap ?? 0;
+    }
+  }
+  // Cost cuts that cards on the owner's field give to the cards in the hand (`fromField`).
+  const cutter = players.find((player) => player.accountId === ownerId);
+  for (const source of cutter ? [...cutter.front, ...cutter.energy] : []) {
+    for (const ability of abilitiesOf(ctx, source.cardId)) {
+      if (ability.kind !== "cost" || !ability.fromField) continue;
+      const env = abilityEnv(game, players, ctx, ownerId, source.uid, source.cardId);
+      if (!holds(ability.condition, env) || !ability.fromField(env, cardId, raiding)) continue;
       energy -= typeof ability.energy === "function" ? ability.energy(env) : ability.energy ?? 0;
       ap -= ability.ap ?? 0;
     }
   }
   ap -= nextPlayFor(game, ctx, ownerId, cardId)?.ap ?? 0;
   ap -= nextPlayLowBpFor(game, ctx, ownerId, cardId)?.ap ?? 0;
+  ap -= nextPlayCheapFor(game, ctx, ownerId, cardId)?.ap ?? 0;
+  ap -= nextUseExceptFor(game, ctx, ownerId, cardId)?.ap ?? 0;
+  ap -= nextUseAffinityFor(game, ctx, ownerId, cardId)?.ap ?? 0;
+  const namedCut = nextUseNamedFor(game, ctx, ownerId, cardId);
+  if (namedCut) { ap -= namedCut.ap; if (stats.color === namedCut.color) energy -= namedCut.energy; }
   return { energy: Math.max(0, energy), ap: Math.max(0, ap) };
 }
 
-function requireCost(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, player: EnginePlayer, cardId: string, payAP: boolean): void {
+function requireCost(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, player: EnginePlayer, cardId: string, payAP: boolean, raiding = false): void {
   const stats = statsOf(ctx, cardId);
-  const cost = costOf(game, players, ctx, player.accountId, cardId);
+  const cost = costOf(game, players, ctx, player.accountId, cardId, raiding);
   if (energyOf(ctx, player, stats.color) < cost.energy) fail("NOT_ENOUGH_ENERGY");
   if (payAP) payAp(player, cost.ap);
 }
@@ -576,12 +712,24 @@ function refreshStatics(game: EngineGame, players: readonly EnginePlayer[], ctx:
       }
     }
   }
+  // "本回合中，你不能用〈name〉以外的角色攻击" (game.turnMarks "<turn>:<owner>:onlyAttackWith:<name>", AOT Rumbling): the owner's other characters get "cannotAttack".
+  for (const player of players) {
+    const prefix = `${game.turn}:${player.accountId}:onlyAttackWith:`;
+    for (const mark of game.turnMarks ?? []) {
+      if (!mark.startsWith(prefix)) continue;
+      const name = mark.slice(prefix.length);
+      for (const { owner, card } of all) if (owner === player && ctx.card(card.cardId)?.type === "character" && ctx.card(card.cardId)?.name !== name) card.staticFlags = [...(card.staticFlags ?? []), "cannotAttack"];
+    }
+  }
 }
 
 /** Queues the abilities of a card that activate at `event` (once-per-turn ones only if not used yet this turn). */
 function queueAbilities(game: EngineGame, ctx: EngineContext, event: AbilityEvent, owner: EnginePlayer, card: UnionArenaFieldCard | null, cardId: string, cause: SidelineCause | null = null): void {
+  // 在攻击阶段中从场上放回手牌: remembered per card number for the rest of the turn (AOT Mikasa Ackermann 066, see `returnedToHandInAttackPhase` in abilities/dsl.ts).
+  if (event === "onReturnToHand" && game.phase === "attack") (game.turnMarks ??= []).push(`${game.turn}:${owner.accountId}:returnedInAttack:${cardId}`);
   abilitiesOf(ctx, cardId).forEach((ability, index) => {
     if (ability.kind !== "triggered" || ability.grantedOnly || !ability.when.includes(event)) return;
+    if (ability.heardIf && !ability.heardIf(ctx, cause)) return;
     if (ability.oncePerTurn && card) {
       if (card.used?.includes(index)) return;
       card.used = [...(card.used ?? []), index];
@@ -601,6 +749,10 @@ function queueAbilities(game: EngineGame, ctx: EngineContext, event: AbilityEven
 /** An event about one field card. */
 function emitSelf(game: EngineGame, ctx: EngineContext, event: AbilityEvent, owner: EnginePlayer, card: UnionArenaFieldCard): void {
   queueAbilities(game, ctx, event, owner, card, card.cardId);
+  // 攻击阶段中当我方场上的角色移动时 (KMY 灶门 炭治郎 2-001): every card on the mover's field hears a move made in its owner's attack phase.
+  if ((event === "onMoveToFront" || event === "onMoveToEnergy") && game.phase === "attack" && game.turnPlayerId === owner.accountId) {
+    for (const heard of [...owner.front, ...owner.energy]) queueAbilities(game, ctx, "onOwnMoveInAttack", owner, heard, heard.cardId, { kind: "effect", byPlayerId: owner.accountId, attackerCardId: card.cardId });
+  }
 }
 
 /** An event about a player: every card on their field hears it. */
@@ -670,7 +822,8 @@ function programOf(ability: Ability): Instruction[] {
   else if (ability.kind === "activated") {
     const discards = ability.costs.flatMap((cost): Step[] => (cost.pay === "discard" ? [{ do: "discard", count: cost.count }] : []));
     program = compile([...discards, ...ability.steps]);
-  } else program = [];
+  } else if (ability.kind === "replaceTrigger") program = compile(ability.steps ?? []);
+  else program = [];
   compiled.set(ability, program);
   return program;
 }
@@ -701,6 +854,13 @@ function chooseOptions(env: AbilityEnv, step: Extract<Instruction, { do: "choose
           if (step.characters !== false && env.ctx.card(card.cardId)?.type !== "character") continue;
           // 不会被对方角色/事件卡牌的效果选择
           if (player !== owner && flagsOf(card).includes(`untargetable:${sourceType}`)) continue;
+          // 不会被BP N或更高的对方角色的效果选择 ("untargetableByCharBpAtLeast:<n>", JJK 日下部 笃也): the source's BP now (its printed BP once it has left the field).
+          if (player !== owner && sourceType === "character") {
+            const floor = flagsOf(card).flatMap((flag) => { const match = flag.match(/^untargetableByCharBpAtLeast:(\d+)$/); return match ? [Number(match[1])] : []; });
+            if (floor.length && (env.self ? bpOf(env.ctx, env.self) : env.ctx.card(env.selfCardId)?.bp ?? 0) >= Math.min(...floor)) continue;
+          }
+          // "taxAp:<type>": choosing it with a <type> card's ability costs the chooser 1 AP (needs an active AP card, see `payTargetTax`).
+          if (player !== owner && flagsOf(card).includes(`taxAp:${sourceType}`) && !owner.ap.some((ap) => !ap.rested)) continue;
           if (shieldedFrom(env.ctx, card, env.selfCardId)) continue;
           if (step.filter && !step.filter(env, card.cardId, card)) continue;
           result.push({ key: card.uid, cardId: card.cardId });
@@ -710,8 +870,10 @@ function chooseOptions(env: AbilityEnv, step: Extract<Instruction, { do: "choose
     }
     case "hand":
     case "sideline": {
-      const zone = step.from === "hand" ? owner.hand : owner.sideline;
-      zone.forEach((cardId, index) => { if (!step.filter || step.filter(env, cardId, null)) result.push({ key: `${step.from === "hand" ? "h" : "s"}:${index}`, cardId }); });
+      // side "opponent" on a sideline choice (KMY 珠世: 对方将自己场外存在的卡牌置于移除区): the opponent's own sideline, keys "os:<index>".
+      const theirs = step.from === "sideline" && step.side === "opponent";
+      const zone = step.from === "hand" ? owner.hand : theirs ? env.opponent.sideline : owner.sideline;
+      zone.forEach((cardId, index) => { if (!step.filter || step.filter(env, cardId, null)) result.push({ key: `${theirs ? "os" : step.from === "hand" ? "h" : "s"}:${index}`, cardId }); });
       return result;
     }
     case "looked": {
@@ -730,12 +892,33 @@ function chooseOptions(env: AbilityEnv, step: Extract<Instruction, { do: "choose
       // Nothing to put: no question. A site can only go onto the energy line.
       const placing = step.forChosen ? env.vars[step.forChosen] ?? [] : [];
       if (!placing.length) return result;
-      const onlyEnergy = placing.some((key) => env.ctx.card(zoneCard(env, key) ?? "")?.type === "site" || energyLineOnly(env.ctx, zoneCard(env, key) ?? ""));
+      const onlyEnergy = placing.some((key) => env.ctx.card(zoneCard(env, key) ?? "")?.type === "site" || energyLineOnly(env.ctx, zoneCard(env, key) ?? "", env.owner));
       if (!onlyEnergy) result.push({ key: "line:front", cardId: null, label: "前线" });
       result.push({ key: "line:energy", cardId: null, label: "能量线" });
       return result;
     }
   }
+}
+
+/** Whether a resolving ability is a character's ability acting on a card of the other player ("对方的角色能力", for the "immuneOppCharacter" mark). */
+function opposingCharacterEffect(ctx: EngineContext, entry: QueuedAbility, targetOwner: EnginePlayer): boolean {
+  return ctx.card(entry.cardId)?.type === "character" && targetOwner.accountId !== entry.ownerId;
+}
+
+/**
+ * "taxAp:<type>" (对方不支付1AP就无法用角色/事件卡牌的能力选择此角色): picking such an opposing card with an ability of a <type> card rests one active AP
+ * card of the chooser per card. Returns false, paying nothing, when the chooser cannot afford all the picks.
+ */
+function payTargetTax(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, entry: QueuedAbility, uids: string[]): boolean {
+  const owner = find(players, entry.ownerId);
+  const opponent = other(players, entry.ownerId);
+  const sourceType = ctx.card(entry.cardId)?.type;
+  const taxed = [...opponent.front, ...opponent.energy].filter((card) => uids.includes(card.uid) && flagsOf(card).includes(`taxAp:${sourceType}`));
+  if (!taxed.length) return true;
+  const active = owner.ap.filter((ap) => !ap.rested);
+  if (active.length < taxed.length) return false;
+  taxed.forEach((card, index) => { active[index]!.rested = true; log(game, `「${nameOf(ctx, entry.cardId)}」：为选择「${nameOf(ctx, card.cardId)}」支付 1 AP`); });
+  return true;
 }
 
 /** The card behind a hand / sideline / looked-at key. */
@@ -781,10 +964,15 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         game.pending = { kind: "choose", playerId: entry.ownerId, purpose: "confirm", prompt: `${source}：${step.prompt}`, options: ["yes", "no"], cards: [null, null], min: 1, max: 1, sourceCardId: entry.cardId };
         return;
       case "choose": {
+        delete resolving.vars.__bpRange;
         const options = chooseOptions(env, step);
+        // "本回合中，下一次选择指定BP范围的角色时，BP范围+1000": a filter that used the raised range (see `bpRangeBonus` in dsl.ts) uses the mark up.
+        if (resolving.vars.__bpRange && options.length && !step.chooser) { const mark = `${game.turn}:${entry.ownerId}:bpRangePlus`; game.turnMarks = (game.turnMarks ?? []).filter((entry2) => entry2 !== mark); }
+        delete resolving.vars.__bpRange;
         const min = step.all ? options.length : step.min;
         // No real choice: at most the required number of options (or, for an order, at most one card).
         if (step.all ? options.length <= 1 : options.length <= min) {
+          if (step.from === "field" && !step.chooser) payTargetTax(game, players, ctx, entry, options.map((option) => option.key));
           resolving.vars[step.as] = options.map((option) => option.key);
           resolving.pc += 1;
           continue;
@@ -810,8 +998,10 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
       }
       case "bp": {
         const amount = typeof step.amount === "function" ? step.amount(env) : step.amount;
-        for (const { card } of targetsOf(env, step.target)) {
+        for (const { owner: targetOwner, card } of targetsOf(env, step.target)) {
           if (amount < 0 && flagsOf(card).includes("noBpDown")) { log(game, `${source}：「${nameOf(ctx, card.cardId)}」不受 BP 降低效果的影响`); continue; }
+          // 对方的角色能力无法使此角色退场或降低其BP ("immuneOppCharacter", AOT War Hammer Titan)
+          if (amount < 0 && opposingCharacterEffect(ctx, entry, targetOwner) && flagsOf(card).includes("immuneOppCharacter")) { log(game, `${source}：「${nameOf(ctx, card.cardId)}」不受对方角色能力降低 BP 的影响`); continue; }
           applyDuration(card, { bp: amount }, step.until, entry.ownerId);
           logEvent(game, `${source}：「${nameOf(ctx, card.cardId)}」${step.until === "turn" ? "本回合" : "直到下一个回合开始"} BP${amount >= 0 ? "+" : ""}${amount}`, card.uid, "bp");
         }
@@ -840,9 +1030,16 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         for (const { owner, card } of targetsOf(env, step.target)) {
           const name = nameOf(ctx, card.cardId);
           if (step.do === "sideline") {
-            sidelineCard(game, ctx, owner, card.uid, { kind: "effect", byPlayerId: entry.ownerId });
+            if (opposingCharacterEffect(ctx, entry, owner) && flagsOf(card).includes("immuneOppCharacter")) { log(game, `${source}：「${name}」不会被对方的角色能力退场`); continue; }
+            sidelineCard(game, ctx, owner, card.uid, { kind: "effect", byPlayerId: entry.ownerId, sourceCardId: entry.abilityCardId ?? entry.cardId });
             if (locate(owner, card.uid)) continue; // 不会退场
-          } else leaveField(owner, card.uid, step.do === "toHand" ? "hand" : step.do === "remove" ? "removal" : "deckBottom");
+          } else {
+            // 无法放回手牌 ("cannotToHand")
+            if (step.do === "toHand" && flagsOf(card).includes("cannotToHand")) { log(game, `${source}：「${name}」无法放回手牌`); continue; }
+            // 被放回手牌的场合，可以改为……: the owner is asked first; the character stays until then.
+            if (step.do === "toHand" && holdReturnForReplacement(game, players, ctx, owner, card, { kind: "effect", byPlayerId: entry.ownerId })) continue;
+            leaveField(owner, card.uid, step.do === "toHand" ? "hand" : step.do === "remove" ? "removal" : "deckBottom");
+          }
           if (step.do === "toHand") queueAbilities(game, ctx, "onReturnToHand", owner, null, card.cardId);
           if (step.do !== "sideline") queueAbilities(game, ctx, "onLeaveField", owner, null, card.cardId, { kind: "effect", byPlayerId: entry.ownerId });
           log(game, `${source}：「${name}」${{ sideline: "退场", toHand: "放回手牌", remove: "置于移除区", toDeckBottom: "置于卡组最下方" }[step.do]}`);
@@ -858,12 +1055,22 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         const keys = (Array.isArray(step.chosen) ? step.chosen : [step.chosen]).flatMap((name) => resolving.vars[name] ?? []).filter((key) => /^[hsl]:\d+$/.test(key));
         const zoneOf = (prefix: string): string[] => (prefix === "h" ? env.owner.hand : prefix === "s" ? env.owner.sideline : game.looking?.cards ?? []);
         const moved = keys.map((key) => zoneOf(key[0]!)[Number(key.slice(2))]!).filter(Boolean);
+        const handMoved = keys.filter((key) => key.startsWith("h:")).map((key) => env.owner.hand[Number(key.slice(2))]!).filter(Boolean);
         for (const prefix of ["h", "s", "l"]) {
           const indexes = keys.filter((key) => key.startsWith(prefix)).map((key) => Number(key.slice(2))).sort((a, b) => b - a);
           for (const index of indexes) zoneOf(prefix).splice(index, 1);
         }
         const destination = step.to === "hand" ? env.owner.hand : step.to === "sideline" ? env.owner.sideline : step.to === "removal" ? env.owner.removal : env.owner.library;
         destination.push(...moved);
+        // 本回合中有我方的手牌或卡组中的卡牌通过我方的效果置于过场外
+        if (step.to === "sideline" && keys.some((key) => key.startsWith("h:") || key.startsWith("l:"))) markHandDeckSidelined(game, env.owner.accountId);
+        // 本回合中通过某张卡牌的效果将手牌置于场外 (KMY 炼狱 槙寿郎): the card whose ability did it is part of the mark (see `handDiscardedByCardsThisTurn`)
+        if (step.to === "sideline" && keys.some((key) => key.startsWith("h:"))) (game.turnMarks ??= []).push(`${game.turn}:${env.owner.accountId}:handDiscardedBy:${entry.abilityCardId ?? entry.cardId}`);
+        // 通过某张卡牌的效果将某张手牌置于场外 (KMY 炼狱 瑠火 / 炼狱 杏寿郎, see abilities/cards-kmy-6.ts): one mark per card, with the card whose ability did it.
+        // A discard paid as the cost of an activated ability ([将1张手牌置于场外]) is not an effect and leaves none.
+        if (step.to === "sideline" && !(ability?.kind === "activated" && resolving.pc < 2 * ability.costs.filter((cost) => cost.pay === "discard").length)) {
+          for (const discarded of handMoved) (game.turnMarks ??= []).push(`${game.turn}:${env.owner.accountId}:handCardDiscardedBy:${entry.abilityCardId ?? entry.cardId}:${discarded}`);
+        }
         // Cards going to the bottom of the deck stay hidden; the others are public.
         if (moved.length) log(game, step.to === "deckBottom" ? `${source}：${moved.length} 张卡置于卡组最下方` : `${source}：${keys.some((key) => key.startsWith("l:")) ? "公开" : ""}${moved.map((cardId) => `「${nameOf(ctx, cardId)}」`).join("")}${{ hand: "加入手牌", sideline: "置于场外", removal: "置于移除区", deckBottom: "" }[step.to]}`);
         break;
@@ -887,7 +1094,7 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         resolving.vars[`placed:${step.chosen}`] = [card.uid];
         logEvent(game, `${source}：「${nameOf(ctx, cardId)}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[line]}`, card.uid, "play");
         // Its 【登场时】 abilities can tell it came onto the field by this ability (通过我方的效果登场).
-        queueAbilities(game, ctx, "onPlay", env.owner, card, card.cardId, { kind: "effect", byPlayerId: entry.ownerId, sourceCardId: entry.abilityCardId ?? entry.cardId });
+        queueAbilities(game, ctx, "onPlay", env.owner, card, card.cardId, { kind: "effect", byPlayerId: entry.ownerId, sourceCardId: entry.abilityCardId ?? entry.cardId, from: key.startsWith("h:") ? "hand" : key.startsWith("s:") ? "sideline" : "deck" });
         break;
       }
       case "moveDo":
@@ -920,10 +1127,14 @@ function stepResolving(game: EngineGame, players: readonly EnginePlayer[], ctx: 
         if (ids.length) log(game, `${source}：${ids.length} 张 AP 卡转为活跃状态`);
         break;
       }
-      case "run":
+      case "run": {
+        // A `run` step that moves cards out of the owner's hand / deck / looked-at cards into their sideline (a mill) counts for `handDeckSidelinedThisTurn`.
+        const before = { hand: env.owner.hand.length, library: env.owner.library.length, looked: game.looking?.cards.length ?? 0, sideline: env.owner.sideline.length };
         step.fn(env);
+        if (env.owner.sideline.length > before.sideline && (env.owner.hand.length < before.hand || env.owner.library.length < before.library || (game.looking?.cards.length ?? 0) < before.looked)) markHandDeckSidelined(game, env.owner.accountId);
         log(game, `${source}：${step.text}`);
         break;
+      }
     }
     resolving.pc += 1;
     refreshStatics(game, players, ctx);
@@ -983,6 +1194,8 @@ function drain(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineCo
     if (game.step !== "turn") return;
     refreshStatics(game, players, ctx);
     noticeSidelineArrivals(game, players, ctx);
+    // 对方前线中的角色退场时: the other player's cards hear about each front-line character that was sidelined.
+    while (game.frontSidelinedOwners?.length) emitAll(game, ctx, "onOpponentFrontSidelined", other(players, game.frontSidelinedOwners.shift()!));
     if (sidelineZeroBp(game, players, ctx)) continue;
     if (game.pending) return;
     // A character about to be sidelined while a replacement effect may apply: that question comes before anything else.
@@ -1014,7 +1227,8 @@ function beginTurn(game: EngineGame, players: readonly EnginePlayer[], playerId:
   game.turnsTaken[playerId] = (game.turnsTaken[playerId] ?? 0) + 1;
   log(game, `第 ${game.turn} 回合：${player.username} 的回合开始`);
   for (const owner of players) for (const card of [...owner.front, ...owner.energy]) card.lasting = (card.lasting ?? []).filter((entry) => entry.untilTurnOf !== playerId);
-  for (const card of [...player.front, ...player.energy]) makeActive(card);
+  // "noStartActivate" (在起始阶段中不会转为活跃状态): from a continuous effect.
+  for (const card of [...player.front, ...player.energy]) if (!flagsOf(card).includes("noStartActivate")) makeActive(card);
   for (const card of player.ap) card.rested = false;
   const target = Math.min(apTarget(game, playerId), player.apCount);
   while (player.ap.length < target) player.ap.push({ id: `${playerId}:ap${player.ap.length}`, rested: false });
@@ -1044,6 +1258,8 @@ function endTurn(game: EngineGame, players: readonly EnginePlayer[], ctx: Engine
   // The attack phase ends first: "when the attack phase ends" abilities resolve before the end phase begins.
   const before = game.queue.length;
   emitAll(game, ctx, "onAttackPhaseEnd", find(players, game.turnPlayerId!));
+  // 每个攻击阶段结束时: the cards of both players hear it.
+  for (const owner of players) emitAll(game, ctx, "onEveryAttackPhaseEnd", owner);
   if (game.queue.length > before) { game.after.push({ kind: "beginEndPhase" }); return; }
   beginEndPhase(game, players, ctx);
 }
@@ -1055,6 +1271,8 @@ function beginEndPhase(game: EngineGame, players: readonly EnginePlayer[], ctx: 
   log(game, `${player.username} 进入结束阶段`);
   game.after.push({ kind: "endSteps" });
   emitAll(game, ctx, "onEndStart", player);
+  // 我方的结束阶段开始时，手牌中的此卡牌 (AOT Mikasa Ackermann 066): the cards in the hand hear it too (no field card; `env.self` is null).
+  for (const cardId of player.hand) queueAbilities(game, ctx, "onEndStartInHand", player, null, cardId);
 }
 
 /** End Phase steps 2 and 3: switch resting characters and sites to active (AP cards stay resting), then keep at most eight cards in hand. */
@@ -1108,6 +1326,8 @@ function performRaid(game: EngineGame, ctx: EngineContext, player: EnginePlayer,
   if (!raidTargetMatches(ctx, stats, found.card)) fail("RAID_TARGET_INVALID");
   const target = found.card;
   const below = nameOf(ctx, target.cardId);
+  const raidedCardId = target.cardId;
+  recordEntered(game, player.accountId, cardId, targetUid);
   target.under = [...target.under, target.cardId];
   target.cardId = cardId;
   target.bpMod = 0;
@@ -1128,6 +1348,8 @@ function performRaid(game: EngineGame, ctx: EngineContext, player: EnginePlayer,
     placeOnLine(game, ctx, player, "front", target, removeUid);
     log(game, `「${stats.name}」移动至前线`);
   }
+  // 当此角色被突进时 (EVA 式波 113): the raided card (now under the Raid card) hears it; with the Raid card's 【登场时】 the owner orders them.
+  queueAbilities(game, ctx, "onBeingRaided", player, null, raidedCardId);
   emitSelf(game, ctx, "onPlay", player, target);
 }
 
@@ -1199,6 +1421,17 @@ function runContinuation(game: EngineGame, players: readonly EnginePlayer[], ctx
         return;
       }
       const attacker = locate(attackerOwner, next.attackerUid)!.card;
+      // 必须尽可能阻挡 ("mustBlock"): such a character that can block does so at once, without the defender being asked.
+      const forced = defender.front.find((card) => flagsOf(card).includes("mustBlock") && canBlock(ctx, attacker, card));
+      if (forced) {
+        forced.rested = true;
+        forced.blocks += 1;
+        if (forced.blocks === 1 && hasKeyword(ctx, forced, "2次阻挡")) forced.rested = false;
+        log(game, `「${nameOf(ctx, forced.cardId)}」必须尽可能阻挡，阻挡了「${nameOf(ctx, attacker.cardId)}」`);
+        game.after.push({ kind: "battle", attackerOwnerId: next.attackerOwnerId, attackerUid: next.attackerUid, defenderOwnerId: defender.accountId, defenderUid: forced.uid, blocked: true });
+        emitSelf(game, ctx, "onBlock", defender, forced);
+        return;
+      }
       if (defender.front.some((card) => canBlock(ctx, attacker, card))) {
         game.pending = { kind: "block", playerId: defender.accountId, attackerUid: next.attackerUid };
         return;
@@ -1218,11 +1451,13 @@ function runContinuation(game: EngineGame, players: readonly EnginePlayer[], ctx
       if (attackBp >= defendBp) {
         const impact = hasKeyword(ctx, defender, "冲击无效") ? 0 : impactOf(ctx, attacker);
         logEvent(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 胜过「${nameOf(ctx, defender.cardId)}」(${defendBp})，后者退场`, attacker.uid, "battle-win");
+        game.lastBattleWon = { attackerUid: next.attackerUid, foeBp: defendBp };
         game.after.push({ kind: "afterBattle", attackerOwnerId: next.attackerOwnerId, attackerUid: next.attackerUid, defenderOwnerId: next.defenderOwnerId, won: true, impact });
         sidelineCard(game, ctx, defenderOwner, defender.uid, { kind: "battle", byPlayerId: next.attackerOwnerId });
       } else {
         logEvent(game, `战斗：「${nameOf(ctx, attacker.cardId)}」(${attackBp}) 不敌「${nameOf(ctx, defender.cardId)}」(${defendBp})，攻击角色不退场`, attacker.uid, "battle-lose");
         if (next.blocked) emitSelf(game, ctx, "onWinBlock", defenderOwner, defender);
+        emitSelf(game, ctx, "onLoseAttackBattle", attackerOwner, attacker);
       }
       return;
     }
@@ -1281,6 +1516,10 @@ function runContinuation(game: EngineGame, players: readonly EnginePlayer[], ctx
     case "beginEndPhase":
       beginEndPhase(game, players, ctx);
       return;
+    case "attackPhaseStart":
+      // 当攻击阶段开始时: after the main phase's 【主要阶段结束时】 abilities have resolved.
+      emitAll(game, ctx, "onAttackStart", find(players, game.turnPlayerId!));
+      return;
   }
 }
 
@@ -1288,21 +1527,33 @@ function runContinuation(game: EngineGame, players: readonly EnginePlayer[], ctx
 function triggerTargets(ctx: EngineContext, owner: FieldLines, attacker: FieldLines, trigger: { label: string; text: string }): UnionArenaFieldCard[] | null {
   const isCharacter = (card: UnionArenaFieldCard): boolean => ctx.card(card.cardId)?.type === "character";
   if (trigger.label === "激活") return [...owner.front, ...owner.energy].filter(isCharacter);
-  if (trigger.label === "特殊") return attacker.front.filter(isCharacter);
+  // "noTriggerTarget": 无法被对方的触发能力选择 (the opponent's trigger abilities cannot choose it).
+  const choosable = (card: UnionArenaFieldCard): boolean => isCharacter(card) && !flagsOf(card).includes("noTriggerTarget");
+  if (trigger.label === "特殊") return attacker.front.filter(choosable);
   if (trigger.label === "色彩") {
     const limit = trigger.text.match(/BP不高于(\d+)的角色/);
-    if (limit) return attacker.front.filter((card) => isCharacter(card) && bpOf(ctx, card) <= Number(limit[1]));
-    if (trigger.text.includes("转为休息状态")) return attacker.front.filter(isCharacter);
+    if (limit) return attacker.front.filter((card) => choosable(card) && bpOf(ctx, card) <= Number(limit[1]));
+    if (trigger.text.includes("转为休息状态")) return attacker.front.filter(choosable);
   }
   return null;
 }
 
 /** Cards in the sideline a "play it from your sideline" colour trigger may choose. */
 function sidelinePlayTargets(ctx: EngineContext, owner: Pick<EnginePlayer, "sideline">, text: string): number[] {
+  return playableIndexes(ctx, owner.sideline, text);
+}
+
+/** Cards in the hand a "play it from your hand" colour trigger may choose (the AOT cards print it from the hand). */
+function handPlayTargets(ctx: EngineContext, hand: readonly string[], text: string): number[] {
+  return text.includes("手牌") ? playableIndexes(ctx, hand, text) : [];
+}
+
+/** The positions of `cards` that fit the trigger's "required energy N or less, AP cost M, colour C character" rule. */
+function playableIndexes(ctx: EngineContext, cards: readonly string[], text: string): number[] {
   const rule = text.match(/所需能量不高于(\d+)且消费AP(\d+)的(.)色角色/);
   if (!rule) return [];
   const colors: Readonly<Record<string, string>> = { 黄: "yellow", 红: "red", 蓝: "blue", 紫: "purple", 绿: "green" };
-  return owner.sideline.flatMap((cardId, index) => {
+  return cards.flatMap((cardId, index) => {
     const stats = ctx.card(cardId);
     return stats && stats.type === "character" && !energyLineOnly(ctx, cardId) && stats.energyCost <= Number(rule[1]) && stats.apCost === Number(rule[2]) && stats.color === colors[rule[3]!] ? [index] : [];
   });
@@ -1312,13 +1563,14 @@ function sidelinePlayTargets(ctx: EngineContext, owner: Pick<EnginePlayer, "side
  * Resolves one revealed life card. If it has a trigger and its owner activates it, the printed trigger runs; then the card goes to the
  * sideline (unless the trigger put it into the hand or onto the field).
  */
-function resolveTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, attacker: EnginePlayer, slot: LifeSlot, action: Extract<UnionArenaAction, { type: "trigger" }>): void {
+function resolveTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, attacker: EnginePlayer, slot: LifeSlot, action: Extract<UnionArenaAction, { type: "trigger" }>, override?: { label: string; text: string }): void {
   const stats = ctx.card(slot.cardId);
-  const trigger = stats?.trigger ?? null;
+  const trigger = override ?? stats?.trigger ?? null;
   const name = nameOf(ctx, slot.cardId);
   if (!trigger || !action.activate) {
     owner.sideline.push(slot.cardId);
     log(game, trigger ? `${owner.username} 未发动「${name}」的触发` : `「${name}」没有触发`);
+    queueLifeToSideline(game, ctx, owner, slot.cardId);
     return;
   }
   const targets = triggerTargets(ctx, owner, attacker, trigger);
@@ -1357,13 +1609,28 @@ function resolveTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx:
       } else log(game, `${prefix}：场上没有可选择的角色`);
       break;
     case "特殊":
-      if (target) {
+      if (target && flagsOf(target).includes("specialTriggerToHand")) {
+        // The target's mark (AOT Hardened Punch): sidelining it with a 【特殊】 trigger is replaced by adding the trigger card to its owner's hand.
+        destination = "hand";
+        log(game, `${prefix}：「${nameOf(ctx, target.cardId)}」没有退场，此卡改为加入手牌`);
+      } else if (target) {
         sidelineCard(game, ctx, attacker, target.uid, { kind: "effect", byPlayerId: owner.accountId });
         log(game, `${prefix}：「${nameOf(ctx, target.cardId)}」退场`);
       } else log(game, `${prefix}：对方前线没有角色`);
       break;
     case "色彩":
-      if (trigger.text.includes("场外") && trigger.text.includes("登场")) {
+      if (trigger.text.includes("手牌") && trigger.text.includes("登场")) {
+        const choices = handPlayTargets(ctx, owner.hand, trigger.text);
+        if (choices.length) {
+          const index = action.handIndex;
+          if (index === undefined || !choices.includes(index)) fail("TRIGGER_TARGET_REQUIRED");
+          const cardId = owner.hand.splice(index, 1)[0]!;
+          const card = newFieldCard(game, owner, cardId, false);
+          placeOnLine(game, ctx, owner, "front", card, action.remove);
+          log(game, `${prefix}：从手牌将「${nameOf(ctx, cardId)}」以活跃状态登场到前线`);
+          emitSelf(game, ctx, "onPlay", owner, card);
+        } else log(game, `${prefix}：手牌里没有符合条件的角色`);
+      } else if (trigger.text.includes("场外") && trigger.text.includes("登场")) {
         const choices = sidelinePlayTargets(ctx, owner, trigger.text);
         if (choices.length) {
           const index = action.sidelineIndex;
@@ -1379,6 +1646,8 @@ function resolveTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx:
       } else if (trigger.text.includes("退场")) {
         sidelineCard(game, ctx, attacker, target.uid, { kind: "effect", byPlayerId: owner.accountId });
         log(game, `${prefix}：「${nameOf(ctx, target.cardId)}」退场`);
+      } else if (trigger.text.includes("放回手牌") && holdReturnForReplacement(game, players, ctx, attacker, target, { kind: "effect", byPlayerId: owner.accountId })) {
+        log(game, `${prefix}：「${nameOf(ctx, target.cardId)}」将要放回手牌`);
       } else if (trigger.text.includes("放回手牌")) {
         leaveField(attacker, target.uid, "hand");
         queueAbilities(game, ctx, "onReturnToHand", attacker, null, target.cardId);
@@ -1401,8 +1670,84 @@ function resolveTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx:
     default:
       log(game, `${prefix}：${trigger.text}（请按卡面结算）`);
   }
-  if (destination === "sideline") owner.sideline.push(slot.cardId);
+  if (destination === "sideline") { owner.sideline.push(slot.cardId); queueLifeToSideline(game, ctx, owner, slot.cardId); }
   else if (destination === "hand") owner.hand.push(slot.cardId);
+}
+
+/** 当卡牌从我方的生命区中置于场外时 (EVA 式波 087): every card on the life owner's field hears "onOwnLifeToSideline"; the cause names the life card. */
+function queueLifeToSideline(game: EngineGame, ctx: EngineContext, owner: EnginePlayer, cardId: string): void {
+  for (const heard of [...owner.front, ...owner.energy]) queueAbilities(game, ctx, "onOwnLifeToSideline", owner, heard, heard.cardId, { kind: "effect", byPlayerId: owner.accountId, sourceCardId: cardId });
+}
+
+/** A revealed life card's trigger is done: the rest of the revealed cards (if any) are next; abilities it set off resolve before them. */
+function completeTrigger(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, attacker: EnginePlayer, pending: Extract<EnginePending, { kind: "triggers" }>, slot: LifeSlot, action: Extract<UnionArenaAction, { type: "trigger" }>, override?: { label: string; text: string }, handled = false): void {
+  if (!handled) resolveTrigger(game, players, ctx, owner, attacker, slot, action, override);
+  pending.revealed = pending.revealed.filter((entry) => entry.id !== slot.id);
+  if (pending.revealed.length) {
+    game.pending = pending;
+    // Abilities a trigger set off (e.g. 【登场时】 after a trigger Raid) resolve before the next revealed card.
+    if (game.queue.length || game.replacing?.length) { game.pending = null; game.after.push({ kind: "resumeTriggers", pending: { ...pending, revealed: [...pending.revealed] } }); }
+    return;
+  }
+  game.pending = null;
+  if (!owner.life.length) gameOver(game, attacker, `${owner.username} 的生命区没有卡牌了`);
+}
+
+/** The trigger-replacing abilities ("<source uid>#<ability index>") on the owner's field that can replace this revealed card's trigger now. */
+function triggerSwapOffers(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, owner: EnginePlayer, slot: LifeSlot): string[] {
+  const label = ctx.card(slot.cardId)?.trigger?.label;
+  if (!label) return [];
+  const offers: string[] = [];
+  for (const source of [...owner.front, ...owner.energy]) {
+    abilitiesOf(ctx, source.cardId).forEach((ability, index) => {
+      if (ability.kind !== "replaceTrigger") return;
+      if (ability.condition(abilityEnv(game, players, ctx, owner.accountId, source.uid, source.cardId), { label, cardId: slot.cardId })) offers.push(`${source.uid}#${index}`);
+    });
+  }
+  return offers;
+}
+
+/** Asks the owner about the next trigger-replacing offer; with none left the trigger resolves as printed. */
+function askTriggerSwap(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext): void {
+  const swap = game.triggerSwap!;
+  const owner = find(players, swap.ownerId);
+  const slot = swap.revealed.find((entry) => entry.id === swap.lifeId)!;
+  const offer = triggerSwapOffers(game, players, ctx, owner, slot).find((key) => !swap.declined.includes(key));
+  if (!offer) {
+    game.triggerSwap = undefined;
+    completeTrigger(game, players, ctx, owner, find(players, swap.attackerId), { kind: "triggers", playerId: swap.ownerId, attackerId: swap.attackerId, revealed: swap.revealed }, slot, swap.action);
+    return;
+  }
+  const source = locate(owner, offer.split("#")[0]!)!.card;
+  const ability = abilitiesOf(ctx, source.cardId)[Number(offer.split("#")[1])] as ReplaceTriggerAbility;
+  swap.asking = offer;
+  game.pending = { kind: "choose", playerId: owner.accountId, purpose: "confirm", prompt: `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, slot.cardId)}」的触发【${ctx.card(slot.cardId)?.trigger?.label}】。${ability.prompt}`, options: ["yes", "no"], cards: [null, null], min: 1, max: 1, sourceCardId: source.cardId };
+}
+
+/** The owner's answer about a trigger-replacing offer: "yes" replaces the trigger, "no" moves on to the next offer. */
+function answerTriggerSwap(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, yes: boolean): void {
+  const swap = game.triggerSwap!;
+  const offer = swap.asking!;
+  swap.asking = null;
+  if (!yes) { swap.declined.push(offer); askTriggerSwap(game, players, ctx); return; }
+  const owner = find(players, swap.ownerId);
+  const attacker = find(players, swap.attackerId);
+  const slot = swap.revealed.find((entry) => entry.id === swap.lifeId)!;
+  const source = locate(owner, offer.split("#")[0]!)!.card;
+  const index = Number(offer.split("#")[1]);
+  const ability = abilitiesOf(ctx, source.cardId)[index] as ReplaceTriggerAbility;
+  game.triggerSwap = undefined;
+  const pending: Extract<EnginePending, { kind: "triggers" }> = { kind: "triggers", playerId: swap.ownerId, attackerId: swap.attackerId, revealed: swap.revealed };
+  log(game, `「${nameOf(ctx, source.cardId)}」：「${nameOf(ctx, slot.cardId)}」的触发改为由「${nameOf(ctx, source.cardId)}」的效果处理`);
+  if (ability.steps?.length) {
+    // The revealed card is looked at (key "l:0") by the steps, which put it where the effect says.
+    game.looking = { ownerId: owner.accountId, cards: [slot.cardId] };
+    game.seq += 1;
+    game.queue.push({ id: game.seq, ownerId: owner.accountId, cardId: source.cardId, ability: index, selfUid: source.uid });
+    completeTrigger(game, players, ctx, owner, attacker, pending, slot, swap.action, undefined, true);
+    return;
+  }
+  completeTrigger(game, players, ctx, owner, attacker, pending, slot, swap.action, ability.as === "获得" ? { label: "获得", text: "此卡牌加入手牌。" } : undefined);
 }
 
 function applyManual(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, actor: EnginePlayer, manual: UnionArenaManualOp): void {
@@ -1512,6 +1857,8 @@ function activateAbility(game: EngineGame, players: readonly EnginePlayer[], ctx
     else if (cost.pay === "sidelineSelf") { sidelineCard(game, ctx, actor, uid, { kind: "effect", byPlayerId: actor.accountId, cost: true }); entry.selfUid = null; }
   }
   game.resolving = { entry, pc: 0, vars: {} };
+  // 当我方场上的某张卡牌的【启动主要】效果发动时: the cards on the activator's field hear it (after the activated ability itself resolves), `cause.sourceCardId` is the activated card.
+  for (const heard of [...actor.front, ...actor.energy]) queueAbilities(game, ctx, "onOwnActivateMain", actor, heard, heard.cardId, { kind: "effect", byPlayerId: actor.accountId, sourceCardId: card.cardId });
 }
 
 /** Applies one action by `actorId`, then resolves the card abilities it set off. Throws an error code when the action is not allowed now. */
@@ -1546,6 +1893,9 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
         if (pending.kind !== "block") fail("NOT_NOW");
         game.pending = null;
         if (action.blockerUid === null) {
+          // 对方必须尽可能的阻挡此角色的攻击 ("mustBeBlocked"): not blocking is refused while a character could block.
+          const mustBlock = locate(opponent, pending.attackerUid)?.card;
+          if (mustBlock && mustBeBlocked(ctx, mustBlock, actor)) { game.pending = pending; fail("MUST_BLOCK"); }
           log(game, `${actor.username} 不阻挡`);
           game.after.push({ kind: "unblocked", attackerOwnerId: opponent.accountId, attackerUid: pending.attackerUid });
           return;
@@ -1570,22 +1920,31 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
         defender.life = defender.life.filter((slot) => !ids.includes(slot.id));
         for (const slot of chosen) slot.faceUp = true;
         log(game, `${defender.username} 受到 ${chosen.length} 点伤害，翻开生命卡：${chosen.map((slot) => `「${nameOf(ctx, slot.cardId)}」`).join("")}`);
-        game.pending = { kind: "triggers", playerId: defender.accountId, attackerId: actorId, revealed: chosen };
+        // 对方无法发动《激活》触发 ("noActiveTrigger" on the character that dealt the damage).
+        const dealer = locate(actor, pending.attackerUid)?.card;
+        game.pending = { kind: "triggers", playerId: defender.accountId, attackerId: actorId, revealed: chosen, ...(dealer && flagsOf(dealer).includes("noActiveTrigger") ? { activeBlocked: true } : {}) };
         return;
       }
       case "trigger": {
         if (pending.kind !== "triggers") fail("NOT_NOW");
+        let triggerAction = action;
         const slot = pending.revealed.find((entry) => entry.id === action.lifeId) ?? fail("INVALID_LIFE_CHOICE");
         const attacker = find(players, pending.attackerId);
-        resolveTrigger(game, players, ctx, actor, attacker, slot, action);
-        pending.revealed = pending.revealed.filter((entry) => entry.id !== slot.id);
-        if (pending.revealed.length) {
-          // Abilities a trigger set off (e.g. 【登场时】 after a trigger Raid) resolve before the next revealed card.
-          if (game.queue.length || game.replacing?.length) { game.pending = null; game.after.push({ kind: "resumeTriggers", pending: { ...pending, revealed: [...pending.revealed] } }); }
+        if (triggerAction.activate && pending.activeBlocked && ctx.card(slot.cardId)?.trigger?.label === "激活") {
+          log(game, `「${nameOf(ctx, slot.cardId)}」的《激活》触发无法发动（对方角色的效果）`);
+          triggerAction = { ...triggerAction, activate: false, targetUid: undefined };
+        }
+        // 我方将要发动……的场合，可以改为……: the owner is asked first when a card on their field offers to replace this trigger.
+        if (triggerAction.activate && triggerSwapOffers(game, players, ctx, actor, slot).length) {
+          const label = ctx.card(slot.cardId)?.trigger;
+          const targets = label ? triggerTargets(ctx, actor, attacker, label) : null;
+          if (targets && triggerAction.targetUid && !targets.some((card) => card.uid === triggerAction.targetUid)) fail("TRIGGER_TARGET_INVALID");
+          if (targets && !triggerAction.targetUid && targets.length) fail("TRIGGER_TARGET_REQUIRED");
+          game.triggerSwap = { ownerId: actor.accountId, attackerId: pending.attackerId, lifeId: slot.id, action: triggerAction, revealed: [...pending.revealed], declined: [], asking: null };
+          askTriggerSwap(game, players, ctx);
           return;
         }
-        game.pending = null;
-        if (!actor.life.length) gameOver(game, attacker, `${actor.username} 的生命区没有卡牌了`);
+        completeTrigger(game, players, ctx, actor, attacker, pending, slot, triggerAction);
         return;
       }
       case "discard": {
@@ -1614,8 +1973,10 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       if (game.phase === "main") emitAll(game, ctx, "onMainEnd", actor);
       const next: Partial<Record<UnionArenaTurnPhase, UnionArenaTurnPhase>> = { start: "movement", main: "attack" };
       const phase = next[game.phase] ?? fail("NOT_NOW");
+      const fromMain = game.phase === "main";
       game.phase = phase;
       log(game, `${actor.username} 进入${PHASE_NAME[phase]}`);
+      if (fromMain) game.after.push({ kind: "attackPhaseStart" });
       return;
     }
     case "extra_draw":
@@ -1638,7 +1999,9 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       if (stats.type === "event") fail("USE_EVENT_INSTEAD");
       if (action.line !== "front" && action.line !== "energy") fail("INVALID_LINE");
       if (stats.type === "site" && action.line !== "energy") fail("SITE_ENERGY_LINE_ONLY");
-      if (action.line === "front" && energyLineOnly(ctx, cardId)) fail("ENERGY_LINE_ONLY");
+      if (action.line === "front" && energyLineOnly(ctx, cardId, actor)) fail("ENERGY_LINE_ONLY");
+      if (playOnlyByAbility(ctx, cardId)) fail("PLAY_ONLY_BY_ABILITY");
+      if (!playConditionHolds(game, players, ctx, actorId, cardId)) fail("PLAY_CONDITION");
       if (actor[action.line].length >= LINE_LIMIT && !actor[action.line].some((card) => card.uid === action.remove)) fail("LINE_FULL");
       const ap = costOf(game, players, ctx, actorId, cardId).ap;
       requireCost(game, players, ctx, actor, cardId, true);
@@ -1648,6 +2011,10 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       if (nextPlay) nextPlay.spent = true;
       const lowBp = nextPlayLowBpFor(game, ctx, actorId, cardId);
       if (lowBp) lowBp.spent = true;
+      const cheap = nextPlayCheapFor(game, ctx, actorId, cardId);
+      if (cheap) cheap.spent = true;
+      spendNextUseExcept(game, ctx, actorId, cardId);
+      (game.turnMarks ??= []).push(`${game.turn}:${actorId}:cardUsed:${cardId}`);
       const card = newFieldCard(game, actor, cardId, !nextPlay?.active);
       placeOnLine(game, ctx, actor, action.line, card, action.remove);
       logEvent(game, `${actor.username} 支付 ${ap} AP，将「${stats.name}」以${card.rested ? "休息" : "活跃"}状态登场到${LINE_NAME[action.line]}`, card.uid, "play");
@@ -1662,9 +2029,11 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       const target = locate(actor, action.targetUid)?.card;
       if (!target || !raidTargetMatches(ctx, stats, target)) fail("RAID_TARGET_INVALID");
       if (action.toFront && locate(actor, action.targetUid)!.line === "energy" && actor.front.length >= LINE_LIMIT && !actor.front.some((card) => card.uid === action.remove)) fail("LINE_FULL");
-      const ap = costOf(game, players, ctx, actorId, cardId).ap;
-      requireCost(game, players, ctx, actor, cardId, true);
+      const ap = costOf(game, players, ctx, actorId, cardId, true).ap;
+      requireCost(game, players, ctx, actor, cardId, true, true);
       takeFromHand(actor, action.handIndex);
+      spendNextUseExcept(game, ctx, actorId, cardId);
+      (game.turnMarks ??= []).push(`${game.turn}:${actorId}:cardUsed:${cardId}`);
       log(game, `${actor.username} 支付 ${ap} AP`);
       performRaid(game, ctx, actor, cardId, action.targetUid, action.toFront === true, action.remove);
       return;
@@ -1678,6 +2047,9 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       const ap = costOf(game, players, ctx, actorId, cardId).ap;
       requireCost(game, players, ctx, actor, cardId, true);
       takeFromHand(actor, action.handIndex);
+      // "If you have used an event card this turn": remembered as a turn mark (see `usedEventThisTurn` in abilities/dsl.ts).
+      game.turnMarks = [...(game.turnMarks ?? []), `${game.turn}:${actorId}:eventUsed`, `${game.turn}:${actorId}:cardUsed:${cardId}`];
+      spendNextUseExcept(game, ctx, actorId, cardId);
       const index = abilitiesOf(ctx, cardId).findIndex((ability) => ability.kind === "triggered" && ability.when.includes("onUse"));
       if (index < 0) {
         actor.sideline.push(cardId);
@@ -1698,12 +2070,15 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       return;
     case "attack": {
       if (game.phase !== "attack") fail("NOT_NOW");
-      const attacker = actor.front.find((card) => card.uid === action.attackerUid) ?? fail("INVALID_ATTACKER");
+      // 此角色可以从能量线攻击 ("attackFromEnergyLine" mark, AOT Pieck Finger 056): an energy-line character with the mark may attack too.
+      const attacker = actor.front.find((card) => card.uid === action.attackerUid) ?? actor.energy.find((card) => card.uid === action.attackerUid && flagsOf(card).includes("attackFromEnergyLine")) ?? fail("INVALID_ATTACKER");
       if (attacker.rested || ctx.card(attacker.cardId)?.type !== "character" || flagsOf(attacker).includes("cannotAttack")) fail("INVALID_ATTACKER");
       let sniped: UnionArenaFieldCard | null = null;
       if (action.targetUid) {
         if (!hasKeyword(ctx, attacker, "瞄准攻击")) fail("SNIPE_REQUIRED");
         sniped = opponent.front.find((card) => card.uid === action.targetUid) ?? fail("INVALID_TARGET");
+        // 不会被【瞄准攻击】指定 ("unsnipeable")
+        if (flagsOf(sniped).includes("unsnipeable")) fail("INVALID_TARGET");
       }
       attacker.rested = true;
       attacker.attacks += 1;
@@ -1713,6 +2088,8 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
       game.after.push({ kind: "attackEnd", attackerOwnerId: actorId, attackerUid: attacker.uid });
       game.after.push({ kind: "afterAttackDeclared", attackerOwnerId: actorId, attackerUid: attacker.uid, targetUid: sniped?.uid ?? null });
       emitSelf(game, ctx, "onAttack", actor, attacker);
+      // 当我方的某张角色攻击时: the other cards on the attacker's field hear it, with the attacker's card in `cause.attackerCardId`.
+      for (const card of [...actor.front, ...actor.energy]) queueAbilities(game, ctx, "onOwnAttack", actor, card, card.cardId, { kind: "effect", byPlayerId: actorId, attackerCardId: attacker.cardId });
       return;
     }
     case "end_turn":
@@ -1723,6 +2100,7 @@ function applyActionCore(game: EngineGame, players: readonly EnginePlayer[], ctx
         emitAll(game, ctx, "onMainEnd", actor);
         game.phase = "attack";
         game.after.push({ kind: "endTurnNow" });
+        game.after.push({ kind: "attackPhaseStart" });
         return;
       }
       endTurn(game, players, ctx);
@@ -1748,6 +2126,7 @@ function answer(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineC
   if (picks.length < choice.min || picks.length > choice.max) fail("INVALID_CHOICE");
   game.pending = null;
   if (game.replacing?.[0]?.asking) { answerReplacement(game, players, ctx, picks[0] === "yes"); return; }
+  if (game.triggerSwap?.asking) { answerTriggerSwap(game, players, ctx, picks[0] === "yes"); return; }
   if (choice.purpose === "order") {
     const id = Number(picks[0]!.slice(2));
     const entry = game.queue.find((queued) => queued.id === id) ?? fail("INVALID_CHOICE");
@@ -1764,6 +2143,7 @@ function answer(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineC
       const env = entryEnv(game, players, ctx, resolving.entry, resolving.vars);
       if (!step.check(env, picks.map((pick) => zoneCard(env, pick) ?? locateAny(players, pick)?.card.cardId ?? ""))) { game.pending = choice; fail("INVALID_CHOICE"); }
     }
+    if (step.do === "choose" && step.from === "field" && !step.chooser && !payTargetTax(game, players, ctx, resolving.entry, picks)) { game.pending = choice; fail("INVALID_CHOICE"); }
     resolving.vars[step.as] = picks;
     resolving.pc += 1;
   } else fail("INVALID_CHOICE");
@@ -1791,13 +2171,14 @@ export function pendingView(game: EngineGame, viewerId?: string): UnionArenaPend
 }
 
 /** What a trigger needs from its owner: a field character, a sideline card, or nothing. Used by the clients to ask the right question. */
-export function triggerNeeds(ctx: EngineContext, owner: FieldLines & Pick<EnginePlayer, "sideline">, attacker: FieldLines, cardId: string): { targets: string[]; sideline: number[]; raidTargets: string[] } {
+export function triggerNeeds(ctx: EngineContext, owner: FieldLines & Pick<EnginePlayer, "sideline">, attacker: FieldLines, cardId: string, hand: readonly string[] = []): { targets: string[]; sideline: number[]; hand: number[]; raidTargets: string[] } {
   const stats = ctx.card(cardId);
   const trigger = stats?.trigger;
-  if (!stats || !trigger) return { targets: [], sideline: [], raidTargets: [] };
+  if (!stats || !trigger) return { targets: [], sideline: [], hand: [], raidTargets: [] };
   return {
     targets: (triggerTargets(ctx, owner, attacker, trigger) ?? []).map((card) => card.uid),
-    sideline: trigger.label === "色彩" ? sidelinePlayTargets(ctx, owner, trigger.text) : [],
+    sideline: trigger.label === "色彩" && !trigger.text.includes("手牌") ? sidelinePlayTargets(ctx, owner, trigger.text) : [],
+    hand: trigger.label === "色彩" ? handPlayTargets(ctx, hand, trigger.text) : [],
     raidTargets: trigger.label === "突进" && energyOf(ctx, owner, stats.color) >= stats.energyCost ? [...owner.front, ...owner.energy].filter((card) => raidTargetMatches(ctx, stats, card)).map((card) => card.uid) : []
   };
 }
@@ -1854,4 +2235,24 @@ export function sidelineByEffect(game: EngineGame, ctx: EngineContext, owner: En
 /** 进行突进 by an effect: the card (already taken out of its zone) goes on top of the target, as a Raid from the hand does. */
 export function raidByEffect(game: EngineGame, ctx: EngineContext, player: EnginePlayer, cardId: string, targetUid: string, toFront: boolean, removeUid: string | undefined): void {
   performRaid(game, ctx, player, cardId, targetUid, toFront, removeUid);
+}
+
+/** The turn mark ("<turn>:<owner>:characterSidelined") left when one of `ownerId`'s characters is sidelined this turn. */
+export const characterSidelinedMark = (game: EngineGame, ownerId: string): string => `${game.turn}:${ownerId}:characterSidelined`;
+/** 本回合中 `ownerId` 的角色退场过 (battle, BP 0 or less, an effect, a cost or a manual operation; a character leaving any other way does not count). */
+export const characterSidelinedThisTurn = (game: EngineGame, ownerId: string): boolean => (game.turnMarks ?? []).includes(characterSidelinedMark(game, ownerId));
+/** How many characters of `ownerId` were sidelined this turn (the same moments as `characterSidelinedThisTurn`, once per character). */
+export const characterSidelinedCountThisTurn = (game: EngineGame, ownerId: string): number => (game.turnMarks ?? []).filter((mark) => mark === `${game.turn}:${ownerId}:characterSidelinedN`).length;
+
+/** The turn mark left when any character is sidelined this turn by BP 0 or less or by an effect (not a cost). */
+export const bpOrEffectSidelinedMark = (game: EngineGame): string => `${game.turn}:bpOrEffectSidelined`;
+/** 本回合中有角色因BP变为0或因效果退场 (either player's; JJK 漏瑚). */
+export const characterSidelinedByBpOrEffectThisTurn = (game: EngineGame): boolean => (game.turnMarks ?? []).includes(bpOrEffectSidelinedMark(game));
+/** The turn mark left when cards of `ownerId`'s hand or deck are put into their sideline by their own effect. */
+export const handDeckSidelinedMark = (game: EngineGame, ownerId: string): string => `${game.turn}:${ownerId}:handDeckSidelined`;
+/** 本回合中有我方的手牌或卡组中的卡牌通过我方的效果置于过场外 (a discard or mill by an effect's steps; JJK 伏黑 惠 023). */
+export const handDeckSidelinedThisTurn = (game: EngineGame, ownerId: string): boolean => (game.turnMarks ?? []).includes(handDeckSidelinedMark(game, ownerId));
+function markHandDeckSidelined(game: EngineGame, ownerId: string): void {
+  const mark = handDeckSidelinedMark(game, ownerId);
+  if (!(game.turnMarks ??= []).includes(mark)) game.turnMarks.push(mark);
 }

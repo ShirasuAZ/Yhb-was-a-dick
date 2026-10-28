@@ -34,7 +34,7 @@ function randomWeights(seed: number): PolicyWeightsJson {
 describe("Arknights policy network with card vectors (version 2)", () => {
   it("appends each card's vector to the observation and the action inputs", () => {
     const policy = loadPolicy(randomWeights(1));
-    const plain = { layers: policy.layers };
+    const plain = { layers: policy.layers, observationSize: policy.observationSize, actionFeatures: policy.actionFeatures };
     const table = policy.embedding!.w;
     const withVectors = (values: Float32Array, ids: Int32Array): Float32Array => {
       const out = new Float32Array(values.length + ids.length * DIM);

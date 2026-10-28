@@ -14,10 +14,35 @@ import {
   sideline, sidelineSelf, sidelinedByBpOrOpponent, staticAura, staticSelf, toHand, when, withAffinity, withCondition, withKeyword, youHaveKeywordCharacter,
   youHaveNamed
 } from "./dsl.ts";
+import { CARD_ALIASES } from "./cards-aliases.ts";
 import { BLUE_A_ABILITIES } from "./cards-blue-a.ts";
 import { BLUE_B_ABILITIES } from "./cards-blue-b.ts";
 import { PURPLE_ABILITIES } from "./cards-purple.ts";
 import { YELLOW_ABILITIES } from "./cards-yellow.ts";
+import { AOT_1_ABILITIES } from "./cards-aot-1.ts";
+import { AOT_2_ABILITIES } from "./cards-aot-2.ts";
+import { AOT_3_ABILITIES } from "./cards-aot-3.ts";
+import { AOT_4_ABILITIES } from "./cards-aot-4.ts";
+import { AOT_5_ABILITIES } from "./cards-aot-5.ts";
+import { AOT_6_ABILITIES } from "./cards-aot-6.ts";
+import { AOT_7_ABILITIES } from "./cards-aot-7.ts";
+import { AOT_8_ABILITIES } from "./cards-aot-8.ts";
+import { JJK_1_ABILITIES } from "./cards-jjk-1.ts";
+import { JJK_2_ABILITIES } from "./cards-jjk-2.ts";
+import { JJK_3_ABILITIES } from "./cards-jjk-3.ts";
+import { JJK_4_ABILITIES } from "./cards-jjk-4.ts";
+import { JJK_5_ABILITIES } from "./cards-jjk-5.ts";
+import { JJK_6_ABILITIES } from "./cards-jjk-6.ts";
+import { KMY_1_ABILITIES } from "./cards-kmy-1.ts";
+import { KMY_2_ABILITIES } from "./cards-kmy-2.ts";
+import { KMY_3_ABILITIES } from "./cards-kmy-3.ts";
+import { KMY_4_ABILITIES } from "./cards-kmy-4.ts";
+import { KMY_5_ABILITIES } from "./cards-kmy-5.ts";
+import { KMY_6_ABILITIES } from "./cards-kmy-6.ts";
+import { EVA_1_ABILITIES } from "./cards-eva-1.ts";
+import { EVA_2_ABILITIES } from "./cards-eva-2.ts";
+import { EVA_3_ABILITIES } from "./cards-eva-3.ts";
+import { EVA_4_ABILITIES } from "./cards-eva-4.ts";
 
 // ---- Helpers for the red cards ----
 const fieldCharacters = (env: AbilityEnv, owner = env.owner): UnionArenaFieldCard[] => [...owner.front, ...owner.energy].filter((card) => env.ctx.card(card.cardId)?.type === "character");
@@ -48,7 +73,8 @@ const markUsed = (index: number) => (env: AbilityEnv): void => { if (env.self) e
 const notUsed = (index: number): Condition => (env) => !!env.self && !(env.self.used ?? []).includes(index);
 const red2500AP1 = and(isCharacterCard, printedBp(2500), apCostIs(1), ofColor("red"));
 
-export const CARD_ABILITIES: Readonly<Record<string, readonly Ability[]>> = {
+/** The abilities written out card by card (each card number with its own entry). */
+export const OWN_ABILITIES: Readonly<Record<string, readonly Ability[]>> = {
   // 米莎：【退场时】抽取1张卡牌，将我方的1张手牌置于场外。
   "UC01BT/ARK-1-001": [onSidelined(draw(1), discard(1))],
 
@@ -256,5 +282,37 @@ export const CARD_ABILITIES: Readonly<Record<string, readonly Ability[]>> = {
   ...YELLOW_ABILITIES,
   ...BLUE_A_ABILITIES,
   ...BLUE_B_ABILITIES,
-  ...PURPLE_ABILITIES
+  ...PURPLE_ABILITIES,
+  // The other titles' cards, in batches.
+  ...AOT_1_ABILITIES,
+  ...AOT_2_ABILITIES,
+  ...AOT_3_ABILITIES,
+  ...AOT_4_ABILITIES,
+  ...AOT_5_ABILITIES,
+  ...AOT_6_ABILITIES,
+  ...AOT_7_ABILITIES,
+  ...AOT_8_ABILITIES,
+  ...JJK_1_ABILITIES,
+  ...JJK_2_ABILITIES,
+  ...JJK_3_ABILITIES,
+  ...JJK_4_ABILITIES,
+  ...JJK_5_ABILITIES,
+  ...JJK_6_ABILITIES,
+  ...KMY_1_ABILITIES,
+  ...KMY_2_ABILITIES,
+  ...KMY_3_ABILITIES,
+  ...KMY_4_ABILITIES,
+  ...KMY_5_ABILITIES,
+  ...KMY_6_ABILITIES,
+  ...EVA_1_ABILITIES,
+  ...EVA_2_ABILITIES,
+  ...EVA_3_ABILITIES,
+  ...EVA_4_ABILITIES
 };
+
+/** Own entries, plus the entry of the original for every reprint (see cards-aliases.ts). */
+export const CARD_ABILITIES: Readonly<Record<string, readonly Ability[]>> = (() => {
+  const all: Record<string, readonly Ability[]> = { ...OWN_ABILITIES };
+  for (const [alias, original] of Object.entries(CARD_ALIASES)) if (!all[alias] && OWN_ABILITIES[original]) all[alias] = OWN_ABILITIES[original]!;
+  return all;
+})();

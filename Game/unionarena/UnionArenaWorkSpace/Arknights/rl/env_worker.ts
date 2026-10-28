@@ -25,21 +25,19 @@ import { actingPlayerId, applyAction, type EngineContext } from "../src/shared/e
 import { legalActions } from "../src/shared/ai/legal.ts";
 import { chooseHeuristic } from "../src/shared/ai/heuristic.ts";
 import { createMatch, makeRng, nextRandom, randomInt, wantsMulligan, type Match, type Rng } from "../src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../src/shared/ai/decks.ts";
 import { ACTION_CARD_SLOTS, actionCardIds, actionFeatures, ACTION_FEATURES, observe, observeCardIds, OBSERVATION_CARD_SLOTS, OBSERVATION_SIZE } from "../src/shared/ai/features.ts";
-import { randomDeck } from "./random_deck.ts";
+import { pickDeck, PRESET_NUMBER_DECKS } from "./train_decks.ts";
+import { CARD_INDEX_SIZE } from "../src/shared/ai/card-index.ts";
+import { titleContext } from "./title-catalog.ts";
 import { chooseByPolicy, loadPolicy, type Policy, type PolicyWeightsJson } from "../src/shared/ai/policy.ts";
 import { chooseBySearch } from "../src/shared/ai/search.ts";
-import { UNION_ARENA_CATALOG } from "../src/server/catalog.ts";
-import { cardContext } from "../src/shared/abilities/registry.ts";
 
 const MAX_ACTIONS = 96;
 const ACTION_LIMIT = 3000;
 const LEARNER = "L";
 const OPPONENT = "O";
 
-const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
-const ctx: EngineContext = cardContext((id) => byId.get(id));
+const ctx: EngineContext = titleContext;
 
 type OpponentKind = "easy" | "normal" | "policy" | "hard";
 interface Env { match: Match; opponent: OpponentKind; policy: Policy | null; actions: UnionArenaAction[]; steps: number; lifeMine: number; lifeTheirs: number; }
@@ -65,7 +63,7 @@ function pickOpponent(): OpponentKind {
 }
 
 function newMatch(seed: number): Match {
-  const deck = (): string[] => nextRandom(rng) < randomDecks ? randomDeck(rng) : deckCards(PRESET_DECKS[randomInt(rng, PRESET_DECKS.length)]!);
+  const deck = (): string[] => pickDeck(rng, randomDecks);
   return createMatch([{ id: LEARNER, name: "learner", deck: deck() }, { id: OPPONENT, name: "opponent", deck: deck() }], seed, { mulligan: (player) => wantsMulligan(ctx, player.hand) });
 }
 
@@ -159,8 +157,8 @@ function evaluate(games: number, path: string, opponent: string, seed: number): 
   let firstWins = 0;
   let firstGames = 0;
   for (let game = 0; game < games; game += 1) {
-    const decks = [PRESET_DECKS[game % PRESET_DECKS.length]!, PRESET_DECKS[Math.floor(game / 2) % PRESET_DECKS.length]!];
-    const match = createMatch([{ id: LEARNER, name: "learner", deck: deckCards(decks[0]!) }, { id: OPPONENT, name: "opponent", deck: deckCards(decks[1]!) }], seed * 7919 + game, { first: (game % 2) as 0 | 1, mulligan: (player) => wantsMulligan(ctx, player.hand) });
+    const decks = [PRESET_NUMBER_DECKS[game % PRESET_NUMBER_DECKS.length]!, PRESET_NUMBER_DECKS[Math.floor(game / 2) % PRESET_NUMBER_DECKS.length]!];
+    const match = createMatch([{ id: LEARNER, name: "learner", deck: decks[0]! }, { id: OPPONENT, name: "opponent", deck: decks[1]! }], seed * 7919 + game, { first: (game % 2) as 0 | 1, mulligan: (player) => wantsMulligan(ctx, player.hand) });
     let steps = 0;
     while (match.game.step === "turn" && steps < ACTION_LIMIT) {
       const actor = actingPlayerId(match.game)!;
@@ -215,7 +213,7 @@ lines.on("line", (line) => {
         reply = evaluate(message.games ?? 200, message.path!, message.opponent ?? "normal", message.seed ?? 7);
         break;
       case "sizes":
-        reply = JSON.stringify({ ok: true, observation: OBSERVATION_SIZE, action: ACTION_FEATURES, observationCards: OBSERVATION_CARD_SLOTS, actionCards: ACTION_CARD_SLOTS, maxActions: MAX_ACTIONS });
+        reply = JSON.stringify({ ok: true, observation: OBSERVATION_SIZE, action: ACTION_FEATURES, observationCards: OBSERVATION_CARD_SLOTS, actionCards: ACTION_CARD_SLOTS, cardRows: CARD_INDEX_SIZE, maxActions: MAX_ACTIONS });
         break;
       default:
         reply = JSON.stringify({ ok: false, error: `unknown command ${message.cmd}` });

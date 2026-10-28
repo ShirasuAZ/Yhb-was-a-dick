@@ -203,13 +203,20 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     const cardId = focusedLife.cardId!;
     const card = stats(cardId);
     if (!activate || !card?.trigger) { void run({ type: "trigger", lifeId, activate: false }); return; }
-    const needs = triggerNeeds(ctx, mine, theirs, cardId);
+    const needs = triggerNeeds(ctx, mine, theirs, cardId, hand);
     const label = card.trigger.label;
     if (label === "突进") {
       setAsk({ prompt: "【突进】触发：把这张卡加入手牌，或在满足所需能量时进行突进（不支付 AP）", keys: [], options: [
         { label: "加入手牌", run: () => void run({ type: "trigger", lifeId, activate: true }) },
         ...(needs.raidTargets.length ? [{ label: "进行突进", run: () => setAsk({ prompt: "选择突进的目标", keys: needs.raidTargets.map(cardKey.field), onPick: (key: string) => raidOnto(uidOf(key), (raid) => run({ type: "trigger", lifeId, activate: true, raid })) }) }] : [])
       ] });
+      return;
+    }
+    if (needs.hand.length) {
+      setAsk({ prompt: "选择要从手牌登场到前线的角色", keys: [], options: needs.hand.map((index) => ({
+        label: cardsById.get(hand[index]!)?.name ?? "卡牌",
+        run: () => withRoom("front", mine.front, (remove) => void run({ type: "trigger", lifeId, activate: true, handIndex: index, remove }))
+      })) });
       return;
     }
     if (needs.sideline.length) {

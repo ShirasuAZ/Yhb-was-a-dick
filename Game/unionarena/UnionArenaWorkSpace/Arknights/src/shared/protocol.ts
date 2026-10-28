@@ -209,7 +209,7 @@ export type UnionArenaAction =
   | { type: "attack"; attackerUid: string; targetUid?: string }
   | { type: "block"; blockerUid: string | null }
   | { type: "damage"; lifeIds: string[] }
-  | { type: "trigger"; lifeId: string; activate: boolean; targetUid?: string; sidelineIndex?: number; raid?: { targetUid: string; toFront?: boolean; remove?: string }; remove?: string }
+  | { type: "trigger"; lifeId: string; activate: boolean; targetUid?: string; sidelineIndex?: number; handIndex?: number; raid?: { targetUid: string; toFront?: boolean; remove?: string }; remove?: string }
   | { type: "end_turn" }
   | { type: "discard"; keep: number[] }
   /** Answers a card ability's choice (see UnionArenaChoice). */

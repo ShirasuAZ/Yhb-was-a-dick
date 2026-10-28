@@ -13,10 +13,13 @@ import numpy as np
 import torch
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from train import SITE, PolicyNet, PolicyNetV2  # noqa: E402
+from train import SITE, PolicyNet, PolicyNetV2, Worker  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OBS, ACT, OBS_CARDS, ACT_CARDS, ROWS = 978, 92, 28, 3, 195
+_worker = Worker()
+_sizes = _worker.ask({"cmd": "sizes"})
+_worker.close()
+OBS, ACT, OBS_CARDS, ACT_CARDS, ROWS = _sizes["observation"], _sizes["action"], _sizes["observationCards"], _sizes["actionCards"], _sizes["cardRows"]
 v2 = "--v2" in sys.argv
 paths = [arg for arg in sys.argv[1:] if not arg.startswith("--")]
 checkpoint = paths[0] if paths else ("" if v2 else os.path.join(HERE, "checkpoints", "latest.pt"))

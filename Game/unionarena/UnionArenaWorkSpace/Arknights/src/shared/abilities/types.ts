@@ -26,6 +26,17 @@ export type AbilityEvent =
   | "onReturnToHand" // 当此角色从场上放回手牌时 (like 【退场时】, the card has already left the field)
   | "onLeaveField" // 当此角色离开场上时: sidelined, or put into the hand / removal area / deck by an effect (the card has already left; see `cause`)
   | "onEnterSideline" // 当此卡牌置于场外时: the card has arrived in its owner's sideline from anywhere (field, hand, deck, life area)
+  | "onOwnAttack" // 当我方场上的某张角色攻击时: every card on the attacker's field hears it; `env.cause.attackerCardId` is the attacking card
+  | "onEveryAttackPhaseEnd" // 每个攻击阶段结束时: cards on both players' fields hear it (also the opponent's attack phase)
+  | "onAttackStart" // 当攻击阶段开始时 (cards on the turn player's field, and abilities given to them; after the main phase's own abilities resolved)
+  | "onLoseAttackBattle" // 当此角色在进行攻击的战斗中败北时 (the attacker's BP was lower; it is not sidelined by the battle itself)
+  | "onOpponentFrontSidelined" // 对方前线中的角色退场时: every card on the OTHER player's field hears it (any cause; the card has already left)
+  | "onOwnActivateMain" // 当我方场上的某张卡牌的【启动主要】效果发动时: every card on the activator's field hears it; `env.cause.sourceCardId` is the activated card
+  | "onEndStartInHand" // 我方的结束阶段开始时，手牌中的此卡牌 (cards in the turn player's hand; no field card, so `env.self` is null)
+  | "onChosenByKatana" // 当此角色被我方的“特征：日轮刀”的效果选择时 (KMY; queued by `markChosenByKatana` in dsl.ts, heard by the chosen card only)
+  | "onOwnMoveInAttack" // 攻击阶段中当我方场上的角色移动时 (KMY): every card on the turn player's field hears each move made in the attack phase; `env.cause.attackerCardId` is the card that moved
+  | "onOwnLifeToSideline" // 当卡牌从我方的生命区中置于场外时 (EVA 式波 087): every card on the life owner's field hears it; `env.cause.sourceCardId` is the life card (check its trigger with `heardIf`)
+  | "onBeingRaided" // 当此角色被突进时 (EVA 式波 113): heard by the card that was raided (now under the Raid card, so `env.self` is null; `env.owner` is its owner)
   | "onUse"; // an event card's text, when the event is used
 
 /**
@@ -35,10 +46,14 @@ export type AbilityEvent =
  */
 export interface SidelineCause {
   kind: "battle" | "bpZero" | "effect" | "manual"; byPlayerId: string | null; sourceCardId?: string; under?: string[];
+  /** For "onOwnAttack": the card that attacked. */
+  attackerCardId?: string;
   /** Face-down cards that were under it (now in the sideline). */
   faceDown?: string[];
   /** Sidelined to pay a cost (〔将此卡牌退场〕): replacement effects do not apply. */
   cost?: boolean;
+  /** For a 【登场时】 ability of a card put onto the field by another ability: where it was put from ("hand", "sideline" or the cards being looked at, "deck"). */
+  from?: "hand" | "sideline" | "deck";
 }
 
 /** What an ability's conditions and effects can see. `self` is the card on the field; null for an event, or a card that has left the field. */
@@ -134,6 +149,8 @@ export interface TriggeredAbility {
   /** For an event's onUse ability: the event can only be used while this holds (此卡牌只有在……的场合才能使用). */
   useCondition?: Condition;
   oncePerTurn?: boolean;
+  /** Checked when the event is heard (before the ability is queued); false means it is not queued at all. `cause` is the event's cause (e.g. `sourceCardId` of "onOwnActivateMain"). */
+  heardIf?: (ctx: EngineContext, cause: SidelineCause | null) => boolean;
   steps: Step[];
 }
 
@@ -159,6 +176,11 @@ export interface StaticAbility {
   flags?: string[];
   /** Extra energy generation (in the card's own energy colour). */
   energy?: number;
+  /**
+   * "此卡牌只有在……的场合才能登场": the card can only be played from the hand while this holds (`env.self` is null, `env.owner` the player
+   * playing it). A static ability with only this field changes nothing on the field (AOT Ymir, Our Founder).
+   */
+  playCondition?: Condition;
 }
 
 /** A change to this card's own cost while it is in the hand. */
@@ -167,6 +189,11 @@ export interface CostAbility {
   condition?: Condition;
   energy?: number | ((env: AbilityEnv) => number);
   ap?: number;
+  /**
+   * Set on an ability of a card on the field: it cuts the cost of the owner's hand cards instead of its own card's (AOT Annie 053:
+   * "[Marleyan Warrior] 进行突进时所需能量-1"). `env.self` is that field card; `raiding` is true when the cost is for a Raid from the hand.
+   */
+  fromField?: (env: AbilityEnv, handCardId: string, raiding: boolean) => boolean;
 }
 
 /**
@@ -175,6 +202,11 @@ export interface CostAbility {
  */
 export interface ReplaceSidelineAbility {
   kind: "replaceSideline";
+  /**
+   * Set: it replaces being returned to the hand (by an effect or a trigger) instead of being sidelined (AOT Mikasa 088: "……放回手牌的场合，可以改为……").
+   * `target` is the character about to be returned; `apply` may queue an ability of its card for choices (e.g. discarding a hand card).
+   */
+  replaces?: "toHand";
   /** Whether it can replace sidelining `target` now (the ability's own card is `env.self`). */
   condition: (env: AbilityEnv, target: UnionArenaFieldCard, cause: SidelineCause) => boolean;
   oncePerTurn?: boolean;
@@ -184,7 +216,25 @@ export interface ReplaceSidelineAbility {
   apply: (env: AbilityEnv, target: UnionArenaFieldCard) => void;
 }
 
-export type Ability = TriggeredAbility | ActivatedAbility | StaticAbility | CostAbility | ReplaceSidelineAbility;
+/**
+ * "我方将要发动……【抽卡】/【获得】的场合，可以改为……": when the owner activates a revealed life card's trigger, a card on their field may offer to
+ * have something else happen instead (EVA 葛城 美里 008, 真希波 018). `as` resolves the trigger as another label ("获得"); `steps` (if any)
+ * run as an ability of this card afterwards, instead of the trigger. For `steps`, the revealed card is the only card being looked at
+ * (`chooseLooked` / `put` with key "l:0" take it onto the field).
+ */
+export interface ReplaceTriggerAbility {
+  kind: "replaceTrigger";
+  /** Whether it can replace the trigger now (the ability's own card is `env.self`). `label` and `cardId` belong to the revealed life card. */
+  condition: (env: AbilityEnv, trigger: { label: string; cardId: string }) => boolean;
+  /** The question, after "「X」的触发【label】。". */
+  prompt: string;
+  /** Resolve the trigger as this label instead (the card's own text for it is used: only "获得" is supported). */
+  as?: "获得";
+  /** Run instead of the trigger: the revealed card is not added to the hand or sidelined by the trigger then. */
+  steps?: Step[];
+}
+
+export type Ability = TriggeredAbility | ActivatedAbility | StaticAbility | CostAbility | ReplaceSidelineAbility | ReplaceTriggerAbility;
 
 /** A field card's chosen hand/sideline key. */
 export const handKey = (index: number): string => `h:${index}`;

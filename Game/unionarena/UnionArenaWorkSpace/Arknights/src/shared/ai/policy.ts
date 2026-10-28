@@ -7,7 +7,7 @@
  */
 import type { UnionArenaAction } from "../protocol.ts";
 import type { EngineContext, EngineGame, EnginePlayer } from "../engine.ts";
-import { ACTION_CARD_SLOTS, actionCardIds, actionFeatures, ACTION_FEATURES, observe, observeCardIds, OBSERVATION_CARD_SLOTS, OBSERVATION_SIZE } from "./features.ts";
+import { ACTION_CARD_SLOTS, actionCardIds, actionFeatures, ACTION_FEATURES, LEGACY_ACTION_FEATURES, LEGACY_OBSERVATION_SIZE, observe, observeCardIds, OBSERVATION_CARD_SLOTS, OBSERVATION_SIZE } from "./features.ts";
 import { CARD_INDEX_SIZE } from "./card-index.ts";
 import { legalActions } from "./legal.ts";
 
@@ -21,7 +21,8 @@ export interface PolicyWeightsJson {
   embedding?: { rows: number; dim: number; w: string };
 }
 export interface Layer { in: number; out: number; w: Float32Array; b: Float32Array; }
-export interface Policy { layers: Record<keyof PolicyWeightsJson["layers"], Layer>; embedding?: { rows: number; dim: number; w: Float32Array } }
+/** `observationSize` / `actionFeatures`: how much of the (prefix-compatible) feature vectors the network reads. */
+export interface Policy { layers: Record<keyof PolicyWeightsJson["layers"], Layer>; embedding?: { rows: number; dim: number; w: Float32Array }; observationSize: number; actionFeatures: number }
 
 export function decode(base64: string): Float32Array {
   const binary = typeof atob === "function" ? atob(base64) : Buffer.from(base64, "base64").toString("binary");
@@ -31,11 +32,15 @@ export function decode(base64: string): Float32Array {
 }
 
 export function loadPolicy(json: PolicyWeightsJson): Policy {
-  if (json.observationSize !== OBSERVATION_SIZE || json.actionFeatures !== ACTION_FEATURES) throw new Error("policy was trained with different features");
+  // A network trained before green was added reads the first part of the (longer) vectors; any other size is a different feature set.
+  const current = json.observationSize === OBSERVATION_SIZE && json.actionFeatures === ACTION_FEATURES;
+  const legacy = json.observationSize === LEGACY_OBSERVATION_SIZE && json.actionFeatures === LEGACY_ACTION_FEATURES;
+  if (!current && !legacy) throw new Error("policy was trained with different features");
   const layers = Object.fromEntries(Object.entries(json.layers).map(([name, layer]) => [name, { in: layer.in, out: layer.out, w: decode(layer.w), b: decode(layer.b) }])) as Policy["layers"];
-  if (!json.embedding) return { layers };
+  const sizes = { observationSize: json.observationSize, actionFeatures: json.actionFeatures };
+  if (!json.embedding) return { layers, ...sizes };
   if (json.embedding.rows > CARD_INDEX_SIZE) throw new Error("policy knows cards this build does not");
-  return { layers, embedding: { rows: json.embedding.rows, dim: json.embedding.dim, w: decode(json.embedding.w) } };
+  return { layers, ...sizes, embedding: { rows: json.embedding.rows, dim: json.embedding.dim, w: decode(json.embedding.w) } };
 }
 
 /** `values` followed by the embedding rows of `ids` (cards the table does not have count as no card). */
@@ -68,10 +73,10 @@ export function dense(layer: Layer, input: ArrayLike<number>, linear = false): F
  */
 export function scoreActions(policy: Policy, observation: Float32Array, actions: readonly Float32Array[], observationIds?: Int32Array, actionIds?: readonly Int32Array[]): number[] {
   const { layers } = policy;
-  const stateIn = policy.embedding ? withCards(policy, observation, observationIds ?? new Int32Array(OBSERVATION_CARD_SLOTS)) : observation;
+  const stateIn = policy.embedding ? withCards(policy, observation.subarray(0, policy.observationSize), observationIds ?? new Int32Array(OBSERVATION_CARD_SLOTS)) : observation;
   const state = dense(layers.state2, dense(layers.state1, stateIn));
   return actions.map((features, index) => {
-    const actionIn = policy.embedding ? withCards(policy, features, actionIds?.[index] ?? new Int32Array(ACTION_CARD_SLOTS)) : features;
+    const actionIn = policy.embedding ? withCards(policy, features.subarray(0, policy.actionFeatures), actionIds?.[index] ?? new Int32Array(ACTION_CARD_SLOTS)) : features;
     const action = dense(layers.action2, dense(layers.action1, actionIn));
     const joined = new Float32Array(state.length * 3);
     joined.set(state, 0);

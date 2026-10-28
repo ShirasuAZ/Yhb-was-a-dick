@@ -21,8 +21,19 @@ const REVEALED_SLOTS = 2;
 export const CARD_FEATURES = 1 + TYPES.length + COLORS.length + 4 + KEYWORDS.length + 2 + TRIGGERS.length + 2;
 export const FIELD_FEATURES = CARD_FEATURES + 8;
 const GLOBAL_FEATURES = PHASES.length + PENDING.length + 2 + 26;
-export const OBSERVATION_SIZE = GLOBAL_FEATURES + 4 * 4 * FIELD_FEATURES + HAND_SLOTS * CARD_FEATURES + REVEALED_SLOTS * CARD_FEATURES;
-export const ACTION_FEATURES = ACTION_TYPES.length + 6 + CARD_FEATURES + FIELD_FEATURES + 6;
+/**
+ * Layout version 1 (Arknights, four colours): a network trained on it reads the first `LEGACY_OBSERVATION_SIZE` / `LEGACY_ACTION_FEATURES`
+ * numbers. Green (a colour of the AOT cards) is added at the END of both vectors, so those networks keep working on the new vectors
+ * (they read the prefix) and a network can be widened without changing what it computes: the extras are zero in a game without green.
+ */
+export const LEGACY_OBSERVATION_SIZE = GLOBAL_FEATURES + 4 * 4 * FIELD_FEATURES + HAND_SLOTS * CARD_FEATURES + REVEALED_SLOTS * CARD_FEATURES;
+export const LEGACY_ACTION_FEATURES = ACTION_TYPES.length + 6 + CARD_FEATURES + FIELD_FEATURES + 6;
+/** The numbers appended to the observation: green energy of both players, then "this card is green" for every card slot. */
+const OBSERVATION_GREEN_SLOTS = 4 * 4 + HAND_SLOTS + REVEALED_SLOTS;
+export const OBSERVATION_SIZE = LEGACY_OBSERVATION_SIZE + 2 + OBSERVATION_GREEN_SLOTS;
+/** Appended to an action: "the card it uses is green", "the card it targets is green". */
+export const ACTION_FEATURES = LEGACY_ACTION_FEATURES + 2;
+const isGreen = (stats: UnionArenaCardStats | null | undefined): number => (stats?.color === "green" ? 1 : 0);
 
 const oneHot = <T>(values: readonly T[], value: T | null | undefined): number[] => values.map((entry) => (entry === value ? 1 : 0));
 
@@ -87,11 +98,14 @@ export function observe(game: EngineGame, players: readonly EnginePlayer[], ctx:
     ...COLORS.map((color) => energyOf(ctx, opponent, color) / 8),
     me.sideline.length / 50, opponent.sideline.length / 50, me.removal.length / 20, opponent.removal.length / 20
   ];
-  for (const line of [me.front, me.energy, opponent.front, opponent.energy]) for (let slot = 0; slot < 4; slot += 1) values.push(...fieldVector(ctx, line[slot]));
+  const green: number[] = [];
+  for (const line of [me.front, me.energy, opponent.front, opponent.energy]) for (let slot = 0; slot < 4; slot += 1) { values.push(...fieldVector(ctx, line[slot])); green.push(isGreen(line[slot] ? ctx.card(line[slot]!.cardId) : null)); }
   const hand = sortedHand(ctx, me.hand);
-  for (let slot = 0; slot < HAND_SLOTS; slot += 1) values.push(...cardVector(hand[slot] ? ctx.card(hand[slot]!) : null));
+  for (let slot = 0; slot < HAND_SLOTS; slot += 1) { values.push(...cardVector(hand[slot] ? ctx.card(hand[slot]!) : null)); green.push(isGreen(hand[slot] ? ctx.card(hand[slot]!) : null)); }
   const revealed = pending?.kind === "triggers" ? pending.revealed : [];
-  for (let slot = 0; slot < REVEALED_SLOTS; slot += 1) values.push(...cardVector(revealed[slot] ? ctx.card(revealed[slot]!.cardId) : null));
+  for (let slot = 0; slot < REVEALED_SLOTS; slot += 1) { values.push(...cardVector(revealed[slot] ? ctx.card(revealed[slot]!.cardId) : null)); green.push(isGreen(revealed[slot] ? ctx.card(revealed[slot]!.cardId) : null)); }
+  if (values.length !== LEGACY_OBSERVATION_SIZE) throw new Error(`observation size ${values.length} != ${LEGACY_OBSERVATION_SIZE}`);
+  values.push(energyOf(ctx, me, "green") / 8, energyOf(ctx, opponent, "green") / 8, ...green);
   if (values.length !== OBSERVATION_SIZE) throw new Error(`observation size ${values.length} != ${OBSERVATION_SIZE}`);
   return Float32Array.from(values);
 }
@@ -174,7 +188,10 @@ function actionParts(game: EngineGame, players: readonly EnginePlayer[], ctx: En
 /** One vector per action: its type, its options, the card it uses and the card it targets. */
 export function actionFeatures(game: EngineGame, players: readonly EnginePlayer[], ctx: EngineContext, actorId: string, action: UnionArenaAction): Float32Array {
   const { subject, target, flags, extra } = actionParts(game, players, ctx, actorId, action);
-  const values = [...oneHot(ACTION_TYPES, action.type), ...flags, ...cardVector(subject ? ctx.card(subject) : null), ...fieldVector(ctx, target), ...extra];
+  const values = [
+    ...oneHot(ACTION_TYPES, action.type), ...flags, ...cardVector(subject ? ctx.card(subject) : null), ...fieldVector(ctx, target), ...extra,
+    isGreen(subject ? ctx.card(subject) : null), isGreen(target ? ctx.card(target.cardId) : null)
+  ];
   if (values.length !== ACTION_FEATURES) throw new Error(`action feature size ${values.length} != ${ACTION_FEATURES}`);
   return Float32Array.from(values);
 }

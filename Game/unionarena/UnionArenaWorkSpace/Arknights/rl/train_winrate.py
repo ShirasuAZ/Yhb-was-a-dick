@@ -30,7 +30,19 @@ WORKSPACE = os.path.dirname(HERE)
 SITE = os.path.abspath(os.path.join(WORKSPACE, "..", "..", "..", "UNO", "UNO WorkSpace"))
 GENERATOR = os.path.join(HERE, "winrate_data.ts")
 SHIPPED = os.path.join(WORKSPACE, "src", "shared", "ai", "winrate-weights.json")
-OBSERVATION_SIZE = 978  # src/shared/ai/features.ts OBSERVATION_SIZE (checked against the data below)
+
+
+def _observation_size() -> int:
+    """src/shared/ai/features.ts OBSERVATION_SIZE, asked of the Node training environment (so it never drifts from the data)."""
+    from train import Worker
+    worker = Worker()
+    try:
+        return int(worker.ask({"cmd": "sizes"})["observation"])
+    finally:
+        worker.close()
+
+
+OBSERVATION_SIZE = _observation_size()
 
 
 class WinNet(nn.Module):

@@ -13,19 +13,16 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { actingPlayerId, applyAction, type EngineContext } from "../src/shared/engine.ts";
 import { chooseHeuristic } from "../src/shared/ai/heuristic.ts";
 import { createMatch, makeRng, nextRandom, randomInt, wantsMulligan, type Match, type Rng } from "../src/shared/ai/match.ts";
-import { deckCards, PRESET_DECKS } from "../src/shared/ai/decks.ts";
 import { observe, OBSERVATION_SIZE } from "../src/shared/ai/features.ts";
 import { chooseByPolicy, loadPolicy, type Policy, type PolicyWeightsJson } from "../src/shared/ai/policy.ts";
-import { UNION_ARENA_CATALOG } from "../src/server/catalog.ts";
-import { cardContext } from "../src/shared/abilities/registry.ts";
-import { randomDeck } from "./random_deck.ts";
+import { pickDeck } from "./train_decks.ts";
+import { titleContext } from "./title-catalog.ts";
 
 const ACTION_LIMIT = 3000;
 /** Share of decision points kept (neighbouring positions of one game are nearly the same). */
 const KEEP = 0.2;
 
-const byId = new Map(UNION_ARENA_CATALOG.map((card) => [card.id, card]));
-const ctx: EngineContext = cardContext((id) => byId.get(id));
+const ctx: EngineContext = titleContext;
 const policy: Policy = loadPolicy(JSON.parse(readFileSync(new URL("../src/shared/ai/policy-weights.json", import.meta.url), "utf8")) as PolicyWeightsJson);
 
 type Player = "easy" | "normal" | "policy";
@@ -48,7 +45,7 @@ const wins: number[] = [];
 const gameIndexes: number[] = [];
 let finished = 0;
 for (let game = 0; game < Number(gamesText); game += 1) {
-  const decks = nextRandom(rng) < 0.75 ? [randomDeck(rng), randomDeck(rng)] : [0, 1].map(() => deckCards(PRESET_DECKS[randomInt(rng, PRESET_DECKS.length)]!));
+  const decks = [pickDeck(rng, 0.85), pickDeck(rng, 0.85)];
   const players: Record<string, Player> = { A: pickPlayer(rng), B: pickPlayer(rng) };
   const match = createMatch([{ id: "A", name: "A", deck: decks[0]! }, { id: "B", name: "B", deck: decks[1]! }], seed * 100003 + game, { first: (game % 2) as 0 | 1, mulligan: (player) => wantsMulligan(ctx, player.hand) });
   const seen: Array<{ viewer: string; observation: Float32Array }> = [];
