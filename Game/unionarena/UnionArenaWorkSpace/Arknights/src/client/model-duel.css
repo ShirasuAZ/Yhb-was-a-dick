@@ -1,0 +1,30 @@
+.duel-app { gap: 7px; padding: 7px; }
+.duel-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 8px; min-width: 0; }
+.duel-header > div { min-width: 0; }
+.duel-header strong { font-size: 16px; }
+.duel-header small { display: block; margin-top: 4px; color: #647078; font-size: 12px; }
+.duel-vs { margin: 0 10px; color: #899298; font-size: 11px; }
+.duel-live { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #53636d; max-width: 48%; }
+.duel-live i { width: 7px; height: 7px; border-radius: 50%; background: #279076; flex: none; }
+.duel-live i[data-active="true"] { animation: duel-pulse 1.3s ease-in-out infinite; }
+.duel-live[data-error="true"] { color: #a93838; }
+.duel-main { grid-template-columns: minmax(0, 1fr) 290px; gap: 8px; }
+.duel-log { overflow-y: auto; border: 1px solid #d5dadd; border-radius: 8px; background: #f9fafb; padding: 12px; font-size: 12px; }
+.duel-log-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.duel-log-title span { color: #7c888f; }
+.duel-log ol { padding: 0; margin: 0; list-style: none; }
+.duel-log li { padding: 10px 9px; background: white; border: 1px solid #e1e5e7; border-left: 3px solid #4a6e86; border-radius: 5px; margin-bottom: 8px; }
+.duel-log li[data-seat="p2"] { border-left-color: #9479ad; }
+.duel-log li > div { display: flex; flex-wrap: wrap; gap: 4px; justify-content: space-between; margin-bottom: 6px; }
+.duel-log li small { color: #899298; font-size: 10px; }
+.duel-log li > strong { font-size: 12px; line-height: 1.6; }
+.duel-log p { margin: 5px 0 0; color: #6c787f; line-height: 1.65; overflow-wrap: anywhere; }
+.duel-thinking { padding: 8px 0 14px; color: #597484; }
+.duel-error { color: #a93838; padding: 10px; background: #fff0ef; overflow-wrap: anywhere; }
+.duel-result { padding: 12px; margin-bottom: 12px; background: #e2f2e9; font-weight: 700; }
+.duel-log details { margin-top: 16px; }
+.duel-loading { display: grid; height: 100vh; place-items: center; font: 16px system-ui; color: #61717a; background: #eef0f0; }
+@keyframes duel-pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .duel-live i { animation: none !important; } }
+@media (max-width: 900px) { .duel-main { grid-template-columns: minmax(0, 1fr) 215px; } .duel-header strong { font-size: 13px; } .duel-live { font-size: 11px; } }
+@media (max-width: 650px) { .duel-main { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) 170px; } .duel-header { flex-wrap: wrap; gap: 5px; } .duel-live { max-width: 100%; } .duel-log { padding: 7px; } }

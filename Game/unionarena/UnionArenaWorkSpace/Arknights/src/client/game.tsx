@@ -587,7 +587,8 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
   // ---- The action bar: what is happening and what you can do. ----
   const activeAp = mine?.ap.filter((card) => !card.rested).length ?? 0;
   const bar = (): { text: string; buttons: ReactNode[] } => {
-    const button = (label: string, onClick: () => void, primary = false, disabled = false): ReactNode => <button key={label} type="button" className={primary ? "ua-primary" : "ua-secondary"} disabled={busy || disabled} onClick={onClick}>{label}</button>;
+    // `key` defaults to the label; buttons that can share a label (two abilities of cards with the same name) pass their own.
+    const button = (label: string, onClick: () => void, primary = false, disabled = false, key = label): ReactNode => <button key={key} type="button" className={primary ? "ua-primary" : "ua-secondary"} disabled={busy || disabled} onClick={onClick}>{label}</button>;
     if (!game) return { text: "", buttons: [] };
     if (game.step === "mulligan") {
       const mineToDecide = game.mulliganPlayerId === meId;
@@ -614,14 +615,14 @@ export function useGameController({ state, meId, cardsById, ctx, compact, busy, 
     }
     if (myPending?.kind === "triggers" && focusedLife) {
       const card = focusedLife.cardId ? stats(focusedLife.cardId) : null;
-      const chooser = revealed.length > 1 ? revealed.map((slot) => button(`${slot.id === focusedLife.id ? "▶ " : ""}${cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}`, () => setTriggerFocus(slot.id))) : [];
+      const chooser = revealed.length > 1 ? revealed.map((slot) => button(`${slot.id === focusedLife.id ? "▶ " : ""}${cardsById.get(slot.cardId ?? "")?.name ?? "卡牌"}`, () => setTriggerFocus(slot.id), false, false, `life-${slot.id}`)) : [];
       if (!card?.trigger) return { text: `翻开的生命卡「${card?.name ?? "卡牌"}」没有触发，将置于场外。`, buttons: [...chooser, button("确认", () => resolveTrigger(false), true)] };
       return { text: `翻开的生命卡「${card.name}」有触发【${card.trigger.label}】：${card.trigger.text} 是否发动？`, buttons: [...chooser, button("发动", () => resolveTrigger(true), true), button("不发动", () => resolveTrigger(false))] };
     }
     if (myChoice) {
       const nameAt = (index: number): string => (myChoice.cards[index] ? cardsById.get(myChoice.cards[index]!)?.name ?? "卡牌" : "卡牌");
       if (myChoice.purpose === "confirm") return { text: myChoice.prompt, buttons: [button("是", () => void run({ type: "choose", picks: ["yes"] }), true), button("否", () => void run({ type: "choose", picks: ["no"] }))] };
-      if (myChoice.purpose === "order") return { text: myChoice.prompt, buttons: myChoice.options.map((option, index) => button(`先结算「${nameAt(index)}」`, () => void run({ type: "choose", picks: [option] }), index === 0)) };
+      if (myChoice.purpose === "order") return { text: myChoice.prompt, buttons: myChoice.options.map((option, index) => button(`先结算「${nameAt(index)}」`, () => void run({ type: "choose", picks: [option] }), index === 0, false, `order-${option}`)) };
       const offBoard = myChoice.options.map((option, index) => ({ option, index })).filter((entry) => !onBoard(entry.option));
       const range = myChoice.min === myChoice.max ? `选 ${myChoice.min} 张` : `可选 ${myChoice.min}–${myChoice.max} 张`;
       return {

@@ -1,7 +1,8 @@
 /**
  * Rule-of-thumb computer player. Each legal action gets a score from simple card-game sense (build enough energy, put strong characters on
- * the front line, attack when a block would not pay off, block when it wins or when life is short, always use triggers well); the best one
- * is played. "easy" plays a random legal move part of the time and never takes the extra draw.
+ * the front line, attack with everything that can — an attack costs nothing, since a losing attacker is not sidelined and stands up again
+ * in the end phase, and a block by a weaker or equal character loses that character —, block when it wins or when life is short, always
+ * use triggers well); the best one is played. "easy" plays a random legal move part of the time and never takes the extra draw.
  */
 import type { UnionArenaAction, UnionArenaFieldCard } from "../protocol.ts";
 import { bpOf, damageOf, energyOf, LINE_LIMIT, type EngineContext, type EngineGame, type EnginePlayer } from "../engine.ts";
@@ -34,6 +35,8 @@ function scoreAction(view: View, ctx: EngineContext, playerId: string, action: U
   const activeBlockers = (owner: EnginePlayer): UnionArenaFieldCard[] => owner.front.filter((card) => !card.rested && ctx.card(card.cardId)?.type === "character");
   switch (action.type) {
     case "next_phase":
+      // From the main phase on to the attack phase (rather than ending the turn) whenever something could attack.
+      return game.phase === "main" && activeBlockers(me).length ? 0.2 : 0;
     case "end_turn":
       return 0;
     case "extra_draw": {
@@ -82,9 +85,10 @@ function scoreAction(view: View, ctx: EngineContext, playerId: string, action: U
       }
       const blockers = activeBlockers(opponent);
       if (!blockers.length) return 5 + damageOf(ctx, attacker);
-      const strongest = Math.max(...blockers.map((card) => bpOf(ctx, card)));
-      if (power >= strongest) return 3;
-      return opponent.life.length <= 2 ? 0.5 : -1;
+      // Always worth more than passing: the opponent takes damage or spends a block, and every blocker this attacker beats (ties
+      // included) is lost if it blocks.
+      const beaten = blockers.filter((card) => bpOf(ctx, card) <= power).length;
+      return 1 + 2 * (beaten / blockers.length) + damageOf(ctx, attacker) * 0.3 + (opponent.life.length <= 2 ? 0.5 : 0);
     }
     case "block": {
       if (game.pending?.kind !== "block") return 0;

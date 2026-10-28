@@ -27,7 +27,7 @@ import torch.nn.functional as F
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORKSPACE = os.path.dirname(HERE)
-SITE = os.path.abspath(os.path.join(WORKSPACE, "..", "..", "UNO", "UNO WorkSpace"))
+SITE = os.path.abspath(os.path.join(WORKSPACE, "..", "..", "..", "UNO", "UNO WorkSpace"))
 GENERATOR = os.path.join(HERE, "winrate_data.ts")
 SHIPPED = os.path.join(WORKSPACE, "src", "shared", "ai", "winrate-weights.json")
 OBSERVATION_SIZE = 978  # src/shared/ai/features.ts OBSERVATION_SIZE (checked against the data below)

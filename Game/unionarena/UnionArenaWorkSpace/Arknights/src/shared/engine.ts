@@ -120,6 +120,8 @@ export interface EngineGame {
   winnerId: string | null;
   endReason: string | null;
   log: string[];
+  /** Entries ever written to `log`, which itself keeps only the latest LOG_LIMIT (so a reader can tell what it has not seen yet). */
+  logTotal?: number;
   /** The same events as `log`, with the card each one belongs to (newest last). */
   events: EngineEvent[];
   /** Counter for event sequence numbers (kept apart from `seq`, which numbers field cards). */
@@ -204,6 +206,7 @@ function log(game: EngineGame, text: string): void {
  * the text over that card. `kind` is a short machine label the client uses to keep messages short.
  */
 function logEvent(game: EngineGame, text: string, uid: string | undefined, kind: string): void {
+  game.logTotal = (game.logTotal ?? game.log.length) + 1;
   game.log.push(text);
   if (game.log.length > LOG_LIMIT) game.log.splice(0, game.log.length - LOG_LIMIT);
   game.events.push({ seq: game.eventSeq++, text, uid, kind });

@@ -48,8 +48,9 @@ Thumbs.db
 Game/UNO/UNOGame/
 
 # Reinforcement-learning checkpoints and logs (the shipped model is src/shared/ai/policy-weights.json)
-Game/Arknights/ArknightsWorkSpace/rl/checkpoints*/
-Game/Arknights/ArknightsWorkSpace/rl/logs/
+Game/unionarena/UnionArenaWorkSpace/Arknights/rl/checkpoints*/
+Game/unionarena/UnionArenaWorkSpace/Arknights/rl/logs/
+Game/unionarena/UnionArenaWorkSpace/Arknights/rl/data/
 __pycache__/
 
 # Other large artifacts: model checkpoints / datasets / installers / video (the shipped *-weights.json files stay tracked)
